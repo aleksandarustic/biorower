@@ -56,29 +56,36 @@ class AuthController extends Controller {
 		return property_exists($this, 'redirectTo') ? $this->redirectTo : '/'.Auth::user()->linkname;
 	}	
 
-	/*
-	public function postLogin(Request $request)
-	{
-		$this->validate($request, [
-			'email' => 'required|email', 'password' => 'required',
-		]);
 
-		$credentials = $request->only('email', 'password');
+//	public function postLogin(Request $request)
+//	{
+//		$data = [
+//			'email' => $request->input('email'),
+//			'password' => $request->input('password')
+//		];
+//
+//		return $data; exit;
+//
+//		$this->validate($request, [
+//			'email' => 'required|email', 'password' => 'required',
+//		]);
+//
+//		$credentials = $request->only('email', 'password');
+//
+//		if ($this->auth->attempt($credentials, $request->has('remember')))
+//		{
+//			return redirect()->intended($this->redirectPath());
+//		}
+//
+//		$loginPath = '/'.Auth::user()->linkname;
+//
+//		return redirect($loginPath)
+//					->withInput($request->only('email', 'remember'))
+//					->withErrors([
+//						'email' => $this->getFailedLoginMessage(),
+//					]);
+//	}
 
-		if ($this->auth->attempt($credentials, $request->has('remember')))
-		{
-			return redirect()->intended($this->redirectPath());
-		}
-
-		$loginPath = '/'.Auth::user()->linkname;
-
-		return redirect($loginPath)
-					->withInput($request->only('email', 'remember'))
-					->withErrors([
-						'email' => $this->getFailedLoginMessage(),
-					]);
-	}	
-	*/
 
 	public function postRegister(RegisterUserPostRequest $request)
 	{

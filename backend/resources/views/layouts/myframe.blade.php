@@ -17,22 +17,44 @@
 
 	<?php $title = config('app.title') ?>
 	<head>
-	    <meta http-equiv="Content-Type" content="text/plain; charset=utf-8" />
-	    <title>{{ $title }} | @yield('title')</title>
+		<meta name="viewport" content="width = device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	    <title>Biorower - My Profile</title>
 	    <meta name="keywords" content="" />
 	    <meta name="description" content="" />
 
-	    <meta name="viewport" content="width = device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-
 	    <link rel="icon" href="{{ Request::root() }}/favicon.ico" type="image/x-icon">
 
-		{!! HTML::style('css/main.css') !!} 
-		{!! HTML::style('css/bootstrap/bootstrap.css') !!}
-		{!! HTML::style('js/jquery-ui-1.11.4/jquery-ui.css') !!}
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<!-- Bootstrap 3.3.5 -->
+		<link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap.min.css') }}">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+		<!-- iCheck -->
+		<link rel="stylesheet" href="{{ URL::asset('js/plugins/iCheck/square/blue.css') }}">
+		<!-- Select2 -->
+		<link rel="stylesheet" type="text/css" href="{{ URL::asset('js/plugins/select2/select2.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ URL::asset('js/plugins/daterangepicker/daterangepicker-bs3.css') }}">
+		<link href="{{ URL::asset('js/plugins/fullcalendar/fullcalendar.min.css') }}" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="{{ URL::asset('js/plugins/fullcalendar/fullcalendar.print.css') }}" media="print">
 
-		{!! HTML::script('js/jquery-ui-1.11.4/external/jquery/jquery.js') !!}
-		{!! HTML::script('js/bootstrap/bootstrap.min.js') !!}
-		{!! HTML::script('js/jquery-ui-1.11.4/jquery-ui.min.js') !!}
+
+		<!-- Theme style -->
+		<link rel="stylesheet" href="{{ URL::asset('css/AdminLTE.min.css') }}">
+		<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+              page. However, you can choose any other skin. Make sure you
+              apply the skin class to the body tag so the changes take effect.
+        -->
+		<link rel="stylesheet" href="{{ URL::asset('css/skins/skin-blue.min.css') }}">
+		<!-- Date Range Picker -->
+
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
 		@yield('head-script')
 
@@ -182,153 +204,207 @@
 		<![endif]-->
 
 </head>
-<body>
+<body class="skin-blue fixed sidebar-mini">
+<div class="wrapper">
 
-		<nav class="navbar navbar-fixed-top navbar-inverse">
-		  <div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
+<header class="main-header">
+	<?php
+	$newMessages = User::where('id', Auth::user()->id)->with('messagesCount')->first()->messagesCount;
+	if (!empty($newMessages))
+	{
+		$newMessages = $newMessages->count;
+	}
+	?>
 
-		      <!-- <a class="navbar-brand" href="#">Brand</a> -->
-		      
-		       <div id="toggleButtonLayoutLeftWrapper">
-		           <a id="toggleButtonLayoutLeft" class="menu-icon-layout" href="#">
-					     <span></span>
-				   </a>
-				   <span class="divider-vertical-left"></span>
-			   </div>
-			   @if (!Auth::guest())
-				   <?php  
-				   	   $newMessages = User::where('id', Auth::user()->id)->with('messagesCount')->first()->messagesCount;
-					   if (!empty($newMessages))
-					   {
-					   	 $newMessages = $newMessages->count;
-					   }
-				   ?>
-				   <div id="toggleButtonLayoutRightWrapper">
-				   	   <span class="divider-vertical-right"></span>
-			           <a id="toggleButtonLayoutRight" class="menu-icon-layout" href="#">
-						     <span></span>
-					   </a>
-				   </div>
-				   <div class="newMessagesWrapper">
-				   		<a href="{{ url('/message/index') }}">
-				   			<span class="badge clsNewMessages" id="newMessages">{{ $newMessages }}</span>
-				   		</a>
-				   </div>
-			   @endif
-		    </div>
+	<!-- Logo -->
+	<a href="index2.html" class="logo">
+		<!-- mini logo for sidebar mini 50x50 pixels -->
+		<span class="logo-mini"><b>BIO</b></span>
+		<!-- logo for regular state and mobile devices -->
+		<span class="logo-lg"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower" style="margin-top: 10px" /></span>
+	</a>
 
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav" style="margin-left:40px;">
-		      	<!-- <li id="idLogo1"> {!! HTML::image('/images/logo2.png') !!}</li> -->
-		      	<li id="idLogo1">{{ config('app.title') }}</li> 
-		      	<li id="idLogo2"><span style="font-weight: normal;">SportConn</span><img pagespeed_url_hash="1185330858" src="<?php echo Request::root() ?>/images/beta.png" alt="BETA"></img>
-		      	</li>
-		      	<!--
-		        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-		        <li><a href="#">Link</a></li>
-		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-		          <ul class="dropdown-menu" role="menu">
-		            <li><a href="#">Action</a></li>
-		            <li><a href="#">Another action</a></li>
-		            <li><a href="#">Something else here</a></li>
-		            <li class="divider"></li>
-		            <li><a href="#">Separated link</a></li>
-		            <li class="divider"></li>
-		            <li><a href="#">One more separated link</a></li>
-		          </ul>
-		        </li>
-		        -->
-		      </ul>
+	<!-- Header Navbar -->
+	<nav class="navbar navbar-static-top" role="navigation">
+		<!-- Sidebar toggle button-->
+		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span class="sr-only">Toggle navigation</span> </a>
+		<!-- Navbar Right Menu -->
+		<div class="navbar-custom-menu">
+			<ul class="nav navbar-nav">
+				<!-- Messages: style can be found in dropdown.less-->
+				<li class="dropdown messages-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-envelope-o"></i> <span class="label label-success">4</span> </a>
+					<ul class="dropdown-menu">
+						<li class="header">You have 4 messages</li>
+						<li>
+							<!-- inner menu: contains the actual data -->
+							<ul class="menu">
+								<li><!-- start message -->
+									<a href="#">
+										<div class="pull-left"> <img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image"> </div>
+										<h4> Support Team <small><i class="fa fa-clock-o"></i> 5 mins</small> </h4>
+										<p class="h2-subhead">Why not buy a new awesome theme?</p>
+									</a> </li>
+								<!-- end message -->
+								<li> <a href="#">
+										<div class="pull-left"> <img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image"> </div>
+										<h4> AdminLTE Design Team <small><i class="fa fa-clock-o"></i> 2 hours</small> </h4>
+										<p class="h2-subhead">Why not buy a new awesome theme?</p>
+									</a> </li>
+								<li> <a href="#">
+										<div class="pull-left"> <img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image"> </div>
+										<h4> Developers <small><i class="fa fa-clock-o"></i> Today</small> </h4>
+										<p class="h2-subhead">Why not buy a new awesome theme?</p>
+									</a> </li>
+								<li> <a href="#">
+										<div class="pull-left"> <img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image"> </div>
+										<h4> Sales Department <small><i class="fa fa-clock-o"></i> Yesterday</small> </h4>
+										<p class="h2-subhead">Why not buy a new awesome theme?</p>
+									</a> </li>
+								<li> <a href="#">
+										<div class="pull-left"> <img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image"> </div>
+										<h4> Reviewers <small><i class="fa fa-clock-o"></i> 2 days</small> </h4>
+										<p class="h2-subhead">Why not buy a new awesome theme?</p>
+									</a> </li>
+							</ul>
+						</li>
+						<li class="footer"><a href="messages.html">See All Messages</a></li>
+					</ul>
+				</li>
+				<!-- Notifications: style can be found in dropdown.less -->
+				<li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-bell-o"></i> <span class="label label-warning">10</span> </a>
+					<ul class="dropdown-menu">
+						<li class="header">You have 10 notifications</li>
+						<li>
+							<!-- inner menu: contains the actual data -->
+							<ul class="menu">
+								<li> <a href="#"> <i class="fa fa-users text-aqua"></i> 5 new members joined today </a> </li>
+								<li> <a href="#"> <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems </a> </li>
+								<li> <a href="#"> <i class="fa fa-users text-red"></i> 5 new members joined </a> </li>
+								<li> <a href="#"> <i class="fa fa-shopping-cart text-green"></i> 25 sales made </a> </li>
+								<li> <a href="#"> <i class="fa fa-user text-red"></i> You changed your username </a> </li>
+							</ul>
+						</li>
+						<li class="footer"><a href="#">View all</a></li>
+					</ul>
+				</li>
+				<!-- User Account Menu -->
+				<li class="dropdown user user-menu">
+					<!-- Menu Toggle Button -->
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<!-- The user image in the navbar-->
+						<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+						<!-- hidden-xs hides the username on small devices so only the image appears. -->
+						<span class="hidden-xs">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</span> </a>
+					<ul class="dropdown-menu">
+						<!-- The user image in the menu -->
+						<li class="user-header"> <img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+							<p class="h2-subhead"> {{ Auth::user()->first_name.' '.Auth::user()->last_name }} <small>Member since Nov. 2012</small> </p>
+						</li>
+						<!-- Menu Body -->
+						<li class="user-body">
+							<div class="act-block text-left">
+								<a href="profile.html" class="act-list"><i class="fa fa-user"></i> Username</a>
+							</div>
+							<div class="act-block text-left">
+								<a href="friends.html" class="act-list"><i class="fa fa-users"></i> Friends</a>
+							</div>
+							<div class="act-block text-left">
+								<a href="messages.html" class="act-list"> <i class="fa fa-envelope"></i> Massages</a>
+							</div>
+						</li>
+						<!-- Menu Footer-->
+						<li class="user-footer">
+							<div class="pull-left"> <a href="profile.html" class="btn btn-default btn-flat">Profile</a> </div>
+							<div class="pull-right"> <a href="#" class="btn btn-default btn-flat">Sign out</a> </div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 
-		      <!--
-		      <form class="navbar-form navbar-left" role="search">
-		        <div class="form-group">
-		          <input type="text" class="form-control" placeholder="Search">
-		        </div>
-		        <button type="submit" class="btn btn-default">Submit</button>
-		      </form>
-		      -->
-		      <ul class="nav navbar-nav navbar-right">
-					@if (Auth::guest())
-						<li><a href="{{ url('/auth/login') }}">Login</a></li>
-						<!--<li><a href="{{ url('/auth/register') }}">Register</a></li> -->
-					@endif
-		      </ul>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
-		</nav>
 
-		<aside>
-		    <div id="left_wrapper">
-		      <div class="content_box">	
-			        <ul class="off-canvas-list menuAside menuAsideLeft">
-						@if (!Auth::guest())
-							<li><a href="{{ url('/'.Auth()->user()->linkname) }}"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;My profile page</a></li>
-							<li><a href="{{ url('/'.Auth()->user()->linkname.'/sessions') }}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;My sessions</a></li>
-							<li><a href="{{ url('/sessions/calendar') }}"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;Calendar</a></li>
-							<li><a href="{{ url('/race/index') }}"><span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;My races</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Request a feature</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-new-window"></span>&nbsp;&nbsp;Visit {{ strtolower(config('app.title')) }}sportconn.com</a></li>
-						@else
-					        <li><a href="{{ url('/auth/login') }}" data-reveal-id="loginModal"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;Log in</a></li>
-					    @endif
-					        <li class="divider"></li>
-					        <li><a href="#" class="linkGroupTitle">SUPPORT</a></li>
-					        <li><a href="/help">FAQ</a></li>
-					        <li><a href="/help/contact-support">Contact Support</a></li>
-					        <li id="lastItemInLeftMenu"><a href="{{ url('/home/api-docs') }}">Api</a></li>
-			        </ul>
-	          </div>
-		    </div>
-	    </aside>
+		<!-- search form -->
+		<div class="nav-search pull-right">
+			<form action="#" method="get" class="sidebar-form">
+				<div class="input-group">
+					<input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+				</div>
+			</form>
+		</div>
+		<!-- /.search form -->
 
-	    <div id="straftaLayout" class="clsStraftra">
-            <div id="straftaTextLayout"><h2 class="h2Title"></h2></div>
-            <div id="straftaButtonsLayout"></div>
-        </div>	    
+	</nav>
+</header>
 
+<aside class="main-sidebar">
+
+	<!-- sidebar: style can be found in sidebar.less -->
+	<section class="sidebar">
+
+		<!-- Sidebar user panel (optional) -->
+		<div class="user-panel">
+			<div class="pull-left image">
+				<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+			</div>
+			<div class="pull-left info">
+				<p>{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</p>
+				<p>Memeber:
+					{{ date('Y-m-d', strtotime(Auth::user()->created_at)) }}</p>
+				<!-- Status -->
+			</div>
+		</div>
+
+		<!-- Sidebar Menu -->
+		<ul class="sidebar-menu">
+			<li class="header">NAVIGATION</li>
+			<!-- Optionally, you can add icons to the links -->
+			<li class="active"><a href="/profile"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
+			<li><a href="/sessions/calendar"><i class="fa fa-calendar"></i> <span>My Calendar</span></a></li>
+			<li><a href="/{{Auth::user()->linkname}}/sessions"><i class="fa fa-tasks"></i> <span>My Sessions</span></a></li>
+			<li><a href="/training"><i class="fa  fa-ship"></i> <span>My Training Session</span></a></li>
+			<li><a href="/edit-profile"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+		</ul>
+		<!-- /.sidebar-menu -->
+	</section>
+	<!-- /.sidebar -->
+</aside>
+<div class="content-wrapper" style="min-height: 857px">
+
+	<section class="content">
 		@yield('content')
 
-		@if (!Auth::guest())
-			<aside>
-			    <div id="right_wrapper">
-			      <div class="content_box">	
-				        <ul class="off-canvas-list menuAside menuAsideRight">
-								@if (isset(Auth::user()->profile->image_id))
-									<li><img src="{{ Request::root().'/../storage/profile_images'.Auth::user()->profile->image->name }}" id="profileImageLayout" /></li>
-								@endif		
-								<li><a href="{{ url('/user/edit') }}"><span class="glyphicon glyphicon-cog"></span>&nbsp;
-										{{ Auth::user()->display_name }}
-								</a></li>
-								<li><a href="{{ url('/auth/logout') }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a></li>
-								<li><a href="#" class="linkGroupTitle">&nbsp;&nbsp;SOCIAL</a></li>
-								<li><a href="{{ url('/message/index') }}"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Messages <span class="badge clsNewMessages" id="cloneNewMessages">{{ $newMessages }}</span></a></li>
-								<li><a href="{{ url('/user/iam-following') }}"><span class="glyphicon glyphicon-share"></span>&nbsp;&nbsp;I'm Following</a></li>
-								<li><a href="{{ url('/user/following-me') }}"><span class="glyphicon glyphicon-share"></span>&nbsp;&nbsp;Following Me</a></li>
-								<li id="lastItemInRightMenu"><a href="{{ url('/user/search') }}"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;Find Users</a></li>
-								<!-- <li ><a href=""><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;View Comments</a></li> -->
-				        </ul>
-		          </div>
-			    </div>
-		    </aside>
-	    @endif
+				<!-- Main Footer -->
+		<footer class="main-footer row">
+			<!-- To the right -->
+			<div class="footer-right">
+				<ul class="inline-list">
+					<li><a href="#"><i class="fa fa-1x fa-facebook-square"></i></a></li>
+					<li><a href="#"><i class="fa fa-1x fa-twitter-square"></i></a></li>
+					<li><a href="#"><i class="fa fa-1x fa-instagram"></i></a></li>
+					<li><a href="#"><i class="fa fa-1x fa-pinterest-square"></i></a></li>
+				</ul>
 
-	  <section class="footer">
-	  	<!-- <img alt="Biorower Sportconn Logo" src=""> -->
-        <p><a href="http://{{ config('app.title') }}sportconn.com" id="idLogoBiorowerFooter">{{ config('app.title') }} SportConn</a></p>
 
-        <p>
-        	<strong><a href="http://{{ config('app.title') }}sportconn.com">www.{{ strtolower(config('app.title')) }}sportconn.com</a></strong>
-        	<a href="mailto:hub@{{ config('app.title') }}sportconn.com">hub{{'@'.strtolower(config('app.title')) }}sportconn.com</a>
-        	<a href="#">Privacy</a> <a href="#">Terms</a>
-        </p>
-        <p>© {{ config('app.title') }} SportConn Ltd</p>
-	  </section>
-	
+				<!-- Default to the right -->
+				<p><strong>Copyright &copy; 2016 <a href="#">Biorower</a>.</strong> All rights reserved.</p>
+				<ul class="inline-list">
+					<li><a href="#">FAQ</a></li>
+					<li><a href="#">Contact Support</a></li>
+					<li class="margin-right-5"><a href="#">Terms</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</footer>
+
+	</section>
+</div>
+
+</div>
 </body>
 </html>
 

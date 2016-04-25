@@ -1,31 +1,6 @@
-
 @extends('layouts.myframe')
 
-@section('head-script')
-@endsection
-
-
-@section('title', 'Calendar')
-@endsection
-
 @section('page-script')
-
-	{!! HTML::script('js/jquery.cookie.js') !!}
-
-	{!! HTML::style('js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css') !!}
-	{!! HTML::style('js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css') !!}
-
-	{!! HTML::script('js/jquery-frontier-cal-1.3.2/js/jquery-qtip-1.0.0-rc3140944/jquery.qtip-1.0.min.js') !!} 
-	{!! HTML::script('js/jquery-frontier-cal-1.3.2/js/lib/jshashtable-2.1.js') !!}
-	{!! HTML::script('js/jquery-frontier-cal-1.3.2/js/colorpicker/colorpicker.js') !!}
-	{!! HTML::script('js/jquery-frontier-cal-1.3.2/js/frontierCalendar/jquery-frontier-cal-1.3.2.js') !!}
-
-	{!! HTML::script('js/moment.min.js') !!}
-
-	{!! HTML::script('js/highcharts.js') !!}
-	{!! HTML::script('js/highcharts-more.js') !!}
-	{!! HTML::script('js/highcharts-3d.js') !!}	
-
 
 	<script type="text/javascript">
 		$(function(){
@@ -838,101 +813,201 @@
 
 @section('content')
 
-		<section>
-			<div id="rightColumn" class="container-fluid">
-			  <div class="row" id="rightColumnRow">
-				  <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2" >
+		<!-- Main content -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-body no-padding">
+							<!-- THE CALENDAR -->
+							<div id="calendar"></div>
+						</div><!-- /.box-body -->
+					</div><!-- /. box -->
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+	</div><!-- /.content-wrapper -->
 
-				  		<div style="width:100%">
-				  			<div style="margin:0 auto; width:345px;">
-				                <button id="BtnPreviousMonth" class="btn btn-primary btn-default">Prev</button>
-				                &nbsp;&nbsp;&nbsp;
-				                <input type="text" id="dateSelect" size="20"/>
-				                &nbsp;&nbsp;&nbsp;
-				                <button id="BtnNextMonth" class="btn btn-primary btn-default">Next</button>
-				           </div>
-				           <br />
-			           </div>				                
-				                <!--
-		                            <button id="BtnDeleteAll">Delete All</button>
-				                    <button id="BtnICalTest">iCal Test</button>
-				                    <input type="text" id="iCalSource" size="30" value="extra/fifa-world-cup-2010.ics"/>
-		                        -->
-			                    <!--
-			                    	<div id="toolbar" class="ui-widget-header ui-corner-all" style="padding:3px; vertical-align: middle; white-space:nowrap; overflow: hidden;">
-								</div>
-								-->
-				                <div id="mycal">
-				                </div>
+	<!-- REQUIRED JS SCRIPTS -->
 
-				                <!-- debugging-->
-				               <div id="calDebug"></div>
+	<!-- jQuery 2.1.4 -->
+	<script src="{{ URL::asset('js/jQuery-2.1.4.min.js') }}"></script>
+	<!-- Bootstrap 3.3.5 -->
+	<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
+	<!-- AdminLTE App -->
+	<script src="{{ URL::asset('js/app.min.js') }}"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="{{ URL::asset('js/demo.js') }}"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<!-- Slimscroll -->
+	<script src="{{ URL::asset('js/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+	<!-- FastClick -->
+	<script src="{{ URL::asset('js/plugins/fastclick/fastclick.min.js') }}"></script>
+	<!-- fullCalendar 2.2.5 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+	<script src="{{ URL::asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 
-				               
-				               <div id="display-event-form">
-				               </div>
+	<!-- Page specific script -->
+	<script>
+		$(function () {
 
-					           <input type="hidden" name="tempDevice1" id="IDtempDevice-3" class="tempDevice" value="PNG_WATTBIKE-A.png" /><br />
-					           <input type="hidden" name="tempDevice1" id="IDtempDevice-20" class="tempDevice" value="PNG_WATTBIKE-B.png" /><br />
+			/* initialize the external events
+			 -----------------------------------------------------------------*/
+			function ini_events(ele) {
+				ele.each(function () {
 
-					</div>
-		  	  </div>
-		  	</div>  
-	    </section>
+					// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+					// it doesn't need to have a start or end
+					var eventObject = {
+						title: $.trim($(this).text()) // use the element's text as the event title
+					};
 
-		<div class="modal fade" id="myModal">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <!--
-		        <h4 class="modal-title">Show details for training</h4>
-		        <br/>dasdasd
-		        -->
-		        <div><span id="calDateModal">THURSDAY&nbsp;&nbsp;&nbsp;Mar 19,&nbsp;&nbsp;&nbsp;2015</span></div>
+					// store the Event Object in the DOM element so we can get to it later
+					$(this).data('eventObject', eventObject);
 
-		        <div id="calModalWrapper">
-		        	<div><span id="calTimeModal">0:03:16</span>&nbsp;&nbsp;&nbsp;<span id="calDistanceModal">2.30</span><span class="unitModal">km</span>&nbsp;&nbsp;&nbsp;<span id="calHrModal">1.7</span><span>TSS</span></div>
-		        </div>
+					// make the event draggable using jQuery UI
+					$(this).draggable({
+						zIndex: 1070,
+						revert: true, // will cause the event to go back to its
+						revertDuration: 0  //  original position after the drag
+					});
 
-		      </div>
-		      <div class="modal-body">
-		        <p>ID of session is: <span id="idOfItem"></span> </p>
-				<div id="chartModalCalendar" class="">
-				</div>	
-	        
-		      </div>
-		      <div class="modal-footer">
-		      	<div id="idShareModalCalendar">
-		      		<span id="chkPublic"><input type="checkbox" name="chkPublic" id="chkPublicInput" />&nbsp;Public&nbsp;</span>
-		      		<div style="position: relative; display:inline">
-		      			<div class="snetwClass"><div id="snetwTwitter"></div></div>
-		      			<div class="snetwClass"><div id="snetwFacebook"></div></div>
-		      			<div class="snetwClass"><div id="snetwMail"></div></div>
-		      			<a href="mailto:?subject=Dusan%20has%20shared%20a%20workout%20with%20you&body=Dusan%20completed%20a%2012.9%20km%20bike%20workout%20on%203%2F19%20in%200%3A18%3A54%20with%2043.9%20TSS.%0A%0Ahttp%3A%2F%2Ftpks.ws%2FlFfa"><div class="snetwClass"><div id="snetwLink" ></div></div></a>
-		      		</div>
-		      	</div>
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+				});
+			}
+			ini_events($('#external-events div.external-event'));
 
-		<div class="modal fade" id="myModalMore">
-		  <div class="modal-dialog" id="modal-more-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title">All trainings</h4>
-		      </div>
-		      <div class="modal-body" id="modalMore">
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+			/* initialize the calendar
+			 -----------------------------------------------------------------*/
+			//Date for the calendar events (dummy data)
+			var date = new Date();
+			var d = date.getDate(),
+					m = date.getMonth(),
+					y = date.getFullYear();
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay,agendaYear'
+				},
+				buttonText: {
+					today: 'today',
+					month: 'month',
+					week: 'week',
+					day: 'day',
+					year: 'year'
+				},
+				//Random default events
+				events: [
+					{
+						title: 'All Day Event',
+						start: new Date(y, m, 1),
+						backgroundColor: "#f56954", //red
+						borderColor: "#f56954" //red
+					},
+					{
+						title: 'Long Event',
+						start: new Date(y, m, d - 5),
+						end: new Date(y, m, d - 2),
+						backgroundColor: "#f39c12", //yellow
+						borderColor: "#f39c12" //yellow
+					},
+					{
+						title: 'Meeting',
+						start: new Date(y, m, d, 10, 30),
+						allDay: false,
+						backgroundColor: "#0073b7", //Blue
+						borderColor: "#0073b7" //Blue
+					},
+					{
+						title: 'Lunch',
+						start: new Date(y, m, d, 12, 0),
+						end: new Date(y, m, d, 14, 0),
+						allDay: false,
+						backgroundColor: "#00c0ef", //Info (aqua)
+						borderColor: "#00c0ef" //Info (aqua)
+					},
+					{
+						title: 'Birthday Party',
+						start: new Date(y, m, d + 1, 19, 0),
+						end: new Date(y, m, d + 1, 22, 30),
+						allDay: false,
+						backgroundColor: "#00a65a", //Success (green)
+						borderColor: "#00a65a" //Success (green)
+					},
+					{
+						title: 'Click for Google',
+						start: new Date(y, m, 28),
+						end: new Date(y, m, 29),
+						url: 'http://google.com/',
+						backgroundColor: "#3c8dbc", //Primary (light-blue)
+						borderColor: "#3c8dbc" //Primary (light-blue)
+					}
+				],
+				editable: true,
+				droppable: true, // this allows things to be dropped onto the calendar !!!
+				drop: function (date, allDay) { // this function is called when something is dropped
 
+					// retrieve the dropped element's stored Event Object
+					var originalEventObject = $(this).data('eventObject');
+
+					// we need to copy it, so that multiple events don't have a reference to the same object
+					var copiedEventObject = $.extend({}, originalEventObject);
+
+					// assign it the date that was reported
+					copiedEventObject.start = date;
+					copiedEventObject.allDay = allDay;
+					copiedEventObject.backgroundColor = $(this).css("background-color");
+					copiedEventObject.borderColor = $(this).css("border-color");
+
+					// render the event on the calendar
+					// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+					$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+					// is the "remove after drop" checkbox checked?
+					if ($('#drop-remove').is(':checked')) {
+						// if so, remove the element from the "Draggable Events" list
+						$(this).remove();
+					}
+
+				}
+			});
+
+			/* ADDING EVENTS */
+			var currColor = "#3c8dbc"; //Red by default
+			//Color chooser button
+			var colorChooser = $("#color-chooser-btn");
+			$("#color-chooser > li > a").click(function (e) {
+				e.preventDefault();
+				//Save color
+				currColor = $(this).css("color");
+				//Add color effect to button
+				$('#add-new-event').css({"background-color": currColor, "border-color": currColor});
+			});
+			$("#add-new-event").click(function (e) {
+				e.preventDefault();
+				//Get value and make sure it is not null
+				var val = $("#new-event").val();
+				if (val.length == 0) {
+					return;
+				}
+
+				//Create events
+				var event = $("<div />");
+				event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
+				event.html(val);
+				$('#external-events').prepend(event);
+
+				//Add draggable funtionality
+				ini_events(event);
+
+				//Remove event from text input
+				$("#new-event").val("");
+			});
+		});
+	</script>
+
+
+	<!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
 @endsection
 

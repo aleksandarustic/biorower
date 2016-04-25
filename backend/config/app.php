@@ -26,8 +26,8 @@ return [
 	|
 	*/
 
-	'url' => 'http://beegrower.site90.net/',
-	//'url' => 'http://localhost',
+//	'url' => 'http://beegrower.site90.net/',
+	'url' => 'http://localhost',
 
 	/*
 	|--------------------------------------------------------------------------
