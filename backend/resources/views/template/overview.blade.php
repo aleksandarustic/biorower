@@ -397,206 +397,9 @@
 					window.varChartLeftRightValues = sessionsHistory;
 					var balancePreparedDataPowerAverage = getBalanceData(sessionsHistory, parametersPowerAverage);
 
-					window.varChartLeftRight = {
-				        chart: {
-				        	renderTo: 'highchartContainer3',
-				            type: 'area'
-				        },
-
-				        title: {
-				            text: 'Hand Balance by strokes'
-				        },
-						credits: {
-						    enabled: false
-						},
-				        legend: {
-					        	enabled: false
-				        },
-				        /*
-				        subtitle: {
-				            text: 'Source: Wikipedia.org'
-				        },
-				        */
-				        xAxis: {
-				            title: {
-				                enabled: false
-				            },
-				            title: {
-				                text: 'Stroke [spm]',
-				            },
-				        },
-				        yAxis: {
-				            title: {
-				                text: 'Percent'
-				            },
-
-			                plotLines : [{
-			                    value : 55,
-			                    color : 'green',
-			                    dashStyle : 'shortdash',
-			                    width : 2,
-			                    label : {
-			                    	x : 0,
-			                        text : '55%'
-			                    }
-			                }, {
-			                    value : 45,
-			                    color : 'green',
-			                    dashStyle : 'shortdash',
-			                    width : 2,
-			                    label : {
-			                    	x : 0,		                    	
-			                        text : '45%'
-			                    }
-			                }]
-
-				        },
-				        tooltip: {
-				            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f})<br/>',
-				            shared: true
-				        },
-				        plotOptions: {
-				            area: {
-				                stacking: 'percent',
-				                lineColor: '#ffffff',
-				                lineWidth: 1,
-				                marker: {
-				                	enabled: false,
-				                	/*
-				                    lineWidth: 1,
-				                    lineColor: '#ffffff'
-				                    */
-				                    states: {
-										hover: {
-											enabled: false
-										}
-									}
-				                }
-				            }
-				        },
-				        series: $.extend(true, [], balancePreparedDataPowerAverage)
-				    };
-
-				    window.varChartLeftRight = new Highcharts.Chart(window.varChartLeftRight);
-
-				    window.varChartLeftRight.renderer.text('LEFT',
-				    		120, 130 ).
-				    	css({
-					      width: 160,
-					      color: 'grey',
-					      textAlign: 'left',
-					      fontSize: '25px'
-				    	}).attr({
-				    	zIndex: 1
-				    }).add();
-
-				    window.varChartLeftRight.renderer.text('RIGHT',
-				    		120, 230 ).
-				    	css({
-					      width: 160,
-					      color: 'grey',
-					      textAlign: 'left',
-					      fontSize: '25px'
-				    	}).attr({
-				    	zIndex: 1
-				    }).add();
-
-					varChartLeftHandChart = {
-				        chart: {
-				        	renderTo: 'highchartContainer1',
-				        	animation: false
-				        },
-				        /*
-						loading: {
-							hideDuration: 100,
-							labelStyle: { "fontWeight": "bold", "position": "relative", "top": "45%" },
-							showDuration: 100
-						},
-						*/
-				        title: {
-				            text: '',
-				            //x: -20 //center
-				        },
-				        /*
-				        subtitle: {
-				            text: 'Source: WorldClimate.com',
-				            x: -20
-				        },
-				        */
-				        xAxis: {
-				        	type: 'datetime',
-
-				            title: {
-				                text: ''
-				            },			                
-				        },
-				        yAxis: [{
-				        	showEmpty: false,
-				            title: {
-				                text: 'Stroke count [spm]'
-				            }
-
-				        }, { showEmpty: false, title: { text: 'Time [hh:mm:ss]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Distance [km]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Stroke distance average [spm]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Stroke distance max [spm]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Speed average [m/s]' }, opposite: true},
-						   
-						   { showEmpty: false, title: { text: 'Speed max [m/s]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Pace average [spm]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Pace max [spm]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Heart rate average [bmp]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Heart rate max [bmp]' }, opposite: true},
-
-						   { showEmpty: false, title: { text: 'Stroke rate average' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Stroke rate max' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power average [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power max [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power left average [W]' }, opposite: true},
-
-						   { showEmpty: false, title: { text: 'Power left max [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power right average [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power right max [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power balance [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle average [°]' }, opposite: true},
-
-						   { showEmpty: false, title: { text: 'Angle max [°]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle left average [°]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle left max [°]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle right average [°]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle right max [°]' }, opposite: true},
-
-						   { showEmpty: false, title: { text: '2 level mml' }, opposite: true},
-				           { showEmpty: false, title: { text: '4 level mml' }, opposite: true},
-				        ],
-				        tooltip: {
-				            valueSuffix: 'N'
-				        },
-				        legend: {
-					        	enabled: false
-					        /*
-					            layout: 'vertical',
-					            align: 'right',
-					            verticalAlign: 'middle',
-					            borderWidth: 0
-				            */
-				        },
-						credits: {
-						    enabled: false
-						},
 
 
-				        plotOptions: {
-			                series: {
-			                   animation: false, enableMouseTracking: true, stickyTracking: true, shadow: false, dataLabels: { style: { textShadow: false } }
-			                },
-				        },						
-				        
-				        series: jsonObjPreparedDataParametersHistory
-				    };
 
-					window.varChartLeftHand = new Highcharts.Chart(varChartLeftHandChart);
-					ShowOnlyThreeModules(window.varChartLeftHand);
 
 					var parametersProgress = <?php echo json_encode($parametersProgress); ?>;
 
@@ -1456,7 +1259,7 @@
 				<div class="box-body box-profile">
 					<div class="img-circle-width">
 						<a href="edit-profile.html"><span class="label-edit edit-img"><i class="fa fa-pencil"></i></span></a>
-						<img class="profile-user-img img-responsive img-circle" src="images/img/user2-160x160.jpg" alt="User profile picture">
+						<img class="profile-user-img img-responsive img-circle" src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User profile picture">
 					</div>
 					<h3 class="profile-username text-center">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</h3>
 					<p class="text-muted text-center">({{ Auth::user()->display_name }})</p>
@@ -1469,7 +1272,7 @@
 			<div class="box box-primary">
 				<div class="box-header">
 					<h3 class="box-title"><i class="fa fa-globe margin-right text-blue"></i>  About me</h3>
-					<a href="edit-profile.html" class="pull-right edit-icon"><span class="label-edit"><i class="fa fa-pencil"></i></span></a>
+					<a href="/profile/edit" class="pull-right edit-icon"><span class="label-edit"><i class="fa fa-pencil"></i></span></a>
 				</div>
 				<div class="box-body">
 					<ul class="list-group list-group-unbordered">
@@ -1502,49 +1305,49 @@
 					<div class="box-body no-padding">
 						<ul class="users-list clearfix">
 							<li>
-								<img src="images/img/user1-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user1-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a>
 								<span class="users-list-date">Today</span>
 							</li>
 							<li>
-								<img src="images/img/user8-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user8-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Norman</a>
 								<span class="users-list-date">Yesterday</span>
 							</li>
 							<li>
-								<img src="images/img/user7-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user7-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Jane</a>
 								<span class="users-list-date">12 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user6-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user6-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">John</a>
 								<span class="users-list-date">12 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user2-160x160.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Alexander</a>
 								<span class="users-list-date">13 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user5-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user5-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Sarah</a>
 								<span class="users-list-date">14 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user4-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user4-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Nora</a>
 								<span class="users-list-date">15 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user3-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user3-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Nadia</a>
 								<span class="users-list-date">15 Jan</span>
 							</li>
 						</ul><!-- /.users-list -->
 					</div><!-- /.box-body -->
 					<div class="box-footer text-center padding-bottom-zero">
-						<a href="javascript::" class="uppercase">View All Users</a>
+						<a href="" class="uppercase">View All Users</a>
 					</div><!-- /.box-footer -->
 				</div><!--/.box -->
 			</div>
@@ -1559,43 +1362,43 @@
 					<div class="box-body no-padding">
 						<ul class="users-list clearfix">
 							<li>
-								<img src="images/img/user1-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user1-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a>
 								<span class="users-list-date">Today</span>
 							</li>
 							<li>
-								<img src="images/img/user8-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user8-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Norman</a>
 								<span class="users-list-date">Yesterday</span>
 							</li>
 							<li>
-								<img src="images/img/user7-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user7-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Jane</a>
 								<span class="users-list-date">12 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user6-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user6-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">John</a>
 								<span class="users-list-date">12 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user2-160x160.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Alexander</a>
 								<span class="users-list-date">13 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user5-128x128.jpg" alt="User Image">
+								<img src="{{ URL::asset('images/img/user5-128x128.jpg') }}" alt="User Image">
 								<a class="users-list-name" href="diff-profile.html">Sarah</a>
 								<span class="users-list-date">14 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user4-128x128.jpg" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Nora</a>
+								<img src="{{ URL::asset('images/img/user4-128x128.jpg') }}" alt="User Image">
+								<a class="users-list-name" href="/profile">Nora</a>
 								<span class="users-list-date">15 Jan</span>
 							</li>
 							<li>
-								<img src="images/img/user3-128x128.jpg" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Nadia</a>
+								<img src="{{ URL::asset('images/img/user3-128x128.jpg') }}" alt="User Image">
+								<a class="users-list-name" href="/profile">Nadia</a>
 								<span class="users-list-date">15 Jan</span>
 							</li>
 						</ul><!-- /.users-list -->
@@ -1683,10 +1486,10 @@
 					</div>
 					<div class="graphic-header">
 						<ul class="pagination pagination-sm no-margin inline pull-left">
-							<li><a href="#"><i class="fa fa-angle-double-left control-padding"></i></a></li>
-							<li><a href="#"><i class="fa fa-angle-left control-padding"></i></a></li>
-							<li><a href="#"><i class="fa fa-angle-right control-padding"></i></a></li>
-							<li><a href="#"><i class="fa fa-angle-double-right control-padding"></i></a></li>
+							<li class="shiftStatistics" id="leftDateOverview"><a><i class="fa fa-angle-double-left control-padding"></i></a></li>
+							<li><a class="shiftStatistics" id="leftDateOverviewSmallStep"><i class="fa fa-angle-left control-padding"></i></a></li>
+							<li><a class="shiftStatistics" id="rightDateOverviewSmallStep"><i class="fa fa-angle-right control-padding"></i></a></li>
+							<li><a class="shiftStatistics" id="rightDateOverview"><i class="fa fa-angle-double-right control-padding"></i></a></li>
 						</ul>
 
 						<!-- Date and time range -->
@@ -1708,10 +1511,18 @@
 								Month <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Day</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Week</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Month</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Year</a></li>
+								<li role="presentation" class="rangeTimeStat rangeTimeStatHistory">
+									<a role="menuitem" tabindex="-1" href="#">Day</a>
+								</li>
+								<li role="presentation" class="rangeTimeStat rangeTimeStatHistory">
+									<a role="menuitem" tabindex="-1" href="#" id="weekBtnOverview">Week</a>
+								</li>
+								<li role="presentation" class="rangeTimeStat rangeTimeStatHistory">
+									<a role="menuitem" tabindex="-1" href="#">Month</a>
+								</li>
+								<li role="presentation" class="rangeTimeStat rangeTimeStatHistory">
+									<a role="menuitem" tabindex="-1" href="#">Year</a>
+								</li>
 							</ul>
 						</li>
 
@@ -1812,14 +1623,14 @@
 						</div>
 
 					</div>
-					<div class="balance-graph">
-						<h1 class="graph-h1">Balance</h1>
-						<div class="left-right-balance">
-							<p class="balance-left">left</p>
-							<p class="balance-right">right</p>
-						</div>
-						<div id="balance" style="height: 300px;"></div>
-					</div>
+					{{--<div class="balance-graph">--}}
+						{{--<h1 class="graph-h1">Balance</h1>--}}
+						{{--<div class="left-right-balance">--}}
+							{{--<p class="balance-left">left</p>--}}
+							{{--<p class="balance-right">right</p>--}}
+						{{--</div>--}}
+						{{--<div id="balance" style="height: 300px;"></div>--}}
+					{{--</div>--}}
 				</div>
 
 				<div class="graphic-footer row">
@@ -1849,7 +1660,7 @@
 							</div>
 						</div>                  </div><!-- /.form group -->
 					<div class="inline pull-right">
-						<a href="edit-profile.html" class="fa fa-filter control-btn"></a>
+						<a href="/profile/edit" class="fa fa-filter control-btn"></a>
 					</div>
 					<li class="dropdown inline control-btn pull-right margin-r-5">
 
@@ -1879,8 +1690,8 @@
 					<div class="box-title">
 						<h3 class="pull-left graphic-padding-t ">Sessions</h3>
 						<div class="pull-right">
-							<a href="sessions.html" class="btn btn-primary pull-right">List</a>
-							<a href="calendar.html" class="btn btn-primary pull-right margin-r-5">Calendar</a>
+							<a href="/{{Auth::user()->linkname}}/sessions" class="btn btn-primary pull-right">List</a>
+							<a href="/sessions/calendar" class="btn btn-primary pull-right margin-r-5">Calendar</a>
 						</div>
 						<div class="clear"></div>
 					</div>
@@ -1897,30 +1708,30 @@
 	<!-- REQUIRED JS SCRIPTS -->
 
 	<!-- jQuery 2.1.4 -->
-	<script src="js/jQuery-2.1.4.min.js"></script>
+	<script src="{{ URL::asset('js/jQuery-2.1.4.min.js') }}"></script>
 	<!-- Bootstrap 3.3.5 -->
-	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
 	<!-- AdminLTE App -->
-	<script src="js/app.min.js"></script>
-	<script src="js/plugins/select2/select2.full.min.js"></script>
+	<script src="{{ URL::asset('js/app.min.js') }}"></script>
+	<script src="{{ URL::asset('js/plugins/select2/select2.full.min.js') }}"></script>
 	<!-- FLOT CHARTS -->
-	<script src="js/plugins/flot/jquery.flot.min.js"></script>
+	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.min.js') }}"></script>
 	<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-	<script src="js/plugins/flot/jquery.flot.resize.min.js"></script>
-	<script src="js/plugins/flot/jquery.flot.canvas.js"></script>
+	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.resize.min.js') }}"></script>
+	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.canvas.js') }}"></script>
 	<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
-	<script src="js/plugins/flot/jquery.flot.categories.min.js"></script>
+	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.categories.min.js') }}"></script>
 	<!-- date-range-picker -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-	<script src="js/plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="{{ URL::asset('js/plugins/daterangepicker/daterangepicker.js') }}"></script>
 	<!-- SlimScroll 1.3.0 -->
-	<script src="js/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+	<script src="{{ URL::asset('js/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 	<!-- FastClick -->
-	<script src="js/plugins/fastclick/fastclick.min.js"></script>
+	<script src="{{ URL::asset('js/plugins/fastclick/fastclick.min.js') }}"></script>
 	<!-- AdminLTE App -->
 
 	<!-- iCheck -->
-	<script src="js/plugins/iCheck/icheck.min.js"></script>
+	<script src="{{ URL::asset('js/plugins/iCheck/icheck.min.js') }}"></script>
 	<script>
 		$(function () {
 			$('input').iCheck({
@@ -1932,6 +1743,10 @@
 			<!-- Date Range Picker -->
 
 			$(document).ready(function () {
+
+				$('li.shiftStatistics').on('click', function(){
+					console.log('clicked');
+				});
 
 				var cb = function (start, end, label) {
 					console.log(start.toISOString(), end.toISOString(), label);
@@ -2104,136 +1919,6 @@
 			});
 
 		});
-		<!-- Line 2 -->
-		var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-		var num = ["-20", "-60", "0", "20", "60"];
-		var data9_1 = [
-			[1, 6530], [2, 6580], [3, 5980],[4, 6630], [5, 8010], [6, 10800],
-			[7, 8530],
-		];
-		var data9_2 = [
-			[1, 6830], [2, 3580], [3, 8900],[4, 7630], [5, 2010], [6, 10000],
-			[7, 3530],
-		];
-		var data9_3 = [
-			[1,1],
-		];
-		var data9_4 = [
-			[1,1],
-		];
-
-		$.fn.UseTooltip = function () {
-			var previousPoint = null;
-
-			$(this).bind("plothover", function (event, pos, item) {
-				if (item) {
-					if (previousPoint != item.dataIndex) {
-						previousPoint = item.dataIndex;
-
-						$("#tooltip").remove();
-
-						var x = item.datapoint[0];
-						var y = item.datapoint[1];
-
-						showTooltip(item.pageX, item.pageY,
-								days[x-  1] + "<br/>" + "<strong>" + y + "</strong> (" + item.series.label + ")");
-					}
-				}
-				else {
-					$("#tooltip").remove();
-					previousPoint = null;
-				}
-			});
-		};
-
-		function showTooltip(x, y, contents) {
-			$('<div id="tooltip">' + contents + '</div>').css({
-				position: 'absolute',
-				display: 'none',
-				top: y + 5,
-				left: x + 20,
-				border: '2px solid #ccc',
-				padding: '5px',
-				size: '10',
-				'background-color': '#fff',
-				opacity: 0.80
-			}).appendTo("body").fadeIn(200);
-		}
-
-
-		$(function () {
-			$.plot($("#balance"),
-					[{
-						data: data9_1,
-						label:'Power - left hand',
-						color: "#3c8dbc",
-						lines: { show: true, color: "#3c8dbc", fillColor: "#3c8dbc" },
-						points: { show: true, fill:true }
-					},{
-						data: data9_2,
-						label:'Power - right hand',
-						color: "#b8c7ce",
-						lines: { show: true, color: "#b8c7ce", fillColor: "#b8c7ce" },
-						points: { show: true, fill:true }
-					},
-						{
-							data: data9_3,
-							label:'Label for line 3',
-							color: "#536A7F",
-							lines: { show: true, color: "#536A7F", fillColor: "#536A7F" },
-							points: { show: true, fill:true }
-						},{
-						data: data9_4,
-						label:'<button class="btn-link no-padding" data-toggle="tooltip" title="Choose Parametars" data-widget="chat-pane-toggle">+ Add a parametar</button>',
-						color: "#e0e6f0",
-						lines: { show: true, color: "#e0e6f0", fillColor: "#e0e6f0" },
-						points: { show: true, fill:true }
-					}],{
-						grid: {
-							hoverable: true,
-							clickable: false,
-							mouseActiveRadius: 30,
-							backgroundColor: false,
-							borderColor: "#f3f3f3",
-							borderWidth: 1,
-							tickColor: "#f3f3f3",
-
-							markings: [ { yaxis: { from: 6000, to: 6000 }, color: "#ccc" },]
-						},
-						series: {
-							shadowSize: 0,
-						},
-						legend: {
-							noColumns: 2,
-						},
-						yaxis: {
-							labelWidth: 30,
-							ticks: [
-								[2000, ""], [4000, "-60"], [6000, "0"], [8000, "-60"], [10000, ""]
-							]
-						},
-						xaxis:{
-							labelHeight: 30,
-							ticks: [
-								[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"],
-								[7, "Sun"]
-							]
-						} ,
-						legend: {
-							show: true
-						}
-					}
-			);
-
-			$("#balance").UseTooltip();
-
-			var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Days of the week").appendTo($('#balance'));
-
-			var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Angle(°)").appendTo($('#balance'));
-			yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-
-
-		});
 
 		//Line Graph - Progress
 
@@ -2241,15 +1926,15 @@
 
 			var data9_1 = [
 				[1, 1530], [2, 6580], [3, 1980],[4, 6630], [5, 8010], [6, 10800],
-				[7, 8530],
+				[7, 8530]
 			];
 			var data9_2 = [
 				[1, 1830], [2, 3580], [3, 1900],[4, 7630], [5, 2010], [6, 10000],
-				[7, 3530],
+				[7, 3530]
 			];
 			var data9_3 = [
 				[1, 5530], [2, 9580], [3, 2980],[4, 6630], [5, 10010], [6, 2800],
-				[7, 5530],
+				[7, 5530]
 			];
 
 			$.fn.UseTooltip = function () {
@@ -2266,7 +1951,7 @@
 							var y = item.datapoint[1];
 
 							showTooltip(item.pageX, item.pageY,
-									days[x-  1] + "<br/>" + "<strong>" + y + "</strong> (" + item.series.label + ")");
+									days[x-1] + "<br/>" + "<strong>" + y + "</strong> (" + item.series.label + ")");
 						}
 					}
 					else {
@@ -2530,93 +2215,6 @@
 		                pointPlacement: -0.15
 		            }]
 		        });
-
-
-				/*
-				var chart2 = new Highcharts.Chart({
-			        chart: {
-			        	renderTo: 'highchartContainer2',
-			            type: 'bar'
-			        },
-			        title: {
-			            text: 'Left side of the brain'
-			        },
-			        
-			        xAxis: {
-			        	min: 1,
-			        	labels:{
-			        		enabled: false
-			        	}			        	
-			            //categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-			        },
-			        
-			        credits: {
-			            enabled: false
-			        },
-			        series: tmpArrayFinalLeft
-
-			    	}, function(){
-			    });
-				*/
-
-
-
-   				/*
-
-				var chart3 = new Highcharts.Chart({
-			        chart: {
-			        	renderTo: 'highchartContainer3',
-			        	type: 'bar'
-			        },
-			        title: {
-			            text: 'Right side of the brain'
-			        },
-			        
-			        xAxis: {
-			        	min: 1,
-			        	reversed: true,
-			            //categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-			        },
-			        yAxis: {
-			        	reversed: true,
-			            //categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-			        },			        
-			        
-			        credits: {
-			            enabled: false
-			        },
-			        series: tmpArrayFinalRight
-
-			    }, function(){
-		            var currentLeft = parseInt($(".footer").position().top) - $('#lastItemInLeftMenu').height();
-            		$('#lastItemInLeftMenu').css("height", currentLeft);
-
-		            var currentRight = parseInt($(".footer").position().top) - $('#lastItemInRightMenu').height();
-            		$('#lastItemInRightMenu').css("height", currentRight);
-			    });
-				*/
-
-
-
-				/*
-				$(".clsOModule").each(function(){
-					//$(this).find("input").prop("checked", "true");
-					$(this).find("input").click();
-				});
-				*/
-
-				//varChartLeftHand = new Highcharts.Chart(varChartLeftHand);
-				/*
-					var cal = new CalHeatMap();
-					cal.init({
-						itemSelector: "#cal-heatmap",
-						domain: "month",
-						subDomain: "day",
-						displayLegend: false,
-						domainMargin: 23,
-						domainLabelFormat: "%B %Y"
-					});
-				*/
 
 		        $(document).on('click', '.pagination a, .sort', function (e) {
 		            var page = $(this).attr('href').split('page=')[1];

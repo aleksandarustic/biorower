@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -14,23 +18,59 @@ class WelcomeController extends Controller {
 	*/
 
 	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->middleware('guest');
-	}
-
-	/**
 	 * Show the application welcome screen to the user.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getLogin()
 	{
-		return view('welcome');
+		if(Auth::check())
+		{
+			return redirect('/profile/' . Auth::user()->linkname);
+		}
+
+		return view('auth.login');
+	}
+
+	public function postLogin(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			'email'      => 'required|email:unique',
+			'password'   => 'required|min:6',
+		]);
+
+		if($validator->fails())
+		{
+			return back()
+				->withErrors($validator)
+				->withInput();
+		}
+		else
+		{
+			if(Auth::attempt([
+				'email'    => $request->input('email'),
+				'password' => $request->input('password')
+			]))
+			{
+				return redirect('/profile');
+			}
+			else
+			{
+				return redirect()->back()->with('status', 'Incorrect email or password.');
+			}
+		}
+	}
+
+	/**
+	 * Logout user
+	 *
+	 * @return mixed
+	 */
+	public function getLogout()
+	{
+		Auth::logout();
+
+		return redirect('/');
 	}
 
 }

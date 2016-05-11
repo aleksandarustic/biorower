@@ -16,14 +16,13 @@
 </div>
 
 <div class="login">
-
 	<div class="tab-content">
 		<div class="login-box active tab-pane" id="login">
 			<div class="login-box-body">
 				<div class="login-logo">
-					<a href="profile.html"><img src="images/login/Logo.png" alt="Biorower"/></a>
+					<a href="profile.html"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
 				</div><!-- /.login-logo -->
-				<form action="{{ url('/auth/login') }}" method="post" id="login-form">
+				<form action="{{ url('/login') }}" method="post" id="login-form">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group has-feedback">
 						<input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
@@ -64,7 +63,7 @@
 		<div class="register-box tab-pane" id="register">
 			<div class="register-box-body">
 				<div class="register-logo">
-					<a href="profile.html"><img src="images/login/Logo.png" alt="Biorower"/></a>
+					<a href="/profile"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
 				</div>
 				<div>
 					@if (count($errors) > 0) 
@@ -78,13 +77,35 @@
 					</div> 
 					@endif
 				</div>
+				<div>
+					@if (count($errors) > 0)
+						<div class="alert alert-danger">
+							<strong>Whoops!</strong> There were some problems with your input.<br><br>
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
+
+					@if (Session::has('flash_message'))
+						<div class="alert alert-danger">
+							<strong>Whoops!</strong> There were some problems with your input.<br><br>
+							<ul>
+								{{ Session::get('flash_message') }}
+							</ul>
+						</div>
+					@endif
+				</div>
 				<form action="{{ url('/register') }}" method="post">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group has-feedback">
 						<input type="text" name="full_name" placeholder="Full name">
 						<span class="glyphicon glyphicon-user form-control-feedback"></span>
 					</div>
 					<div class="form-group has-feedback">
-						<input type="email" name="email" placeholder="Email">
+						<input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
 						<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 					</div>
 					<div class="form-group has-feedback">
@@ -92,7 +113,7 @@
 						<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 					</div>
 					<div class="form-group has-feedback">
-						<input type="password" name="repassword" placeholder="Retype password">
+						<input type="password" name="password_confirmation" placeholder="Retype password">
 						<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
 					</div>
 					<div class="row">

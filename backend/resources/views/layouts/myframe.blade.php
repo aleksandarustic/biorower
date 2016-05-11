@@ -303,7 +303,7 @@
 						<!-- Menu Body -->
 						<li class="user-body">
 							<div class="act-block text-left">
-								<a href="profile.html" class="act-list"><i class="fa fa-user"></i> Username</a>
+								<a href="/{{Auth::user()->linkname}}" class="act-list"><i class="fa fa-user"></i> Username</a>
 							</div>
 							<div class="act-block text-left">
 								<a href="friends.html" class="act-list"><i class="fa fa-users"></i> Friends</a>
@@ -314,8 +314,8 @@
 						</li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
-							<div class="pull-left"> <a href="profile.html" class="btn btn-default btn-flat">Profile</a> </div>
-							<div class="pull-right"> <a href="#" class="btn btn-default btn-flat">Sign out</a> </div>
+							<div class="pull-left"> <a href="/{{Auth::user()->linkname}}" class="btn btn-default btn-flat">Profile</a> </div>
+							<div class="pull-right"> <a href="{{ url('/profile/logout') }}" class="btn btn-default btn-flat">Sign out</a> </div>
 						</li>
 					</ul>
 				</li>
@@ -361,11 +361,11 @@
 		<ul class="sidebar-menu">
 			<li class="header">NAVIGATION</li>
 			<!-- Optionally, you can add icons to the links -->
-			<li class="active"><a href="/profile"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
-			<li><a href="/sessions/calendar"><i class="fa fa-calendar"></i> <span>My Calendar</span></a></li>
-			<li><a href="/{{Auth::user()->linkname}}/sessions"><i class="fa fa-tasks"></i> <span>My Sessions</span></a></li>
-			<li><a href="/training"><i class="fa  fa-ship"></i> <span>My Training Session</span></a></li>
-			<li><a href="/edit-profile"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+			<li class="{{ setActive('profile') }}"><a href="/profile"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
+			<li class="{{ setActive('sessions/calendar') }}"><a href="/sessions/calendar"><i class="fa fa-calendar"></i> <span>My Calendar</span></a></li>
+			<li class="{{ setActive('profile/sessions') }}"><a href="/profile/sessions"><i class="fa fa-tasks"></i> <span>My Sessions</span></a></li>
+			<li class="{{ setActive('training') }}"><a href="/sessions/training"><i class="fa  fa-ship"></i> <span>My Training Session</span></a></li>
+			<li class="{{ setActive('edit') }}"><a href="/profile/edit"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
 		</ul>
 		<!-- /.sidebar-menu -->
 	</section>

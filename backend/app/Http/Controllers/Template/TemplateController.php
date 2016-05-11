@@ -34,17 +34,17 @@ class TemplateController extends Controller {
 		return view('/template/index');
 	}
 
-	public function overview(req $request, $id)
+	public function overview()
 	{
-		$field = 'last_name';
-		$order = 'desc';
+//		$field = 'last_name';
+//		$order = 'desc';
+//
+//		if ($request->has('sort')){
+//			$field = $request['sort'];
+//			$order = $request['order'];
+//		}
 
-		if ($request->has('sort')){
-			$field = $request['sort'];
-			$order = $request['order'];
-		}
-
-		$allUsers = User::orderBy($field, $order)->with('sessions')->paginate(2);
+//		$allUsers = User::orderBy($field, $order)->with('sessions')->paginate(2);
 
 		//return $allUsers;
 
@@ -62,9 +62,9 @@ class TemplateController extends Controller {
 		$firstDayOfYear	= date('d-m-Y',strtotime(date('Y-01-01')));
 		$lastDayOfYear	= date('d-m-Y',strtotime(date('Y-12-31')));
 
-		if (Auth::user()->linkname != $id){
+		if (Auth::user()){
 
-			$user = User::where('linkname', $id)->with('profile.image')->first();
+			$user = User::where('linkname', Auth::user()->linkname)->with('profile.image')->first();
 			$imageid = isset($user->profile->image_id) ? $user->profile->image_id : null;
 			$userid = $user->id;
 			$userLinkname = $user->linkname;
