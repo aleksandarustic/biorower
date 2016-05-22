@@ -94,108 +94,6 @@
 
 		@yield('page-script')
 
-		<script type="text/javascript">
-
-			    $(function(){
-
-			            $("#left_wrapper, #right_wrapper").on("mouseenter", function(){
-			            	$("#rightColumnRow").css("opacity","0.8");
-			            	$(".navbar").css("opacity","0.8");
-			            });
-
-			            $("#left_wrapper, #right_wrapper").on("mouseleave", function(){
-			            	$("#rightColumnRow").css("opacity","1");
-			            	$(".navbar").css("opacity","1");
-			            });	   
-
-			            $("#toggleButtonLayoutLeftWrapper").click(function(){
-			            	if ($("#left_wrapper").is(":visible")){
-			            		$("#left_wrapper").hide();
-			            	}
-			            	else{
-			            		$("#left_wrapper").toggle();	
-			            	}
-			                
-			                if ($("#rightColumn").hasClass("inner-wrap")){
-			                    $("#rightColumn").removeClass("inner-wrap");
-			                    $(window).resize();
-			                }
-			                else{
-				                if ($("#rightColumn").hasClass("inner-wrap-right")){
-				                	$("#right_wrapper").hide();
-				                    $("#rightColumn").removeClass("inner-wrap-right");
-				                }
-
-			                    $("#rightColumn").addClass("inner-wrap");
-			                    $(window).resize();
-			                }
-			            });
-
-			            $("#toggleButtonLayoutRightWrapper").click(function(){
-			            	if ($("#right_wrapper").is(":visible")){
-			            		$("#right_wrapper").hide();
-			            	}
-			            	else{
-			            		$("#right_wrapper").toggle();	
-			            	}
-
-			                if ($("#rightColumn").hasClass("inner-wrap-right")){
-			                    $("#rightColumn").removeClass("inner-wrap-right");
-			                    $(window).resize();
-			                }
-			                else{
-			                	if ($("#rightColumn").hasClass("inner-wrap")){
-			                		$("#left_wrapper").hide();
-			                    	$("#rightColumn").removeClass("inner-wrap");
-			                    }
-
-			                    $("#rightColumn").addClass("inner-wrap-right");
-			                    $(window).resize();
-			                }
-			            });	
-
-			            $("#rightColumn").click(function(){
-			            	$("#left_wrapper").hide();
-			            	$("#right_wrapper").hide();
-			            	$("#rightColumn").removeClass("inner-wrap");
-			            	$("#rightColumn").removeClass("inner-wrap-right");
-			            	$(window).resize();
-			            });
-
-			            window.fncUpdateMenu = function(){
-			            	if ($(".chart").length <= 0){
-					            var currentLeft = parseInt($(".footer").position().top) - $('#lastItemInLeftMenu').height();
-			            		$('#lastItemInLeftMenu').css("height", currentLeft);
-
-					            var currentRight = parseInt($(".footer").position().top) - $('#lastItemInRightMenu').height();
-			            		$('#lastItemInRightMenu').css("height", currentRight);		            		
-			            	}
-			        	}
-
-			        	window.fncUpdateMenu();
-
-			        	$(".newMessagesWrapper").effect( "bounce", {times:5}, 1000 );
-			        	
-		                if ($("#straftaButtons a").text() != "") {
-
-		                	$("#straftaLayout").show();
-		                	$("#rightColumn").prepend("<br />");
-		                	
-		                	var textStrafta = $("#straftaText .h2Title").text();
-		                	$("#straftaTextLayout .h2Title").text(textStrafta);
-
-		                    $("#straftaButtons a").each(function () {
-		                        $(this).detach().appendTo('#straftaButtonsLayout');
-		                    });
-		                }
-		                else {
-		                    $("#straftaLayout").hide();
-		                }
-
-		            });
-
-		</script>
-
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -217,7 +115,7 @@
 	?>
 
 	<!-- Logo -->
-	<a href="index2.html" class="logo">
+	<a href="{{ url('/') }}" class="logo">
 		<!-- mini logo for sidebar mini 50x50 pixels -->
 		<span class="logo-mini"><b>BIO</b></span>
 		<!-- logo for regular state and mobile devices -->
@@ -298,23 +196,23 @@
 					<ul class="dropdown-menu">
 						<!-- The user image in the menu -->
 						<li class="user-header"> <img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-							<p class="h2-subhead"> {{ Auth::user()->first_name.' '.Auth::user()->last_name }} <small>Member since Nov. 2012</small> </p>
+							<p class="h2-subhead"> {{ Auth::user()->first_name.' '.Auth::user()->last_name }} <small>Member since {{ date('M Y', strtotime(Auth::user()->created_at)) }}</small> </p>
 						</li>
 						<!-- Menu Body -->
 						<li class="user-body">
 							<div class="act-block text-left">
-								<a href="/{{Auth::user()->linkname}}" class="act-list"><i class="fa fa-user"></i> Username</a>
+								<a href="{{ url('/profile/edit') }}" class="act-list"><i class="fa fa-user"></i> Username</a>
 							</div>
 							<div class="act-block text-left">
-								<a href="friends.html" class="act-list"><i class="fa fa-users"></i> Friends</a>
+								<a href="{{ url('/friends') }}" class="act-list"><i class="fa fa-users"></i> Friends</a>
 							</div>
 							<div class="act-block text-left">
-								<a href="messages.html" class="act-list"> <i class="fa fa-envelope"></i> Massages</a>
+								<a href="{{ url('/messages') }}" class="act-list"> <i class="fa fa-envelope"></i> Messages</a>
 							</div>
 						</li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
-							<div class="pull-left"> <a href="/{{Auth::user()->linkname}}" class="btn btn-default btn-flat">Profile</a> </div>
+							<div class="pull-left"> <a href="{{ url('/profile/edit') }}" class="btn btn-default btn-flat">Profile</a> </div>
 							<div class="pull-right"> <a href="{{ url('/profile/logout') }}" class="btn btn-default btn-flat">Sign out</a> </div>
 						</li>
 					</ul>
@@ -361,47 +259,78 @@
 		<ul class="sidebar-menu">
 			<li class="header">NAVIGATION</li>
 			<!-- Optionally, you can add icons to the links -->
-			<li class="{{ setActive('profile') }}"><a href="/profile"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
-			<li class="{{ setActive('sessions/calendar') }}"><a href="/sessions/calendar"><i class="fa fa-calendar"></i> <span>My Calendar</span></a></li>
-			<li class="{{ setActive('profile/sessions') }}"><a href="/profile/sessions"><i class="fa fa-tasks"></i> <span>My Sessions</span></a></li>
-			<li class="{{ setActive('training') }}"><a href="/sessions/training"><i class="fa  fa-ship"></i> <span>My Training Session</span></a></li>
-			<li class="{{ setActive('edit') }}"><a href="/profile/edit"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+			<li class="{{ setActive('profile') }}"><a href="{{ url('/profile') }}"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
+			<li class="{{ setActive('sessions/calendar') }}"><a href="{{ url('/sessions/calendar') }}"><i class="fa fa-calendar"></i> <span>My Calendar</span></a></li>
+			<li class="{{ setActive('profile/sessions') }}"><a href="{{ url('/profile/sessions') }}"><i class="fa fa-tasks"></i> <span>My Sessions</span></a></li>
+			<li class="{{ setActive('sessions/training') }}"><a href="{{ url('/sessions/training') }}"><i class="fa  fa-ship"></i> <span>My Training Session</span></a></li>
+			<li class="{{ setActive('profile/edit') }}"><a href="{{ url('/profile/edit') }}"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
 		</ul>
 		<!-- /.sidebar-menu -->
 	</section>
 	<!-- /.sidebar -->
 </aside>
 <div class="content-wrapper" style="min-height: 857px">
+	<!-- REQUIRED JS SCRIPTS -->
+
+	<!-- jQuery 2.1.4 -->
+	<script src="{{ URL::asset('js/jQuery-2.1.4.min.js') }}"></script>
+	<!-- Bootstrap 3.3.5 -->
+	<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
+	<!-- AdminLTE App -->
+	<script src="{{ URL::asset('js/app.min.js') }}"></script>
+	<script src="{{ URL::asset('js/plugins/select2/select2.full.min.js') }}"></script>
+	<!-- FLOT CHARTS -->
+	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.min.js') }}"></script>
+	<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.resize.min.js') }}"></script>
+	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.canvas.js') }}"></script>
+	<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.categories.min.js') }}"></script>
+	<!-- date-range-picker -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+	<script src="{{ URL::asset('js/plugins/daterangepicker/daterangepicker.js') }}"></script>
+	<!-- SlimScroll 1.3.0 -->
+	<script src="{{ URL::asset('js/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+	<!-- FastClick -->
+	<script src="{{ URL::asset('js/plugins/fastclick/fastclick.min.js') }}"></script>
+	<!-- AdminLTE App -->
+
+	<!-- iCheck -->
+	<script src="{{ URL::asset('js/plugins/iCheck/icheck.min.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+	<script src="{{ URL::asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 
 	<section class="content">
 		@yield('content')
 
-				<!-- Main Footer -->
-		<footer class="main-footer row">
-			<!-- To the right -->
-			<div class="footer-right">
-				<ul class="inline-list">
-					<li><a href="#"><i class="fa fa-1x fa-facebook-square"></i></a></li>
-					<li><a href="#"><i class="fa fa-1x fa-twitter-square"></i></a></li>
-					<li><a href="#"><i class="fa fa-1x fa-instagram"></i></a></li>
-					<li><a href="#"><i class="fa fa-1x fa-pinterest-square"></i></a></li>
-				</ul>
 
-
-				<!-- Default to the right -->
-				<p><strong>Copyright &copy; 2016 <a href="#">Biorower</a>.</strong> All rights reserved.</p>
-				<ul class="inline-list">
-					<li><a href="#">FAQ</a></li>
-					<li><a href="#">Contact Support</a></li>
-					<li class="margin-right-5"><a href="#">Terms</a></li>
-					<li><a href="#">Privacy Policy</a></li>
-
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</footer>
 
 	</section>
+
+	<!-- Main Footer -->
+	<footer class="main-footer row">
+		<!-- To the right -->
+		<div class="footer-right">
+			<ul class="inline-list">
+				<li><a href="#"><i class="fa fa-1x fa-facebook-square"></i></a></li>
+				<li><a href="#"><i class="fa fa-1x fa-twitter-square"></i></a></li>
+				<li><a href="#"><i class="fa fa-1x fa-instagram"></i></a></li>
+				<li><a href="#"><i class="fa fa-1x fa-pinterest-square"></i></a></li>
+			</ul>
+
+
+			<!-- Default to the right -->
+			<p><strong>Copyright &copy; 2016 <a href="#">Biorower</a>.</strong> All rights reserved.</p>
+			<ul class="inline-list">
+				<li><a href="#">FAQ</a></li>
+				<li><a href="#">Contact Support</a></li>
+				<li class="margin-right-5"><a href="#">Terms</a></li>
+				<li><a href="#">Privacy Policy</a></li>
+
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</footer>
 </div>
 
 </div>

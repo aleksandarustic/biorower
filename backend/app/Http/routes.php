@@ -1,21 +1,5 @@
 <?php
 
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-Route::get('/', 'WelcomeController@getLogin');
-Route::get('/login', 'WelcomeController@getLogin');
-Route::post('/login', 'WelcomeController@postLogin');
-
 Route::group(array('prefix' => 'api'), function()
 {
 	Route::resource('v1/users', 'Braining\UsersController',
@@ -67,16 +51,30 @@ Route::group(array('prefix' => 'api'), function()
 					['only' => ['store']]);		
 });
 
+Route::get('/', 'WelcomeController@getLogin');
+Route::get('/login', 'WelcomeController@getLogin');
+Route::post('/login', 'WelcomeController@postLogin');
+Route::get('/register', 'WelcomeController@getRegister');
+Route::post('/register', 'WelcomeController@postRegister');
+
 //Route::get('socket', 'SocketController@socket');
 Route::post('sendmessage', 'SocketController@sendMessage');
 Route::get('writemessage', 'SocketController@writemessage');
 
+Route::get('/approve/user/{userId}', 'WelcomeController@approveRegister');
+
+Route::get('/checkEmail', function(){
+	return view('emails.profile_activated');
+});
 
 Route::get('/profile', 'Template\TemplateController@overview');
 Route::get('/profile/sessions', 'SessionController@sessions');
 Route::get('/profile/{username}/session/{session}', 'SessionController@index');
 Route::get('/profile/{username}/sessions/{date1}/{date2}', 'SessionController@sessionsRangeSearch');
+Route::get('/profile/edit', 'User\UserController@getEdit');
+Route::post('/profile/edit', 'User\UserController@postEdit');
 Route::get('/profile/logout', 'WelcomeController@getLogout');
+
 Route::get('/sessions/calendar', 'SessionController@calendar');
 Route::post('/sessions/comment', 'SessionController@comment');
 

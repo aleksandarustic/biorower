@@ -55,7 +55,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'bojanproba81@gmail.com', 'name' => null],
+	'from' => ['address' => 'biorower@localhost', 'name' => 'Biorower'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
 	|
 	*/
 
-	'username' => env('MAIL_USERNAME', 'bojanproba81@gmail.com'),
+	'username' => env('MAIL_USERNAME', ''),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
 	|
 	*/
 
-	'password' => env('MAIL_PASSWORD', 'sportconn81'),
+	'password' => env('MAIL_PASSWORD', ''),
 
 	/*
 	|--------------------------------------------------------------------------

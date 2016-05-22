@@ -1,4 +1,3 @@
-
 @extends('layouts.myframe')
 
 @section('head-script')

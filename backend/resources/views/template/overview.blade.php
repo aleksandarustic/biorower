@@ -1304,46 +1304,51 @@
 				<div class="box-body">
 					<div class="box-body no-padding">
 						<ul class="users-list clearfix">
-							<li>
-								<img src="{{ URL::asset('images/img/user1-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a>
-								<span class="users-list-date">Today</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user8-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Norman</a>
-								<span class="users-list-date">Yesterday</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user7-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Jane</a>
-								<span class="users-list-date">12 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user6-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">John</a>
-								<span class="users-list-date">12 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Alexander</a>
-								<span class="users-list-date">13 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user5-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Sarah</a>
-								<span class="users-list-date">14 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user4-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Nora</a>
-								<span class="users-list-date">15 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user3-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Nadia</a>
-								<span class="users-list-date">15 Jan</span>
-							</li>
+							@foreach($allWatching as $following)
+								<li>
+									{{ $following }}
+								</li>
+							@endforeach
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user1-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a>--}}
+								{{--<span class="users-list-date">Today</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user8-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Norman</a>--}}
+								{{--<span class="users-list-date">Yesterday</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user7-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Jane</a>--}}
+								{{--<span class="users-list-date">12 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user6-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">John</a>--}}
+								{{--<span class="users-list-date">12 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Alexander</a>--}}
+								{{--<span class="users-list-date">13 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user5-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Sarah</a>--}}
+								{{--<span class="users-list-date">14 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user4-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Nora</a>--}}
+								{{--<span class="users-list-date">15 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user3-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Nadia</a>--}}
+								{{--<span class="users-list-date">15 Jan</span>--}}
+							{{--</li>--}}
 						</ul><!-- /.users-list -->
 					</div><!-- /.box-body -->
 					<div class="box-footer text-center padding-bottom-zero">
@@ -1361,46 +1366,49 @@
 				<div class="box-body">
 					<div class="box-body no-padding">
 						<ul class="users-list clearfix">
-							<li>
-								<img src="{{ URL::asset('images/img/user1-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a>
-								<span class="users-list-date">Today</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user8-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Norman</a>
-								<span class="users-list-date">Yesterday</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user7-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Jane</a>
-								<span class="users-list-date">12 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user6-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">John</a>
-								<span class="users-list-date">12 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Alexander</a>
-								<span class="users-list-date">13 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user5-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="diff-profile.html">Sarah</a>
-								<span class="users-list-date">14 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user4-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="/profile">Nora</a>
-								<span class="users-list-date">15 Jan</span>
-							</li>
-							<li>
-								<img src="{{ URL::asset('images/img/user3-128x128.jpg') }}" alt="User Image">
-								<a class="users-list-name" href="/profile">Nadia</a>
-								<span class="users-list-date">15 Jan</span>
-							</li>
+							@foreach($allWatched as $followers)
+								<li>{{ $followers }}</li>
+							@endforeach
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user1-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a>--}}
+								{{--<span class="users-list-date">Today</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user8-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Norman</a>--}}
+								{{--<span class="users-list-date">Yesterday</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user7-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Jane</a>--}}
+								{{--<span class="users-list-date">12 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user6-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">John</a>--}}
+								{{--<span class="users-list-date">12 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Alexander</a>--}}
+								{{--<span class="users-list-date">13 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user5-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Sarah</a>--}}
+								{{--<span class="users-list-date">14 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user4-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="/profile">Nora</a>--}}
+								{{--<span class="users-list-date">15 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user3-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="/profile">Nadia</a>--}}
+								{{--<span class="users-list-date">15 Jan</span>--}}
+							{{--</li>--}}
 						</ul><!-- /.users-list -->
 					</div><!-- /.box-body -->
 					<div class="box-footer text-center padding-bottom-zero">
@@ -1690,7 +1698,7 @@
 					<div class="box-title">
 						<h3 class="pull-left graphic-padding-t ">Sessions</h3>
 						<div class="pull-right">
-							<a href="/{{Auth::user()->linkname}}/sessions" class="btn btn-primary pull-right">List</a>
+							<a href="/profile/sessions" class="btn btn-primary pull-right">List</a>
 							<a href="/sessions/calendar" class="btn btn-primary pull-right margin-r-5">Calendar</a>
 						</div>
 						<div class="clear"></div>
@@ -1704,34 +1712,6 @@
 
 	</div><!-- /.row -->
 
-
-	<!-- REQUIRED JS SCRIPTS -->
-
-	<!-- jQuery 2.1.4 -->
-	<script src="{{ URL::asset('js/jQuery-2.1.4.min.js') }}"></script>
-	<!-- Bootstrap 3.3.5 -->
-	<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
-	<!-- AdminLTE App -->
-	<script src="{{ URL::asset('js/app.min.js') }}"></script>
-	<script src="{{ URL::asset('js/plugins/select2/select2.full.min.js') }}"></script>
-	<!-- FLOT CHARTS -->
-	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.min.js') }}"></script>
-	<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.resize.min.js') }}"></script>
-	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.canvas.js') }}"></script>
-	<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
-	<script src="{{ URL::asset('js/plugins/flot/jquery.flot.categories.min.js') }}"></script>
-	<!-- date-range-picker -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-	<script src="{{ URL::asset('js/plugins/daterangepicker/daterangepicker.js') }}"></script>
-	<!-- SlimScroll 1.3.0 -->
-	<script src="{{ URL::asset('js/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-	<!-- FastClick -->
-	<script src="{{ URL::asset('js/plugins/fastclick/fastclick.min.js') }}"></script>
-	<!-- AdminLTE App -->
-
-	<!-- iCheck -->
-	<script src="{{ URL::asset('js/plugins/iCheck/icheck.min.js') }}"></script>
 	<script>
 		$(function () {
 			$('input').iCheck({
