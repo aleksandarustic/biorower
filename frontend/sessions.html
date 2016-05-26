@@ -39,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="wrapper">
 
      <!-- Main Header -->
-  <header class="main-header"> 
+          <header class="main-header"> 
     
     <!-- Logo --> 
     <a href="index2.html" class="logo"> 
@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-envelope-o"></i> <span class="label label-success">4</span> </a>
+          <li class="dropdown messages-menu"> <a href="#"  data-toggle="control-sidebar"> <i class="fa fa-comment-o"></i> <span class="label label-success">4</span> </a>
             <ul class="dropdown-menu">
               <li class="header">You have 4 messages</li>
               <li> 
@@ -104,6 +104,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="menu">
                   <li> <a href="#"> <i class="fa fa-users text-aqua"></i> 5 new members joined today </a> </li>
                   <li> <a href="#"> <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems </a> </li>
+
                   <li> <a href="#"> <i class="fa fa-users text-red"></i> 5 new members joined </a> </li>
                   <li> <a href="#"> <i class="fa fa-shopping-cart text-green"></i> 25 sales made </a> </li>
                   <li> <a href="#"> <i class="fa fa-user text-red"></i> You changed your username </a> </li>
@@ -122,24 +123,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <span class="hidden-xs">Alexander Pierce</span> </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
-              <li class="user-header"> <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              <li class="user-header"> <a href="profile.html"><img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"></a>
                 <p class="h2-subhead"> Alexander Pierce <small>Member since Nov. 2012</small> </p>
               </li>
-              <!-- Menu Body -->
-                  <li class="user-body">
-                  <div class="act-block text-left">
-                     <a href="profile.html" class="act-list"><i class="fa fa-user"></i> Username</a>
-                    </div>
-                    <div class="act-block text-left">
-                      <a href="friends.html" class="act-list"><i class="fa fa-users"></i> Friends</a>
-                    </div>
-                    <div class="act-block text-left">
-                      <a href="messages.html" class="act-list"> <i class="fa fa-envelope"></i> Massages</a>
-                    </div>
-                  </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left"> <a href="profile.html" class="btn btn-default btn-flat">Profile</a> </div>
+                <div class="pull-left"> <a href="edit-profile.html" class="btn btn-default btn-flat">Profile</a> </div>
                 <div class="pull-right"> <a href="#" class="btn btn-default btn-flat">Sign out</a> </div>
               </li>
             </ul>
@@ -151,11 +140,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- search form -->
         <div class="nav-search pull-right">
           <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
+            <div class="input-group search-onTop col-md-12">
+                <label for="front-search" ><i class="fa fa-search"></i></label>
+              <input type="text" name="q" id="front-search" class="form-control col-md-12" placeholder="Search...">
             </div>
           </form>
           </div>
@@ -163,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
+   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar"> 
     
     <!-- sidebar: style can be found in sidebar.less -->
@@ -176,8 +163,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <div class="pull-left info">
               <p>Alexander Pierce</p>
-              <p>Memeber: 
-              2016-02-16</p>
+              <a href="#"  data-toggle="dropdown" aria-expanded="true"><i class="fa fa-circle text-success"></i> Online</a>
+              <ul class="dropdown-menu chat-status" role="menu">
+              <li><a href="#"><i class="fa fa-circle text-success"></i> Online</a></li>
+              <li> <a href="#"><i class="fa fa-circle text-warning"></i> Busy</a></li>
+              <li><a href="#"><i class="fa fa-circle text-danger"></i> Do not disturb</a></li>
+              <li> <a href="#"><i class="fa fa-circle text-muted"></i> Offline</a></li>
+              </ul>
               <!-- Status -->
             </div>
           </div>
@@ -186,10 +178,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <ul class="sidebar-menu">
         <li class="header">NAVIGATION</li>
         <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="profile.html"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
+            <li><a href="profile.html"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
             <li><a href="calendar.html"><i class="fa fa-calendar"></i> <span>My Calendar</span></a></li>
-            <li><a href="sessions.html"><i class="fa fa-tasks"></i> <span>My Sessions</span></a></li>
+            <li class="active"><a href="sessions.html"><i class="fa fa-tasks"></i> <span>My Sessions</span></a></li>
             <li><a href="training.html"><i class="fa  fa-ship"></i> <span>My Training Session</span></a></li>
+            <li><a href="friends.html"><i class="fa fa-users"></i> <span>Friends</span></a></li>
             <li><a href="edit-profile.html"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
       </ul>
       <!-- /.sidebar-menu --> 
@@ -543,16 +536,274 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
 
 
-      <!-- Main Footer -->
-      <footer class="main-footer">
-        <!-- To the right -->
-        <div class="footer-left">
-        <ul class="inline-list">
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact Support</a></li>
-          </ul>
+       
+</div>
+      <!-- /.row --> 
+      
+    </section>
+    <!-- /.content --> 
+    
+    <aside class="control-sidebar control-sidebar-dark chat-open-right">
+    <div>
+          <!-- Home tab content -->
+          <div class="tab-pane chat-panel" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+            <li class="activity-li">
+                <a href="javascript::;">
+            <div class="pull-left chat-user-image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+                  <div class="activity-item">
+                     <p class="activity-news">
+                              <span class="activity-username">Count Dracula</span> was training today, see his profile
+                              <small class="activity-date btn-block text-left text-muted">28 THU 2016</small>
+                            </p>
+                  </div>
+                </a>
+              </li>
+              
+              <!-- Activity 1-->
+              <li class="activity-li">
+                <a href="javascript::;" >
+            <div class="pull-left chat-user-image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+                  <div class="activity-item">
+                    <p class="activity-news"><span class="activity-username">Langdon Gold</span> was online 3 minutes ago 
+                     <small class="activity-date btn-block text-left text-muted">3 minutes ago</small>
+                     </p>
+                  </div>
+                </a>
+              </li>
+              <!-- Activity 2 -->
+            </ul><!-- /.control-sidebar-menu -->
+
+            <h3 class="control-sidebar-heading no-margin">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href="#chat-1" data-toggle="collapse">
+                  <div class="pull-left chat-user-image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                    <p class="user-state"><i class="fa fa-circle text-warning"></i> Online</p>
+                  </div>
+                </a>
+             </li><!-- Contact 1 -->
+              <li>
+                <a href="#chat-2" data-toggle="collapse">
+                  <div class="pull-left chat-user-image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                    <p class="user-state"><i class="fa fa-circle text-success"></i> Online</p>
+                  </div>
+                </a>
+              </li><!-- Contact 2 -->
+              <li>
+                <a href="#chat-3" data-toggle="collapse">
+                  <div class="pull-left chat-user-image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                    <p class="user-state"><i class="fa fa-circle text-danger"></i> Online</p>
+                  </div>
+                </a>
+              </li><!-- Contact 3 -->
+              <li>
+                <a href="#chat-3" data-toggle="collapse">
+            <div class="pull-left chat-user-image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                    <p class="user-state"><i class="fa fa-circle text-muted"></i> Online</p>
+                  </div>
+                </a>
+              </li><!-- Contact 4 -->
+            </ul><!-- /.control-sidebar-menu -->
+
+          </div><!-- /.tab-pane -->
         </div>
-        
+      </aside>
+
+      <!-- Chat boxes -->
+    <div class="chat-boxes">
+        <!-- Box 1 --> 
+        <div class="col-md-3 collapse chat-box" id="chat-1" style="height: 340px;" >
+              <!-- DIRECT CHAT PRIMARY -->
+              <div class="box box-primary direct-chat direct-chat-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Direct Chat</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool"><i class="fa fa-cog"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="chat-body">
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                      </div><!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        Is this template really for free? That's unbelievable!
+                      </div><!-- /.direct-chat-text -->
+                    </div><!-- /.direct-chat-msg -->
+
+                    <!-- Message to the right -->
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                      </div><!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        You better believe it!
+                      </div><!-- /.direct-chat-text -->
+                    </div><!-- /.direct-chat-msg -->
+                  </div><!--/.direct-chat-messages-->
+
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                  <form action="#" method="post">
+                    <div class="input-group">
+                      <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary btn-flat">Send</button>
+                      </span>
+                    </div>
+                  </form>
+                </div><!-- /.box-footer-->
+                </div>
+              </div><!--/.direct-chat -->
+            </div>
+    <!-- /.Box 1 -->
+    <!-- Box 2 --> 
+        <div class="col-md-3 collapse chat-box" id="chat-2">
+              <!-- DIRECT CHAT PRIMARY -->
+              <div class="box box-primary direct-chat direct-chat-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Direct Chat</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool"><i class="fa fa-cog"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                      </div><!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        Is this template really for free? That's unbelievable!
+                      </div><!-- /.direct-chat-text -->
+                    </div><!-- /.direct-chat-msg -->
+
+                    <!-- Message to the right -->
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                      </div><!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        You better believe it!
+                      </div><!-- /.direct-chat-text -->
+                    </div><!-- /.direct-chat-msg -->
+                  </div><!--/.direct-chat-messages-->
+
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                  <form action="#" method="post">
+                    <div class="input-group">
+                      <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary btn-flat">Send</button>
+                      </span>
+                    </div>
+                  </form>
+                </div><!-- /.box-footer-->
+              </div><!--/.direct-chat -->
+            </div>
+    <!-- /.Box 2 -->
+    <!-- Box 3 --> 
+        <div class="col-md-3 collapse chat-box" id="chat-3">
+              <!-- DIRECT CHAT PRIMARY -->
+              <div class="box box-primary direct-chat direct-chat-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Direct Chat</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool"><i class="fa fa-cog"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                      </div><!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        Is this template really for free? That's unbelievable!
+                      </div><!-- /.direct-chat-text -->
+                    </div><!-- /.direct-chat-msg -->
+
+                    <!-- Message to the right -->
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                      </div><!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        You better believe it!
+                      </div><!-- /.direct-chat-text -->
+                    </div><!-- /.direct-chat-msg -->
+                  </div><!--/.direct-chat-messages-->
+
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                  <form action="#" method="post">
+                    <div class="input-group">
+                      <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary btn-flat">Send</button>
+                      </span>
+                    </div>
+                  </form>
+                </div><!-- /.box-footer-->
+              </div><!--/.direct-chat -->
+            </div>
+    <!-- /.Box 3 -->
+    
+    
+    </div>
+    </div><!-- ./wrapper -->
+       <!-- Main Footer -->
+      <footer class="main-footer row">
+        <!-- To the right -->
         <div class="footer-right">
         <ul class="inline-list">
           <li><a href="#"><i class="fa fa-1x fa-facebook-square"></i></a></li>
@@ -565,13 +816,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Default to the right -->
         <p><strong>Copyright &copy; 2016 <a href="#">Biorower</a>.</strong> All rights reserved.</p>
                 <ul class="inline-list">
+                <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Support</a></li>
           <li class="margin-right-5"><a href="#">Terms</a></li>
           <li><a href="#">Privacy Policy</a></li>
+          
           </ul>
         </div>
         <div class="clear"></div>
       </footer>
-    </div><!-- ./wrapper -->
+
 
     <!-- REQUIRED JS SCRIPTS -->
 

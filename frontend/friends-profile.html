@@ -4,10 +4,10 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My Profile</title>
+    <title>My Friends Profile</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -41,11 +41,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <![endif]-->
   </head>
 
-  <body class="hold-transition skin-blue fixed sidebar-mini">
+<body class="hold-transition skin-blue fixed sidebar-mini">
     <div class="wrapper">
 
      <!-- Main Header -->
-  <header class="main-header"> 
+        <header class="main-header"> 
     
     <!-- Logo --> 
     <a href="index2.html" class="logo"> 
@@ -156,6 +156,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </nav>
   </header>
   
+  
+
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar"> 
     
@@ -178,8 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
               <!-- Status -->
             </div>
-          </div>
-      
+          </div>      
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">NAVIGATION</li>
@@ -223,7 +224,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="box no-bg no-border aboutMe-box">
                 <div class="about-me">
                   <h3>About me</h3>
-                  </div>
+                </div>
                   
                   <div class="aboutMe-body">
                       <div class="col-sm-6 about-border-r about-value-box">
@@ -239,7 +240,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <div class="col-sm-12 about-border-t">
             				<div class="col-sm-6 about-rowerIcon">
                                   <img src="dist/img/rower-icon.png">
-                              </div>
+                     </div>
                                <!-- Item 3.1 -->
                                <div class="col-sm-6 about-middle">
                               <div class="act-block about-value-box">
@@ -260,7 +261,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                    <div class="col-sm-6 about-value-box about-border-r">
                                   <div class="about-value">119</div>
                                   <div class="about-vname about-vname-last">Peak Candence</div>
-                              </div>
+                      </div>
                                <!-- Item 4 -->
                                <div class="col-sm-6 about-value-box">
                                   <div class="about-value">26.16</div>
@@ -279,7 +280,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i> I'm following</h3>
-                  </div>
+                </div>
 			<div class="box-body">
                     <div class="box-body no-padding">
                       <ul class="users-list clearfix">
@@ -328,15 +329,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="box-footer text-center padding-bottom-zero">
                       <a href="javascript::" class="uppercase">View All Users</a>
                     </div><!-- /.box-footer -->
-                  </div><!--/.box -->
-                </div>
+                </div><!--/.box -->
+              </div>
               
               
               <!-- Following me -->
               <div class="box box-primary">
                 <div class="box-header">
                   <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i>  Following me</h3>
-                  </div>
+                </div>
 			<div class="box-body">
                     <div class="box-body no-padding">
                       <ul class="users-list clearfix">
@@ -385,8 +386,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="box-footer text-center padding-bottom-zero">
                       <a href="javascript::" class="uppercase">View All Users</a>
                     </div><!-- /.box-footer -->
-                  </div><!--/.box -->
-                </div>
+                </div><!--/.box -->
+              </div>
               
               
             </div><!-- /.col -->
@@ -455,30 +456,134 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                   </div>
 				</div>
-               <!-- graph -->
-              <div class="col-md-9" id="graphs"> 
+                
+                
+                <div class="col-md-9">
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom box box-primary">
+              <h1 class="pull-left col-md-9">Username Profile</h1>
+                <ul class="nav nav-tabs">                
+                  <li class="btn-default active"><a href="#timeline" data-toggle="tab">Timeline</a></li>
+                  <li><a href="#graphs" data-toggle="tab">Graphs</a></li>
+                </ul>
+                <div class="tab-content no-padding transp-bg">
+                  <div class="tab-pane active" id="timeline">
+                        <!-- Timeline -->
+                    <section class="content no-padding">
+
+          <!-- row -->
+          <div class="row no-padding">
+            <div class="">
+              <!-- The time line -->
+              <ul class="timeline">
+                <!-- timeline time label -->
+                <li class="time-label">
+                  <span class="bg-red">
+                    10 Feb. 2014
+                  </span>
+                </li>
+                <!-- /.timeline-label -->
+                <!-- timeline item -->
+                <li>
+                  <i class="fa fa-envelope bg-blue"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                    <h3 class="timeline-header">Started following <a href="#">Alexander Pierce</a></h3>
+                  </div>
+                </li>
+                <!-- END timeline item -->
+                <!-- timeline item -->
+                <li>
+                  <i class="fa fa-user bg-aqua"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                    <h3 class="timeline-header no-border"><a href="#">Training Session</a></h3>
+                  </div>
+                </li>
+                <!-- END timeline item -->
+                <!-- timeline item -->
+                <li>
+                  <i class="fa fa-comments bg-yellow"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your <a href="">training session</a></h3>
+                    
+                    <div class="timeline-footer">
+                      <a class="btn btn-link btn-xs">View comment</a>
+                    </div>
+                  </div>
+                </li>
+                <!-- END timeline item -->
+                <!-- timeline time label -->
+                <li class="time-label">
+                  <span class="bg-green">
+                    3 Jan. 2014
+                  </span>
+                </li>
+                <!-- /.timeline-label -->
+                <!-- timeline item -->
+                <li>
+                  <i class="fa fa-camera bg-purple"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                    <h3 class="timeline-header"><a href="#">Username</a> uploaded profile image</h3>
+                    <div class="timeline-body">
+                      <img src="http://placehold.it/150x100" alt="..." class="margin">
+                    </div>
+                  </div>
+                </li>
+                <!-- END timeline item -->
+                <!-- timeline item -->
+                <li>
+                  <i class="fa fa-video-camera bg-maroon"></i>
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 5 days ago</span>
+                    <h3 class="timeline-header"><a href="#">Username</a> shared a video</h3>
+                    <div class="timeline-body">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" frameborder="0" allowfullscreen></iframe>
+                      </div>
+                    </div>
+                    <div class="timeline-footer">
+                      <a href="#" class="btn btn-xs bg-maroon">See comments</a>
+                    </div>
+                  </div>
+                </li>
+                <!-- END timeline item -->
+                <li>
+                  <i class="fa fa-clock-o bg-gray"></i>
+                </li>
+              </ul>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section>
+                     <!-- /.Timeline -->
+                  </div><!-- /.tab-pane -->
+                  <div class="tab-pane" id="graphs">
+                        <!-- graph -->
+                    <div class=""> 
               <div class="heading-above col-md-12 no-padding">
               <h1 class="pull-left">Tranings</h1>
               <div class="pull-right heading-above-right">
-               <a class="pull-right" style="background: #fff; cursor: pointer; padding: 7px 12px; color: #555; border: 1px solid #ccc; font-size:13px; margin-top: -2px;" href="edit-profile.html#parentVerticalTab9"><i class="fa fa-filter"></i> </a>
+               <a class="pull-right" style="background: #fff; cursor: pointer; padding: 7px 12px; color: #555; border: 1px solid #ccc; font-size:13px; margin-top: -2px;"><i class="fa fa-filter"></i> </a>
                <!-- Date and time range -->
                   <div class="inline margin-r-5">
                                     <div id="reportrange" class="inline choose-date" style="background: transperant; cursor: pointer; padding: 7px 12px; padding-left:2px; color: #555; border: 1px solid #ccc;">
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar btn-icon"></i>
                                         <span>Choose the date</span> <b class="caret"></b>
                                     </div>
-                                </div>
+                </div>
                <!-- ./ Date and time range -->
                
               </div>
               <div class="clear"></div>
               </div>
               <!-- Graph Block--> 
-            <div class="col-md-12 white-bg box box-primary no-padding historyGraph graph-box">
+            <div class="col-md-12 white-bg box box-primary direct-chat no-padding historyGraph">
                   <div class="graphic-header historyGraph-header">
                   <div class="historyGraph-header-body">
-                  <div>
-                  <h3 class="pull-left">History</h3>
+                  <div class="pull-left">
+                  <h3><i class="fa fa-line-chart margin-r-5"></i>History</h3>
                   </div>
                   <div class="pull-left left-options">
                   <!-- /.form group -->
@@ -488,19 +593,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="box-tools pull-right" style="margin-top: -8px;"> 
 <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"><i class="fa fa-chevron-left"></i></a> <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"><i class="fa fa-chevron-right"></i></a>
                   </div>
-                  <div>
+                  <div class="pull-right">
                                                     
                   <!--Btn links -->
                   
-                  <div class="pull-right change-btn" style="margin-top: -11px; margin-right: 10px;">
-                  <a href="#" class="btn btn-sm btn-primary">All</a>
+                  <div class="pull-right" style="margin-top: -11px; margin-right: 10px;">
+                  <a href="#" class="btn btn-sm btn-primary">Day</a>
                   <a href="#" class="btn btn-link">Week</a>
                   <a href="#" class="btn btn-link">Month</a>
                   <a href="#" class="btn btn-link">Year</a>
                   </div>
                   
                   
-             
+                  
                   </div>
                   </div>
                   <div class="graphic-body">
@@ -509,156 +614,73 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="history" style="height: 300px;"></div>
 
                   <div class="graphic-footer row">
-                  <a class="pull-right btn-param" href="edit-profile.html#parentVerticalTab9"><i class="fa fa-cog"></i></a>
+                  <div class="pull-right btn-param"><i class="fa fa-cog"></i></div>
+                </div>
+
+                   </div>
+                   
+</div>
+<div class="balance-graph">
+    <h1 class="graph-h1 balance-title"><i class="fa fa-line-chart margin-r-5"></i>Balance</h1>
+        <div class="left-right-balance">
+            <p class="balance-left">left</p>
+            <p class="balance-right">right</p>
+        </div>
+        <div id="balance" style="height: 300px;"></div>
+        
+                          <div class="graphic-footer row">
+                  <div class="pull-right btn-param"><i class="fa fa-cog"></i></div>
                           </div>
 
-<!-- Contacts are loaded here -->
-                  <div class="direct-chat-contacts param-box">
-                    <ul class="contacts-list checkbox icheck col-md-4 pull-right param-bg-dark">
-                    <h2>Choose three parametars</h2>
-                      <li>
-                      <label for="power">
-                        <input type="checkbox" name="power" id="power" checked>
-                        Power
-                      </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="hr">
-                        <input type="checkbox" name="hr" id="hr" checked>
-                        Heart rate(bmp)
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="speed">
-                        <input type="checkbox" name="speed" id="speed">
-                        Speed
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="time">
-                        <input type="checkbox" name="time" id="time">
-                        Time
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="distance">
-                        <input type="checkbox" name="distance" id="distance">
-                        Distance
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="stroke">
-                        <input type="checkbox" name="stroke" id="stroke">
-                        Stroke
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="angle">
-                        <input type="checkbox" name="angle" id="angle" >
-                        Angle
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="cal">
-                        <input type="checkbox" name="cal" id="cal">
-                        Calories
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="pace">
-                        <input type="checkbox" name="pace" id="pace">
-                        Pace
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="power-max">
-                        <input type="checkbox" name="power-max" id="power-max">
-                        Power Max
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="power-balance">
-                        <input type="checkbox" name="power-balance" id="power-balance">
-                        Power Balance
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="stroke-rate">
-                        <input type="checkbox" name="stroke-rate" id="stroke-rate" checked>
-                        Stroke rate
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="stroke-rate-max">
-                        <input type="checkbox" name="stroke-rate-max" id="stroke-rate-max">
-                        Stroke Rate Max
-                        </label>
-                      </li><!-- End Parametar Item -->
-                      <li>
-                      <label for="hr-max">
-                        <input type="checkbox" class="flat-blue" name="hr-max" id="hr-max">
-                        Heart Rate Max</label>
-                      </li><!-- End Parametar Item -->
-                    </ul><!-- /.contatcts-list -->
-                    
-                    
-                  </div><!-- /.direct-chat-pane -->
-                   </div>
-          <div class="clear"></div>              
 </div>
 
                   </div>
-<div class="clear relative"></div>     
-                  </div>  
+
+                </div>  
               <!-- /.Graph Block--> 
    
              <!-- Graph Block--> 
             <div class="col-md-12 white-bg box box-primary">
                   <div class="graphic-box"> 
-                  <div class="pull-left">
-                  <h3 class="progress-h3">Progress</h3>
+                  <div class="box-title">
+                  <h3><i class="fa fa-line-chart margin-r-5"></i>Progress</h3>
                   </div>
        				<div class="graphic-header">
+                 <!-- Date and time range -->
+                  <div class="form-group">
+                                    <div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 8px 10px; border: 1px solid #eee;">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar margin-r-5 text-blue"></i>
+                                        <span class="margin-r-5">Choose the date</span> <b class="caret text-blue margin-r-5"></b>
+                                    </div>
+                      </div>                  </div><!-- /.form group -->
                   
-                  <div class="progress-left">
-                  <div class="progress-groupOne">
-                   <div class="box-tools pull-right"> 
+                  
+                   <div class="box-tools pull-right" style="margin-top: 2px;"> 
 <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"><i class="fa fa-chevron-left"></i></a> <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"><i class="fa fa-chevron-right"></i></a>
                   </div>
-                  <div>
-                  </div>
+                  <div class="pull-right">
+                                                    
                   <!--Btn links -->
                   
-                  <div class="pull-right changeP-btn">
-                  <a href="#" class="btn btn-sm btn-primary">All</a>
+                  <div class="pull-right">
+                  <a href="#" class="btn btn-sm btn-primary">Day</a>
                   <a href="#" class="btn btn-link">Week</a>
                   <a href="#" class="btn btn-link">Month</a>
                   <a href="#" class="btn btn-link">Year</a>
                   </div>
                   
-                                    
-                                    </div>
-                                    
-                 <!-- Date and time range -->
-                  <div class="form-group pull-right choose-date">
-                                    <div id="reportrange1" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #eee; margin-right: 12px; margin-top: 2px;">
-                                        <i class="glyphicon glyphicon-calendar fa fa-calendar margin-r-5 text-blue"></i>
-                                        <span class="margin-r-5">Choose the date</span> <b class="caret text-blue margin-r-5"></b>
-                                    </div>
-                                </div>                 
-                  </div><!-- /.form group -->
-                  </div>
-
-                  <div class="graphic-body relative">
+                    </div>
+                  <div class="graphic-body">
                   <div id="progress" style="height: 300px;"></div>
 
                                     <div class="graphic-footer row">
-                  <a class="pull-right btn-param" href="edit-profile.html#parentVerticalTab10"><i class="fa fa-cog"></i></a>
+                  <div class="pull-right btn-param"><i class="fa fa-cog"></i></div>
                           </div>
+
                   </div>
+
 </div>
-<div class="clear dum-space"></div>     
-                  </div> 
+                </div> 
              <!-- /.Graph Block--> 
            
            <!-- Graph Block--> 
@@ -672,16 +694,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div>
                   <div class="clear"></div>
                   </div>
-                    </div>
-                  </div> 
+              </div>
+                </div> 
              <!-- /.Graph Block-->
             
             </div>
+                    <!-- /.graph -->
+                  </div><!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_3">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum.
+                  </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+              </div><!-- nav-tabs-custom -->
+            </div>
+            
+               <!-- graph -->
+               
+        
+        
+        
+              
             <!-- /.graph -->
             
           </div>
           </div><!-- /.row -->
           
+        </section><!-- /.content -->
+</div>
+      <!-- /.content-wrapper -->
         </section><!-- /.content -->
         
             <aside class="control-sidebar control-sidebar-dark chat-open-right">
@@ -941,14 +987,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     
     
     </div>
-        
-        
-      </div>
-      <!-- /.content-wrapper -->
-     
 
     </div><!-- ./wrapper -->
-     <!-- Main Footer -->
+           <!-- Main Footer -->
       <footer class="main-footer row">
         <!-- To the right -->
         <div class="footer-right">
@@ -973,6 +1014,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="clear"></div>
       </footer>
 
+    
 
     <!-- REQUIRED JS SCRIPTS -->
 
@@ -1001,7 +1043,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- iCheck -->
     <script src="plugins/iCheck/icheck.min.js"></script>
-    <script>
+<script>
       $(function () {
         $('input').iCheck({
           checkboxClass: 'icheckbox_square-blue',
@@ -1081,79 +1123,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 $('#reportrange').data('daterangepicker').remove();
             });
         });
-		
-		<!-- Date Range Picker 1 -->
-		
-		$(document).ready(function () {
-
-            var cb = function (start, end, label) {
-                console.log(start.toISOString(), end.toISOString(), label);
-                $('#reportrange1 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
-            }
-
-            var optionSet1 = {
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2015',
-                dateLimit: {
-                    days: 60
-                },
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: true,
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                opens: 'left',
-                buttonClasses: ['btn btn-default'],
-                applyClass: 'btn-small btn-primary',
-                cancelClass: 'btn-small',
-                format: 'MM/DD/YYYY',
-                separator: ' to ',
-                locale: {
-                    applyLabel: 'Submit',
-                    cancelLabel: 'Clear',
-                    fromLabel: 'From',
-                    toLabel: 'To',
-                    customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    firstDay: 1
-                }
-            };
-            $('#reportrange1 span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-            $('#reportrange1').daterangepicker(optionSet1, cb);
-            $('#reportrange1').on('show.daterangepicker', function () {
-                console.log("show event fired");
-            });
-            $('#reportrange1').on('hide.daterangepicker', function () {
-                console.log("hide event fired");
-            });
-            $('#reportrange1').on('apply.daterangepicker', function (ev, picker) {
-                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
-            });
-            $('#reportrange1').on('cancel.daterangepicker', function (ev, picker) {
-                console.log("cancel event fired");
-            });
-            $('#options1').click(function () {
-                $('#reportrange1').data('daterangepicker').setOptions(optionSet1, cb);
-            });
-            $('#options2').click(function () {
-                $('#reportrange1').data('daterangepicker').setOptions(optionSet2, cb);
-            });
-            $('#destroy').click(function () {
-                $('#reportrange1').data('daterangepicker').remove();
-            });
-        });
 
         /*
          * LINE CHART
@@ -1173,12 +1142,13 @@ var data9_1 = [
     [1, 1830], [2, 3580], [3, 1900],[4, 7630], [5, 2010], [6, 10000],
     [7, 3530],
 ];
-var data9_3 = 
-[[1, 5530], [2, 9580], [3, 2980],[4, 6630], [5, 10010], [6, 2800],
-    [7, 5530]];
+var data9_3 = [
+    [1, 5530], [2, 9580], [3, 2980],[4, 6630], [5, 10010], [6, 2800],
+    [7, 5530],
+];
  
 function showTooltip(x, y, contents) {
-    $('<div id="tooltip">' +  contents + '</div>').css({
+    $('<div id="tooltip">' + '<a href="#" class="session-title">Session Title</a>' + contents + '</div>').css({
         position: 'absolute',
         display: 'none',
         top: y - 5,
@@ -1191,7 +1161,7 @@ function showTooltip(x, y, contents) {
         opacity: 0.80
     }).appendTo("body").fadeIn(200);
 }
-
+ 
  $.fn.UseTooltip = function () {
     var previousPoint = null;
      
@@ -1203,10 +1173,10 @@ function showTooltip(x, y, contents) {
                 $("#tooltip").remove();
                  
                 var x = item.datapoint[0];
-                var y = item.datapoint[1];   
+                var y = item.datapoint[1];                
                  
                 showTooltip(item.pageX, item.pageY,
-                  "<span class='x-asis'>" + days[x-  1] + "</span>" + "<br/>" + "<br/>" +"<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
+                 "<span class='x-asis'>" + days[x-  1] + "</span>" + "<br/>" + "<br/>" +"<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
             }
         }
         else {
@@ -1221,26 +1191,25 @@ $(function () {
     $.plot($("#history"),
         [{
               data: data9_1,
-			  label: 'Power(W)',
+			  label: '<a href="#">Power(W)</a>',
 			  color: "#3c8dbc",
 			  lines: { show: true, color: "#3c8dbc" },
-			  points: { show: true, fill:true },
+			  points: { show: true, fill:true }
             },{
 			data: data9_2,
-			label: 'Stroke rate(spm)',
+			label: '<a href="#">Stroke rate(spm)</a>',
 			  color: "#b8c7ce",
 			  lines: { show: true, color: "#b8c7ce" },
 			  points: { show: true, fill:true }
             },{
 			data: data9_3,
-			label: 'Heart rate(bmp)',
+			label: '<a href="#">Heart rate(bmp)</a>',
 			  color: "#536A7F",
 			  lines: { show: true, color: "#536A7F" },
 			  points: { show: true, fill:true }
             },
 			
-        ],{  
-
+        ],{            
             grid: {
                 hoverable: true, 
                 clickable: true, 
@@ -1267,7 +1236,7 @@ $(function () {
             }     
         }
     );
-
+ 
     $("#history").UseTooltip();
 	
 	var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Days of the week").appendTo($('#history'));
@@ -1277,9 +1246,128 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 });
 
 
+
 	});	
 	
       });
+	  <!-- Line 2 -->
+var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+var num = ["-20", "-60", "0", "20", "60"];
+var data9_1 = [
+    [1, 6530], [2, 6580], [3, 5980],[4, 6630], [5, 8010], [6, 10800],
+    [7, 8530],
+];
+ var data9_2 = [
+    [1, 6830], [2, 3580], [3, 8900],[4, 7630], [5, 2010], [6, 10000],
+    [7, 3530],
+];
+var data9_3 = [
+    [1,1],
+];
+var data9_4 = [
+    [1,1],
+];
+
+$.fn.UseTooltip = function () {
+    var previousPoint = null;
+     
+    $(this).bind("plothover", function (event, pos, item) {         
+        if (item) {
+            if (previousPoint != item.dataIndex) {
+                previousPoint = item.dataIndex;
+ 
+                $("#tooltip").remove();
+                 
+                var x = item.datapoint[0];
+                var y = item.datapoint[1];                
+                 
+                showTooltip(item.pageX, item.pageY,
+                  "<span class='x-asis'>" + days[x-  1] + "</span>" + "<br/>" + "<p>" + y + "°" + "</p>" + "<i>" + item.series.label + "") + "</i>";
+            }
+        }
+        else {
+            $("#tooltip").remove();
+            previousPoint = null;
+        }
+    });
+};
+ 
+function showTooltip(x, y, contents) {
+    $('<div id="tooltip">' + contents + '</div>').css({
+        position: 'absolute',
+        display: 'none',
+        top: y + 5,
+        left: x + 20,
+        border: '2px solid #ccc',
+        padding: '5px',     
+        size: '10',   
+        'background-color': '#fff',
+        opacity: 0.80
+    }).appendTo("body").fadeIn(200);
+}
+ 
+ 
+$(function () {        
+    $.plot($("#balance"),
+        [{
+              data: data9_1,
+			  label:'<a href="#">Angle - left hand(°)</a>',
+			  color: "#3c8dbc",
+			  lines: { show: true, color: "#3c8dbc", fillColor: "#3c8dbc" },
+			  points: { show: true, fill:true }
+            },{
+			data: data9_2,
+			label:'<a href="#">Angle - right hand(°)</a>',
+			  color: "#b8c7ce",
+			  lines: { show: true, color: "#b8c7ce", fillColor: "#b8c7ce" },
+			  points: { show: true, fill:true }
+            }],{            
+            grid: {
+                hoverable: true, 
+                clickable: false, 
+                mouseActiveRadius: 30,
+                backgroundColor: false,
+				 borderColor: "#f3f3f3",
+            borderWidth: 1,
+            tickColor: "#f3f3f3",
+			
+           markings: [ { yaxis: { from: 6000, to: 6000 }, color: "#ccc" },]
+            },
+			series: {
+            shadowSize: 0,
+			},
+			legend: {
+					noColumns: 2,
+				},
+			yaxis: {
+				labelWidth: 30,
+            ticks: [
+                            [2000, ""], [4000, "45%"], [6000, "50%"], [8000, "55%"], [10000, ""]
+                   ]
+          },
+            xaxis:{
+				labelHeight: 30,
+                   ticks: [
+                            [1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"],
+                            [7, "Sun"]
+                   ]
+            } ,
+			 legend: {
+        show: true
+    }    
+        }
+    );
+ 
+    $("#balance").UseTooltip();
+	
+		var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Days of the week").appendTo($('#balance'));
+
+var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Angle(°)").appendTo($('#balance'));
+yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+
+
+});
+
         //Line Graph - Progress
 
 	$(function() {
@@ -1409,14 +1497,11 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
                 + "<br>"
                 + Math.round(series.percent) + "%</div>";
       }
-	  function selectTab() {
-    $('[role="tab"]').has("a[href='#" + history + "']").first().trigger("click");
-}
 	
     </script>
      <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. Slimscroll is required when using the
          fixed layout. -->
-  </body>
+</body>
 </html>

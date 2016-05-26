@@ -86,35 +86,42 @@
 	border: 1px solid transperant;
 	margin: 9px 10px
 }
-.skin-blue .sidebar-form input[type="text"], .skin-blue .sidebar-form .btn {
+.skin-blue .sidebar-form input[type="text"], .skin-blue label[for="front-search"] {
 	box-shadow: none;
-	background-color: #fff;
-	border: 1px solid transparent;
+	background-color: transparent;
+	border: none;
+	border-radius: 1px;
 	height: 32px;
+	font-size:12px;
+	padding: 6px 4px;
+	width: 100%;
 	-webkit-transition: all .3s ease-in-out;
 	-o-transition: all .3s ease-in-out;
-	transition: all .3s ease-in-out
+	transition: all .3s ease-in-out;
+		color: #f5f5f5;
+		padding-left: 22px;
 }
-.skin-blue .sidebar-form input[type="text"] {
-	color: #666;
-	border-top-left-radius: 2px;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 2px
+ .skin-blue label[for="front-search"] {  position: absolute; top: 0; left: 0;  padding-left: 4px; padding-top: 7px; color:#f5f5f5; }
+.sidebar-form input[type="text"]::-webkit-input-placeholder {
+   color: #aed0e4;
 }
-.skin-blue .sidebar-form input[type="text"]:focus, .skin-blue .sidebar-form input[type="text"]:focus+.input-group-btn .btn {
-	background-color: #fff;
-	color: #666
+ .skin-blue .sidebar-form input[type="text"], label[for="front-search"] {
+	font-size:14px;
+	background-color:transparent; 
+	border-bottom: 1px solid #aed0e4;
+	opacity: 0.8;
 }
-.skin-blue .sidebar-form input[type="text"]:focus+.input-group-btn .btn {
-	border-left-color: #fff
+.skin-blue .sidebar-form input[type="text"]:focus, .skin-blue .sidebar-form input[type="text"]:focus + label[for="front-search"] {
+		border-bottom: 1px solid #d6edfa;
+		opacity: 1;
+
+}
+.skin-blue .sidebar-form input[type="text"]:focus::-webkit-input-placeholder { color: #3b8ab8; }
+.skin-blue .sidebar-form input[type="text"]:focus + label[for="front-search"] {
+	border-left-color: transperent;
 }
 .skin-blue .sidebar-form .btn {
-	color: #999;
-	border-top-left-radius: 0;
-	border-top-right-radius: 2px;
-	border-bottom-right-radius: 2px;
-	border-bottom-left-radius: 0
+	color: #f1f1f1;
 }
 .skin-blue.layout-top-nav .main-header>.logo {
 	background-color: #3c8dbc;
@@ -124,3 +131,10 @@
 .skin-blue.layout-top-nav .main-header>.logo:hover {
 	background-color: #3b8ab8
 }
+.skin-blue .sidebar-form input:-webkit-autofill,
+.skin-blue .sidebar-form input:-webkit-autofill:hover,
+.skin-blue .sidebar-form input:-webkit-autofill:focus,
+.skin-blue .sidebar-form input:-webkit-autofill:active {
+      transition: all 5000s ease-in-out 0s;
+    transition-property: background-color, color;
+ }
