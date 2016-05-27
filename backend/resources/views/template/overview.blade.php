@@ -397,206 +397,9 @@
 					window.varChartLeftRightValues = sessionsHistory;
 					var balancePreparedDataPowerAverage = getBalanceData(sessionsHistory, parametersPowerAverage);
 
-					window.varChartLeftRight = {
-				        chart: {
-				        	renderTo: 'highchartContainer3',
-				            type: 'area'
-				        },
-
-				        title: {
-				            text: 'Hand Balance by strokes'
-				        },
-						credits: {
-						    enabled: false
-						},
-				        legend: {
-					        	enabled: false
-				        },
-				        /*
-				        subtitle: {
-				            text: 'Source: Wikipedia.org'
-				        },
-				        */
-				        xAxis: {
-				            title: {
-				                enabled: false
-				            },
-				            title: {
-				                text: 'Stroke [spm]',
-				            },
-				        },
-				        yAxis: {
-				            title: {
-				                text: 'Percent'
-				            },
-
-			                plotLines : [{
-			                    value : 55,
-			                    color : 'green',
-			                    dashStyle : 'shortdash',
-			                    width : 2,
-			                    label : {
-			                    	x : 0,
-			                        text : '55%'
-			                    }
-			                }, {
-			                    value : 45,
-			                    color : 'green',
-			                    dashStyle : 'shortdash',
-			                    width : 2,
-			                    label : {
-			                    	x : 0,		                    	
-			                        text : '45%'
-			                    }
-			                }]
-
-				        },
-				        tooltip: {
-				            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f})<br/>',
-				            shared: true
-				        },
-				        plotOptions: {
-				            area: {
-				                stacking: 'percent',
-				                lineColor: '#ffffff',
-				                lineWidth: 1,
-				                marker: {
-				                	enabled: false,
-				                	/*
-				                    lineWidth: 1,
-				                    lineColor: '#ffffff'
-				                    */
-				                    states: {
-										hover: {
-											enabled: false
-										}
-									}
-				                }
-				            }
-				        },
-				        series: $.extend(true, [], balancePreparedDataPowerAverage)
-				    };
-
-				    window.varChartLeftRight = new Highcharts.Chart(window.varChartLeftRight);
-
-				    window.varChartLeftRight.renderer.text('LEFT',
-				    		120, 130 ).
-				    	css({
-					      width: 160,
-					      color: 'grey',
-					      textAlign: 'left',
-					      fontSize: '25px'
-				    	}).attr({
-				    	zIndex: 1
-				    }).add();
-
-				    window.varChartLeftRight.renderer.text('RIGHT',
-				    		120, 230 ).
-				    	css({
-					      width: 160,
-					      color: 'grey',
-					      textAlign: 'left',
-					      fontSize: '25px'
-				    	}).attr({
-				    	zIndex: 1
-				    }).add();
-
-					varChartLeftHandChart = {
-				        chart: {
-				        	renderTo: 'highchartContainer1',
-				        	animation: false
-				        },
-				        /*
-						loading: {
-							hideDuration: 100,
-							labelStyle: { "fontWeight": "bold", "position": "relative", "top": "45%" },
-							showDuration: 100
-						},
-						*/
-				        title: {
-				            text: '',
-				            //x: -20 //center
-				        },
-				        /*
-				        subtitle: {
-				            text: 'Source: WorldClimate.com',
-				            x: -20
-				        },
-				        */
-				        xAxis: {
-				        	type: 'datetime',
-
-				            title: {
-				                text: ''
-				            },			                
-				        },
-				        yAxis: [{
-				        	showEmpty: false,
-				            title: {
-				                text: 'Stroke count [spm]'
-				            }
-
-				        }, { showEmpty: false, title: { text: 'Time [hh:mm:ss]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Distance [km]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Stroke distance average [spm]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Stroke distance max [spm]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Speed average [m/s]' }, opposite: true},
-						   
-						   { showEmpty: false, title: { text: 'Speed max [m/s]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Pace average [spm]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Pace max [spm]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Heart rate average [bmp]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Heart rate max [bmp]' }, opposite: true},
-
-						   { showEmpty: false, title: { text: 'Stroke rate average' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Stroke rate max' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power average [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power max [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power left average [W]' }, opposite: true},
-
-						   { showEmpty: false, title: { text: 'Power left max [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power right average [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power right max [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Power balance [W]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle average [°]' }, opposite: true},
-
-						   { showEmpty: false, title: { text: 'Angle max [°]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle left average [°]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle left max [°]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle right average [°]' }, opposite: true},
-				           { showEmpty: false, title: { text: 'Angle right max [°]' }, opposite: true},
-
-						   { showEmpty: false, title: { text: '2 level mml' }, opposite: true},
-				           { showEmpty: false, title: { text: '4 level mml' }, opposite: true},
-				        ],
-				        tooltip: {
-				            valueSuffix: 'N'
-				        },
-				        legend: {
-					        	enabled: false
-					        /*
-					            layout: 'vertical',
-					            align: 'right',
-					            verticalAlign: 'middle',
-					            borderWidth: 0
-				            */
-				        },
-						credits: {
-						    enabled: false
-						},
 
 
-				        plotOptions: {
-			                series: {
-			                   animation: false, enableMouseTracking: true, stickyTracking: true, shadow: false, dataLabels: { style: { textShadow: false } }
-			                },
-				        },						
-				        
-				        series: jsonObjPreparedDataParametersHistory
-				    };
 
-					window.varChartLeftHand = new Highcharts.Chart(varChartLeftHandChart);
-					ShowOnlyThreeModules(window.varChartLeftHand);
 
 					var parametersProgress = <?php echo json_encode($parametersProgress); ?>;
 
@@ -1447,558 +1250,790 @@
 @stop
 
 @section('content')
-		<section>
-			<div id="rightColumn" class="container-fluid">
-			  <div class="row" id="rightColumnRow">
-			  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				  		<div class="row">
-							
-				  			<?php 
-				  				$classView = "col-xs-12 col-sm-12 col-md-4 col-lg-3";
-				  			?>
 
-   	  					    @if (!$viewAll)
-   	  					    	<?php $classView = "col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4" ?>
-   	  					    @endif
+	<div class="row">
+		<div class="col-md-3">
 
-							<div id="" class="{{ $classView }}">
-								<div class="row">
-									<div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
-										<div class="wrapperBoxes">
-									    	<div>
-												@if (isset($imageid))
-													@if (isset($user))
-														<?php $imageName = $user->profile->image->name; ?>
-													@else
-														<?php $imageName = Auth::user()->profile->image->name; ?>
-													@endif
-													<img src="{{ Request::root().'/../storage/profile_images'.$imageName }}" class="avatarOverview" />
-												@else
-													{!! HTML::image('images/avatar_empty_big.png', 'a picture', array('class' => 'avatarOverview', 'width' => '200', 'height' => '200')) !!}												
-												@endif
-									    	</div>
+			<!-- Profile Image -->
+			<div class="box box-primary">
+				<div class="box-body box-profile">
+					<div class="img-circle-width">
+						<a href="edit-profile.html"><span class="label-edit edit-img"><i class="fa fa-pencil"></i></span></a>
+						<img class="profile-user-img img-responsive img-circle" src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User profile picture">
+					</div>
+					<h3 class="profile-username text-center">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</h3>
+					<p class="text-muted text-center">({{ Auth::user()->display_name }})</p>
 
-									    	<br />							
-									    	<div>
-										 		<div class="username">
-											 		@if (isset($user))
-										 				 {{ $user->display_name }}
-										 				 <br />
-										 				 {{ $user->first_name }} {{ $user->last_name }}
-										 				 <br />
-														 <a href="{{ url('/'.$user->linkname) }}">
-														 	({{ $user->linkname }})
-														 </a>
+					<!-- <a href="edit-profile.html" class="btn btn-primary btn-block"><b>Edit Profile</b></a>-->
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
 
-										 			@else 
-										 				{{ Auth::user()->display_name }}
-										 				<br />
-														 <a href="{{ url('/'.Auth::user()->linkname) }}">
-														 	({{ Auth::user()->linkname }})
-														 </a>										 				
-										 			@endif
-										 		</div>
+			<!-- About Me Box -->
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title"><i class="fa fa-globe margin-right text-blue"></i>  About me</h3>
+					<a href="/profile/edit" class="pull-right edit-icon"><span class="label-edit"><i class="fa fa-pencil"></i></span></a>
+				</div>
+				<div class="box-body">
+					<ul class="list-group list-group-unbordered">
+						<li class="list-group-item no-border-first">
+							Member Since: <span class="pull-right text-bold">{{ date('Y-m-d', strtotime(Auth::user()->created_at)) }}</span>
+						</li>
+						<li class="list-group-item no-border">
+							Latest Session: <span class="pull-right text-bold">13 Apr 2015</span>
+						</li>
+						<li class="list-group-item no-border ">
+							Peak Power: <span class="pull-right text-bold">2848</span>
+						</li>
+						<li class="list-group-item no-border">
+							Peak AvgPower: <span class="pull-right text-bold">1962</span>
+						</li><li class="list-group-item no-border ">
+							Peak Cadence: <span class="pull-right text-bold">119</span>
+						</li><li class="list-group-item no-border">
+							Peak Power/Kg: <span class="pull-right text-bold">26.16</span>
+						</li>
+					</ul>
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
 
-												@if ($isMyProfile)
-													<a href="{{ url('/user/edit') }}" class="btn btn-primary" id="editProfileLink">Edit profile</a>
-												@else
+			<!--I am Following -->
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i> I'm following</h3>
+				</div>
+				<div class="box-body">
+					<div class="box-body no-padding">
+						<ul class="users-list clearfix">
+							@foreach($allWatching as $following)
+								<li>
+									{{ $following }}
+								</li>
+							@endforeach
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user1-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a>--}}
+								{{--<span class="users-list-date">Today</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user8-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Norman</a>--}}
+								{{--<span class="users-list-date">Yesterday</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user7-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Jane</a>--}}
+								{{--<span class="users-list-date">12 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user6-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">John</a>--}}
+								{{--<span class="users-list-date">12 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Alexander</a>--}}
+								{{--<span class="users-list-date">13 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user5-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Sarah</a>--}}
+								{{--<span class="users-list-date">14 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user4-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Nora</a>--}}
+								{{--<span class="users-list-date">15 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user3-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Nadia</a>--}}
+								{{--<span class="users-list-date">15 Jan</span>--}}
+							{{--</li>--}}
+						</ul><!-- /.users-list -->
+					</div><!-- /.box-body -->
+					<div class="box-footer text-center padding-bottom-zero">
+						<a href="" class="uppercase">View All Users</a>
+					</div><!-- /.box-footer -->
+				</div><!--/.box -->
+			</div>
 
-											        <div id="loadingGifFollow" style="margin:0 auto; display:none;">
-											            Loading...
-											            {!! HTML::image('images/ajax-loader.gif', 'loading') !!}
-											        </div>
 
-											        @if ($isApproved)
-											        	<a href="#" class="btn btn-default unFollowUserLink" id="userLinkname-{{ $userLinkname }}">Unfollow user</a>
-											        @elseif ($requestToFollowUserAlreadySent)
-											        	<a href="#" class="btn btn-info" id="requestAlreadySent">Request has been sent </a>
-											        @elseif ($notSentRequest)
-											        	<a href="#" class="btn btn-danger requestTofollowUserLink" id="userLinkname-{{ $userLinkname }}-{{ $encodedID }}">Request to follow user</a>
-											        @else
-											        	<a href="#" class="btn btn-danger followUserLink" id="userLinkname-{{ $userLinkname }}">Follow user</a>
-													@endif
+			<!-- Following me -->
+			<div class="box box-primary">
+				<div class="box-header">
+					<h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i>  Following me</h3>
+				</div>
+				<div class="box-body">
+					<div class="box-body no-padding">
+						<ul class="users-list clearfix">
+							@foreach($allWatched as $followers)
+								<li>{{ $followers }}</li>
+							@endforeach
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user1-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a>--}}
+								{{--<span class="users-list-date">Today</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user8-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Norman</a>--}}
+								{{--<span class="users-list-date">Yesterday</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user7-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Jane</a>--}}
+								{{--<span class="users-list-date">12 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user6-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">John</a>--}}
+								{{--<span class="users-list-date">12 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user2-160x160.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Alexander</a>--}}
+								{{--<span class="users-list-date">13 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user5-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="diff-profile.html">Sarah</a>--}}
+								{{--<span class="users-list-date">14 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user4-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="/profile">Nora</a>--}}
+								{{--<span class="users-list-date">15 Jan</span>--}}
+							{{--</li>--}}
+							{{--<li>--}}
+								{{--<img src="{{ URL::asset('images/img/user3-128x128.jpg') }}" alt="User Image">--}}
+								{{--<a class="users-list-name" href="/profile">Nadia</a>--}}
+								{{--<span class="users-list-date">15 Jan</span>--}}
+							{{--</li>--}}
+						</ul><!-- /.users-list -->
+					</div><!-- /.box-body -->
+					<div class="box-footer text-center padding-bottom-zero">
+						<a href="javascript::" class="uppercase">View All Users</a>
+					</div><!-- /.box-footer -->
+				</div><!--/.box -->
+			</div>
 
-												@endif
 
-											</div>
-										</div>
-									</div>
+		</div><!-- /.col -->
 
-									<div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 hidden-xs">
-										<div class="wrapperBoxes">
+		<div class="col-md-9 margin-bottom ">
+			<div class="row">
+				<div class="col-sm-3 col-xs-12">
+					<div class="description-block border-right">
+						<h5 class="description-header">{{ $totalStatisticsParameters["training_sessions"][0] }}</h5>
+						<span class="description-text">Total training sessions</span>
+					</div><!-- /.description-block -->
+				</div><!-- /.col -->
+				<div class="col-sm-3 col-xs-12">
+					<div class="description-block border-right">
+						<h5 class="description-header">{{  gmdate("H:i:s", $totalStatisticsParameters["time"][0]) }}</h5>
+						<span class="description-text">Total training time </span>
+						<span class="description-percentage-small-small text-blue btn-block">[hh:mm:ss]</span>
+					</div><!-- /.description-block -->
+				</div><!-- /.col -->
+				<div class="col-sm-3 col-xs-12">
+					<div class="description-block border-right">
+						<h5 class="description-header">{{ round($totalStatisticsParameters["distance"][0], 2) }}</h5>
+						<span class="description-text">Total Distance</span>
+						<span class="description-percentage-small text-blue btn-block">[km]</span>
+					</div><!-- /.description-block -->
+				</div><!-- /.col -->
+				<div class="col-sm-3 col-xs-12">
+					<div class="description-block">
+						<h5 class="description-header">{{ round($totalStatisticsParameters["power_average"][0], 2) }}</h5>
+						<span class="description-text">Total Power average </span>
+						<span class="description-percentage-small text-blue btn-block">[W]</span>
+					</div><!-- /.description-block -->
+				</div>
+			</div>
 
-											@if (isset($user))
-												<div class="ovrData"><span class="ovrLeftColumnData">Member Since: </span> <span class="ovrRightColumnData">{{ date('l dS F Y', strtotime($user->created_at)) }} </span></div>
-											@else
-												<div class="ovrData"><span class="ovrLeftColumnData">Member Since: </span> <span class="ovrRightColumnData">{{ Auth::user()->created_at }}</span></div>
-											@endif
+			<div class="row">
+				<div class="col-sm-3 col-xs-12">
+					<div class="description-block border-right">
 
-											@if ($viewAll)
-												<div class="ovrData"><span class="ovrLeftColumnData">Latest Session: </span> <span class="ovrRightColumnData">13 Apr 2015</span></div>
-												<div class="ovrData"><span class="ovrLeftColumnData">Peak Power: </span> <span class="ovrRightColumnData">2848</span></div>
-												<div class="ovrData"><span class="ovrLeftColumnData">Peak AvgPower: </span> <span class="ovrRightColumnData">1962</span></div>
-												<div class="ovrData"><span class="ovrLeftColumnData">Peak Cadence: </span> <span class="ovrRightColumnData">119</span></div>
-												<div class="ovrData"><span class="ovrLeftColumnData">Peak Power/Kg: </span> <span class="ovrRightColumnData">26.16</span></div>
-											@endif
+						<h5 class="description-header">{{ $totalStatisticsParameters["stroke_count"][0] }}</h5>
+						<span class="description-text">Total number of strokes</span>
+					</div><!-- /.description-block -->
+				</div><!-- /.col -->
+				<div class="col-sm-3 col-xs-12">
+					<div class="description-block border-right">
+						<h5 class="description-header">{{ round($totalStatisticsParameters["stroke_distance_average"][0], 2) }}</h5>
+						<span class="description-text">Total Stroke distance average </span>
+						<span class="description-percentage-small text-blue inline">[spm]</span>
+					</div><!-- /.description-block -->
+				</div><!-- /.col -->
+				<div class="col-sm-3 col-xs-12">
+					<div class="description-block border-right">
+						<h5 class="description-header">{{ round($totalStatisticsParameters["angle_average"][0], 2) }}</h5>
+						<span class="description-text">Total Angle average</span>
+						<span class="description-percentage-small text-blue btn-block">[°]</span>
+					</div><!-- /.description-block -->
+				</div><!-- /.col -->
+				<div class="col-sm-3 col-xs-12">
+					<div class="description-block">
+						<h5 class="description-header">{{ round($totalStatisticsParameters["heart_rate_average"][0], 2) }}</h5>
+						<span class="description-text ">Total HR average</span>
+						<span class="description-percentage-small text-blue btn-block">[bmp]</span>
 
-										</div>
-									</div>
-								</div>
 
-								<!--
-								<div class="row">
-									<div class="visible-xs-block" style="text-align:center;">
-										<a href="/gaboroki/session/796c9e3c789c610639c3fa9363600701" class="btn btn-primary btn-lg" style="color:white">View Your Latest Session</a>
-									</div>			
-								</div>
-								-->
+					</div><!-- /.description-block -->
+				</div>
+			</div>
+		</div>
+		<!-- graph -->
+		<div class="col-md-9">
+			<!-- Graph Block-->
+			<div class="col-md-12 white-bg box box-primary box direct-chat">
+				<div class="graphic-box">
+					<div class="box-title">
+						<h3>History</h3>
+					</div>
+					<div class="graphic-header">
+						<ul class="pagination pagination-sm no-margin inline pull-left">
+							<li class="shiftStatistics" id="leftDateOverview"><a><i class="fa fa-angle-double-left control-padding"></i></a></li>
+							<li><a class="shiftStatistics" id="leftDateOverviewSmallStep"><i class="fa fa-angle-left control-padding"></i></a></li>
+							<li><a class="shiftStatistics" id="rightDateOverviewSmallStep"><i class="fa fa-angle-right control-padding"></i></a></li>
+							<li><a class="shiftStatistics" id="rightDateOverview"><i class="fa fa-angle-double-right control-padding"></i></a></li>
+						</ul>
 
-								@if ($viewAll)
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden-sm hidden-xs">
-											<div class="wrapperBoxes">
-												<div class="ovrData"><span class="ovrLeftColumnData">Watching: </span> <span class="ovrRightColumnData"></span>
-													<br />
-													<div id="watchingContainer">
-
-														@foreach ($allWatching as $el)
-															@if ($el->approved == 1)
-															<div class="wtchWrapperCtn">
-																<a href="{{ url('/'.$el->user2->linkname) }}" class="" data-toggle="tooltip" data-placement="right" title="{{ $el->user2->first_name }} {{ $el->user2->last_name }}">	
-																	@if (isset($el->user2->profile->image_id))
-																		<img class="avatarOverviewFollow" src="{{ '../storage/profile_images'.$el->user2->profile->image->name }}" height="50" width="50">
-																	@else
-																		{!! HTML::image('images/avatar_empty.png', 'a picture', array('class' => 'avatarOverviewFollow', 'width' => '50', 'height' => '50')) !!}
-																	@endif
-																</a>
-															</div>
-															@endif
-														@endforeach
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden-sm hidden-xs">
-											<div class="wrapperBoxes">
-												<div class="ovrData"><span class="ovrLeftColumnData">Watched by: </span> <span class="ovrRightColumnData"></span>
-													<br />
-													<div id="watchedContainer">
-
-														@foreach ($allWatched as $el)
-															@if ($el->approved == 1)
-															<a href="{{ url('/'.$el->user1->linkname) }}" class="" data-toggle="tooltip" data-placement="top" title="{{ $el->user1->first_name }} {{ $el->user1->last_name }}">
-																@if (isset($el->user1->profile->image_id))
-																		<img class="avatarOverviewFollow" src="{{ '../storage/profile_images'.$el->user1->profile->image->name }}"  height="50" width="50">
-																@else
-																		{!! HTML::image('images/avatar_empty.png', 'a picture', array('class' => 'avatarOverviewFollow', 'width' => '50', 'height' => '50')) !!}
-																@endif
-															</a>
-															@endif
-														@endforeach
-
-													</div>
-												</div>
-											</div>									
-										</div>
-									</div>	
-
-									<div class="row">
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-											<div class="wrapperBoxes">
-												<div class="ovrData"><span class="ovrLeftColumnData">Followers who are waiting on approve: </span> <span class="ovrRightColumnData"></span>
-													<br />
-													<br />
-													<div id="waitingContainer">
-
-														@foreach ($allWatched as $el)
-															@if ($el->approved == 0)
-														        <div class="loadingGifApproved" style="margin:0 auto; display:none;">
-														            {!! HTML::image('images/ajax-loader.gif', 'loading') !!}
-														        </div>															
-																<div style="width:98px; position:relative;" class="wrapperApproveList">
-																	<a href="#">
-																		<span class="glyphicon glyphicon-remove removeUserFromListFollowing" id="idUser-{{ $el->user1->linkname }}"></span>
-																	</a>
-
-																	<a href="{{ url('/'.$el->user1->linkname) }}" class="clsLinkApproved" data-toggle="tooltip" data-placement="top" title="{{ $el->user1->first_name }} {{ $el->user1->last_name }}">
-																		@if (isset($el->user1->profile->image_id))
-																				<img class="avatarOverviewFollow" src="{{ '../storage/profile_images'.$el->user1->profile->image->name }}"  height="50" width="50">
-																		@else
-																				{!! HTML::image('images/avatar_empty.png', 'a picture', array('class' => 'avatarOverviewFollow', 'width' => '50', 'height' => '50')) !!}
-																		@endif
-																	</a>
-																	
-																	<a href="#" class="btn btn-small btn-primary acceptFollowing"  id="idAcceptFollowing-{{  $el->user1->linkname }}">Accept</a>
-																</div>
-															@endif
-														@endforeach
-
-													</div>
-												</div>
-											</div>									
-										</div>
-									</div>	
-
-								@endif																							
+						<!-- Date and time range -->
+						<div class="form-group">
+							<div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; margin-left: 5px;">
+								<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+								<span>Choose the date</span> <b class="caret"></b>
 							</div>
+						</div>                  </div><!-- /.form group -->
 
-							@if ($viewAll)
 
-								<div id="" class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
 
-									<div class="row">
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-											<h4 class="titleModul">Total training sessions</h4>
-											<div class="wrapperBoxes ovrRightValues">
-												<div class="ovrMidValues">{{ $totalStatisticsParameters["training_sessions"][0] }}</div>
-												<!-- <div>all time sessions</div> -->
-											</div>
-										</div>
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-											<h4 class="titleModul">Total training time [hh:mm:ss]</h4>
-											<div class="wrapperBoxes ovrRightValues">
-												<div class="ovrMidValues">{{  gmdate("H:i:s", $totalStatisticsParameters["time"][0]) }}</div>
-												<!-- <div>all time kilometers</div> -->
-											</div>
-										</div>
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-											<h4 class="titleModul">Total Distance [km]</h4>
-											<div class="wrapperBoxes ovrRightValues">
-												<div class="ovrMidValues">{{ round($totalStatisticsParameters["distance"][0], 2) }}</div> 
-												<!-- <div>all time hours</div> -->
-											</div>
-										</div>		
+					<div class="inline pull-right">
+						<button class="btn btn-box-tool control-btn pull-right" data-toggle="tooltip" title="Choose Parametars" data-widget="chat-pane-toggle"><i class="fa fa-filter"></i></button>
 
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-											<h4 class="titleModul">Total Power average [W]</h4>
-											<div class="wrapperBoxes ovrRightValues">
-												<div class="ovrMidValues">{{ round($totalStatisticsParameters["power_average"][0], 2) }}</div>
-												<!-- <div>kilometers this month</div> -->
-											</div>
-										</div>																										
-									</div>
+						<li class="dropdown inline control-btn pull-right margin-r-5">
 
-									<div class="row">
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-											<h4 class="titleModul">Total number of strokes</h4>
-											<div class="wrapperBoxes ovrRightValues">
-												<div class="ovrMidValues">{{ $totalStatisticsParameters["stroke_count"][0] }}</div>
-												<!-- <div>kilometers this month</div> -->
-											</div>
-										</div>
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-											<h4 class="titleModul">Total Stroke distance average [spm]</h4>
-											<div class="wrapperBoxes ovrRightValues">
-												<div class="ovrMidValues">{{ round($totalStatisticsParameters["stroke_distance_average"][0], 2) }}</div>
-												<!-- <div>hours this month</div> -->
-											</div>
-										</div>
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-											<h4 class="titleModul">Total Angle average [°]</h4>
-											<div class="wrapperBoxes ovrRightValues">
-												<div class="ovrMidValues">{{ round($totalStatisticsParameters["angle_average"][0], 2) }}</div> 
-												<!-- <div>kilometers this week</div> -->
-											</div>
-										</div>																		
-										<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-											<h4 class="titleModul">Total HR average [bmp]</h4>
-											<div class="wrapperBoxes ovrRightValues">
-												<div class="ovrMidValues">{{ round($totalStatisticsParameters["heart_rate_average"][0], 2) }}</div> 
-												<!-- <div>hours this week</div> -->
-											</div>
-										</div>
-									</div>
+							<a class="dropdown-toggle control-btn-a" data-toggle="dropdown" href="#">
+								Month <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li role="presentation" class="rangeTimeStat rangeTimeStatHistory">
+									<a role="menuitem" tabindex="-1" href="#">Day</a>
+								</li>
+								<li role="presentation" class="rangeTimeStat rangeTimeStatHistory">
+									<a role="menuitem" tabindex="-1" href="#" id="weekBtnOverview">Week</a>
+								</li>
+								<li role="presentation" class="rangeTimeStat rangeTimeStatHistory">
+									<a role="menuitem" tabindex="-1" href="#">Month</a>
+								</li>
+								<li role="presentation" class="rangeTimeStat rangeTimeStatHistory">
+									<a role="menuitem" tabindex="-1" href="#">Year</a>
+								</li>
+							</ul>
+						</li>
 
-									<div class="row">								
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-											<div class="row" style="margin: 15px;">
-												<div class="wrapperBoxesHeatMap"> 
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_1"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_2"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_3"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_4"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_5"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_6"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_7"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_8"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_9"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 hidden-xs"><div id="heatmap_10"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 col-xs-6"><div id="heatmap_11"></div></div>
-													<div class="col-lg-1 col-md-2 col-sm-2 col-xs-6"><div id="heatmap_12"></div></div>
-												</div>
-											</div>					
-										</div>
-									</div>
+					</div>
+					<div class="graphic-body row transp-bg">
 
-									<div class="row">								
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-											<h1 style="margin-left:15px;">Last Session Data</h1>	
-										</div>
-									</div>									
+						<div class="historyGraph">
+							<div id="history" style="height: 300px;"></div>
+							<!-- Contacts are loaded here -->
+							<div class="direct-chat-contacts param-box">
+								<ul class="contacts-list checkbox icheck col-md-4 pull-right param-bg-dark">
+									<h2>Choose three parametars</h2>
+									<li>
+										<label for="power">
+											<input type="checkbox" name="power" id="power" checked>
+											Power
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="hr">
+											<input type="checkbox" name="hr" id="hr" checked>
+											Heart rate(bmp)
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="speed">
+											<input type="checkbox" name="speed" id="speed">
+											Speed
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="time">
+											<input type="checkbox" name="time" id="time">
+											Time
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="distance">
+											<input type="checkbox" name="distance" id="distance">
+											Distance
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="stroke">
+											<input type="checkbox" name="stroke" id="stroke">
+											Stroke
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="angle">
+											<input type="checkbox" name="angle" id="angle" >
+											Angle
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="cal">
+											<input type="checkbox" name="cal" id="cal">
+											Calories
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="pace">
+											<input type="checkbox" name="pace" id="pace">
+											Pace
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="power-max">
+											<input type="checkbox" name="power-max" id="power-max">
+											Power Max
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="power-balance">
+											<input type="checkbox" name="power-balance" id="power-balance">
+											Power Balance
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="stroke-rate">
+											<input type="checkbox" name="stroke-rate" id="stroke-rate" checked>
+											Stroke rate
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="stroke-rate-max">
+											<input type="checkbox" name="stroke-rate-max" id="stroke-rate-max">
+											Stroke Rate Max
+										</label>
+									</li><!-- End Parametar Item -->
+									<li>
+										<label for="hr-max">
+											<input type="checkbox" class="flat-blue" name="hr-max" id="hr-max">
+											Heart Rate Max</label>
+									</li><!-- End Parametar Item -->
+								</ul><!-- /.contatcts-list -->
+							</div><!-- /.direct-chat-pane -->
+						</div>
 
-									<div class="row">								
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-											<div class="wrapperBoxes">
-												<div class="highchartContainer1ButtonsLeft" id="overviewBtnAndText">
-													<a class="btn btn-small btn-default shiftStatistics" id="leftDateOverview"><<</a>
-													<a class="btn btn-small btn-default shiftStatistics" id="leftDateOverviewSmallStep"><</a>
-													<a class="btn btn-small btn-default shiftStatistics" id="rightDateOverviewSmallStep">></a>
-													<a class="btn btn-small btn-default shiftStatistics" id="rightDateOverview">>></a>
-													<span id="firstShiftLabel">{{ date('D dS F', strtotime($monday)) }}</span> - <span id="secondShiftLabel">{{ date('D dS F Y', strtotime($sunday)) }}</span>
-													<input type="hidden" id="firstShift" value="{{ $monday }}" />
-													<input type="hidden" id="secondShift" value="{{ $sunday }}" />
-												</div>											
-												<div class="highchartContainer1ButtonsRight" id="idHighchartContainer1ButtonsRight">
-													<a class="btn btn-small btn-default rangeTimeStat rangeTimeStatHistory active" id="weekBtnOverview">Week</a>
-													<a class="btn btn-small btn-default rangeTimeStat rangeTimeStatHistory" id="monthBtnOverview">Month</a>
-													<a class="btn btn-small btn-default rangeTimeStat rangeTimeStatHistory" id="yearBtnOverview">Year</a>
-													<a class="btn btn-small btn-default rangeTimeStat rangeTimeStatHistory" id="totalBtnOverview">Total</a>
-												</div>
-												<div style="clear:both"></div>
-												<div id="highchartContainer1" class="chart">
-												</div>
-
-											    <div style="width:100%;">
-											        <div class="loadingGif" style="margin:0 auto; display:none; width:120px;">
-											            Loading...
-											            {!! HTML::image('images/ajax-loader.gif', 'loading') !!}
-											        </div>
-										        </div>
-												
-												<div class="highchartContainer1ButtonsRight">
-													<div class="customLegend">
-														<select name="demo" id="modulsDD"  multiple="multiple">
-															<option value="stroke_count" selected="selected">Stroke count [spm]</option>
-															<option value="time">Time [hh:mm:ss]</option>
-															<option value="distance" selected="selected">Distance [km]</option>
-															<option value="stroke_distance_average">Stroke distance average [spm]</option>
-															<option value="stroke_distance_max">Stroke distance max [spm]</option>
-															<option value="speed_average">Speed average [m/s]</option>
-															<option value="speed_max">Speed max [m/s]</option>
-															<option value="pace_average">Pace average [spm]</option>
-															<option value="pace_max">Pace max [spm]</option>
-															<option value="heart_rate_average">Heart rate average [bmp]</option>
-															<option value="heart_rate_max">Heart rate max [bmp]</option>
-															<option value="stroke_rate_average">Stroke rate average</option>	
-															<option value="stroke_rate_max">Stroke rate max</option>
-															<option value="power_average">Power average [W]</option>
-															<option value="power_max">Power max [W]</option>
-															<option value="power_left_average">Power left average [W]</option>
-															<option value="power_left_max">Power left max [W]</option>
-															<option value="power_right_average">Power right average [W]</option>
-															<option value="power_right_max">Power right max [W]</option>
-															<option value="power_balance">Power balance [W]</option>
-															<option value="angle_average">Angle average [°]</option>
-															<option value="angle_max">Angle max [°]</option>
-															<option value="angle_left_average">Angle left average [°]</option>
-															<option value="angle_left_max">Angle left max [°]</option>
-															<option value="angle_right_average">Angle right average [°]</option>
-															<option value="angle_right_max">Angle right max [°]</option>
-															<option value="mml_2_level">2 level mml</option>
-															<option value="mml_4_level">4 level mml</option>
-														</select>
-													</div>
-												</div>
-												<div style="clear:both"></div>						
-											</div>
-										</div>
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-											<div class="wrapperBoxes">
-												<div id="highchartContainer3" class="chart">
-												</div>
-											    <div style="width:100%;">
-											        <div class="loadingGif" style="margin:0 auto; display:none; width:120px;">
-											            Loading...
-											            {!! HTML::image('images/ajax-loader.gif', 'loading') !!}
-											        </div>
-										        </div>												
-												<div class="highchartContainer1ButtonsRight">
-													<a class="btn btn-small btn-default active handButtonsRight" id="balancePowerAvrg">Power average L&R [W]</a>
-													<a class="btn btn-small btn-default handButtonsRight" id="balancePowerPeak">Power Peak L&R [W]</a>
-													<a class="btn btn-small btn-default handButtonsRight" id="balanceAngleAverage">Angle average L&R [°]</a>
-													<a class="btn btn-small btn-default handButtonsRight" id="balanceAnglePeak">Angle peak L&R [°]</a>
-												</div>
-												<div style="clear:both"></div>
-											</div>
-										</div>											
-									</div>
-
-									<div class="row">								
-										<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-											<div class="wrapperBoxes">
-												<div class="highchartContainer1ButtonsLeft" id="overviewBtnAndTextProgress">
-													<a class="btn btn-small btn-default shiftStatistics progressOvr shiftStatisticsProgress" id="leftDateOverviewProgress"><<</a>
-													<a class="btn btn-small btn-default shiftStatistics progressOvr shiftStatisticsProgress" id="leftDateOverviewProgressSmallStep"><</a>
-													<a class="btn btn-small btn-default shiftStatistics progressOvr shiftStatisticsProgress" id="rightDateOverviewProgressSmallStep">></a>
-													<a class="btn btn-small btn-default shiftStatistics progressOvr shiftStatisticsProgress" id="rightDateOverviewProgress">>></a>
-													<span id="firstShiftLabelProgress">{{ date('D dS F', strtotime($firstDayOfYear)) }}</span> - <span id="secondShiftLabelProgress">{{ date('D dS F Y', strtotime($lastDayOfYear)) }}</span>
-													<input type="hidden" id="firstShiftProgress" value="{{ $firstDayOfYear }}" />
-													<input type="hidden" id="secondShiftProgress" value="{{ $lastDayOfYear }}" />
-												</div>											
-												<div class="highchartContainer1ButtonsRight" id="idHighchartContainer1ButtonsRightProgress">
-													<a class="btn btn-small btn-default rangeTimeStat active progressOvr rangeTimeStatProgress" id="weekBtnOverviewProgress">Week</a>
-													<a class="btn btn-small btn-default rangeTimeStat progressOvr rangeTimeStatProgress" id="monthBtnOverviewProgress">Month</a>
-													<a class="btn btn-small btn-default rangeTimeStat progressOvr rangeTimeStatProgress" id="yearBtnOverviewProgress">Year</a>
-												</div>
-												<div style="clear:both"></div>
-											    <div style="width:100%;">
-											        <div class="loadingGifProgress" style="margin:0 auto; display:none; width:120px;">
-											            Loading...
-											            {!! HTML::image('images/ajax-loader.gif', 'loading') !!}
-											        </div>
-										        </div>												
-												<div id="highchartContainer1Progress" class="chart">
-												</div>
-												<div class="highchartContainer1ButtonsRight">
-														<div class="customLegend">
-															<select name="demo" id="modulsDDProgress" >
-																<option value="training_sessions" selected="selected">Training sessions </option>
-																<option value="stroke_count">Stroke count [spm]</option>
-																<option value="time">Time [hh:mm:ss]</option>
-																<option value="distance" selected="selected">Distance [km]</option>
-																<option value="stroke_distance_average">Stroke distance average [spm]</option>
-																<option value="stroke_distance_max">Stroke distance max [spm]</option>
-																<option value="speed_average">Speed average [m/s]</option>
-																<option value="speed_max">Speed max [m/s]</option>
-																<option value="pace_average">Pace average [spm]</option>
-																<option value="pace_max">Pace max [spm]</option>
-																<option value="heart_rate_average">Heart rate average [bmp]</option>
-																<option value="heart_rate_max">Heart rate max [bmp]</option>
-																<option value="stroke_rate_average">Stroke rate average</option>	
-																<option value="stroke_rate_max">Stroke rate max</option>
-																<option value="power_average">Power average [W]</option>
-																<option value="power_max">Power max [W]</option>
-																<option value="power_left_average">Power left average [W]</option>
-																<option value="power_left_max">Power left max [W]</option>
-																<option value="power_right_average">Power right average [W]</option>
-																<option value="power_right_max">Power right max [W]</option>
-																<option value="power_balance">Power balance [W]</option>
-																<option value="angle_average">Angle average [°]</option>
-																<option value="angle_max">Angle max [°]</option>
-																<option value="angle_left_average">Angle left average [°]</option>
-																<option value="angle_left_max">Angle left max [°]</option>
-																<option value="angle_right_average">Angle right average [°]</option>
-																<option value="angle_right_max">Angle right max [°]</option>
-																<option value="mml_2_level">2 level mml</option>
-																<option value="mml_4_level">4 level mml</option>
-															</select>
-														</div>
-												</div>
-												<div style="clear:both"></div>													
-											</div>
-										</div>
-
-										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-											<div class="wrapperBoxes">
-												<div id="highchartContainer4" class="chart">
-												</div>
-											</div>
-										</div>										
-									</div>
-
-									<div class="row">								
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-											<div class="wrapperBoxTable">
-												<h1>Recent Session List</h1>
-										        <div id="loadingGif" style="margin:0 auto; display:none;">
-										            Loading...
-										            {!! HTML::image('images/ajax-loader.gif', 'loading') !!}
-										        </div>
-												<div class="table-responsive">
-													<div id="pagContainer">
-														<table class="table table-hover">
-														 <tr>
-														 	<th>Date </th>
-														 	<th>Data version </th>
-														 	<th>Device type </th>
-														 	<th>Serial number </th>
-														 	<th>Firmware version </th>
-														 	<th>Mobile agent </th>
-														 	<th>Duration </th>
-														 </tr>
-															 @foreach ($allSessions as $key => $value)
-													 	 	 <?php 
-																$hashids = new Hashids(GlobalFunctions::getEncKey());
-																$encodedID = $hashids->encode($value->id);
-													 	 	  ?>		 
-														 	 <tr class="rowLink" data-url="{{ url( $userLinkname.'/session/'.$encodedID) }}">
-															 	 <td>{{ $value->date }} </td>
-															 	 <td>{{ $value->dataVersion }}</td>
-															 	 <td>{{ $value->deviceType }}</td>
-															 	 <td>{{ $value->serialNumber }}</td>
-															 	 <td>{{ $value->firmwareVersion }}</td>
-															 	 <td>{{ $value->mobileUserAgent }}</td>
-															 	 <td>{{ $value->duration }}</td>
-														 	 </tr>
-														 	@endforeach
-														</table>
-	     											</div>
-												</div>								
-										</div>
-									</div>		
-									<!--
-									<div class="row">								
-										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-											<div class="wrapperBoxTable">
-												<h1>Some test data created for sort & pagination if it would be needed</h1>
-										        <div id="loadingGif" style="margin:0 auto; display:none;">
-										            Loading...
-										            {!! HTML::image('images/ajax-loader.gif', 'loading') !!}
-										        </div>
-												<div class="table-responsive">
-													<div id="pagContainer">
-
-												  	</div>
-	     										</div>
-												<input type="hidden" value="" id="fieldSort" /> 
-												<input type="hidden" value="" id="orderSort" /> 
-											</div>								
-										</div>
-									</div>								
-									-->
-								</div>
-
-								<div class="row">
-									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<div class="wrapperBoxTable">
-											<h1 style="float:left">Sessions</h1>
-												<div class="highchartContainer1ButtonsRight">
-													<a class="btn btn-small btn-default" href="{{ url('/sessions/calendar') }}">Calendar</a>
-													@if (isset($user))
-														<a class="btn btn-small btn-default" href="{{ url('/'.$user->linkname.'/sessions') }}">List</a>
-													@else
-														<a class="btn btn-small btn-default" href="{{ url('/'.Auth::user()->linkname.'/sessions') }}">List</a>
-													@endif
-												</div>
-												<div style="clear:both"></div>
-										</div>
-									</div>		
-								</div>
-
-							</div>
-
-						@endif
-
-						<br />
-						<br />
-
-					</div>								
+					</div>
+					{{--<div class="balance-graph">--}}
+						{{--<h1 class="graph-h1">Balance</h1>--}}
+						{{--<div class="left-right-balance">--}}
+							{{--<p class="balance-left">left</p>--}}
+							{{--<p class="balance-right">right</p>--}}
+						{{--</div>--}}
+						{{--<div id="balance" style="height: 300px;"></div>--}}
+					{{--</div>--}}
 				</div>
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<br />
-						<br />
-					</div>
-				</div>		
-		  </div>
-	  </section>
+				<div class="graphic-footer row">
+				</div>
+			</div>
+			<!-- /.Graph Block-->
 
+			<!-- Graph Block-->
+			<div class="col-md-12 white-bg box box-primary">
+				<div class="graphic-box">
+					<div class="box-title">
+						<h3>Progress</h3>
+					</div>
+					<div class="graphic-header">
+						<ul class="pagination pagination-sm no-margin inline pull-left">
+							<li><a href="#"><i class="fa fa-angle-double-left control-padding"></i></a></li>
+							<li><a href="#"><i class="fa fa-angle-left control-padding"></i></a></li>
+							<li><a href="#"><i class="fa fa-angle-right control-padding"></i></a></li>
+							<li><a href="#"><i class="fa fa-angle-double-right control-padding"></i></a></li>
+						</ul>
+
+						<!-- Date and time range -->
+						<div class="form-group">
+							<div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; margin-left: 5px;">
+								<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+								<span>Choose the date</span> <b class="caret"></b>
+							</div>
+						</div>                  </div><!-- /.form group -->
+					<div class="inline pull-right">
+						<a href="/profile/edit" class="fa fa-filter control-btn"></a>
+					</div>
+					<li class="dropdown inline control-btn pull-right margin-r-5">
+
+						<a class="dropdown-toggle control-btn-a" data-toggle="dropdown" href="#">
+							Month <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Day</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Week</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Month</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Year</a></li>
+						</ul>
+					</li>
+				</div>
+				<div class="graphic-body">
+					<div id="progress" style="height: 300px;"></div>
+
+				</div>
+
+
+			</div>
+			<!-- /.Graph Block-->
+
+			<!-- Graph Block-->
+			<div class="col-md-12 white-bg box box-primary">
+				<div class="graphic-box graphic-padding-b">
+					<div class="box-title">
+						<h3 class="pull-left graphic-padding-t ">Sessions</h3>
+						<div class="pull-right">
+							<a href="/profile/sessions" class="btn btn-primary pull-right">List</a>
+							<a href="/sessions/calendar" class="btn btn-primary pull-right margin-r-5">Calendar</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			<!-- /.Graph Block-->
+
+		</div>
+		<!-- /.graph -->
+
+	</div><!-- /.row -->
+
+	<script>
+		$(function () {
+			$('input').iCheck({
+				checkboxClass: 'icheckbox_square-blue',
+				radioClass: 'iradio_square-blue',
+				increaseArea: '10%' // optional
+			});
+
+			<!-- Date Range Picker -->
+
+			$(document).ready(function () {
+
+				$('li.shiftStatistics').on('click', function(){
+					console.log('clicked');
+				});
+
+				var cb = function (start, end, label) {
+					console.log(start.toISOString(), end.toISOString(), label);
+					$('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+					//alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
+				}
+
+				var optionSet1 = {
+					startDate: moment().subtract(29, 'days'),
+					endDate: moment(),
+					minDate: '01/01/2012',
+					maxDate: '12/31/2015',
+					dateLimit: {
+						days: 60
+					},
+					showDropdowns: true,
+					showWeekNumbers: true,
+					timePicker: false,
+					timePickerIncrement: 1,
+					timePicker12Hour: true,
+					ranges: {
+						'Today': [moment(), moment()],
+						'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+						'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+						'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+						'This Month': [moment().startOf('month'), moment().endOf('month')],
+						'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+					},
+					opens: 'left',
+					buttonClasses: ['btn btn-default'],
+					applyClass: 'btn-small btn-primary',
+					cancelClass: 'btn-small',
+					format: 'MM/DD/YYYY',
+					separator: ' to ',
+					locale: {
+						applyLabel: 'Submit',
+						cancelLabel: 'Clear',
+						fromLabel: 'From',
+						toLabel: 'To',
+						customRangeLabel: 'Custom',
+						daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+						monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+						firstDay: 1
+					}
+				};
+				$('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+				$('#reportrange').daterangepicker(optionSet1, cb);
+				$('#reportrange').on('show.daterangepicker', function () {
+					console.log("show event fired");
+				});
+				$('#reportrange').on('hide.daterangepicker', function () {
+					console.log("hide event fired");
+				});
+				$('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+					console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+				});
+				$('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
+					console.log("cancel event fired");
+				});
+				$('#options1').click(function () {
+					$('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+				});
+				$('#options2').click(function () {
+					$('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+				});
+				$('#destroy').click(function () {
+					$('#reportrange').data('daterangepicker').remove();
+				});
+			});
+
+			/*
+			 * LINE CHART
+			 * ----------
+			 */
+			//LINE +ć
+
+
+			$(function() {
+
+				var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+				var data9_1 = [
+					[1, 1530], [2, 6580], [3, 1980],[4, 6630], [5, 8010], [6, 10800],
+					[7, 8530],
+				];
+				var data9_2 = [
+					[1, 1830], [2, 3580], [3, 1900],[4, 7630], [5, 2010], [6, 10000],
+					[7, 3530],
+				];
+				var data9_3 = [
+					[1, 5530], [2, 9580], [3, 2980],[4, 6630], [5, 10010], [6, 2800],
+					[7, 5530],
+				];
+
+
+				function showTooltip(x, y, contents) {
+					$('<div id="tooltip">' + contents + '</div>').css({
+						position: 'absolute',
+						display: 'none',
+						top: y + 5,
+						left: x + 20,
+						border: '2px solid #ccc',
+						padding: '5px',
+						size: '10',
+						'background-color': '#fff',
+						opacity: 0.80
+					}).appendTo("body").fadeIn(200);
+				}
+
+
+				$(function () {
+					$.plot($("#history"),
+							[{
+								data: data9_1,
+								label: 'Power(W)',
+								color: "#3c8dbc",
+								lines: { show: true, color: "#3c8dbc"},
+								points: { show: true, fill:true }
+							},{
+								data: data9_2,
+								label: 'Stroke rate',
+								color: "#b8c7ce",
+								lines: { show: true, color: "#b8c7ce" },
+								points: { show: true, fill:true }
+							},{
+								data: data9_3,
+								label: 'Heart rate(bmp)',
+								color: "#536A7F",
+								lines: { show: true, color: "#536A7F" },
+								points: { show: true, fill:true }
+							},
+
+							],{
+								grid: {
+									hoverable: true,
+									clickable: false,
+									mouseActiveRadius: 30,
+									backgroundColor: false,
+									borderColor: "#f3f3f3",
+									borderWidth: 1,
+									tickColor: "#f3f3f3" ,
+								},
+								legend: {
+									noColumns: 1,
+
+								},
+								yaxis: {
+									show: true,
+									labelWidth: 30
+								},
+								xaxis:{
+									labelHeight: 30,
+									ticks: [
+										[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"],
+										[7, "Sun"]
+									]
+								}
+							}
+					);
+
+					$("#history").UseTooltip();
+
+					var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Days of the week").appendTo($('#history'));
+
+					var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#history'));
+					yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+				});
+
+
+
+			});
+
+		});
+
+		//Line Graph - Progress
+
+		$(function() {
+
+			var data9_1 = [
+				[1, 1530], [2, 6580], [3, 1980],[4, 6630], [5, 8010], [6, 10800],
+				[7, 8530]
+			];
+			var data9_2 = [
+				[1, 1830], [2, 3580], [3, 1900],[4, 7630], [5, 2010], [6, 10000],
+				[7, 3530]
+			];
+			var data9_3 = [
+				[1, 5530], [2, 9580], [3, 2980],[4, 6630], [5, 10010], [6, 2800],
+				[7, 5530]
+			];
+
+			$.fn.UseTooltip = function () {
+				var previousPoint = null;
+
+				$(this).bind("plothover", function (event, pos, item) {
+					if (item) {
+						if (previousPoint != item.dataIndex) {
+							previousPoint = item.dataIndex;
+
+							$("#tooltip").remove();
+
+							var x = item.datapoint[0];
+							var y = item.datapoint[1];
+
+							showTooltip(item.pageX, item.pageY,
+									days[x-1] + "<br/>" + "<strong>" + y + "</strong> (" + item.series.label + ")");
+						}
+					}
+					else {
+						$("#tooltip").remove();
+						previousPoint = null;
+					}
+				});
+			};
+
+			function showTooltip(x, y, contents) {
+				$('<div id="tooltip">' + contents + '</div>').css({
+					position: 'absolute',
+					display: 'none',
+					top: y + 5,
+					left: x + 20,
+					border: '2px solid #ccc',
+					padding: '5px',
+					size: '10',
+					'background-color': '#fff',
+					opacity: 0.80
+				}).appendTo("body").fadeIn(200);
+			}
+
+
+			$(function () {
+				$.plot($("#progress"),
+						[{
+							data: data9_1,
+							label: 'Power(W)',
+							color: "#3c8dbc",
+							lines: { show: true, color: "#3c8dbc", fillColor: "#3c8dbc" },
+							points: { show: true, fill:true }
+						},{
+							data: data9_2,
+							label: 'HR(bmp)',
+							color: "#536A7F",
+							lines: { show: true, color: "#536A7F", fillColor: "#536A7F" },
+							points: { show: true, fill:true }
+						},
+							{
+								data: data9_3,
+								label: 'Stroke rate',
+								color: "#b8c7ce",
+								lines: { show: true, color: "#b8c7ce", fillColor: "#b8c7ce" },
+								points: { show: true, fill:true }
+							}
+						],{
+							grid: {
+								hoverable: true,
+								clickable: false,
+								mouseActiveRadius: 30,
+								backgroundColor: false,
+								borderColor: "#f3f3f3",
+								borderWidth: 1,
+								tickColor: "#f3f3f3"
+							},
+							legend: {
+								noColumns: 1,
+
+							},
+							yaxis: {
+								show: true,
+								labelWidth: 30
+							},
+							xaxis:{
+								show: true,
+								labelHeight: 30
+							} ,
+							legend: {
+								show: true
+							}
+
+						}
+				);
+
+				$("#progress").UseTooltip();
+
+				var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Time(sec)").appendTo($('#progress'));
+
+				var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#progress'));
+				yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+			});
+
+		});
+
+
+		/*
+		 * Custom Label formatter
+		 * ----------------------
+		 */
+		function labelFormatter(label, series) {
+			return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
+					+ label
+					+ "<br>"
+					+ Math.round(series.percent) + "%</div>";
+		}
+
+	</script>
+	<!-- Optionally, you can add Slimscroll and FastClick plugins.
+        Both of these plugins are recommended to enhance the
+        user experience. Slimscroll is required when using the
+        fixed layout. -->
 	@if ($viewAll)	  
 
     <script type="text/javascript">
@@ -2160,93 +2195,6 @@
 		                pointPlacement: -0.15
 		            }]
 		        });
-
-
-				/*
-				var chart2 = new Highcharts.Chart({
-			        chart: {
-			        	renderTo: 'highchartContainer2',
-			            type: 'bar'
-			        },
-			        title: {
-			            text: 'Left side of the brain'
-			        },
-			        
-			        xAxis: {
-			        	min: 1,
-			        	labels:{
-			        		enabled: false
-			        	}			        	
-			            //categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-			        },
-			        
-			        credits: {
-			            enabled: false
-			        },
-			        series: tmpArrayFinalLeft
-
-			    	}, function(){
-			    });
-				*/
-
-
-
-   				/*
-
-				var chart3 = new Highcharts.Chart({
-			        chart: {
-			        	renderTo: 'highchartContainer3',
-			        	type: 'bar'
-			        },
-			        title: {
-			            text: 'Right side of the brain'
-			        },
-			        
-			        xAxis: {
-			        	min: 1,
-			        	reversed: true,
-			            //categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-			        },
-			        yAxis: {
-			        	reversed: true,
-			            //categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
-			        },			        
-			        
-			        credits: {
-			            enabled: false
-			        },
-			        series: tmpArrayFinalRight
-
-			    }, function(){
-		            var currentLeft = parseInt($(".footer").position().top) - $('#lastItemInLeftMenu').height();
-            		$('#lastItemInLeftMenu').css("height", currentLeft);
-
-		            var currentRight = parseInt($(".footer").position().top) - $('#lastItemInRightMenu').height();
-            		$('#lastItemInRightMenu').css("height", currentRight);
-			    });
-				*/
-
-
-
-				/*
-				$(".clsOModule").each(function(){
-					//$(this).find("input").prop("checked", "true");
-					$(this).find("input").click();
-				});
-				*/
-
-				//varChartLeftHand = new Highcharts.Chart(varChartLeftHand);
-				/*
-					var cal = new CalHeatMap();
-					cal.init({
-						itemSelector: "#cal-heatmap",
-						domain: "month",
-						subDomain: "day",
-						displayLegend: false,
-						domainMargin: 23,
-						domainLabelFormat: "%B %Y"
-					});
-				*/
 
 		        $(document).on('click', '.pagination a, .sort', function (e) {
 		            var page = $(this).attr('href').split('page=')[1];

@@ -32,29 +32,15 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if (!$this->auth->guest())
-		{
-			return $next($request);
-		}
-		else{
-			
-			/*
-			if (in_array($_SERVER['HTTP_USER_AGENT'], array( 'facebookexternalhit/1.0 (+https://www.facebook.com/externalhit_uatext.php)', 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)', 'Facebot (+http://www.facebook.com/externalhit_uatext.php)' )))
-			{ 
-				return $next($request); 
-			}
-			else 
-			*/
-
-			if ($request->ajax())
-			{
+		if ($this->auth->guest()) {
+			if ($request->ajax()) {
 				return response('Unauthorized.', 401);
+			} else {
+				return redirect()->guest('/login');
 			}
-			else
-			{
-				return redirect()->guest('auth/login');
-			}			
 		}
+
+		return $next($request);
 	}
 
 }

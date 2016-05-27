@@ -1,30 +1,5 @@
 <?php
 
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-//Route::get('/', 'WelcomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-	//'template' => 'Template\TemplateController',
-	'user' => 'User\UserController',
-	'home' => 'HomeController',
-	'race' => 'RaceController',
-	'message' => 'MessageController',
-	//'/api/braining' =>'BrainingController',
-]);
-
 Route::group(array('prefix' => 'api'), function()
 {
 	Route::resource('v1/users', 'Braining\UsersController',
@@ -76,19 +51,32 @@ Route::group(array('prefix' => 'api'), function()
 					['only' => ['store']]);		
 });
 
-
-Route::get('home', 'HomeController@getIndex');
+Route::get('/', 'WelcomeController@getLogin');
+Route::get('/login', 'WelcomeController@getLogin');
+Route::post('/login', 'WelcomeController@postLogin');
+Route::get('/register', 'WelcomeController@getRegister');
+Route::post('/register', 'WelcomeController@postRegister');
 
 //Route::get('socket', 'SocketController@socket');
 Route::post('sendmessage', 'SocketController@sendMessage');
 Route::get('writemessage', 'SocketController@writemessage');
 
+Route::get('/approve/user/{userId}', 'WelcomeController@approveRegister');
 
-Route::get('{id}', 'Template\TemplateController@overview');
-Route::get('sessions/calendar', 'SessionController@calendar');
-Route::get('{id}/sessions', 'SessionController@sessions');
-Route::get('{id}/sessions/{date1}/{date2}', 'SessionController@sessionsRangeSearch');
-Route::post('session/comment', 'SessionController@comment');
+Route::get('/checkEmail', function(){
+	return view('emails.profile_activated');
+});
+
+Route::get('/profile', 'Template\TemplateController@overview');
+Route::get('/profile/sessions', 'SessionController@sessions');
+Route::get('/profile/{username}/session/{session}', 'SessionController@index');
+Route::get('/profile/{username}/sessions/{date1}/{date2}', 'SessionController@sessionsRangeSearch');
+Route::get('/profile/edit', 'User\UserController@getEdit');
+Route::post('/profile/edit', 'User\UserController@postEdit');
+Route::get('/profile/logout', 'WelcomeController@getLogout');
+
+Route::get('/sessions/calendar', 'SessionController@calendar');
+Route::post('/sessions/comment', 'SessionController@comment');
 
 Route::get('session/delete-comment', 'SessionController@deleteComment');
 Route::get('session/delete-session', 'SessionController@deleteSession');
@@ -97,25 +85,9 @@ Route::get('session/client2', 'SessionController@client2');
 Route::get('session/ajaxData1', 'SessionController@ajaxData1');
 Route::get('session/ajaxData2', 'SessionController@ajaxData2');
 
-Route::get('{id}/session/{session}', 'SessionController@index');
-
 Route::controllers([
 	'template' => 'Template\TemplateController',
 ]);
 
-
-
-/*
-Route::get('template/overview', function(){
-    if (Request::ajax()) {
-        return Response::json(View::make('allUsers', array('allUsers' => $allUsers))->render());
-    }
-});
-*/
-
-//Route::post('user/SearchUsersAjax', 'UserController@SearchUsersAjax');
-
-
-Route::get('/', 'Auth\AuthController@getLogin');
 
 

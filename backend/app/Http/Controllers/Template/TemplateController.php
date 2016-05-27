@@ -34,17 +34,17 @@ class TemplateController extends Controller {
 		return view('/template/index');
 	}
 
-	public function overview(req $request, $id)
+	public function overview()
 	{
-		$field = 'last_name';
-		$order = 'desc';
+//		$field = 'last_name';
+//		$order = 'desc';
+//
+//		if ($request->has('sort')){
+//			$field = $request['sort'];
+//			$order = $request['order'];
+//		}
 
-		if ($request->has('sort')){
-			$field = $request['sort'];
-			$order = $request['order'];
-		}
-
-		$allUsers = User::orderBy($field, $order)->with('sessions')->paginate(2);
+//		$allUsers = User::orderBy($field, $order)->with('sessions')->paginate(2);
 
 		//return $allUsers;
 
@@ -62,9 +62,9 @@ class TemplateController extends Controller {
 		$firstDayOfYear	= date('d-m-Y',strtotime(date('Y-01-01')));
 		$lastDayOfYear	= date('d-m-Y',strtotime(date('Y-12-31')));
 
-		if (Auth::user()->linkname != $id){
+		if (Auth::user()){
 
-			$user = User::where('linkname', $id)->with('profile.image')->first();
+			$user = User::where('linkname', Auth::user()->linkname)->with('profile.image')->first();
 			$imageid = isset($user->profile->image_id) ? $user->profile->image_id : null;
 			$userid = $user->id;
 			$userLinkname = $user->linkname;
@@ -118,7 +118,7 @@ class TemplateController extends Controller {
 										->where('website_id', config('app.website'))
 										->with('user2','user2.profile','user2.profile.image')->get();
 				$allWatched = Watching::where('user2_id', $userid)
-										->where('website_id', config('app.website'))				
+										->where('website_id', config('app.website'))
 										->with('user1','user1.profile','user1.profile.image')->get();
 
 				$myWatching = Watching::where('user1_id', Auth::user()->id)->with('user2','user2.profile','user2.profile.image')->get();
@@ -148,7 +148,7 @@ class TemplateController extends Controller {
 
 			/*
 			$sessions = Session::where('user_id', Auth::user()->id)
-							   ->where('deleted', 0)			
+							   ->where('deleted', 0)
 							   ->select('date','user_id')
 							   ->get(); //$monday //$sunday
 			*/
@@ -162,10 +162,10 @@ class TemplateController extends Controller {
 			$arrayHeatMap = str_replace('"', "\"", json_encode($arrayHeatMap, JSON_HEX_APOS));
 
 			$allWatching = Watching::where('user1_id', Auth::user()->id)
-									->where('website_id', config('app.website'))			
+									->where('website_id', config('app.website'))
 									->with('user2','user2.profile','user2.profile.image')->get();
 			$allWatched = Watching::where('user2_id', Auth::user()->id)
-									->where('website_id', config('app.website'))			
+									->where('website_id', config('app.website'))
 									->with('user1','user1.profile','user1.profile.image')->get();
 
 			$myWatching = $allWatching;
@@ -237,125 +237,6 @@ class TemplateController extends Controller {
 
 		return json_encode($results);
 
-		/*
-		return '{
-			"valuesModules": [
-						{
-				            "name": "Time",
-				            "id": "Time",
-				            "data": [4.9, 11.5, 33.4, 11.2, 144.0, 176.0, 135.6, 148.5, 22.4, 194.1, 95.6, 54.4]
-				        },
-						{
-				            "name": "Distance",
-				            "id": "Distance",
-				            "data": [20, 3.5, 4.4, 5.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "Power average",
-				            "id": "Power average",
-				            "data": [1, 1.5, 3.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "Power Peak",
-				            "id": "Power Peak",
-				            "data": [3, 1.5, 3.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "Number of strokes",
-				            "id": "Number of strokes",
-				            "data": [1, 1.5, 3.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "Stroke rate average",
-				            "id": "Stroke rate average",
-				            "data": [9, 91.5, 13.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "Stroke rate peak",
-				            "id": "Stroke rate peak",
-				            "data": [16, 81.5, 23.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "Angle average",
-				            "id": "Angle average",
-				            "data": [89, 71.5, 23.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "Angle peak",
-				            "id": "Angle peak",
-				            "data": [49, 61.5, 33.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "HR average",
-				            "id": "HR average",
-				            "data": [19, 51.5, 43.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "HR peak",
-				            "id": "HR peak",
-				            "data": [69, 41.5, 43.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "2-mml level",
-				            "id": "2-mml level",
-				            "data": [59, 31.5, 53.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        },
-						{
-				            "name": "4-mml level",
-				            "id": "4-mml level",
-				            "data": [31, 21.5, 11.4, 1.2, 14.0, 17.0, 13.6, 18.5, 2.4, 19.1, 9.6, 5.4]
-				        }
-			    ],
-			    "valuesBalancePower": [
-							{
-				            "name": "Left",
-				            "data": [13, 2, 20, 347, 102, 364, 568,
-				            	   12, 20, 20, 147, 102, 364, 568,
-				            	   10, 20, 20, 147, 102, 364, 528]
-				        }, {
-				            "name": "Right",
-				            "data": [4, 17, 111, 203, 321, 467, 1266,
-				            	   23, 17, 111, 203, 321, 417, 1266,
-				            	   11, 17, 111, 203, 321, 467, 1266]
-				        }],
-			    "valuesBalanceLeftAndRight": [
-							{
-				            "name": "Left",
-				            "data": [70, 50, 190, 447, 1302, 2934, 6468,
-				            	   70, 110, 190, 447, 1302, 2934, 6468,
-				            	   70, 230, 190, 447, 1452, 2934, 6468]
-				        }, {
-				            "name": "Right",
-				            "data": [18, 137, 111, 193, 281, 767, 1766,
-				            	   18, 147, 111, 193, 281, 767, 1766,
-				            	   18, 147, 111, 193, 281, 767, 1766]
-				        }],
-			    "valuesBalancePowerPeak": [
-							{
-				            "name": "Left",
-				            "data": [50, 20, 250, 947, 1302, 3934, 5468,
-				            	   50, 100, 210, 1047, 1302, 3934, 5468,
-				            	   50, 200, 210, 1047, 1452, 3934, 5468]
-				        }, {
-				            "name": "Right",
-				            "data": [36, 7, 131, 103, 221, 767, 1766,
-				            	   36, 7, 131, 103, 221, 767, 1766,
-				            	   36, 7, 131, 103, 221, 767, 1766]
-				        }],
-			    "valuesBalanceAnglePeak": [
-							{
-				            "name": "Left",
-				            "data": [50, 20, 250, 947, 1302, 3934, 5468,
-				            	   50, 100, 210, 1047, 1302, 3934, 5468,
-				            	   50, 200, 210, 1047, 1452, 3934, 5468]
-				        }, {
-				            "name": "Right",
-				            "data": [36, 7, 131, 103, 221, 767, 1766,
-				            	   36, 7, 131, 103, 221, 767, 1766,
-				            	   36, 7, 131, 103, 221, 767, 1766]
-				        }]	
-			}';
-			*/
 	}
 
 
