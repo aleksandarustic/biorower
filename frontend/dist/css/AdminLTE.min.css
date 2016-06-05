@@ -5257,6 +5257,11 @@ margin-right: 240px;
 	.about-margin-t5 { margin-top: 15px; }
 	.about-rowerIcon { height: 200px;  line-height: 200px; text-align:center; }
 	.about-rowerIcon img { vertical-align: middle; max-width: 120%; }
+	
+	.about-width6 { width: 50%; float: left; padding: 10px; }
+	.about-width12 { width: 100%; float: left; padding: 0 10px;  }
+	
+	.total-width3 { width: 25%; float:left; }
 
 .resp-tabs-container input[type="text"], .resp-tabs-container textarea, input[type="password"], input[type="text"].form-control  { border: none; border-bottom: 1px solid #ccc; color: #333; }
 .resp-tabs-container .input-group .input-group-addon {
@@ -5302,5 +5307,26 @@ margin-right: 240px;
 	.progress-groupOne .box-tools { margin-top: 2px !important;  }
  .changeP-btn {  margin: 0 auto !important; width: 240px; margin-top: 0px !important; }
 	.choose-date { float: none !important; max-width: 250px; margin: 10px auto !important; }
-	
+		.total-width3 { width: 45%; float:left; }
+
 }
+.modal-param { margin-left: 20px; }
+.modal-param h2 {    margin-top: 0 !important;
+    color: #141515;
+    font-size: 28px;
+    font-weight: 300; }
+	
+	.modal-param p {
+	color: #959696;
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: -10px;
+    padding-left: 2px;
+    padding-bottom: 10px;
+}
+.modalParm-list { padding-left: 0 !important; margin-left: 5px !important; margin-top: 25px; }
+.modalParm-list li { list-style:none; padding-left: 0 !important; margin-left: 0 !important;}
+ul.modalParm-list>li>label>.icheckbox_square-blue {
+    margin-right: 5px;
+}
+.dum-space { height: 10px; width: 10px; position: relative;  }

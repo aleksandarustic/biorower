@@ -226,22 +226,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div>
                   
                   <div class="aboutMe-body">
-                      <div class="col-sm-6 about-border-r about-value-box">
+                      <div class="about-width6 about-border-r about-value-box">
                           <div class="about-desc">16 Jan 2016</div>
                           <div class="about-name">Member Since</div>
                       </div> 
                       <!-- Item 1 -->
-                  <div class="col-sm-6 about-value-box">
+                  <div class="about-width6 about-value-box">
                       <div class="about-desc">16 Jan 2016</div>
                       <div class="about-name">Latest Session</div>
                   </div>
                    <!-- Item 2 -->
-                   <div class="col-sm-12 about-border-t">
-            				<div class="col-sm-6 about-rowerIcon">
+                   <div class="about-width12 about-border-t">
+            				<div class="about-width6 about-rowerIcon">
                                   <img src="dist/img/rower-icon.png">
                               </div>
                                <!-- Item 3.1 -->
-                               <div class="col-sm-6 about-middle">
+                               <div class="about-width6 about-middle">
                               <div class="act-block about-value-box">
                                   <div class="about-value about-margin-t5">2848W</div>
                                   <div class="about-vname">Peak Power</div>
@@ -256,13 +256,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
                   </div>
                    <!-- Item 3 -->
-                    <div class="col-sm-12 about-border-t">
-                   <div class="col-sm-6 about-value-box about-border-r">
+                    <div class="about-width12 about-border-t">
+                   <div class="about-width6 about-value-box about-border-r">
                                   <div class="about-value">119</div>
                                   <div class="about-vname about-vname-last">Peak Candence</div>
                               </div>
                                <!-- Item 4 -->
-                               <div class="col-sm-6 about-value-box">
+                               <div class="about-width6 about-value-box">
                                   <div class="about-value">26.16</div>
                                   <div class="about-vname about-vname-last">Peak Power/kg</div>
                               </div>
@@ -393,27 +393,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
                 <div class="col-md-9 margin-bottom ">
                  <div class="row">
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="total-width3">
                       <div class="description-block border-right">
                         <h5 class="description-header">0</h5>
                         <span class="description-text">Total training sessions</span>
                       </div><!-- /.description-block -->
                     </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="total-width3">
                       <div class="description-block border-right">
                         <h5 class="description-header">00:00:00</h5>
                         <span class="description-text">Total training time </span>
                         <span class="description-percentage-small-small text-blue btn-block">[hh:mm:ss]</span>
                       </div><!-- /.description-block -->
                     </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="total-width3">
                       <div class="description-block border-right">
                         <h5 class="description-header">0</h5>
                         <span class="description-text">Total Distance</span>
                         <span class="description-percentage-small text-blue btn-block">[km]</span>
                       </div><!-- /.description-block -->
                     </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="total-width3">
                       <div class="description-block">
                         <h5 class="description-header">0</h5>
                         <span class="description-text">Total Power average </span>
@@ -423,28 +423,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div>
                   
                   <div class="row">
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="total-width3">
                       <div class="description-block border-right">
                         
                         <h5 class="description-header">0</h5>
                         <span class="description-text">Total number of strokes</span>
                       </div><!-- /.description-block -->
                     </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="total-width3">
                       <div class="description-block border-right">
                         <h5 class="description-header">0</h5>
                         <span class="description-text">Total Stroke distance average </span>
                         <span class="description-percentage-small text-blue inline">[spm]</span>
                       </div><!-- /.description-block -->
                     </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="total-width3">
                       <div class="description-block border-right">
                         <h5 class="description-header">0</h5>
                         <span class="description-text">Total Angle average</span>
                         <span class="description-percentage-small text-blue btn-block">[°]</span>
                       </div><!-- /.description-block -->
                     </div><!-- /.col -->
-                    <div class="col-sm-3 col-xs-12">
+                    <div class="total-width3">
                       <div class="description-block">
                         <h5 class="description-header">0</h5>
                         <span class="description-text ">Total HR average</span>
@@ -456,11 +456,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div>
 				</div>
                <!-- graph -->
+
               <div class="col-md-9" id="graphs"> 
               <div class="heading-above col-md-12 no-padding">
               <h1 class="pull-left">Tranings</h1>
               <div class="pull-right heading-above-right">
-               <a class="pull-right" style="background: #fff; cursor: pointer; padding: 7px 12px; color: #555; border: 1px solid #ccc; font-size:13px; margin-top: -2px;" href="edit-profile.html#parentVerticalTab9"><i class="fa fa-filter"></i> </a>
+               <a class="pull-right" href="#" data-toggle="modal" data-target="#myParam" style="background: #fff; cursor: pointer; padding: 7px 12px; color: #555; border: 1px solid #ccc; font-size:13px; margin-top: -2px;" ><i class="fa fa-filter"></i> </a>
                <!-- Date and time range -->
                   <div class="inline margin-r-5">
                                     <div id="reportrange" class="inline choose-date" style="background: transperant; cursor: pointer; padding: 7px 12px; padding-left:2px; color: #555; border: 1px solid #ccc;">
@@ -479,6 +480,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="historyGraph-header-body">
                   <div>
                   <h3 class="pull-left">History</h3>
+                  
                   </div>
                   <div class="pull-left left-options">
                   <!-- /.form group -->
@@ -493,10 +495,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <!--Btn links -->
                   
                   <div class="pull-right change-btn" style="margin-top: -11px; margin-right: 10px;">
-                  <a href="#" class="btn btn-sm btn-primary">All</a>
-                  <a href="#" class="btn btn-link">Week</a>
+                  <a href="#" class="btn btn-sm btn-primary">Week</a>
                   <a href="#" class="btn btn-link">Month</a>
                   <a href="#" class="btn btn-link">Year</a>
+                  <a href="#" class="btn btn-link">All</a>
                   </div>
                   
                   
@@ -509,13 +511,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div id="history" style="height: 300px;"></div>
 
                   <div class="graphic-footer row">
-                  <a class="pull-right btn-param" href="edit-profile.html#parentVerticalTab9"><i class="fa fa-cog"></i></a>
+                  <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam"><i class="fa fa-cog"></i></a>
                           </div>
 
-<!-- Contacts are loaded here -->
-                  <div class="direct-chat-contacts param-box">
-                    <ul class="contacts-list checkbox icheck col-md-4 pull-right param-bg-dark">
-                    <h2>Choose three parametars</h2>
+
+          <div class="example-modal">
+            <div class="modal" id="myParam">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header no-border">
+                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
+                  </div>
+                  <div class="modal-body">
+<div class="modal-param">
+                   <h2>Choose parametars</h2>
+                  <p>Choose three parametars from the list</p>
+</div>
+                    <!-- List of Parametars -->
+                  <div class="param-box">
+                    <ul class="checkbox icheck modalParm-list">
                       <li>
                       <label for="power">
                         <input type="checkbox" name="power" id="power" checked>
@@ -602,7 +618,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </ul><!-- /.contatcts-list -->
                     
                     
-                  </div><!-- /.direct-chat-pane -->
+                  </div><!-- /.List of Parametars -->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary margin-r-5">Save changes</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+          </div><!-- /.example-modal -->
+
+
                    </div>
           <div class="clear"></div>              
 </div>
@@ -630,10 +657,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <!--Btn links -->
                   
                   <div class="pull-right changeP-btn">
-                  <a href="#" class="btn btn-sm btn-primary">All</a>
-                  <a href="#" class="btn btn-link">Week</a>
+                  <a href="#" class="btn btn-sm btn-primary">Week</a>
                   <a href="#" class="btn btn-link">Month</a>
                   <a href="#" class="btn btn-link">Year</a>
+                  <a href="#" class="btn btn-link">All</a>
                   </div>
                   
                                     
@@ -649,15 +676,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </div><!-- /.form group -->
                   </div>
 
-                  <div class="graphic-body relative">
+                  <div class="graphic-body">
                   <div id="progress" style="height: 300px;"></div>
 
                                     <div class="graphic-footer row">
-                  <a class="pull-right btn-param" href="edit-profile.html#parentVerticalTab10"><i class="fa fa-cog"></i></a>
+                  <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam"><i class="fa fa-cog"></i></a>
                           </div>
                   </div>
 </div>
-<div class="clear dum-space"></div>     
+<div class="clear dum-space relative"></div>     
                   </div> 
              <!-- /.Graph Block--> 
            
