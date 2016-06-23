@@ -1,9 +1,4 @@
-@extends('layouts.myframe')
-
-@section('title', 'Following me')
-
-@section('page-script')
-@stop
+@extends('layouts.main')
 
 @section('content')
 

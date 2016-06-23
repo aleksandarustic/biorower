@@ -56,6 +56,10 @@ Route::get('/login', 'WelcomeController@getLogin');
 Route::post('/login', 'WelcomeController@postLogin');
 Route::get('/register', 'WelcomeController@getRegister');
 Route::post('/register', 'WelcomeController@postRegister');
+Route::post('/password-reset', 'WelcomeController@passwordReset');
+Route::get('/password/reset/{token}', 'WelcomeController@resetPassword');
+
+Route::post('/update-password', 'WelcomeController@updatePassword');
 
 //Route::get('socket', 'SocketController@socket');
 Route::post('sendmessage', 'SocketController@sendMessage');
@@ -69,6 +73,7 @@ Route::get('/checkEmail', function(){
 
 Route::get('/profile', 'Template\TemplateController@overview');
 Route::get('/profile/sessions', 'SessionController@sessions');
+Route::get('/profile/friends', 'User\UserController@friends');
 Route::get('/profile/{username}/session/{session}', 'SessionController@index');
 Route::get('/profile/{username}/sessions/{date1}/{date2}', 'SessionController@sessionsRangeSearch');
 Route::get('/profile/edit', 'User\UserController@getEdit');

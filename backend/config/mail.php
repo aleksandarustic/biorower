@@ -42,7 +42,7 @@ return [
 	|
 	*/
 
-	'port' => env('MAIL_PORT', 587),
+	'port' => env('MAIL_PORT', 465),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'biorower@localhost', 'name' => 'Biorower'],
+	'from' => ['address' => 'biorower.braining@gmail.com', 'name' => 'Biorower'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -68,7 +68,7 @@ return [
 	|
 	*/
 
-	'encryption' => 'tls',
+	'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
 	|
 	*/
 
-	'username' => env('MAIL_USERNAME', ''),
+	'username' => env('MAIL_USERNAME', 'biorower.braining@gmail.com'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
 	|
 	*/
 
-	'password' => env('MAIL_PASSWORD', ''),
+	'password' => env('MAIL_PASSWORD', 'Silja4231.'),
 
 	/*
 	|--------------------------------------------------------------------------

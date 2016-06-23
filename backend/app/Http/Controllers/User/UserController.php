@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\User;
 
+use App\Country;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request as req;
 use Illuminate\Support\Facades\Response;
@@ -81,10 +82,12 @@ class UserController extends Controller {
 
 	public function getEdit()
 	{
+
 		$id = Auth::id();
 		$user = User::where('id', $id)->with('profile')->first();
+		$countries = Country::all();
 
-		return view('/user/edit', compact('user'));
+		return view('/user/edit', compact('user', 'countries'));
 	}
 
 	public function postUserChangeProfileImage()
@@ -320,6 +323,16 @@ class UserController extends Controller {
 								->get();
 
 		return view('/user/iam-following', compact('allWatching'));
+	}
+
+	/**
+	 * Friends
+	 *
+	 * @return View
+	 */
+	public function friends()
+	{
+		return view('user.friends');
 	}
 
 	public function getFollowingMe()

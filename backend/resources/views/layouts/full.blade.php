@@ -7,21 +7,22 @@
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.5 -->
-	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ URL::asset('bootstrap/css/bootstrap.min.css') }}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- Theme style -->
-	<link rel="stylesheet" href="{{ URL::asset('css/AdminLTE.min.css') }}">
+	<link rel="stylesheet" href="{{ URL::asset('dist/css/AdminLTE.min.css') }}">
 	<!-- iCheck -->
-	<link rel="stylesheet" href="{{ URL::asset('css/icheck/blue.css') }}">
+	<link rel="stylesheet" href="{{ URL::asset('plugins/iCheck/square/blue.css') }}">
 	<!-- Bootstrap Slider-->
-	<link rel="stylesheet" href="{{ URL::asset('css/skins/skin-blue.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap/full-slider.css') }}">
+	<link rel="stylesheet" href="{{ URL::asset('dist/css/skins/skin-blue.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('bootstrap/css/full-slider.css') }}">
 	<!-- jQuery 2.1.4 -->
-	<script src="{{ URL::asset('js/jQuery-2.1.4.min.js') }}"></script>
-	<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
+	<script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+	<!-- Bootstrap 3.3.5 -->
+	<script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>

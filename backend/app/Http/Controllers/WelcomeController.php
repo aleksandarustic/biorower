@@ -9,16 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class WelcomeController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Welcome Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders the "marketing page" for the application and
-	| is configured to only allow guests. Like most of the other sample
-	| controllers, you are free to modify or remove it as you desire.
-	|
-	*/
+	public function __construct(User $user)
+	{
+		$this->user = $user;
+	}
 
 	/**
 	 * Show the application welcome screen to the user.
@@ -95,6 +89,8 @@ class WelcomeController extends Controller {
 				->withErrors($validator->errors())
 				->withInput();
 		}else{
+			$random = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 100)), 0, 100);
+
 
 			$user = new User();
 			$profile = new Profile();
@@ -103,6 +99,7 @@ class WelcomeController extends Controller {
 			$user->first_name = $request->input('first_name');
 			$user->last_name = $request->input('last_name');
 			$user->email = $request->input('email');
+			$user->reset_password_code = $random;
 			$user->password = bcrypt($request->input('password'));
 			$user->activated = 0;
 			$user->profile_id = $profile->id;
@@ -115,7 +112,7 @@ class WelcomeController extends Controller {
 				Mail::send('emails.new_registration', ['user' => $user], function ($m) use ($user) {
 					$m->from('root@localhost', 'Biorower');
 
-					$m->to("milosh.diklich@gmail.com", "Admin")->subject('New Registration Request!');
+					$m->to("biorower.braining@gmail.com", "Admin")->subject('New Registration Request!');
 				});
 
 				return view('message.successfull-registration');
@@ -151,6 +148,61 @@ class WelcomeController extends Controller {
 		}
 
 		return 'User profile is already activated.';
+
+	}
+
+	public function passwordReset(Request $request)
+	{
+		$user = $this->user->where('email', $request->email)->firstOrFail();
+
+		Mail::send('emails.password', ['user' => $user], function ($m) use ($user) {
+			$m->from('admin@biorower', 'Biorower');
+
+			$m->to($user->email, $user->first_name)->subject('Biorower Password Reset');
+		});
+
+		return back()->with('status-ok', 'Check your email to process your request');
+
+	}
+
+	public function resetPassword($token)
+	{
+
+
+		$user = $this->user->where('reset_password_code', $token)->firstOrFail();
+
+		if(!$user)
+		{
+			return redirect('/')->with('status', 'User not found');
+		}
+
+		return view('user.password', compact('user'));
+	}
+
+	public function updatePassword(Request $request)
+	{
+//		return $request->all();
+
+		$validator = Validator::make($request->all(), [
+			'password'   => 'required|min:6|confirmed',
+			'password_confirmation'   => 'required|min:6',
+		]);
+
+		if($validator->fails())
+		{
+			return back()->with('status', $validator->error);
+		}
+
+		$user = $this->user->where('email', $request->st_usr)->first();
+		$user->password = bcrypt($request->password);
+		if($user->save())
+		{
+			return redirect('/login')->with('status-success', 'You can now login with your new password.');
+		}
+
+		return back()->with('status', 'Something went wrong.');
+
+
 
 	}
 
