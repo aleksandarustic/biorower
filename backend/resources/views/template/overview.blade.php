@@ -247,109 +247,159 @@
 
                             </div>
                         </div>
-                        <div class="graphic-body">
+                                          <div class="graphic-body">
+                  
+<div>
+<div id="history" style="height: 300px;"></div>
 
-                            <div>
-                                <div id="history" style="height: 300px;"></div>
-
-                                <div class="graphic-footer row">
-                                    <a class="pull-right btn-param" href="edit-profile.html#parentVerticalTab9"><i class="fa fa-cog"></i></a>
-                                </div>
-
-                                <!-- Contacts are loaded here -->
-                                <div class="direct-chat-contacts param-box">
-                                    <ul class="contacts-list checkbox icheck col-md-4 pull-right param-bg-dark">
-                                        <h2>Choose three parametars</h2>
-                                        <li>
-                                            <label for="power">
-                                                <input type="checkbox" name="power" id="power" checked>
-                                                Power
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="hr">
-                                                <input type="checkbox" name="hr" id="hr" checked>
-                                                Heart rate(bmp)
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="speed">
-                                                <input type="checkbox" name="speed" id="speed">
-                                                Speed
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="time">
-                                                <input type="checkbox" name="time" id="time">
-                                                Time
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="distance">
-                                                <input type="checkbox" name="distance" id="distance">
-                                                Distance
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="stroke">
-                                                <input type="checkbox" name="stroke" id="stroke">
-                                                Stroke
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="angle">
-                                                <input type="checkbox" name="angle" id="angle" >
-                                                Angle
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="cal">
-                                                <input type="checkbox" name="cal" id="cal">
-                                                Calories
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="pace">
-                                                <input type="checkbox" name="pace" id="pace">
-                                                Pace
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="power-max">
-                                                <input type="checkbox" name="power-max" id="power-max">
-                                                Power Max
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="power-balance">
-                                                <input type="checkbox" name="power-balance" id="power-balance">
-                                                Power Balance
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="stroke-rate">
-                                                <input type="checkbox" name="stroke-rate" id="stroke-rate" checked>
-                                                Stroke rate
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="stroke-rate-max">
-                                                <input type="checkbox" name="stroke-rate-max" id="stroke-rate-max">
-                                                Stroke Rate Max
-                                            </label>
-                                        </li><!-- End Parametar Item -->
-                                        <li>
-                                            <label for="hr-max">
-                                                <input type="checkbox" class="flat-blue" name="hr-max" id="hr-max">
-                                                Heart Rate Max</label>
-                                        </li><!-- End Parametar Item -->
-                                    </ul><!-- /.contatcts-list -->
+                  <div class="graphic-footer row">
+                  <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam"><i class="fa fa-cog"></i></a>
+                          </div>
 
 
-                                </div><!-- /.direct-chat-pane -->
-                            </div>
-                            <div class="clear"></div>
-                        </div>
+          <div class="example-modal">
+            <div class="modal" id="myParam">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header no-border">
+                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
+                  </div>
+                  <div class="modal-body">
+<div class="modal-param">
+                   <h2>Choose parametars</h2>
+                  <p>Choose three parametars from the list</p>
+</div>
+                    <!-- List of Parametars -->
+                  <div class="param-box">
+                    <ul class="checkbox icheck modalParm-list">
+                      <li>
+                      <label for="strokeCount">
+                          <input type="checkbox" name="parameters" id="strokeCount" value="stroke_count">
+                        Stroke Count
+                      </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="strokeDistance">
+                          <input type="checkbox" name="parameters" id="strokeDistance" disabled>
+                        Stroke Distance
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="speedMax">
+                        <input type="checkbox" name="parameters" id="speedMax" value="speed_max">
+                        Speed Max
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="pace2km">
+                          <input type="checkbox" name="parameters" id="pace2km" disabled>
+                        Pace 2km
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="hrMax">
+                          <input type="checkbox" name="parameters" id="hrMax" disabled>
+                        HR Max
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="calories">
+                          <input type="checkbox" name="parameters" id="calories" disabled>
+                        Calories
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="time">
+                        <input type="checkbox" name="parameters" id="time" value="time">
+                        Time
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="strokeDistMax">
+                        <input type="checkbox" name="parameters" id="strokeDistMax" value="stroke_distance_max">
+                        Stroke Dist. Max
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="pace500m">
+                          <input type="checkbox" name="parameters" id="pace500m" disabled>
+                        Pace 500m
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="pace2kmMax">
+                          <input type="checkbox" name="parameters" id="pace2kmMax" disabled>
+                        Pace 2km Max
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="strokeRate">
+                          <input type="checkbox" name="parameters" id="strokeRate" value="stroke_rate_average">
+                        Stroke Rate
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="powerL">
+                        <input type="checkbox" name="parameters" id="powerL" value="power_left_average">
+                        Power L
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="distance">
+                        <input type="checkbox" name="parameters" id="distance" value="distance">
+                        Distance
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="speed">
+                        <input type="checkbox" name="parameters" id="speed" value="speed_average">
+                        Speed
+                      </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="pace500mMax">
+                          <input type="checkbox" name="parameters" id="pace500mMax" disabled>
+                        Pace 500m Max
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="hr">
+                          <input type="checkbox" name="parameters" id="hr" disabled>
+                        HR
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="strokeRateMax">
+                        <input type="checkbox" name="parameters" id="strokeRateMax" value="stroke_rate_max">
+                        Stroke Rate Max
+                        </label>
+                      </li><!-- End Parametar Item -->
+                      <li>
+                      <label for="powerLMax">
+                        <input type="checkbox" name="parameters" id="powerLMax" value="power_left_max">
+                        Power L Max
+                      </label>
+                      </li><!-- End Parametar Item -->
+                    </ul><!-- /.contatcts-list -->
+                    
+                    
+                  </div><!-- /.List of Parametars -->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary margin-r-5">Save changes</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+          </div><!-- /.example-modal -->
+
+
+                   </div>
+          <div class="clear"></div>              
+</div>
 
                     </div>
                     <div class="clear relative"></div>
