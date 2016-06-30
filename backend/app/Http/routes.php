@@ -22,6 +22,12 @@ Route::group(array('prefix' => 'api'), function()
 
 	Route::resource('v1/firmware', 'Braining\FirmwareController',
 					['only' => ['index']]); //'names' => ['index' => 'api.braining.firmware.firmware']]
+					
+	Route::Post('v1/firmware_update', 'Braining\FirmwareController@upload'); 
+
+	Route::Post('v1/firmware_get_version', 'Braining\FirmwareController@getVersion');
+
+	Route::Post('v1/firmware_get', 'Braining\FirmwareController@download'); 
 
 	Route::resource('v1/sessions_recent', 'Braining\RecentsessionsController',
 					['only' => ['store']]);
