@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html>
 <head>
     <meta charset="utf-8">
@@ -363,6 +359,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
 <script src="{{ URL::asset('plugins/flot/jquery.flot.categories.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/flot/jquery.flot.spline.js') }}"></script>
+<script src="{{ URL::asset('plugins/flot/jquery.flot.time.min.js') }}"></script>
 <!-- date-range-picker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
 <script src="{{ URL::asset('plugins/daterangepicker/daterangepicker.js') }}"></script>

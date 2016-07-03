@@ -313,7 +313,8 @@ use Carbon;
 						 	  INNER JOIN sessions
 						 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
 						 WHERE sessions.user_id = ".$userId.
-						 " AND deleted=0 AND date>=\"".$firstDay."\" AND date<=\"".$lastDay."\""
+						 " AND deleted=0 AND date>=\"".$firstDay."\" AND date<=\"".$lastDay."\"".
+						 " ORDER BY date ASC"
 						 ));
 				}
 				else{
