@@ -55,17 +55,17 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 
-			/*
-			'host'      => env('DB_HOST', 'localhost'),
-			'database'  => env('DB_DATABASE', 'braining'),
-			'username'  => env('DB_USERNAME', 'root'),
-			'password'  => env('DB_PASSWORD', ''),		
-			*/
 
-			'host'      => env('DB_HOST', 'mysql.serversfree.com'),
-			'database'  => env('DB_DATABASE', 'u835160647_beegr'),
-			'username'  => env('DB_USERNAME', 'u835160647_beegr'),
-			'password'  => env('DB_PASSWORD', 'sportconn81'),
+			'host'      => env('DB_HOST', 'localhost'),
+			'database'  => env('DB_DATABASE', 'biorower'),
+			'username'  => env('DB_USERNAME', 'root'),
+			'password'  => env('DB_PASSWORD', 'bioRower4231'),
+
+
+//			'host'      => env('DB_HOST', 'mysql.serversfree.com'),
+//			'database'  => env('DB_DATABASE', 'u835160647_beegr'),
+//			'username'  => env('DB_USERNAME', 'u835160647_beegr'),
+//			'password'  => env('DB_PASSWORD', 'sportconn81'),
 			
 
 			/*

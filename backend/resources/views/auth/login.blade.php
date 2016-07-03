@@ -17,6 +17,16 @@
 
 <div class="login">
 	<div>
+		@if (session('status-success'))
+			<div class="alert alert-success">
+				<strong>Great!</strong><br><br>
+				<ul>
+					<li>{{ session('status-success') }}</li>
+				</ul>
+			</div>
+		@endif
+	</div>
+	<div>
 		@if (session('status'))
 			<div class="alert alert-danger">
 				<strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -26,11 +36,21 @@
 			</div>
 		@endif
 	</div>
+	<div>
+		@if (session('status-ok'))
+			<div class="alert alert-info">
+				<strong>Biorower Info:</strong><br><br>
+				<ul>
+					<li>{{ session('status-ok') }}</li>
+				</ul>
+			</div>
+		@endif
+	</div>
 	<div class="tab-content">
 		<div class="login-box active tab-pane" id="login">
 			<div class="login-box-body">
 				<div class="login-logo">
-					<a href="profile.html"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
+					<a href="{{ url('/') }}"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
 				</div><!-- /.login-logo -->
 				<form action="{{ url('/login') }}" method="post" id="login-form">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -73,10 +93,10 @@
 		<div class="login-box tab-pane" id="forgot-pass">
 			<div class="login-box-body">
 				<div class="login-logo">
-					<a href="profile.html"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
+					<a href="{{ url('/') }}"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
 				</div><!-- /.login-logo -->
 				<p>Enter the email address associated with your account.</p>
-				<form action="" method="post">
+				<form action="{{ url('password-reset') }}" method="post">
 					<div class="form-group has-feedback">
 						<input type="email" name="email" placeholder="Email">
 						<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -98,11 +118,11 @@
 </div><!-- /.tab-content -->
 </div>
 <!-- jQuery 2.1.4 -->
-<script src="js/jQuery-2.1.4.min.js"></script>
+<script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="js/bootstrap/bootstrap.min.js"></script>
+<script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
-<script src="js/icheck/icheck.min.js"></script>
+<script src="{{ URL::asset('plugins/iCheck/icheck.min.js') }}"></script>
 <script>
 	$(function () {
 		$('input').iCheck({
@@ -111,6 +131,11 @@
 			increaseArea: '20%' // optional
 		});
 	});
+
+	if($('.alert').is(':visible')) {
+		$('.alert').delay(5000).slideUp();
+	}
+
 </script>
 <script>
 	$('.carousel').carousel({

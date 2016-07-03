@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Profile;
+use App\Firmware;
 use Exception;
 use Auth;
+use Validator;
 
 use App\Session;
 
@@ -151,4 +153,72 @@ class FirmwareController extends Controller {
 
 	}
 
+
+	public function upload(Request $request) {
+		$succCode = 200;
+		$failCode = 400;
+		$data = $request->json()->all();
+		$validator = Validator::make($data, [
+            'deviceTypeID' => 'required|integer',
+            'version' => 'required|integer',
+            'versionText' => 'required|string',
+            'data' => 'required|string|max:1000000', //Base64 encode will increase the data size by around 33%
+        ]);
+        if ($validator->fails()) {
+        	return Response::json(['code'=>$failCode, 'error'=>$validator->errors()->all()[0]]); // print the error in develop period
+        }
+
+        $firmware = Firmware::firstOrNew(['device_type_id' => $data['deviceTypeID']]);
+        $firmware->version = $data['version'];
+        $firmware->version_text = $data['versionText'];
+        $firmware->data = $data['data'];
+        $rs = $firmware->save();
+        if (!$rs) {
+        	return Response::json(['code'=>$failCode, 'error'=>'system error']);
+        } else {
+        	return Response::json(['code'=>$succCode]);
+        }
+	}
+
+	public function getVersion(Request $request) {
+		$succCode = 200;
+		$failCode = 400;
+		$data = $request->json()->all();
+		$validator = Validator::make($data, [
+            'deviceTypeID' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+        	return Response::json(['code'=>$failCode, 'error'=>$validator->errors()->all()[0]]);
+        }
+
+        $firmware = Firmware::where(['device_type_id' => $data['deviceTypeID']])->first(['device_type_id', 'version', 'version_text']);
+        if (!$firmware) {
+        	return Response::json(['code'=>$failCode, 'error'=>'record is not exists']);
+        }
+        return Response::json(['code'=>$succCode, 'version'=>$firmware->version, 'versionText'=>$firmware->version_text]);
+	}
+
+	public function download(Request $request) {
+		$succCode = 200;
+		$failCode = 400;
+		$data = $request->json()->all();
+		$validator = Validator::make($data, [
+            'deviceTypeID' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+        	return Response::json(['code'=>$failCode, 'error'=>$validator->errors()->all()[0]]);
+        }
+
+        $firmware = Firmware::where(['device_type_id' => $data['deviceTypeID']])->first();
+        if (!$firmware) {
+        	return Response::json(['code'=>$failCode, 'error'=>'record is not exists']);
+        }
+        return Response::json([
+        	'code'=>$succCode, 
+        	'deviceTypeId'=>$firmware->device_type_id, 
+        	'version'=>$firmware->version, 
+        	'versionText'=>$firmware->version_text,
+        	'data'=>$firmware->data, 
+        ]);	
+	}
 }
