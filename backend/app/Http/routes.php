@@ -7,6 +7,8 @@ Route::group(array('prefix' => 'api'), function()
 
 	Route::resource('v1/adduser', 'Braining\AddUserController',
 					['only' => ['store']]);
+	Route::resource('v1/sessions_recent_list', 'Braining\SessionsRecentListController',
+					['only' => ['store']]);
 
 	Route::resource('v1/auths', 'Braining\AuthsController',
 					['only' => ['store']]); //, 'names' => ['store' => 'api.braining.auths.auths']]
