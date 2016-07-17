@@ -166,7 +166,6 @@ $(function () {
         };
 
         $.post('api/v1/sessions_history', data, function (response) {
-            console.log(response);
             /* About Me */
             if (response.historydata.length !== 0) {
                 $('.power-max').append(Math.max.apply(Math, response.historydata.power_max));
@@ -343,7 +342,7 @@ $(function () {
                     var y = item.datapoint[1];
 
                     showTooltip(item.pageX, item.pageY,
-                            "<span class='x-asis'>" + days[x - 1] + "</span>" + "<br/>" + "<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
+                            "<span class='x-asis'>" + x + "</span>" + "<br/>" + "<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
                 }
             } else {
                 $("#tooltip").remove();
@@ -449,6 +448,8 @@ function selectTab() {
 var piktoBiorowerGraph = {
     historyPlot: null,
     historyData: null,
+    startDate: null,
+    rangeType: 'all',
     transormData: function (historyData, parameter) {
         var rv = [];
         rv['label'] = parameter;
@@ -464,5 +465,21 @@ var piktoBiorowerGraph = {
             rv.push(this.transormData(this.historyData, params[i]));
         }
         return rv;
-    } 
-}
+    },
+    loadHistoryData: function (account, rangeType, startDate) {
+        var data = {
+            account: 'biorower:' + account,
+            rangeType: rangeType,
+            dateStart: startDate.format('YYYY-MM-DD')
+        };
+        piktoBiorowerGraph.startDate = startDate;
+        piktoBiorowerGraph.rangeType = rangeType;
+        $.post('api/v1/sessions_history', data, function (response) {
+            piktoBiorowerGraph.historyData = response.historydata;
+            var newHistoryData = piktoBiorowerGraph.getHistoryData(['stroke_count']);
+            piktoBiorowerGraph.historyPlot.setData(newHistoryData);
+            piktoBiorowerGraph.historyPlot.setupGrid();
+            piktoBiorowerGraph.historyPlot.draw();
+        });
+    }
+};

@@ -230,17 +230,30 @@
                         </div>
 
                         <div class="box-tools pull-right" style="margin-top: -8px;">
-                            <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"><i class="fa fa-chevron-left"></i></a> <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"><i class="fa fa-chevron-right"></i></a>
+                            <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"
+                               onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType));"
+                               ><i class="fa fa-chevron-left"></i></a> 
+                            <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
+                               onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));"
+                               ><i class="fa fa-chevron-right"></i></a>
                         </div>
                         <div>
 
                             <!--Btn links -->
 
                             <div class="pull-right change-btn" style="margin-top: -11px; margin-right: 10px;">
-                                <a href="#" class="btn btn-link" id="week_history">Week</a>
-                                <a href="#" class="btn btn-link" id="month_history">Month</a>
-                                <a href="#" class="btn btn-link" id="year_history">Year</a>
-                                <a href="#" class="btn btn-sm btn-primary" id="all_history">All</a>
+                                <a href="javascript:;" class="btn btn-link" id="week_history"
+                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',moment().startOf('week'));"
+                                   >Week</a>
+                                <a href="javascript:;" class="btn btn-link" id="month_history"
+                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));"
+                                   >Month</a>
+                                <a href="javascript:;" class="btn btn-link" id="year_history"
+                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));"
+                                   >Year</a>
+                                <a href="javascript:;" class="btn btn-sm btn-primary" id="all_history"
+                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');"
+                                   >All</a>
                             </div>
 
 
@@ -394,7 +407,8 @@
                                                                  var newHistoryData = piktoBiorowerGraph.getHistoryData(newHistoryParams);
                                                                  piktoBiorowerGraph.historyPlot.setData(newHistoryData);
                                                                  piktoBiorowerGraph.historyPlot.setupGrid();
-                                                                 piktoBiorowerGraph.historyPlot.draw();">
+                                                                 piktoBiorowerGraph.historyPlot.draw();
+                                                                 $('#myParam').modal('hide');">
                                                     Save changes
                                                 </button>
                                             </div>
