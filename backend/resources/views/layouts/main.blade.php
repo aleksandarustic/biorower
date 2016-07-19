@@ -365,6 +365,7 @@
 <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
 <script src="{{ URL::asset('plugins/flot/jquery.flot.categories.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/flot/jquery.flot.spline.js') }}"></script>
+<script src="{{ URL::asset('plugins/flot/jquery.flot.time.min.js') }}"></script>
 <!-- date-range-picker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
 <script src="{{ URL::asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
