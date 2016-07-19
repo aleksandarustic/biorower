@@ -83,8 +83,11 @@ class UserController extends Controller {
 	public function getEdit()
 	{
 
-		$id = Auth::id();
-		$user = User::where('id', $id)->with('profile')->first();
+		
+                $user3=Auth::User();
+                
+                
+		$user = User::where('id', $user3['id'])->with('profile')->first();
 		$countries = Country::all();
 
 		return view('/user/edit', compact('user', 'countries'));

@@ -2,21 +2,22 @@
 
 @section('content')
 <section class="content">
-		<!-- Main content -->
-			<div class="row">
-				<div class="col-md-12">
-					<div class="box box-primary">
-						<div class="box-body no-padding">
-							<!-- THE CALENDAR -->
-							<div id="calendar"></div>
-						</div><!-- /.box-body -->
-					</div><!-- /. box -->
-				</div><!-- /.col -->
-			</div><!-- /.row -->
+		<div id="calendar" class="fc fc-ltr fc-unthemed"></div>
+
+<script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+<!-- Bootstrap 3.3.5 -->
+
+<script src="{{ URL::asset('plugins/fullcalendar/moment.js') }}"></script>
+<script src="{{ URL::asset('plugins/fullcalendar-year/gcal.js') }}"></script>
+<script src="{{ URL::asset('plugins/fullcalendar-year/fullcalendar.js') }}"></script>
+<script src="{{ URL::asset('plugins/fullcalendar-year/fullcalendar.min.js') }}"></script>
+
+
+	
 
 	<!-- Page specific script -->
 	<script>
-		$(function () {
+	$(function () {
 
 			/* initialize the external events
 			 -----------------------------------------------------------------*/

@@ -98,6 +98,8 @@ Route::get('session/client2', 'SessionController@client2');
 Route::get('session/ajaxData1', 'SessionController@ajaxData1');
 Route::get('session/ajaxData2', 'SessionController@ajaxData2');
 
+Route::post('profile/user/edit','update@update');
+
 Route::controllers([
 	'template' => 'Template\TemplateController',
 ]);

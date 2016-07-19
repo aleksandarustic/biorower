@@ -16,7 +16,7 @@ class Country extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name'];
+	protected $fillable = ['name','id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

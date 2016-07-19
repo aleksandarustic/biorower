@@ -1,8 +1,12 @@
-@extends('layouts.main')
 
-@section('content')
+<?php 
+	  use App\Language;
+	  use App\Country;
+	  use App\UserType;
+?>
+
 @section('page-script')
-
+	
 	<link rel="stylesheet" href="../js/jcrop/css/jquery.Jcrop.css" type="text/css" />
 	<link rel="stylesheet" href="../js/jquery-validation-1.13.1/css/screen.css" type="text/css" />
 	<script src="../js/jcrop/js/jquery.Jcrop.min.js"></script>
@@ -55,10 +59,10 @@
 		        	    type: "POST",
 			            data: fd,
 						processData: false,  // tell jQuery not to process the data
-						contentType: false   // tell jQuery not to set contentType
+						contentType: false   // tell jQuery not to set contentType		            
 			        }).done(function (data) {
 
-			        	$("#loadingGif").hide();
+			        	$("#loadingGif").hide();			        	
 
 			        	if (data != "false"){
 
@@ -69,7 +73,7 @@
 								$("#idImageWrapper").remove();
 				        		$("<img src='' id='idImageWrapper' width='550' />").appendTo("#idImageWrapperWrapper");
 				        	}
-
+				        	
 				        	$("#idImageWrapper").attr("src", "../../storage/temp_profile_images/" + data.filename);
 
 				        	$("#tempImage").val(data.filename);
@@ -100,21 +104,21 @@
 						//processData: false,  // tell jQuery not to process the data
 						//contentType: false   // tell jQuery not to set contentType
 			        }).done(function (data) {
-
+						
 						//$("#profileImageLayout").attr("src", "../images/testSlika.png");
 						$("#myModal").modal('hide');
 
 			        }).fail(function () {
-		        });
+		        });				
 
 			});
-
+		
 			/*
 		    $('#uploadForm').on('submit', function(e) {
 		        e.preventDefault();
 		    });
 			*/
-
+			
 			$("#mainFormEdit").validate();
 
 			//itd...
@@ -130,7 +134,10 @@
 
 @endsection
 
-<section class="content">
+@extends('layouts.myframe')
+
+@section('content')
+
 	<div class="row" style="margin-bottom: 350px"><!-- /.col -->
 		<h1 class="h1-settings">Change</h1>
 		<div class="col-md-3 pull-left">
@@ -161,14 +168,15 @@
 		</div>
 		<div class="nav-tabs-custom col-md-7 no-padding padding-bottom pull-left edit-tabs">
 			<div class="box box-primary padding-all">
-				<form method="POST" action="http://beegrower.bugs3.com/public/user/edit" accept-charset="UTF-8" id="mainFormEdit">
+				<form method="POST" action="user/edit" accept-charset="UTF-8" id="mainFormEdit">
+                                    
 					<input name="_token" type="hidden" value="LSoFI4hQLii3O5perBoyDdGQZReepW9mUEm4eI7r">
 					<div class="tab-content tab-cont">
 						<div class="active tab-pane edit-box margin-top" id="profile-image">
 							<h2 class="h2-tabs">Change your profile image</h2>
 							<p class="h2-subhead">Update your avatar</p>
 							<div class="upload-photo-cont" >
-								<span class="user-header"><img src="{{ URL::asset('dist/img') .'/'.$user->profile->image->name }}" alt="User Image"></span>
+								<span class="user-header"><img src="dist/img/user2-160x160.jpg" alt="User Image"></span>
 								<div class="upload-photo">
 									<a href="#" class="mailedit-box-attachment-name" data-toggle="modal" data-target="#myModal">
 										<i class="fa fa-camera"></i> <span class="upload-txt">Upload a photo</span></a>
@@ -183,7 +191,7 @@
 												</div>
 												<div class="modal-body">
 													<div class=" modal-choose">
-														<input type="file" class="col-md-12">
+                                                                                                            <input type="file" class="col-md-12"name='image'>
 														<span class="choose-image"><i class="fa fa-plus"></i> Upload Image</span>
 													</div>
 												</div>
@@ -202,30 +210,43 @@
 							<div class="form-group">
 								<label for="display_name" class="">Display name</label>
 								<br />
-								<input class="form-control input-sm" id="id_displayname" name="display_name" type="text" value="{{ $user->display_name }}">
+								<input class="form-control input-sm" id="id_displayname" name="display_name" type="text" value="{{$user['display_name']}}">
 							</div>
 							<div class="form-group">
 								<label for="first_name" class="">First name</label>
 								<br />
-								<input class="form-control input-sm" id="id_firstname" name="first_name" type="text" value="{{ $user->first_name }}">
+								<input class="form-control input-sm" id="id_firstname" name="first_name" type="text" value="{{$user['first_name']}}">
 							</div>
 							<div class="form-group">
 								<label for="last_name" class="">Last name</label>
 								<br />
-								<input class="form-control input-sm" id="id_lastname" name="last_name" type="text" value="{{ $user->last_name }}">
+								<input class="form-control input-sm" id="id_lastname" name="last_name" type="text" value="{{$user['last_name']}}">
 							</div>
 							<div class="form-group">
 								<label for="about_me" class="">About me</label>
 								<br />
-								<textarea class="form-control input-sm" id="id_aboutme" name="profile[about_me]" cols="50" rows="10">{{ $user->about_me }}</textarea>
+								<textarea class="form-control input-sm" id="id_aboutme" name="about_me" cols="50" rows="10">{{$user['profile']['about_me']}}</textarea>
 							</div>
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
 							<div class="form-group">
 								<label for="dic_languages_id" class="">Language</label>
 								<br />
-								<select class="form-control select2" style="width: 100%;" id="id_profile" name="profile[dic_languages_id]">
-									<option value="1" selected="selected">English</option>
-									<option value="2">Serbian</option>
-								</select>
+								<select class="form-control select2" style="width: 100%;" id="id_profile" name="dic_languages_id">
+                                                                         @if ($user['profile']['dic_languages_id'] == 1)
+                                                                                  <option value="1" selected="selected">English</option>
+									          <option value="2">Serbian</option>
+                                                                          @else
+                                                                                  <option value="1" >English</option>
+									          <option value="2" selected="selected">Serbian</option>
+                                                                          @endif
+																	</select>
 							</div>
 							<div class="form-group">
 								<label for="date_of_birth" class="">Date of birth</label>
@@ -234,18 +255,34 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<input type="text" class="form-control" id="date_of_birth" name="profile[date_of_birth]" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask value="{{ $user->date_of_birth }}">
+                                                                    <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="{{$user['profile']['date_of_birth']}}" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
 								</div>
 							</div>
+                                                        
 							<div class="form-group">
+                                                             
 								<label for="gender" class="">Gender</label>
 								<br />
-								<select class="form-control select2" style="width: 100%;" id="id_gender" name="profile[gender]">
-									<option value="3">Not Telling</option>
-									<option value="0">Male</option>
-									<option value="1" selected="selected">Female</option>
+                                                               
+                                                                
+								<select class="form-control select2" style="width: 100%;" id="id_gender" name="gender">
+									
+                                                                     @if ($user['profile']['gender'] == 0)
+                                                                                   <option value="3">Not Telling</option>
+									           <option value="0" selected="selected">Male</option>
+                                                                                   <option value="1">Female</option>
+                                                                          @elseif($user['profile']['gender']==1)
+                                                                                  <option value="3">Not Telling</option>
+                                                                                  <option value="0">Male</option>
+                                                                                  <option value="1" selected="selected">Female</option>
+                                                                           @else
+                                                                             <option value="3" selected="selected">Not Telling</option>
+                                                                               <option value="0">Male</option>
+                                                                                     <option value="1">Female</option>
+                                                                          @endif 
+                                                                         
 								</select>
-							</div>
+                                                                							</div>
 							<div class="form-group">
 								<label for="phone" class="">Phone</label>
 								<br />
@@ -253,7 +290,7 @@
 									<div class="input-group-addon">
 										<i class="fa fa-phone"></i>
 									</div>
-									<input type="text" id="id_phone" name="profile[phone]" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask value="{{ $user->profile->phone }}">
+									<input type="text" id="id_phone" name="phone" value="{{$user['profile']['phone']}}" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
 								</div>
 							</div>
 							<div class="form-group">
@@ -263,41 +300,43 @@
 									<div class="input-group-addon">
 										<i class="fa fa-phone"></i>
 									</div>
-									<input type="text" id="id_mobile" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask value="{{ $user->profile->mobile }}">
+									<input type="text" id="id_mobile" name="mobile"value="{{$user['profile']['mobile']}}" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="line1" class="">Line1</label>
 								<br />
-								<input class="form-control input-sm" id="id_line1" name="profile[line1]" type="text" value="">
+								<input class="form-control input-sm" id="id_line1" name="line1" type="text" value="{{$user['profile']['line1']}}">
 							</div>
 							<div class="form-group">
 								<label for="line2" class="">Line2</label>
 								<br />
-								<input class="form-control input-sm" id="id_line2" name="profile[line2]" type="text" value="">
+								<input class="form-control input-sm" id="id_line2" name="line2" type="text" value="{{$user['profile']['line2']}}">
 							</div>
 							<div class="form-group">
 								<label for="city" class="">City</label>
 								<br />
-								<input class="form-control input-sm" id="id_city" name="profile[city]" type="text" value="{{ $user->profile->city }}">
+								<input class="form-control input-sm" id="id_city" name="city" type="text" value="{{$user['profile']['city']}}">
 							</div>
 							<div class="form-group">
 								<label for="zip" class="">Zip</label>
 								<br />
-								<input class="form-control input-sm" id="id_zip" name="profile[zip]" type="text" value="{{ $user->profile->zip }}">
+								<input class="form-control input-sm" id="id_zip" name="zip" type="text" value="{{$user['profile']['zip']}}">
 							</div>
 							<div class="form-group">
 								<label for="website" class="">Website</label>
 								<br />
-								<input class="form-control input-sm" id="id_website" name="profile[website]" type="text" value="">
+								<input class="form-control input-sm" id="id_website" name="website" type="text" value="{{$user['profile']['website']}}">
 							</div>
 							<div class="form-group">
 								<label for="dic_country_id" class="">Country</label>
 								<br />
-								<select class="form-control select2" style="width: 100%;" name="profile[dic_country_id]">
-									@foreach($countries as $country)
-									<option value="{{ $country->id }}">{{ $country->name }}</option>
-									@endforeach
+								<select class="form-control select2" style="width: 100%;" name="dic_country_id">
+                                                                    @foreach($countries as $contry )
+                                                                    <option value='{{$contry['id']}}'<?php if($user['profile']['dic_country_id']==$contry['id']) echo 'selected="selected"' ?>>{{$contry['name']}}</option>
+                                                                    @endforeach
+                                                                    
+									
 								</select>
 							</div>
 						</div><!-- /.tab-pane -->
@@ -305,13 +344,16 @@
 						<div class="tab-pane edit-box margin-top" id="user-type"> <h2 class="h2-tabs">User Type</h2>
 							<p class="h2-subhead">Type of person</p>
 							<div class="form-group">
-								<input class="minimal" checked="checked" name="profile[dic_user_type_id]" type="radio" value="1">
+                                                           
+                                                            
+                                                            
+								<input name="dic_user_type_id" type="radio"<?php if($user['profile']['dic_user_type_id']==1) echo 'checked="checked"' ?> value="1">
 								Home User <br />
-								<input class="minimal" name="profile[dic_user_type_id]" type="radio" value="2">
+								<input  name="dic_user_type_id" type="radio" value="2" <?php if($user['profile']['dic_user_type_id']==2) echo 'checked="checked"' ?> >
 								Gym/Club User <br />
-								<input class="minimal" name="profile[dic_user_type_id]" type="radio" value="3">
+								<input  name="dic_user_type_id" type="radio" value="3" <?php if($user['profile']['dic_user_type_id']==3) echo 'checked="checked"' ?> >
 								Work User <br />
-								<input class="minimal" name="profile[dic_user_type_id]" type="radio" value="4">
+								<input  name="dic_user_type_id" type="radio" value="4" <?php if($user['profile']['dic_user_type_id']==4) echo 'checked="checked"' ?> >
 								Armed Forces/Uniformed Services User <br />
 							</div>
 						</div> <!-- /.tab-pane -->
@@ -320,62 +362,62 @@
 							<p class="h2-subhead">Update email data</p>
 							<div class="form-group">
 								<label for="email" class="">E-mail</label>
-								<input class="form-control input-sm email required" id="id_email" name="email" type="text" value="{{ $user->email }}">
+								<input class="form-control input-sm email required" id="id_email" name="email" type="text" value="{{$user['email']}}">
 							</div>
 						</div> <!-- /.tab-pane -->
 						<div class="tab-pane edit-box margin-top" id="notifi"> <h2 class="h2-tabs">Notifications</h2>
 							<p class="h2-subhead">Update your notifications</p>
 							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="profile[notify_me_on_comment]">
-									<option value="3">-------</option>
-									<option value="1" selected="selected">Yes</option>
-									<option value="0">No</option>
+								<select class="form-control select2" style="width: 100%;" name="notify_me_on_comment">
+									<option value="3" <?php if($user['profile']['notify_me_on_comment']==3) echo 'selected="selected"' ?> >-------</option>
+									<option value="1" <?php if($user['profile']['notify_me_on_comment']==1) echo 'selected="selected"' ?>>Yes</option>
+									<option value="0" <?php if($user['profile']['notify_me_on_comment']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
 							<hr />
 							<label>Notify Me on New Session</label>
 							<p class="instructions">Email me when someone I'm watching adds a session</p>
 							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="profile[notify_me_on_new_session]">
-									<option value="3">-------</option>
-									<option value="1" selected="selected">Yes</option>
-									<option value="0">No</option>
+								<select class="form-control select2" style="width: 100%;" name="notify_me_on_new_session">
+									<option value="3" <?php if($user['profile']['notify_me_on_new_session']==3) echo 'selected="selected"' ?>>-------</option>
+									<option value="1" <?php if($user['profile']['notify_me_on_new_session']==1) echo 'selected="selected"' ?>>Yes</option>
+									<option value="0"<?php if($user['profile']['notify_me_on_new_session']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
 							<hr />
 							<label>Notify Me on New Watcher</label>
 							<p class="instructions">Email me if someone new starts watching me</p>
 							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="profile[notify_me_on_new_watcher]">
-									<option value="3">-------</option>
-									<option value="1" selected="selected">Yes</option>
-									<option value="0">No</option>
+								<select class="form-control select2" style="width: 100%;" name="notify_me_on_new_watcher">
+									<option value="3" <?php if($user['profile']['notify_me_on_new_watcher']==3) echo 'selected="selected"' ?>>-------</option>
+									<option value="1" <?php if($user['profile']['notify_me_on_new_watcher']==1) echo 'selected="selected"' ?>>Yes</option>
+									<option value="0" <?php if($user['profile']['notify_me_on_new_watcher']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
 							<hr />
 							<label>Send Session Summary </label>
 							<p class="instructions">Email me a summary when I upload a session</p>
 							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="profile[send_session_summary]">
-									<option value="3" selected="selected">-------</option>
-									<option value="1">Yes</option>
-									<option value="0">No</option>
+								<select class="form-control select2" style="width: 100%;" name="send_session_summary">
+									<option value="3" <?php if($user['profile']['send_session_summary']==3) echo 'selected="selected"' ?>>-------</option>
+									<option value="1" <?php if($user['profile']['send_session_summary']==1) echo 'selected="selected"' ?>>Yes</option>
+									<option value="0" <?php if($user['profile']['send_session_summary']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
 							<hr />
 							<label>Session Summary Alternative </label>
 							<p class="instructions">Alternate email address for session summary emails only. i.e. Coach</p>
 							<div class="form-group">
-								<input class="form-control input-sm email" id="id_email_alternative" name="profile[email_summary_alternative]" type="text" value="">
+								<input class="form-control input-sm email" id="id_email_alternative" name="email_summary_alternative" type="text" value="{{$user['profile']['email_summary_alternative']}}">
 							</div>
 							<hr />
 							<label>Send Session Summary Alternate </label>
 							<p class="instructions">Email a summary of my sessions to the alternate email address i.e. Coach</p>
 							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="profile[send_session_summary_alternate]">
-									<option value="3" selected="selected">-------</option>
-									<option value="1">Yes</option>
-									<option value="0">No</option>
+								<select class="form-control select2" style="width: 100%;" name="send_session_summary_alternate">
+									<option value="3" <?php if($user['profile']['send_session_summary_alternate']==3) echo 'selected="selected"' ?>>-------</option>
+									<option value="1" <?php if($user['profile']['send_session_summary_alternate']==1) echo 'selected="selected"' ?>>Yes</option>
+									<option value="0" <?php if($user['profile']['send_session_summary_alternate']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
 						</div><!-- /.tab-pane -->
@@ -383,10 +425,10 @@
 							<p class="h2-subhead">Update your account privicy</p>
 							<p class="instructions">If selected your account will not be publicly viewable.</p>
 							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="profile[privacy]">
-									<option value="3" selected="selected">-------</option>
-									<option value="1">Yes</option>
-									<option value="0">No</option>
+								<select class="form-control select2" style="width: 100%;" name="privacy">
+									<option value="3" <?php if($user['profile']['privacy']==3) echo 'selected="selected"' ?>>-------</option>
+									<option value="1" <?php if($user['profile']['privacy']==1) echo 'selected="selected"' ?>>Yes</option>
+									<option value="0" <?php if($user['profile']['privacy']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
 						</div><!-- /.tab-pane -->
@@ -487,5 +529,5 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-</section>
+
 @endsection
