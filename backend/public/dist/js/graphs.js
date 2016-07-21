@@ -223,7 +223,7 @@ $(function () {
             console.log(data_dates_show_x);
 
             piktoBiorowerGraph.historyData = response.historydata;
-            data_test = piktoBiorowerGraph.getHistoryData(['stroke_count']);
+            data_test = piktoBiorowerGraph.getHistoryData([{slug:'stroke_count',label:'Stroke Count'}]);
             console.log(data_test);
             //console.log(data_dates);
 
@@ -295,11 +295,6 @@ $(function () {
                 );
 
                 $("#history").UseTooltip();
-
-                var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Days of the week").appendTo($('#history'));
-
-                var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power Max(W)").appendTo($('#history'));
-                yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
             });
 
 
@@ -450,16 +445,18 @@ var piktoBiorowerGraph = {
     historyData: null,
     startDate: null,
     rangeType: 'all',
+    parameters: null,
     transormData: function (historyData, parameter) {
         var rv = [];
-        rv['label'] = parameter;
+        rv['label'] = parameter.label;
         rv['data'] = [];
         for (var i in historyData.date) {
-            rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter][i]]);
+            rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
         }
         return rv;
     },
     getHistoryData: function (params) {
+        piktoBiorowerGraph.parameters = params;
         var rv = [];
         for(var i in params) {
             rv.push(this.transormData(this.historyData, params[i]));
@@ -470,14 +467,22 @@ var piktoBiorowerGraph = {
         var data = {
             account: 'biorower:' + account,
             rangeType: rangeType,
-            dateStart: startDate.format('YYYY-MM-DD')
+            dateStart: startDate?startDate.format('YYYY-MM-DD'):''
         };
         piktoBiorowerGraph.startDate = startDate;
         piktoBiorowerGraph.rangeType = rangeType;
         $.post('api/v1/sessions_history', data, function (response) {
             piktoBiorowerGraph.historyData = response.historydata;
-            var newHistoryData = piktoBiorowerGraph.getHistoryData(['stroke_count']);
+            var newHistoryData = piktoBiorowerGraph.getHistoryData(piktoBiorowerGraph.parameters);
             piktoBiorowerGraph.historyPlot.setData(newHistoryData);
+            var axes = piktoBiorowerGraph.historyPlot.getAxes();
+            if(piktoBiorowerGraph.rangeType=='all'){
+                axes.xaxis.options.min = undefined;
+                axes.xaxis.options.max = undefined;
+            } else {
+                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
+                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph.rangeType);
+            }
             piktoBiorowerGraph.historyPlot.setupGrid();
             piktoBiorowerGraph.historyPlot.draw();
         });
