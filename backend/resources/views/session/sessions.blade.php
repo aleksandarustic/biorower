@@ -8,259 +8,6 @@
  <script src="{{ URL::asset('js/json2html.js') }}"></script>
    <script type="text/javascript">
 
-function OnloadFunction ()
-{   
-
-     var urlBase = "<?php echo Request::root() ?>";
-     var email1="<?php echo Auth::user()->email ?>";  
-   
-     var email2="biorower:"+email1;
-
-
-	 
-
-
-	    var prvi=document.getElementsByClassName("form-control input-sm");
-   prvi[0].addEventListener("change", function(){
-     	OnloadFunction()
-
-   
-});
-
-  if(document.getElementsByClassName("form-control input-sm")[0].value==null){
-  	document.getElementsByClassName("form-control input-sm")[0].value=10;
-  }
- 
-
-	
-	
-
-	
-   
-     var urlBase = "<?php echo Request::root() ?>";
-     var email1="<?php echo Auth::user()->email ?>";  
-   
-     var email2="biorower:"+email1;
- 
-  
-
-     
-    
-  
- 
-
-
-        $.ajax({ 
-        type: 'POST', 
-        dataType: 'json',
-        url : urlBase + '/api/v1/sessions_recent',
-        data: {account: email2 ,maxCount: document.getElementsByClassName("form-control input-sm")[0].value,
-      
-
-    }, 
-        success: function (data3) {
-        	var dd=data3.sessionIdsUTCs;
-        	var nizid=[];
-        	for(var r=0;r<dd.length;r++){
-        		nizid.push(dd[r].sessionID);
-
-
-        	}
-
-
-
-
-
-
-        	 $.ajax({ 
-        type: 'POST', 
-        dataType: 'json',
-        url : urlBase + '/api/v1/sessions_get',
-        data: {account: email2 ,sessionIds: nizid,
-      
-
-    }, 
-        success: function (data2) { 
-        	
-
-       var sesije2=data2.sessions;
-     
-      
-var transform = {
-    tag: 'tr',
-    children: [,{
-        "tag": "td class='eee'",
-            "html": ""
-    }, {
-        "tag": "td class='eeee'",
-            "html": ""
-    }, {
-        "tag": "td",
-            "html": "${Comment}"
-    }, {
-        "tag": "td",
-            "html": "${date}"
-    }, {
-        "tag": "td",
-            "html": "${summary.power_average}"
-    }, {
-        "tag": "td",
-            "html": "${summary.stroke_count}"
-    }, {
-        "tag": "td",
-            "html": "${summary.distance}"
-    }, {
-        "tag": "td",
-            "html": "${summary.heart_rate_max}"
-    }, {
-        "tag": "td",
-            "html": "${summary.pace_max}"
-    }, {
-        "tag": "td",
-            "html": "${summary.time}"
-    }, {
-        "tag": "td class='action-td' data-title='Action'",
-             "html": ""
-
-                        
-							
-						
-                       
-						
-    }
-    ]
-};
-   
-       
-    
-        
-    
-
-    document.getElementById('tabela4').innerHTML = json2html.transform(sesije2,transform);
-    var t=document.getElementsByClassName("eee");
-    var r=document.getElementsByClassName("eeee");
-    var e=document.getElementsByClassName("action-td");
-    var tt=t.length;
-    for(var i=0;i<nizid.length ;i++){
-    	
-    	
-    	t[i].innerHTML="<h4>"+nizid[i]+"</h4>";
-    	r[i].innerHTML="Sesija:"+nizid[i]+"";
-    	e[i].innerHTML="<span> <a href='#' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#edit-session'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id="+nizid[i]+" href='#'' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#delete-session'><i class='fa fa-trash-o inline btn btn-sm btn-primary'></i></a </span>";
-    	
-    }
-
-    $(".brisi").click(function() { 
-    	var w=$(this).attr('id');
-    	
-    	 $("#dugme3").click(function() {
-    	 		   $.ajax({ 
-        type: 'POST', 
-        dataType: 'json',
-        url : urlBase + '/api/v1/delete_session',
-        data: {account: email2 ,id: w,
-      
-
-    }, 
-        success: function (data3) {
-
-
-        	OnloadFunction();
-
-        	
-
-
-        	
-        
-
-        
-        
-
-
-
-
-
-
-        	
-         }
-     })
-        	
-
-
-
-
-    	  });
-
-
-  
-
-     });
-
-   
-
-
-
-    
-        }
-    });
-
-
-
-
-
-
-
-
-
-
-        	
-
-
-
-
-
-
-        	}
-
-        	
-
-
-        	
-        
-
-       
-        
-
-
-
-
-
-
-        	
-         
-     })
-
-
-
-
-
-
-
-
-     
-     
-
-  
-
-
-    
-       
-}
-$(document).ready(function(){
-
-	OnloadFunction();
-});
-
 
         
  
@@ -292,17 +39,16 @@ $(document).ready(function(){
 					<table id="my-sessions" class="table table-hover table-bordered table-striped">
 						<thead>
 						<tr>
-							<th class="smallest-th nosort">#</th>
-							<th>Session</th>
+							<th class="smallest-th nosort">id</th>
+						    <th class="nosort">Session</th>
 							<th class="nosort">Comments</th>
 							<th class="nosort">Date/Time</th>
 							<th class="nosort">Power</th>
 							<th class="nosort">Strokes</th>
 							<th class="nosort">Distance</th>
 							<th class="nosort">HR</th>
-							<th class="nosort">Pace</th>
 							<th class="nosort">Time</th>
-							<th class="nosort">Action</th>
+							<th>action</th>
 						</tr>
 						</thead>
 						<tbody id="tabela4">
@@ -382,52 +128,134 @@ $(document).ready(function(){
 <script src="{{ URL::asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <script>
-	$(function () {
-		$('my-sessions').DataTable({
-			responsive: true
+	function OnloadFunction ()
+{   
+
+     var urlBase = "<?php echo Request::root() ?>";
+     var email1="<?php echo Auth::user()->email ?>";   
+     var email2="biorower:"+email1;
+		  			
+		    	$.ajax({ 
+		        type: 'POST', 
+		        dataType: 'json',
+		        url : urlBase + '/api/v1/sessions_recent_list',
+		        data: {account: email2 ,offset:0,pageSize:100
+		      
+
+		    }, 
+		        success: function (data) {
+		        	var dat=data;
+		        	delete dat.account;
+		        	dat= JSON.parse(JSON.stringify(dat).split('"sessionsRecentList":').join('"data":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"ID":').join('"id":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"date":').join('"Date/Time":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"UTC":').join('"Strokes":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"name":').join('"Session":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"comment":').join('"Comments":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"time":').join('"Time":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"dist":').join('"Distance":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"pwr_avg":').join('"Power":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"hr_avg":').join('"HR":'));
+		        	var d=dat.data;
+
+		        	  for(var i=0;i< d.length; i++){
+					        d[i].action="<span> <a href='#' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#edit-session'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id="+d[i].id+" href='#'' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#delete-session'><i class='fa fa-trash-o inline btn btn-sm btn-primary'></i></a </span>";
+					      }
+
+
+
+
+
+		        
+		        	
+		        	
+
+		      
+		       
+		  	var table= $('#my-sessions').DataTable({
+		  	     	"data":d,
+		  	     	"columns":[
+		  	     	{ 'data' : 'id' },
+		  	     	{ 'data' : 'Session' },
+		  	     	{ 'data' : 'Comments' },
+		  	     	{ 'data' : 'Date/Time' },
+		  	     	{ 'data' : 'Power' },
+		  	     	{ 'data' : 'Strokes' },
+		  	     	{ 'data' : 'Distance' },
+		  	     	{ 'data' : 'HR' },
+		  	     	{ 'data' : 'Time' },
+		  	     	{ 'data' : 'action' }
+		  	     	],
+		  	     	responsive: true,
+		  	     	'iDisplayLength': 100
+					
+					});
+	
+  	table.on('click','.brisi',function(){
+        		var w=$(this).attr('id');
+     		  var e =$(this).closest('tr');
+     		   $("#dugme3").click(function() {
+     		   	 $.ajax({ 
+        type: 'POST', 
+        dataType: 'json',
+        url : urlBase + '/api/v1/delete_session',
+        data: {account: email2 ,id: w,
+      
+
+    }, 
+        success: function (data3) {
+
+
+ 	e.remove();
+
+
+
+        	
+         }
+     })
+
+
+
+     		   	
+
+
+
+     		   });
+
+   				  });
+
+
+
+
+
+
+
+		   }
 		});
-	});
-
-	$(function () {
-		//Enable iCheck plugin for checkboxes
-		//iCheck for checkbox and radio inputs
-		$('.sessions-table input[type="checkbox"]').iCheck({
-			checkboxClass: 'icheckbox_flat-blue',
-			radioClass: 'iradio_flat-blue'
-		});
-
-		//Enable check and uncheck all functionality
-		$(".checkbox-toggle").click(function () {
-			var clicks = $(this).data('clicks');
-			if (clicks) {
-				//Uncheck all checkboxes
-				$(".sessions-table input[type='checkbox']").iCheck("uncheck");
-				$(this).addClass('icheckbox_flat-blue').removeClass('checked');
-			} else {
-				//Check all checkboxes
-				$(".sessions-table input[type='checkbox']").iCheck("check");
-				$(this).addClass('checked');
-			}
-			$(this).data("clicks", !clicks);
-		});
-
-	});
+		        	
+		        };
 
 
-	var table = $('#my-sessions').DataTable({
-		'aoColumnDefs': [{
-			'bSortable': false,
-			'aTargets': ['nosort']
-		}]
-	});
-	$('.search-input').on( 'keyup', function () {
-     $('#my-sessions').DataTable().column().search(
-        $('.eee').val()
-       
-    ).draw();
 
-      });
+
+
+
+
+
+
+
+
+
+$(document).ready(function(){
+
+	OnloadFunction();
+});
+
+
+
+	
 
 
 </script>
 @endsection
+

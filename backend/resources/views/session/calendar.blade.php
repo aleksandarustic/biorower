@@ -2,176 +2,121 @@
 
 @section('content')
 <section class="content">
-		<div id="calendar" class="fc fc-ltr fc-unthemed"></div>
 
-<script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
-<!-- Bootstrap 3.3.5 -->
+ 
 
-<script src="{{ URL::asset('plugins/fullcalendar/moment.js') }}"></script>
-<script src="{{ URL::asset('plugins/fullcalendar-year/gcal.js') }}"></script>
-<script src="{{ URL::asset('plugins/fullcalendar-year/fullcalendar.js') }}"></script>
-<script src="{{ URL::asset('plugins/fullcalendar-year/fullcalendar.min.js') }}"></script>
+
+
 
 
 	
 
 	<!-- Page specific script -->
+
+<script src="{{ URL::asset('plugins/jQuery/jquery-1.5.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/jQuery/jquery-ui-1.8.9.custom.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/fullcalendar/fullcalendar.js') }}"></script>
+
 	<script>
-	$(function () {
+    var j = jQuery.noConflict();
 
-			/* initialize the external events
-			 -----------------------------------------------------------------*/
-			function ini_events(ele) {
-				ele.each(function () {
 
-					// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-					// it doesn't need to have a start or end
-					var eventObject = {
-						title: $.trim($(this).text()) // use the element's text as the event title
-					};
+	j(document).ready(function() {
+		var urlBase = "<?php echo Request::root() ?>";
+        var email1="<?php echo Auth::user()->email ?>";  
+   
+        var email2="biorower:"+email1;
 
-					// store the Event Object in the DOM element so we can get to it later
-					$(this).data('eventObject', eventObject);
+  
 
-					// make the event draggable using jQuery UI
-					$(this).draggable({
-						zIndex: 1070,
-						revert: true, // will cause the event to go back to its
-						revertDuration: 0  //  original position after the drag
-					});
 
-				});
-			}
-			ini_events($('#external-events div.external-event'));
 
-			/* initialize the calendar
-			 -----------------------------------------------------------------*/
-			//Date for the calendar events (dummy data)
-			var date = new Date();
-			var d = date.getDate(),
-					m = date.getMonth(),
-					y = date.getFullYear();
-			$('#calendar').fullCalendar({
-				header: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'month,agendaWeek,agendaDay,agendaYear'
-				},
-				buttonText: {
-					today: 'today',
-					month: 'month',
-					week: 'week',
-					day: 'day',
-					year: 'year'
-				},
-				//Random default events
-				events: [
-					{
-						title: 'All Day Event',
-						start: new Date(y, m, 1),
-						backgroundColor: "#f56954", //red
-						borderColor: "#f56954" //red
-					},
-					{
-						title: 'Long Event',
-						start: new Date(y, m, d - 5),
-						end: new Date(y, m, d - 2),
-						backgroundColor: "#f39c12", //yellow
-						borderColor: "#f39c12" //yellow
-					},
-					{
-						title: 'Meeting',
-						start: new Date(y, m, d, 10, 30),
-						allDay: false,
-						backgroundColor: "#0073b7", //Blue
-						borderColor: "#0073b7" //Blue
-					},
-					{
-						title: 'Lunch',
-						start: new Date(y, m, d, 12, 0),
-						end: new Date(y, m, d, 14, 0),
-						allDay: false,
-						backgroundColor: "#00c0ef", //Info (aqua)
-						borderColor: "#00c0ef" //Info (aqua)
-					},
-					{
-						title: 'Birthday Party',
-						start: new Date(y, m, d + 1, 19, 0),
-						end: new Date(y, m, d + 1, 22, 30),
-						allDay: false,
-						backgroundColor: "#00a65a", //Success (green)
-						borderColor: "#00a65a" //Success (green)
-					},
-					{
-						title: 'Click for Google',
-						start: new Date(y, m, 28),
-						end: new Date(y, m, 29),
-						url: 'http://google.com/',
-						backgroundColor: "#3c8dbc", //Primary (light-blue)
-						borderColor: "#3c8dbc" //Primary (light-blue)
-					}
-				],
-				editable: true,
-				droppable: true, // this allows things to be dropped onto the calendar !!!
-				drop: function (date, allDay) { // this function is called when something is dropped
 
-					// retrieve the dropped element's stored Event Object
-					var originalEventObject = $(this).data('eventObject');
 
-					// we need to copy it, so that multiple events don't have a reference to the same object
-					var copiedEventObject = $.extend({}, originalEventObject);
 
-					// assign it the date that was reported
-					copiedEventObject.start = date;
-					copiedEventObject.allDay = allDay;
-					copiedEventObject.backgroundColor = $(this).css("background-color");
-					copiedEventObject.borderColor = $(this).css("border-color");
+	
 
-					// render the event on the calendar
-					// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-					$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-					// is the "remove after drop" checkbox checked?
-					if ($('#drop-remove').is(':checked')) {
-						// if so, remove the element from the "Draggable Events" list
-						$(this).remove();
-					}
 
-				}
-			});
 
-			/* ADDING EVENTS */
-			var currColor = "#3c8dbc"; //Red by default
-			//Color chooser button
-			var colorChooser = $("#color-chooser-btn");
-			$("#color-chooser > li > a").click(function (e) {
-				e.preventDefault();
-				//Save color
-				currColor = $(this).css("color");
-				//Add color effect to button
-				$('#add-new-event').css({"background-color": currColor, "border-color": currColor});
-			});
-			$("#add-new-event").click(function (e) {
-				e.preventDefault();
-				//Get value and make sure it is not null
-				var val = $("#new-event").val();
-				if (val.length == 0) {
-					return;
-				}
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		 var events = [];
 
-				//Create events
-				var event = $("<div />");
-				event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
-				event.html(val);
-				$('#external-events').prepend(event);
 
-				//Add draggable funtionality
-				ini_events(event);
+	
+		j('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'year,month,agendaWeek,agendaDay'
+			},
+			editable: true,
+			events: function( start, end, callback) { 
+				var moment = j('#calendar').fullCalendar('getDate');
+				var start_date = j('#calendar').fullCalendar('getView').start;
+                var end_date  = j('#calendar').fullCalendar('getView').end;
+                var view = j('#calendar').fullCalendar('getView').name;
+				start2 = j.fullCalendar.formatDate(start_date, 'yyyy-MM-dd hh:mm:ss');
+				 end2= j.fullCalendar.formatDate(end_date, 'yyyy-MM-dd hh:mm:ss');
 
-				//Remove event from text input
-				$("#new-event").val("");
-			});
+                $.ajax({ 
+                    url : urlBase + '/api/v1/sessions_calendar_data',
+                    type: 'POST', 
+                    data: { 
+                    	account: email2 ,
+                    	type:view,
+                    	dateStart:start2,
+                    	dateEnd:end2,
+
+                    }, 
+                    success: function (doc) { 
+
+                    	var dd=doc.sessionIdsUTCs;
+        				var nizid=[];
+        				var sesije=[]
+
+       				 	for(var r=0;r<dd.length;r++){
+        					nizid.push(dd[r].DateTime);
+        					sesije.push(dd[r].sessionID);
+        					
+
+
+        					}
+        				for(var r=0;r<nizid.length;r++){
+        					
+        					 events.push({
+       									  title: sesije[r],
+     									  start: nizid[r] 
+     									  
+    									 });
+        					 
+
+
+        					}
+        					callback(events);
+        					
+           	         	
+                    	
+
+                        
+                        
+                    } 
+                }); 
+
+            }
+
+
+			 
+		
 		});
+		
+	});
 	</script>
+  
+	<div id='calendar'></div>
 
 </section>
 

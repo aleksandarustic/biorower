@@ -36,8 +36,7 @@
 		<!-- Select2 -->
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('js/plugins/select2/select2.min.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('js/plugins/daterangepicker/daterangepicker-bs3.css') }}">
-		<link href="{{ URL::asset('js/plugins/fullcalendar/fullcalendar.min.css') }}" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="{{ URL::asset('js/plugins/fullcalendar/fullcalendar.print.css') }}" media="print">
+		
 
 
 		<!-- Theme style -->

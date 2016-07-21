@@ -17,8 +17,10 @@
     <!-- Select2 -->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('plugins/daterangepicker/daterangepicker-bs3.css') }}">
-    <link rel='stylesheet' href="{{ URL::asset('plugins/fullcalendar-year/fullcalendar.css') }}" />
-    <link rel='stylesheet' media="print" href="{{ URL::asset('plugins/fullcalendar-year/fullcalendar.print.css') }}" />
+    <link rel='stylesheet' type='text/css' href="{{ URL::asset('plugins/fullcalendar/fullcalendar.css') }}" />
+    <link rel='stylesheet' type='text/css' href="{{ URL::asset('plugins/fullcalendar/fullcalendar.print.css') }}" media='print' />
+   
+   
  
 
 
@@ -349,10 +351,14 @@
 
 <!-- jQuery 2.1.4 -->
 <script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+
+
+
+
 <!-- Bootstrap 3.3.5 -->
-<script src="{{ URL::asset('plugins/fullcalendar/moment.js') }}"></script>
-<script src="{{ URL::asset('plugins/fullcalendar/fullcalendar.js') }}"></script>
-<script src="{{ URL::asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+
+
+
 <script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ URL::asset('dist/js/app.min.js') }}"></script>
