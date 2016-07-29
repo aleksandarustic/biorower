@@ -176,7 +176,7 @@
 							<h2 class="h2-tabs">Change your profile image</h2>
 							<p class="h2-subhead">Update your avatar</p>
 							<div class="upload-photo-cont" >
-								<span class="user-header"><img src="dist/img/user2-160x160.jpg" alt="User Image"></span>
+								<span class="user-header"><img src="../dist/img/user2-160x160.jpg" alt="User Image"></span>
 								<div class="upload-photo">
 									<a href="#" class="mailedit-box-attachment-name" data-toggle="modal" data-target="#myModal">
 										<i class="fa fa-camera"></i> <span class="upload-txt">Upload a photo</span></a>

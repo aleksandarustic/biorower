@@ -38,7 +38,6 @@
 		<link rel="stylesheet" type="text/css" href="{{ URL::asset('js/plugins/daterangepicker/daterangepicker-bs3.css') }}">
 		
 
-
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ URL::asset('css/AdminLTE.min.css') }}">
 		<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -292,12 +291,35 @@
 	<script src="{{ URL::asset('js/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 	<!-- FastClick -->
 	<script src="{{ URL::asset('js/plugins/fastclick/fastclick.min.js') }}"></script>
+
+<!-- Bootstrap 3.3.5 --> 
+
+<!-- AdminLTE App --> 
+	<script src="{{ URL::asset('js/jquery-ui-multiselect-widget/jquery.multiselect.css') }}"></script>
+<!-- FLOT CHeartS --> 
+<script src="{{ URL::asset('plugins/flot/jquery.flot.min.js') }}"></script>
+
+<!-- FLOT RESIZE PLUGIN - allows the cHeart to redraw when the window is resized --> 
+
+<script src="{{ URL::asset('plugins/flot/jquery.flot.resize.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/flot/jquery.flot.canvas.js') }}"></script>
+
+<script src="{{ URL::asset('plugins/flot/jquery.flot.animator.min.js') }}"></script>
+<!-- FLOT CATEGORIES PLUGIN - Used to draw bar cHearts --> 
+<script src="{{ URL::asset('plugins/flot/jquery.flot.categories.min.js') }}"></script>
+
+<script src="{{ URL::asset('plugins/flot/jquery.flot.navigate.js') }}"></script>
+	
+
+
+
+
 	<!-- AdminLTE App -->
 
 	<!-- iCheck -->
 	<script src="{{ URL::asset('js/plugins/iCheck/icheck.min.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-	<script src="{{ URL::asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+	
 
 	<section class="content">
 		@yield('content')

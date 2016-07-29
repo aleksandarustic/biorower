@@ -9,16 +9,15 @@
 	$encodedIDComment = $hashidsComment->encode($comment->id);
 ?>
 
-<div class="commentElement">
+ <div class='box-comment'>
+                    <!-- User image -->
+                    <img class='img-circle img-sm' src='dist/img/user3-128x128.jpg' alt='user image'>
+                    <div class='comment-text'>
+                      <span class="username">
+                      <div style="font-weight:bold; "><a style="text-decoration:underline !important" href="{{ url('/'.$comment->user->linkname) }}">{{ $comment->user->display_name }}</a></div>
+                        <span class='text-muted pull-right'>Posted: {{ $comment->date }}</span>
+                      </span><!-- /.username -->
+                    {{ $comment->text }}
+                    </div><!-- /.comment-text -->
+                  </div>
 
-	@if ($isAdmin)
-	   <a href="#"><span class="glyphicon glyphicon-remove removeComment" id="idComment-{{ $encodedIDComment }}"></span></a>
-	@endif
-
-	<div style="font-weight:bold; "><a style="text-decoration:underline !important" href="{{ url('/'.$comment->user->linkname) }}">{{ $comment->user->display_name }}</a></div>
-	<div>Posted: {{ $comment->date }}</div>
-	<div>{{ $comment->text }}</div>
-
-	<hr></hr>
-
-</div>

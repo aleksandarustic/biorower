@@ -22,8 +22,11 @@
 
 
 	j(document).ready(function() {
+         j("#eventContent").hide();
+    
 		var urlBase = "<?php echo Request::root() ?>";
         var email1="<?php echo Auth::user()->email ?>";  
+        var display_name= "<?php echo Auth::user()->display_name ?>"; 
    
         var email2="biorower:"+email1;
 
@@ -46,14 +49,30 @@
 		 var events = [];
 
 
+
 	
 		j('#calendar').fullCalendar({
+             dayClick: function(date, allDay, jsEvent, view) {
+
+        
+            // Clicked on the entire day
+            j('#calendar').fullCalendar('changeView', 'agendaWeek'/* or 'basicDay' */)
+                .fullCalendar('gotoDate',
+                    date.getFullYear(), date.getMonth(), date.getDate());
+        
+    },
+
+            eventClick: function(calEvent, jsEvent, view) {
+        window.location.href = urlBase+"/profile/"+display_name+"/session/"+calEvent.id;
+
+    },
 			header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'year,month,agendaWeek,agendaDay'
+				right: 'year,month,agendaWeek'
 			},
 			editable: true,
+            defaultView: 'year',
 			events: function( start, end, callback) { 
 				var moment = j('#calendar').fullCalendar('getDate');
 				var start_date = j('#calendar').fullCalendar('getView').start;
@@ -86,10 +105,15 @@
 
         					}
         				for(var r=0;r<nizid.length;r++){
+                          
+                         
         					
         					 events.push({
-       									  title: sesije[r],
-     									  start: nizid[r] 
+                                          id:sesije[r],
+       									  title:"session:"+sesije[r],
+     									  start: nizid[r],
+                                          description:"session:"+sesije[r],
+                                          allDay:false
      									  
     									 });
         					 
@@ -106,7 +130,30 @@
                     } 
                 }); 
 
-            }
+            },
+            eventMouseover: function(event, jsEvent, view) {
+              
+
+                        var tooltip = "<div class='tooltipevent' style='width:180px;height:180px;background:#ccc;position:absolute;z-index:10001;'><h3>"+event.title+"</h3><p><b>Start:</b>"+event.start+"<br /><p><strong><a href="+urlBase+"/profile/"+display_name+"/session/"+event.id+" >Read More</a></strong></p></div>";
+            j("body").append(tooltip);
+            j(this).mouseover(function(e) {
+                j(this).css('z-index', 10000);
+                j('.tooltipevent').fadeIn('500');
+                j('.tooltipevent').fadeTo('10', 1.9);
+            }).mousemove(function(e) {
+                j('.tooltipevent').css('top', e.pageY + 10);
+                j('.tooltipevent').css('left', e.pageX + 20);
+            });
+        },
+        eventMouseout: function(event, jsEvent, view) {
+    $(".tooltipevent").remove();
+}
+          
+
+
+
+
+
 
 
 			 
@@ -117,6 +164,8 @@
 	</script>
   
 	<div id='calendar'></div>
+
+   
 
 </section>
 

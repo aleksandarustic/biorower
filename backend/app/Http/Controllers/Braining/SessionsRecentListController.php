@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request as req;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
-
+use App\Comment;
 use App\Session;
 use Hashids\Hashids;
 use Mail;
@@ -70,29 +70,57 @@ class SessionsRecentListController extends Controller {
 			}
 
 			if ($statusCode != 403){
+				
+		
 
 				$sessions = Session::where('user_id', $userFirst->id)
 								  
 								   ->orderBy('date', 'DESC')
 								   ->skip(Input::get("offset"))
 								   ->take(Input::get("pageSize"))
-								   ->with("sessionSummary")
-								   ->with("comments")
+								   ->with("sessionSummary")								   
+								   ->with('comments')
+								   ->first()
 						    	   ->get();
 
 				$sessionsRecentList = array();
+			
+			
+
+
+
+
+
 				foreach ($sessions as $key => $value) {
 
+				$komentari=Comment::Where("user_id",$userFirst->id)->Where("session_id",$value["id"])->select('text')->get();
 
-					$tmp = array("ID" => $value["id"], 
+				
+				
+				   $tmp = array("ID" => $value["id"], 
 						"date" => $value["date"],
 						"UTC"=>$value["utc"],
-						"name"=>"session:".$value["id"],
-						"comment"=>"",
+						"name"=>$value["name"],
+						"comment"=>$komentari,
 						"time"=>$value->sessionSummary["time"],
 						"dist"=>$value->sessionSummary["distance"],
 						"pwr_avg"=>$value->sessionSummary["power_average"],
-						"hr_avg"=>$value->sessionSummary["heart_rate_average"]);
+						"hr_avg"=>$value->sessionSummary["heart_rate_average"],
+						"speed"=>$value->sessionSummary["speed_average"],
+						"Angle"=>$value->sessionSummary["angle_average"],
+						"Pace"=>$value->sessionSummary["pace_average"],
+						"pwr_max"=>$value->sessionSummary["power_max"],
+						"pwr_balance"=>$value->sessionSummary["power_balance"],
+						"stroke_rate"=>$value->sessionSummary["stroke_rate_average"],
+						"stroke_rate_max"=>$value->sessionSummary["stroke_rate_max"],
+						"hr_rate_max"=>$value->sessionSummary["heart_rate_max"]);
+
+			
+
+
+
+
+					
 
 
 					
@@ -104,6 +132,8 @@ class SessionsRecentListController extends Controller {
 		        $response = [
 		          'account'  => Input::get("account"),
 	        	  'sessionsRecentList'  => $sessionsRecentList,
+
+	        	  
 
 		        ];
 

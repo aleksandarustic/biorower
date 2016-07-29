@@ -98,9 +98,10 @@ class SessionController extends Controller {
 		*/
 
 		$hashids = new Hashids(GlobalFunctions::getEncKey());
-		$decodedID = $hashids->decode($session);
+		$decodedID =$session;
+		
 
-		$sessionUser = Session::where('id', $decodedID[0])
+		$sessionUser = Session::where('id', $decodedID)
 						   ->where('deleted', false)
 						   ->with('user.profile.image')
 						   ->with('sessionSummary')
@@ -202,19 +203,22 @@ class SessionController extends Controller {
 
 		return view('/session/index', compact('decodedID', 'id', 'allComments', 'sessionUser', 'og_title', 'og_description', 'parameterByStrokesValues', 'summaryTotalData','summaryTotalData'));
 	}
-
 	public function comment()
 	{
+
+		
+
 		if (Input::get("comment") != "")
 		{
+			
 			$newComment = new Comment();
 			$newComment->date = date("Y-m-d H:i:s");
 			$newComment->text = Input::get("comment");
 
 			$hashidsSession = new Hashids(GlobalFunctions::getEncKey());
-			$decodedIDsession = $hashidsSession->decode(Input::get("session_id"));
+			$IDsession = Input::get("session_id");
 
-			$newComment->session_id = $decodedIDsession[0]; 
+			$newComment->session_id = $IDsession; 
 			$newComment->user_id = Auth::user()->id;
 
 			$newComment->save();
@@ -249,7 +253,7 @@ class SessionController extends Controller {
 				$isAdmin = true;
 			}			
 
-			return view("/session/_comment", compact('comment', 'isAdmin'));
+			 return back();
 		}
 	}
 
