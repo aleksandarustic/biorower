@@ -178,15 +178,15 @@
 
 										<form id="edit-train-session">
 											<h5 class="text-blue bold">Name</h5>
-											<input type="text" class="oneLine-input" placeholder="Name of the session">
+											<input type="text" class="oneLine-input" placeholder="Name of the session" id="imesesije">
 											<h5 class="text-blue bold">Comment</h5>
-											<textarea rows="4" placeholder="I need to work on my strength" class="oneLine-input"></textarea>
+											<textarea rows="4" placeholder="I need to work on my strength" class="oneLine-input" id="text"></textarea>
 										</form>
 										</form>
 
 									</div>
 									<div class="modal-footer no-border">
-										<button type="button" class="btn btn-primary pull-left"><i class="fa fa-edit margin-r-5"></i> Save changes</button>
+										<button type="button" class="btn btn-primary pull-left" id="dugme5" data-dismiss="modal"><i class="fa fa-edit margin-r-5"></i> Save changes</button>
 										<button type="button" class="btn btn-default pull-left"  data-dismiss="modal"><i class="fa fa-times margin-r-5"></i> Cancel</button>
 									</div>
 
@@ -299,7 +299,7 @@
 		        	  	var komentar=d[i].Comments;
 
 		        	  	  
-					        d[i].action="<span> <a href='#' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#edit-session'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id="+d[i].id+" href='#'' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#delete-session'><i class='fa fa-trash-o inline btn btn-sm btn-primary'></i></a </span>";
+					        d[i].action="<span> <a href='#' class='update'  id="+d[i].id+" data-toggle='modal' data-target='#edit-session'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id="+d[i].id+" href='#'' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#delete-session'><i class='fa fa-trash-o inline btn btn-sm btn-primary'></i></a </span>";
 					        d[i].Session="<a href='"+urlBase+"/profile/"+display_name+"/session/"+d[i].id+"'>"+d[i].Session+"</a>";
 					       if (komentar === undefined || komentar.length == 0) {
 								   d[i].Comments="";
@@ -412,10 +412,11 @@
 
 		 
 	
-  	table.on('click','.brisi',function(){
-        		var w=$(this).attr('id');
-     		  var e =$(this).closest('tr');
-     		   $("#dugme3").click(function() {
+  	 $(".brisi").click(function() {
+  		
+        	var w=$(this).attr('id');
+     		var e =$(this).closest('tr');
+     		   $("#dugme3").unbind().click(function() {
      		   	 $.ajax({ 
         type: 'POST', 
         dataType: 'json',
@@ -442,6 +443,61 @@
 
 
      		   });
+
+   				  });
+  
+  		 $(".update").unbind().click(function() {
+		       		  
+			 w=$(this).attr('id');
+  
+  			var ee =$(this).closest('tr');
+  			var broj=ee[0]._DT_RowIndex;
+
+  			
+ 
+  			document.getElementById("imesesije").value= ee.find('td:eq(1)').text();
+  			document.getElementById("text").value=ee.find('td:eq(2)').text();
+
+
+		   
+
+		       		   $("#dugme5").unbind().click(function() {
+		       		  
+     		   	 $.ajax({ 
+        type: 'POST', 
+        dataType: 'json',
+        url : urlBase + '/api/v1/sessions_edit',
+        data: {account: email2 ,id: w,name:document.getElementById("imesesije").value,comment:document.getElementById("text").value
+      
+
+    }, 
+        success: function (data4) {
+        	 var cell = table.cell(broj,1);
+        	 var cell2 = table.cell(broj,2);
+        	 cell.data("<a href='"+urlBase+"/profile/"+display_name+"/session/"+w+"'>"+document.getElementById("imesesije").value+"</a>");
+        	 cell2.data(document.getElementById("text").value);
+
+
+        	
+
+        	
+ 	
+
+
+
+        	
+         }
+     })
+
+
+
+     		   	
+
+
+
+     		   });
+
+
 
    				  });
 

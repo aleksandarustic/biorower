@@ -52,6 +52,11 @@
 
 	
 		j('#calendar').fullCalendar({
+             titleFormat: {
+                month: 'MMMM yyyy',
+                week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
+                day: 'MM/dd'
+         },
              dayClick: function(date, allDay, jsEvent, view) {
 
         
@@ -95,11 +100,23 @@
 
                     	var dd=doc.sessionIdsUTCs;
         				var nizid=[];
-        				var sesije=[]
+        				var sesije=[];
+                        var ime=[];
 
        				 	for(var r=0;r<dd.length;r++){
         					nizid.push(dd[r].DateTime);
         					sesije.push(dd[r].sessionID);
+                            if(dd[r].Name!=null && dd[r].Name!=""){
+                                ime.push(dd[r].Name);
+                            }
+                            else{
+                                datum2=dd[r].DateTime;
+                                dat= new Date(datum2)
+                                novi=j.fullCalendar.formatDate( dat, "dddd dd MMMM yyyy"); 
+
+                                 ime.push("Session:"+novi);
+                            }
+                           
         					
 
 
@@ -110,7 +127,7 @@
         					
         					 events.push({
                                           id:sesije[r],
-       									  title:"session:"+sesije[r],
+       									  title:ime[r],
      									  start: nizid[r],
                                           description:"session:"+sesije[r],
                                           allDay:false

@@ -10,7 +10,7 @@ use Exception;
 use App\User;
 use Input;
 
-class DeletesessionController extends Controller {
+class EditSessionController extends Controller {
 
 	public function store()
 	{
@@ -39,6 +39,8 @@ class DeletesessionController extends Controller {
 			}
 
 	        $id = Input::get("id");
+	        $name=Input::get("name");
+	        $comment=Input::get("comment");
 			$userFirst = $user->first();
 
 			if ($user->isEmpty()){
@@ -46,10 +48,27 @@ class DeletesessionController extends Controller {
 			}
 			else
 			{
-					Comment::where('session_id', $id)->delete();	
-				$sessions = Session::where('user_id', $userFirst->id)
+
+
+
+				       Session::where('user_id', $userFirst->id)
 								   ->where('id', $id)
-						    	   ->delete();
+						    	   ->update(array('name' => $name));
+			$comment2 = Comment::where('user_id', $userFirst->id)
+								->where('session_id', $id)->first();
+
+			if ($comment2 != null) {
+			   $user = Comment::where('user_id', $userFirst->id)
+								->where('session_id', $id)->update(array('text' => $comment));
+			}						
+			if ($comment2 === null) {
+			   $user = Comment::create(array('user_id' => $userFirst->id,'session_id'=>$id,'text'=>$comment));
+			}
+
+
+
+
+
 
 		        $response = [
 		          'response' => 'ok',

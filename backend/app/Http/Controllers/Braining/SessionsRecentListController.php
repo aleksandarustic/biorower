@@ -74,13 +74,11 @@ class SessionsRecentListController extends Controller {
 		
 
 				$sessions = Session::where('user_id', $userFirst->id)
-								  
 								   ->orderBy('date', 'DESC')
 								   ->skip(Input::get("offset"))
 								   ->take(Input::get("pageSize"))
 								   ->with("sessionSummary")								   
 								   ->with('comments')
-								   ->first()
 						    	   ->get();
 
 				$sessionsRecentList = array();

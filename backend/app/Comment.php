@@ -18,7 +18,7 @@ class Comment extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['text'];
+	protected $fillable = ['text','user_id','session_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

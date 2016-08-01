@@ -3,7 +3,7 @@
 @section('title', 'Workout')
 
 @section('page-script')
-
+		{!! HTML::style('plugins/jQuery/jQuery-2.1.4.min.js') !!}
 		{!! HTML::script('js/highcharts.js') !!}
 		{!! HTML::script('js/highcharts-more.js') !!}
 		{!! HTML::script('js/highcharts-3d.js') !!}

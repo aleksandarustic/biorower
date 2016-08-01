@@ -10,6 +10,12 @@ Route::group(array('prefix' => 'api'), function()
 	Route::resource('v1/sessions_recent_list', 'Braining\SessionsRecentListController',
 					['only' => ['store']]);
 
+        Route::Post('v1/firmware_update', 'Braining\FirmwareController@upload'); 
+
+	Route::Post('v1/firmware_get_version', 'Braining\FirmwareController@getVersion');
+
+	Route::Post('v1/firmware_get', 'Braining\FirmwareController@download'); 
+
 	Route::resource('v1/auths', 'Braining\AuthsController',
 					['only' => ['store']]); //, 'names' => ['store' => 'api.braining.auths.auths']]
 
@@ -24,17 +30,14 @@ Route::group(array('prefix' => 'api'), function()
 
 	Route::resource('v1/firmware', 'Braining\FirmwareController',
 					['only' => ['index']]); //'names' => ['index' => 'api.braining.firmware.firmware']]
-					
-	Route::Post('v1/firmware_update', 'Braining\FirmwareController@upload'); 
-
-	Route::Post('v1/firmware_get_version', 'Braining\FirmwareController@getVersion');
-
-	Route::Post('v1/firmware_get', 'Braining\FirmwareController@download'); 
 
 	Route::resource('v1/sessions_recent', 'Braining\RecentsessionsController',
 					['only' => ['store']]);
 
 	Route::resource('v1/sessions_get', 'Braining\GetsessionsController',
+					['only' => ['store']]);
+
+	Route::resource('v1/sessions_edit', 'Braining\EditSessionController',
 					['only' => ['store']]);
 
 	Route::resource('v1/sessions_short_data', 'Braining\RecentshortdatasessionsController',
@@ -84,8 +87,10 @@ Route::get('/profile/sessions', 'SessionController@sessions');
 Route::get('/profile/friends', 'User\UserController@friends');
 Route::get('/profile/{username}/session/{session}', 'SessionController@index');
 Route::get('/profile/{username}/sessions/{date1}/{date2}', 'SessionController@sessionsRangeSearch');
-Route::get('/profile/edit', 'User\UserController@getEdit');
+
 Route::post('/profile/edit', 'User\UserController@postEdit');
+Route::post('/profile/edit/user/user-upload-temp-image', 'User\UserController@postUserUploadTempImage');
+Route::post('/profile/edit/user/user-change-profile-image', 'User\UserController@postUserChangeProfileImage');
 Route::get('/profile/logout', 'WelcomeController@getLogout');
 
 Route::get('/sessions/calendar', 'SessionController@calendar');
@@ -98,6 +103,7 @@ Route::get('session/client2', 'SessionController@client2');
 Route::get('session/ajaxData1', 'SessionController@ajaxData1');
 Route::get('session/ajaxData2', 'SessionController@ajaxData2');
 
+Route::get('/profile/edit', 'User\UserController@getEdit');
 Route::post('profile/user/edit','update@update');
 
 Route::controllers([

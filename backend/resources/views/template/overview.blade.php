@@ -290,109 +290,109 @@
                                                         <li>
                                                             <label for="strokeCount">
                                                                 <input type="checkbox" name="parameters" id="strokeCount" value="stroke_count">
-                                                                <span class="stroke_count">Stroke Count</span>
+                                                                Stroke Count
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="strokeDistance">
                                                                 <input type="checkbox" name="parameters" id="strokeDistance" disabled>
-                                                                <span class="">Stroke Distance</span>
+                                                                Stroke Distance
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="speedMax">
                                                                 <input type="checkbox" name="parameters" id="speedMax" value="speed_max">
-                                                                <span class="speed_max">Speed Max</span>
+                                                                Speed Max
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="pace2km">
                                                                 <input type="checkbox" name="parameters" id="pace2km" disabled>
-                                                                <span class="">Pace 2km</span>
+                                                                Pace 2km
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="hrMax">
                                                                 <input type="checkbox" name="parameters" id="hrMax" disabled>
-                                                                <span class="">HR Max</span>
+                                                                HR Max
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="calories">
                                                                 <input type="checkbox" name="parameters" id="calories" disabled>
-                                                                <span class="">Calories</span>
+                                                                Calories
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="time">
                                                                 <input type="checkbox" name="parameters" id="time" value="time">
-                                                                <span class="time">Time</span>
+                                                                Time
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="strokeDistMax">
                                                                 <input type="checkbox" name="parameters" id="strokeDistMax" value="stroke_distance_max">
-                                                                <span class="stroke_distance_max">Stroke Dist. Max</span>
+                                                                Stroke Dist. Max
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="pace500m">
                                                                 <input type="checkbox" name="parameters" id="pace500m" disabled>
-                                                                <span class="">Pace 500m</span>
+                                                                Pace 500m
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="pace2kmMax">
                                                                 <input type="checkbox" name="parameters" id="pace2kmMax" disabled>
-                                                                <span class="">Pace 2km Max</span>
+                                                                Pace 2km Max
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="strokeRate">
                                                                 <input type="checkbox" name="parameters" id="strokeRate" value="stroke_rate_average">
-                                                                <span class="stroke_rate_average">Stroke Rate</span>
+                                                                Stroke Rate
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="powerL">
                                                                 <input type="checkbox" name="parameters" id="powerL" value="power_left_average">
-                                                                <span class="power_left_average">Power L</span>
+                                                                Power L
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="distance">
                                                                 <input type="checkbox" name="parameters" id="distance" value="distance">
-                                                                <span class="distance">Distance</span>
+                                                                Distance
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="speed">
                                                                 <input type="checkbox" name="parameters" id="speed" value="speed_average">
-                                                                <span class="speed_average">Speed</span>
+                                                                Speed
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="pace500mMax">
                                                                 <input type="checkbox" name="parameters" id="pace500mMax" disabled>
-                                                                <span class="">Pace 500m Max</span>
+                                                                Pace 500m Max
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="hr">
                                                                 <input type="checkbox" name="parameters" id="hr" disabled>
-                                                                <span class="hr">HR</span>
+                                                                HR
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="strokeRateMax">
                                                                 <input type="checkbox" name="parameters" id="strokeRateMax" value="stroke_rate_max">
-                                                                <span class="stroke_rate_max">Stroke Rate Max</span>
+                                                                Stroke Rate Max
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="powerLMax">
                                                                 <input type="checkbox" name="parameters" id="powerLMax" value="power_left_max">
-                                                                <span class="power_left_max">Power L Max</span>
+                                                                Power L Max
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                     </ul><!-- /.contatcts-list -->
@@ -403,14 +403,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                                                 <button type="button" class="btn btn-primary margin-r-5" 
-                                                        onclick="var newHistoryParams = $('#history-graph-params input:checked').map(function(){
-                                                                    var value = $(this).val();
-                                                                    var parameter = {
-                                                                        slug: value,
-                                                                        label: $('.'+value).text()
-                                                                    }
-                                                                    return parameter; 
-                                                                 }).get();
+                                                        onclick="var newHistoryParams = $('#history-graph-params input:checked').map(function(){ return $(this).val(); }).get();
                                                                  var newHistoryData = piktoBiorowerGraph.getHistoryData(newHistoryParams);
                                                                  piktoBiorowerGraph.historyPlot.setData(newHistoryData);
                                                                  piktoBiorowerGraph.historyPlot.setupGrid();
