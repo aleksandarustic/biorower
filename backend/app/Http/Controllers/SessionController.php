@@ -116,24 +116,9 @@ class SessionController extends Controller {
 		}
 
 		//$summaryTotalData = json_decode($sessionUser->data);
-
-		$summaryTotalData = $sessionUser->sessionSummary;
-		//dd($summaryTotalData);
-
-		$parameterByStrokesValues = json_decode($sessionUser->data);
-		$parameterByStrokesValues = GlobalFunctions::PrepareArrayParametersStatistics($parameterByStrokesValues[0]);
-
-		//dd($session);
-		$isAdmin = false;
-		if (!Auth::guest()){
-			if (Auth::user()->linkname == $sessionUser->user->linkname){
-				$isAdmin = true;
-			}
-		}
-						   
+			   
 		$allComments = View::make('/session/_allComments')
 						->with('sessionUser', $sessionUser)
-						->with('isAdmin', $isAdmin)
 						->render();
 		/*
 		$parameterByStrokesValues = '{"valuesModules": [
@@ -201,7 +186,7 @@ class SessionController extends Controller {
 			}';
 			*/
 
-		return view('/session/index', compact('decodedID', 'id', 'allComments', 'sessionUser', 'og_title', 'og_description', 'parameterByStrokesValues', 'summaryTotalData','summaryTotalData'));
+		return view('/session/index', compact('decodedID', 'id', 'allComments', 'sessionUser', 'og_title', 'og_description'));
 	}
 	public function comment()
 	{

@@ -38,7 +38,7 @@
 							<th class="nosort">id</th>
 						    <th class="nosort">Session</th>
 							<th class="nosort">Comments</th>
-							<th class="nosort">Date/Time</th>
+							<th class="nosort">Date</th>
 							<th class="nosort">Power</th>
 							<th class="nosort">Strokes</th>
 							<th class="nosort">Distance</th>
@@ -277,7 +277,7 @@
 		        	
 		        	dat= JSON.parse(JSON.stringify(dat).split('"sessionsRecentList":').join('"data":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"ID":').join('"id":'));
-		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"date":').join('"Date/Time":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"date":').join('"Date":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"UTC":').join('"Strokes":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"name":').join('"Session":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"comment":').join('"Comments":'));
@@ -297,14 +297,30 @@
 
 		        	  for(var i=0;i< d.length; i++){
 		        	  	var komentar=d[i].Comments;
+		        	  	var ime=d[i].Session;
 
 		        	  	  
 					        d[i].action="<span> <a href='#' class='update'  id="+d[i].id+" data-toggle='modal' data-target='#edit-session'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id="+d[i].id+" href='#'' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#delete-session'><i class='fa fa-trash-o inline btn btn-sm btn-primary'></i></a </span>";
-					        d[i].Session="<a href='"+urlBase+"/profile/"+display_name+"/session/"+d[i].id+"'>"+d[i].Session+"</a>";
+					      
+					          if (ime === undefined || ime == null) {
+					          	   var datum=new Date(d[i].Date);
+					          	   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+									var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+									var day = days[ datum.getDay() ];
+									var month = months[ datum.getMonth() ];
+								   d[i].Session="<a href='"+urlBase+"/profile/"+display_name+"/session/"+d[i].id+"'>Session:"+day+","+datum.getDate()+"."+month+" "+datum.getFullYear()+"</a>";
+								}
+							if(ime !=null){
+								for (var i2 = 0; i2 < ime.length; i2++) {
+						       d[i].Session="<a href='"+urlBase+"/profile/"+display_name+"/session/"+d[i].id+"'>"+d[i].Session+"</a>";
+						}
+								
+							}
 					       if (komentar === undefined || komentar.length == 0) {
 								   d[i].Comments="";
 								}
-							else{
+						  if (komentar.length !=0){
 								for (var i2 = 0; i2 < komentar.length; i2++) {
 						       d[i].Comments=d[i].Comments[i2].text;
 						}
@@ -333,7 +349,7 @@
 		  	     	{ 'data' : 'id' },
 		  	     	{ 'data' : 'Session' },
 		  	     	{ 'data' : 'Comments' },
-		  	     	{ 'data' : 'Date/Time' },
+		  	     	{ 'data' : 'Date' },
 		  	     	{ 'data' : 'Power' },
 		  	     	{ 'data' : 'Strokes' },
 		  	     	{ 'data' : 'Distance' },

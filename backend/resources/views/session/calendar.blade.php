@@ -76,7 +76,8 @@
 				center: 'title',
 				right: 'year,month,agendaWeek'
 			},
-			editable: true,
+			 editable: true,
+            selectable: true,
             defaultView: 'year',
 			events: function( start, end, callback) { 
 				var moment = j('#calendar').fullCalendar('getDate');
@@ -179,8 +180,16 @@
 		
 	});
 	</script>
-  
-	<div id='calendar'></div>
+      <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-body no-padding">
+
+	       <div id='calendar'></div>
+             </div><!-- /.box-body -->
+              </div><!-- /. box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
 
    
 

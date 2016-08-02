@@ -141,6 +141,7 @@
               var dat=data.sessions;
               var sesija2;
               var split;
+              var nizsplita=[];
              
 
                 for(var i=0;i< dat.length; i++){
@@ -148,13 +149,25 @@
                  
                    sesija2=dat[i].summary;
                    split=dat[i].splits;
+                  
 
              
             }
 
 
 
+                
+                  
+                
+                  
+
+             
             
+       
+
+
+
+          
             document.getElementById("time").innerHTML = sesija2.time;
             document.getElementById("stroke_count").innerHTML = sesija2.stroke_count;
             document.getElementById("distance").innerHTML = sesija2.distance+"<span class='description-percentage'>km</span>";
@@ -399,70 +412,8 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
   }); 
 
-<!--  Traoining History Graph -->
-
-  $(function() {
-
-var d1 = [
-    [0, 650], [1.5,420], [3.5, 420],[4.2, 220], [5, 420], [20, 420], [20, 420], 
-];
- var d2 = [
-    [0,190], [1,190], [3.5, 190], [3.5, 190], [4.2, 20], [5, 190], [20, 190],
-];
-var d3 = [
-     [0,0], [20,0],
-];
 
 
-$(function () {        
-    $.plotAnimator($("#train-history"),
-        [{
-              data: d1,
-        label:'Power(W)',
-        color: "#3c8dbc",
-        lines: { show: true, color: "#3c8dbc" },
-        points: { show: false }
-            },{
-      data: d2,
-      label:'Stroke rate(spm)',
-        color: "#b8c7ce",
-        lines: { show: true, color: "#b8c7ce" },
-        points: { show: false }
-            },
-      {
-              data: d3,
-        label:'Heart rate(bpm)',
-        color: "#536A7F",
-        lines: { show: true, color: "#536A7F" },
-        points: { show: false }
-            },
-        ],{            
-            grid: {
-                backgroundColor: false,
-         borderColor: "#f3f3f3",
-            borderWidth: 1,
-            tickColor: "#f3f3f3" 
-            },
-      shadowSize: 0,
-      legend: {
-          noColumns: 1,
-        },
-      yaxis: {
-            show: true,
-          },
-            xaxis:{
-        show: true,
-            }     
-        }
-    );
- var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Strokes(spm)").appendTo($('#train-history'));
-
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#train-history'));
-yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-
-});
-
-  }); 
   
   
   </script> 
@@ -1152,6 +1103,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
  
 @endsection
+
 
 
 
