@@ -35,9 +35,10 @@
 					<table id="my-sessions" class="table table-hover table-bordered table-striped">
 						<thead>
 						<tr>
-							<th class="nosort">id</th>
+							<th class="nosort">x</th>
+							<th class="hiden">id</th>
 						    <th class="nosort">Session</th>
-							<th class="nosort">Comments</th>
+							<th class="nosort">Description</th>
 							<th class="nosort">Date</th>
 							<th class="nosort">Power</th>
 							<th class="nosort">Strokes</th>
@@ -280,7 +281,7 @@
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"date":').join('"Date":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"UTC":').join('"Strokes":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"name":').join('"Session":'));
-		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"comment":').join('"Comments":'));
+		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"description":').join('"Description":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"time":').join('"Time":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"dist":').join('"Distance":'));
 		        	dat.data= JSON.parse(JSON.stringify(dat.data).split('"pwr_avg":').join('"Power":'));
@@ -296,8 +297,9 @@
 		        	
 
 		        	  for(var i=0;i< d.length; i++){
-		        	  	var komentar=d[i].Comments;
+	
 		        	  	var ime=d[i].Session;
+		        	  	    d[i].x=i;
 
 		        	  	  
 					        d[i].action="<span> <a href='#' class='update'  id="+d[i].id+" data-toggle='modal' data-target='#edit-session'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id="+d[i].id+" href='#'' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#delete-session'><i class='fa fa-trash-o inline btn btn-sm btn-primary'></i></a </span>";
@@ -317,15 +319,7 @@
 						}
 								
 							}
-					       if (komentar === undefined || komentar.length == 0) {
-								   d[i].Comments="";
-								}
-						  if (komentar.length !=0){
-								for (var i2 = 0; i2 < komentar.length; i2++) {
-						       d[i].Comments=d[i].Comments[i2].text;
-						}
-								
-							}	
+					   
 
 
 					        
@@ -346,9 +340,10 @@
 		  	var table= $('#my-sessions').DataTable({
 		  	     	"data":d,
 		  	     	"columns":[
+		  	     	{ 'data'  : 'x' },
 		  	     	{ 'data' : 'id' },
 		  	     	{ 'data' : 'Session' },
-		  	     	{ 'data' : 'Comments' },
+		  	     	{ 'data' : 'Description' },
 		  	     	{ 'data' : 'Date' },
 		  	     	{ 'data' : 'Power' },
 		  	     	{ 'data' : 'Strokes' },
@@ -369,7 +364,7 @@
 		  	     	'iDisplayLength': 100
 					
 					});
-			
+	$("tr > td:nth-child(2)").hide();		
      $("tr > td:nth-child(10)").hide();
      $("tr > td:nth-child(11)").hide();
      $("tr > td:nth-child(12)").hide();
@@ -378,14 +373,23 @@
      $("tr > td:nth-child(15)").hide();
      $("tr > td:nth-child(16)").hide();
      $("tr > td:nth-child(17)").hide();
+
+
+
+
+     $('#my-sessions').delegate('tbody > tr > td:nth-child(-n +10)', 'click', function ()
+{
+	var eee =$(this).closest('tr');
+	var id4=eee.find('td:eq(1)').text();
+	
+
+    
+   window.location.href = urlBase+"/profile/"+display_name+"/session/"+id4;
+});
      
 
-		  	
 
-
-
-
-		  	 $("#potvrda").click(function(){
+		$("#potvrda").click(function(){
      	var niz=[];
      	
      	niz=document.getElementsByName("parameters");
@@ -393,7 +397,7 @@
      	 for(var i=0;i< niz.length; i++){
      	 	if(niz[i].checked==true){
      	 		$(".hiden").eq(i).show();
-     	 		var broj=i+10;
+     	 		var broj=i+11;
      	 		
 
      	 		 $('tr > td:nth-child('+broj+')').show();
@@ -402,7 +406,7 @@
      	 	}
      	 	if(niz[i].checked==false){
      	 		$(".hiden").eq(i).hide();
-     	 		var broj=i+10;
+     	 		var broj=i+11;
      	 		
 
      	 		 $('tr > td:nth-child('+broj+')').hide();
@@ -415,15 +419,6 @@
 
 
      });
-
-
-
-
-
-
-
-
-
 
 
 		 
@@ -469,10 +464,8 @@
   			var ee =$(this).closest('tr');
   			var broj=ee[0]._DT_RowIndex;
 
-  			
- 
-  			document.getElementById("imesesije").value= ee.find('td:eq(1)').text();
-  			document.getElementById("text").value=ee.find('td:eq(2)').text();
+  			document.getElementById("imesesije").value= ee.find('td:eq(2)').text();
+  			document.getElementById("text").value=ee.find('td:eq(3)').text();
 
 
 		   
@@ -483,13 +476,13 @@
         type: 'POST', 
         dataType: 'json',
         url : urlBase + '/api/v1/sessions_edit',
-        data: {account: email2 ,id: w,name:document.getElementById("imesesije").value,comment:document.getElementById("text").value
+        data: {account: email2 ,id: w,name:document.getElementById("imesesije").value,description:document.getElementById("text").value
       
 
     }, 
         success: function (data4) {
-        	 var cell = table.cell(broj,1);
-        	 var cell2 = table.cell(broj,2);
+        	 var cell = table.cell(broj,2);
+        	 var cell2 = table.cell(broj,3);
         	 cell.data("<a href='"+urlBase+"/profile/"+display_name+"/session/"+w+"'>"+document.getElementById("imesesije").value+"</a>");
         	 cell2.data(document.getElementById("text").value);
 

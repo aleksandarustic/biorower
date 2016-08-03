@@ -40,7 +40,7 @@ class EditSessionController extends Controller {
 
 	        $id = Input::get("id");
 	        $name=Input::get("name");
-	        $comment=Input::get("comment");
+	        $description=Input::get("description");
 			$userFirst = $user->first();
 
 			if ($user->isEmpty()){
@@ -53,19 +53,9 @@ class EditSessionController extends Controller {
 
 				       Session::where('user_id', $userFirst->id)
 								   ->where('id', $id)
-						    	   ->update(array('name' => $name));
-			$comment2 = Comment::where('user_id', $userFirst->id)
-								->where('session_id', $id)->first();
-
-			if ($comment2 != null) {
-			   $user = Comment::where('user_id', $userFirst->id)
-								->where('session_id', $id)->update(array('text' => $comment));
-			}						
-			if ($comment2 === null) {
-			   $user = Comment::create(array('user_id' => $userFirst->id,'session_id'=>$id,'text'=>$comment));
-			}
-
-
+						    	   ->update(array('name' => $name,'description'=> $description));
+		
+		
 
 
 

@@ -99,7 +99,7 @@ class SessionsRecentListController extends Controller {
 						"date" => $value["date"],
 						"UTC"=>$value["utc"],
 						"name"=>$value["name"],
-						"comment"=>$komentari,
+						"description"=>$value["description"],
 						"time"=>$value->sessionSummary["time"],
 						"dist"=>$value->sessionSummary["distance"],
 						"pwr_avg"=>$value->sessionSummary["power_average"],
