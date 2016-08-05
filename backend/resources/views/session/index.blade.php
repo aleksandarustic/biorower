@@ -109,25 +109,7 @@
 
             }
           });
-
-
-
-
-
-
-    
-
-
-
-    
      
-     
-
-
-
-     
-     
-        
           $.ajax({ 
             type: 'POST', 
             dataType: 'json',
@@ -150,535 +132,104 @@
                    sesija2=dat[i].summary;
                    split=dat[i].splits;
                   
-
-             
             }
-
-
-
-                
-                  
-                
-                  
-
-             
-            
-       
-
-
-
+            var time=[];
+            var nizPower=[];
           
-            document.getElementById("time").innerHTML = sesija2.time;
-            document.getElementById("stroke_count").innerHTML = sesija2.stroke_count;
-            document.getElementById("distance").innerHTML = sesija2.distance+"<span class='description-percentage'>km</span>";
-            document.getElementById("stroke_rate").innerHTML = sesija2.stroke_rate_average+"<span class='description-percentage'>spm</span>";
-            document.getElementById("stroke_rate_max").innerHTML = sesija2.stroke_rate_max+"<span class='description-percentage'>spm</span>";
-            document.getElementById("hr").innerHTML = sesija2.heart_rate_average+"<span class='description-percentage'>bpm</span>";
-            document.getElementById("hr_max").innerHTML = sesija2.heart_rate_max+"<span class='description-percentage'>bpm</span>";
-            document.getElementById("pace").innerHTML = sesija2.pace_average;
-            document.getElementById("speed").innerHTML = sesija2.speed_average+"<span class='description-percentage'>km/h</span>";
-            document.getElementById("power").innerHTML = sesija2.power_average+"<span class='description-percentage'>W</span>";
-            document.getElementById("power_max").innerHTML = sesija2.power_max+"<span class='description-percentage'>W</span>";
-            document.getElementById("power_balance").innerHTML = sesija2.power_balance+"<span class='description-percentage'>W</span>";
-            document.getElementById("angle").innerHTML = sesija2.angle_average;
+            var angle_r=[];
+            var angle_l=[];
+            var force_r=[];
+            var force_l=[];
+            var power_l=[];
+            var power_r=[];
+              for(var i2=0;i2< split[0].length; i2++){
 
-            document.getElementById("calories").innerHTML ="<span class='description-percentage'>kCal</span>";
-            document.getElementById("uvod").innerHTML="BY <a href='profile.html'><?php echo $id; ?></a>"+" "+dat[0].date;
-           
+                power_l.push(split[0][i2].time);
+                power_l.push(split[0][i2].pwr_l);
+                power_r.push(split[0][i2].time);
+                power_r.push(split[0][i2].pwr_r);
 
-                      
+                angle_r.push(split[0][i2].ang_r);
+                angle_l.push(split[0][i2].ang_l);
+                force_r.push(split[0][i2].frc_r);
+                force_l.push(split[0][i2].frc_l);
 
-            
-          }
-          });
-
-
+             
+                 nizPower.push(split[0][i2].srate);
+                 nizPower.push(split[0][i2].pwr);
+                 time.push(split[0][i2].srate);
+                 time.push(split[0][i2].time);
 
 
-    // generate data set from a parametric function with a fractal look
-     var sin = [], cos = [];
-        for (var i = 0; i < 14; i += 0.25) {
-          sin.push([i, Math.sin(i)]);
-        }
-        var d1 = {
-          data: sin,
-          color: "#3c8dbc",
-      label: 'Left Forse',
-        };
 
-    var d2 = {
-      label:'Right Forse',
-      data: [[0, 5], [1, 5], [2, 35], [2.2, 36], [2.4, 36.6], [2.6, 37.2], [2.8, 37.4], [3, 36.6],[3.5, 36.2], [3.7, 35.7], [4, 35], [5, 5], [7, 25], [8, 24], [1, 21], [2, 16], [3, 10], [4, 7]]};
-    var d3 = {
-    label:'Right Forse',
-    data: [[5, 3], [6, 2], [9, 8], [5, 12]]};
-
-    var data =
-     [ d1, d2, d3 ]
-      placeholder = $("#signals-graph");
-
-    var plot = $.plotAnimator(placeholder, data,
     
-     {
-      
-      grid: {
-                backgroundColor: false,
-         borderColor: "#f3f3f3",
-            borderWidth: 1,
-            tickColor: "#f3f3f3",
-      },
-      splines: {
-                        show: true,
-                        tension: 0.4,
-                        lineWidth: 1,
-                        fill: 0.4
-                    },
-      series: {
-        lines: {
-          show: true,
-          //fill: true
-        },
-        shadowSize: 0,
-        legend: {
-          noColumns: 5,
-        },
-      },
-      xaxis: {
-        zoomRange: [0.1, 10],
-        panRange: [-10, 10]
-      },
-      yaxis: {
-        zoomRange: [0.1, 10],
-        panRange: [-10, 10]
-      },
-      zoom: {
-        interactive: true
-      },
-      pan: {
-        interactive: true
-      }
-    });
-
-    placeholder.bind("plotzoom", function (event, plot) {
-      var axes = plot.getAxes();
-      $(".message").html("Zooming to x: "  + axes.xaxis.min.toFixed(2)
-      + " &ndash; " + axes.xaxis.max.toFixed(2)
-      + " and y: " + axes.yaxis.min.toFixed(2)
-      + " &ndash; " + axes.yaxis.max.toFixed(2));
-    });
-
-    // add zoom out button 
-
-    $("<div class='button fa fa-icon' id='icon-zoomOut' style='right:44px; top:46px;'></div>")
-      .appendTo(placeholder)
-      .click(function (event) {
-        event.preventDefault();
-        plot.zoomOut();
-      });
-
-$("<div class='button' id='icon-zoomIn' style='right:44px; top:22px;'></div>")
-      .appendTo(placeholder)
-      .click(function (event) {
-        event.preventDefault();
-        plot.zoom();
-      });
-      
-      var axes = plot.getAxes(),
-    xaxis = axes.xaxis.options,
-    yaxis = axes.yaxis.options;
-xaxis.min = null;
-xaxis.max = null;
-yaxis.min = null;
-yaxis.max = null;
-
-// Don't forget to redraw the plot
-plot.setupGrid();
-plot.draw();
-    // and add panning buttons
-
-    // little helper for taking the repetitive work out of placing
-    // panning arrows
- var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Time(s)").appendTo($('#signals-graph'));
-
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#signals-graph'));
-yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-  });
+                
+                
+                  
+            }
 
 
- //Line Graph - Left Hand
 
-  $(function() {
-  var xAsis = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-    var d1 = [[1264982400000, 13], [1267401600000, 15], [1270080000000, 18], [1272672000000, 23], [1275350400000, 27], [1277942400000, 30], [1280620800000, 30], [1283299200000, 27], [1285891200000, 22], [1288569600000, 16], [1291161600000, 13]];
-var d2 = [[1264982400000, 12], [1291161600000, 12]];
-  
+            var nizForceL2=[];
+            var nizForceR2=[];
+            var angle_Ltime=[];
+            var angle_Rtime=[];
+
+             for(var i3=0;i3< angle_r.length; i3++){
+
+               for(var i4=0;i4< angle_r[i3].length; i4++){
+                  angle_Ltime.push(split[0][i3].time);
+                  angle_Ltime.push(angle_l[i3][i4]);
+                  angle_Rtime.push(split[0][i3].time);
+                  angle_Rtime.push(angle_r[i3][i4]);
+                  nizForceL2.push(angle_l[i3][i4]);
+                  nizForceL2.push(force_l[i3][i4]);
+                  nizForceR2.push(angle_r[i3][i4]);
+                  nizForceR2.push(force_r[i3][i4]);
+                   }
+             }
+            var nizTime=[];
+            var power_l2=[];
+            var power_r2=[];
+            var power1=[];
+            var forceL1=[];
+            var forceR1=[];
+            var angle_Ltime2=[];
+            var angle_Rtime2=[];
+
+          while(angle_Rtime.length) angle_Rtime2.push(angle_Rtime.splice(0,2));
+          while(angle_Ltime.length) angle_Ltime2.push(angle_Ltime.splice(0,2));
+          while(power_l.length) power_l2.push(power_l.splice(0,2));
+          while(power_r.length) power_r2.push(power_r.splice(0,2));
+          while(nizPower.length) power1.push(nizPower.splice(0,2));
+          while(time.length) nizTime.push(time.splice(0,2));
+          while(nizForceL2.length) forceL1.push(nizForceL2.splice(0,2));
+          while(nizForceR2.length) forceR1.push(nizForceR2.splice(0,2));
  
-$(function () {        
-    $.plotAnimator($("#left-hand"),
-        [{
-              data: d1,
-        color: "#536A7F",
-        lines: { show: true, color: "#536A7F", fillColor: "#536A7F" },
-        points: { show: false, fill:true }
-            },
-      {
-              data: d2,
-        color: "#3c8dbc",
+
+
+ d6={
+              data: nizTime,
+        label:'Time(s)',
+        color: "#9c8dbc",
         lines: { show: true, color: "#3c8dbc" },
-        points: { show: false, fill:true }
-            }
-        ],{            
-            grid: {
-                hoverable: false, 
-                clickable: false, 
-                backgroundColor: false,
-         borderColor: "#f3f3f3",
-            borderWidth: 1,
-            tickColor: "#f3f3f3" 
-            },
-      shadowSize: 0,
-      legend: {
-          noColumns: 1,
-        },
-      yaxis: {
-            show: true,
-          },
-            xaxis:{
-         ticks: [
-                            [1262304000000, ""], [1264982400000, "-90°" ], [1267401600000, ""], [1270080000000, ""], [ 1272672000000, ""], [1275350400000, ""], [1277942400000, "0"], [1280620800000, ""], [1285891200000, ""], [1285891200000, ""], [1288569600000, ""], [1291161600000, "60°"]
-                   ]
-            }     
-        }
-    );
-   var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Angle(°)").appendTo($('#left-hand'));
-
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Forse(N)").appendTo($('#left-hand'));
-yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-
-});
-  }); 
-
- //Line Graph - Right Hand
-
-  $(function() {
-  var xAsis = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-    var d1 = [[1264982400000, 13], [1267401600000, 15], [1270080000000, 18], [1272672000000, 23], [1275350400000, 27], [1277942400000, 30], [1280620800000, 30], [1283299200000, 27], [1285891200000, 22], [1288569600000, 16], [1291161600000, 13]];
-var d2 = [[1264982400000, 12], [1291161600000, 12]];
-  
- 
-$(function () {        
-    $.plotAnimator($("#right-hand"),
-        [{
-              data: d1,
-        color: "#3c8dbc",
-        lines: { show: true, color: "#3c8dbc", fillColor: "#3c8dbc" },
-        points: { show: false, fill:true }
-            },
-      {
-              data: d2,
-        color: "#3c8dbc",
-        lines: { show: true, color: "3c8dbc" },
-        points: { show: false, fill:true }
-            }
-        ],{            
-            grid: {
-                hoverable: false, 
-                clickable: false, 
-                backgroundColor: false,
-         borderColor: "#f3f3f3",
-            borderWidth: 1,
-            tickColor: "#f3f3f3" 
-            },
-      shadowSize: 0,
-      legend: {
-          noColumns: 1,
-        },
-      yaxis: {
-            show: true,
-          },
-            xaxis:{
-         ticks: [
-                            [1262304000000, ""], [1264982400000, "-90°" ], [1267401600000, ""], [1270080000000, ""], [ 1272672000000, ""], [1275350400000, ""], [1277942400000, "0"], [1280620800000, ""], [1285891200000, ""], [1285891200000, ""], [1288569600000, ""], [1291161600000, "60°"]
-                   ]
-            }     
-        }
-    );
-   var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Angle(°)").appendTo($('#right-hand'));
-
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Forse(N)").appendTo($('#right-hand'));
-yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-
-});
-
-  }); 
+        points: { show: false}
+            }  
 
 
 
-  
-  
-  </script> 
-<!-- REQUIRED JS SCRIPTS --> 
-
-
-<script type="text/javascript">
-
-  $(function() {
-
-    // generate data set from a parametric function with a fractal look
-     var sin = [], cos = [];
-        for (var i = 0; i < 14; i += 0.25) {
-          sin.push([i, Math.sin(i)]);
-        }
-        var d1 = {
-          data: sin,
-          color: "#3c8dbc",
-      label: 'Left Forse',
-        };
-
-    var d2 = {
-      label:'Right Forse',
-      data: [[0, 5], [1, 5], [2, 35], [2.2, 36], [2.4, 36.6], [2.6, 37.2], [2.8, 37.4], [3, 36.6],[3.5, 36.2], [3.7, 35.7], [4, 35], [5, 5], [7, 25], [8, 24], [1, 21], [2, 16], [3, 10], [4, 7]]};
-    var d3 = {
-    label:'Right Forse',
-    data: [[5, 3], [6, 2], [9, 8], [5, 12]]};
-
-    var data =
-     [ d1, d2, d3 ]
-      placeholder = $("#signals-graph");
-
-    var plot = $.plotAnimator(placeholder, data,
-    
-     {
-      
-      grid: {
-                backgroundColor: false,
-         borderColor: "#f3f3f3",
-            borderWidth: 1,
-            tickColor: "#f3f3f3",
-      },
-      splines: {
-                        show: true,
-                        tension: 0.4,
-                        lineWidth: 1,
-                        fill: 0.4
-                    },
-      series: {
-        lines: {
-          show: true,
-          //fill: true
-        },
-        shadowSize: 0,
-        legend: {
-          noColumns: 5,
-        },
-      },
-      xaxis: {
-        zoomRange: [0.1, 10],
-        panRange: [-10, 10]
-      },
-      yaxis: {
-        zoomRange: [0.1, 10],
-        panRange: [-10, 10]
-      },
-      zoom: {
-        interactive: true
-      },
-      pan: {
-        interactive: true
-      }
-    });
-
-    placeholder.bind("plotzoom", function (event, plot) {
-      var axes = plot.getAxes();
-      $(".message").html("Zooming to x: "  + axes.xaxis.min.toFixed(2)
-      + " &ndash; " + axes.xaxis.max.toFixed(2)
-      + " and y: " + axes.yaxis.min.toFixed(2)
-      + " &ndash; " + axes.yaxis.max.toFixed(2));
-    });
-
-    // add zoom out button 
-
-    $("<div class='button fa fa-icon' id='icon-zoomOut' style='right:44px; top:46px;'></div>")
-      .appendTo(placeholder)
-      .click(function (event) {
-        event.preventDefault();
-        plot.zoomOut();
-      });
-
-$("<div class='button' id='icon-zoomIn' style='right:44px; top:22px;'></div>")
-      .appendTo(placeholder)
-      .click(function (event) {
-        event.preventDefault();
-        plot.zoom();
-      });
-      
-      var axes = plot.getAxes(),
-    xaxis = axes.xaxis.options,
-    yaxis = axes.yaxis.options;
-xaxis.min = null;
-xaxis.max = null;
-yaxis.min = null;
-yaxis.max = null;
-
-// Don't forget to redraw the plot
-plot.setupGrid();
-plot.draw();
-    // and add panning buttons
-
-    // little helper for taking the repetitive work out of placing
-    // panning arrows
- var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Time(s)").appendTo($('#signals-graph'));
-
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#signals-graph'));
-yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-  });
-
-
- //Line Graph - Left Hand
-
-  $(function() {
-  var xAsis = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-    var d1 = [[1264982400000, 13], [1267401600000, 15], [1270080000000, 18], [1272672000000, 23], [1275350400000, 27], [1277942400000, 30], [1280620800000, 30], [1283299200000, 27], [1285891200000, 22], [1288569600000, 16], [1291161600000, 13]];
-var d2 = [[1264982400000, 12], [1291161600000, 12]];
-  
- 
-$(function () {        
-    $.plotAnimator($("#left-hand"),
-        [{
-              data: d1,
-        color: "#536A7F",
-        lines: { show: true, color: "#536A7F", fillColor: "#536A7F" },
-        points: { show: false, fill:true }
-            },
-      {
-              data: d2,
-        color: "#3c8dbc",
-        lines: { show: true, color: "#3c8dbc" },
-        points: { show: false, fill:true }
-            }
-        ],{            
-            grid: {
-                hoverable: false, 
-                clickable: false, 
-                backgroundColor: false,
-         borderColor: "#f3f3f3",
-            borderWidth: 1,
-            tickColor: "#f3f3f3" 
-            },
-      shadowSize: 0,
-      legend: {
-          noColumns: 1,
-        },
-      yaxis: {
-            show: true,
-          },
-            xaxis:{
-         ticks: [
-                            [1262304000000, ""], [1264982400000, "-90°" ], [1267401600000, ""], [1270080000000, ""], [ 1272672000000, ""], [1275350400000, ""], [1277942400000, "0"], [1280620800000, ""], [1285891200000, ""], [1285891200000, ""], [1288569600000, ""], [1291161600000, "60°"]
-                   ]
-            }     
-        }
-    );
-   var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Angle(°)").appendTo($('#left-hand'));
-
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Forse(N)").appendTo($('#left-hand'));
-yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-
-});
-  }); 
-
- //Line Graph - Right Hand
-
-  $(function() {
-  var xAsis = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-    var d1 = [[1264982400000, 13], [1267401600000, 15], [1270080000000, 18], [1272672000000, 23], [1275350400000, 27], [1277942400000, 30], [1280620800000, 30], [1283299200000, 27], [1285891200000, 22], [1288569600000, 16], [1291161600000, 13]];
-var d2 = [[1264982400000, 12], [1291161600000, 12]];
-  
- 
-$(function () {        
-    $.plotAnimator($("#right-hand"),
-        [{
-              data: d1,
-        color: "#3c8dbc",
-        lines: { show: true, color: "#3c8dbc", fillColor: "#3c8dbc" },
-        points: { show: false, fill:true }
-            },
-      {
-              data: d2,
-        color: "#3c8dbc",
-        lines: { show: true, color: "3c8dbc" },
-        points: { show: false, fill:true }
-            }
-        ],{            
-            grid: {
-                hoverable: false, 
-                clickable: false, 
-                backgroundColor: false,
-         borderColor: "#f3f3f3",
-            borderWidth: 1,
-            tickColor: "#f3f3f3" 
-            },
-      shadowSize: 0,
-      legend: {
-          noColumns: 1,
-        },
-      yaxis: {
-            show: true,
-          },
-            xaxis:{
-         ticks: [
-                            [1262304000000, ""], [1264982400000, "-90°" ], [1267401600000, ""], [1270080000000, ""], [ 1272672000000, ""], [1275350400000, ""], [1277942400000, "0"], [1280620800000, ""], [1285891200000, ""], [1285891200000, ""], [1288569600000, ""], [1291161600000, "60°"]
-                   ]
-            }     
-        }
-    );
-   var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Angle(°)").appendTo($('#right-hand'));
-
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Forse(N)").appendTo($('#right-hand'));
-yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-
-});
-
-  }); 
-
-<!--  Traoining History Graph -->
-
-  $(function() {
-
-var d1 = [
-    [0, 650], [1.5,420], [3.5, 420],[4.2, 220], [5, 420], [20, 420], [20, 420], 
-];
- var d2 = [
-    [0,190], [1,190], [3.5, 190], [3.5, 190], [4.2, 20], [5, 190], [20, 190],
-];
-var d3 = [
-     [0,0], [20,0],
-];
-
-
-$(function () {        
-    $.plotAnimator($("#train-history"),
-        [{
-              data: d1,
+ d5={
+              data: power1,
         label:'Power(W)',
         color: "#3c8dbc",
         lines: { show: true, color: "#3c8dbc" },
-        points: { show: false }
-            },{
-      data: d2,
-      label:'Stroke rate(spm)',
-        color: "#b8c7ce",
-        lines: { show: true, color: "#b8c7ce" },
-        points: { show: false }
-            },
-      {
-              data: d3,
-        label:'Heart rate(bpm)',
-        color: "#536A7F",
-        lines: { show: true, color: "#536A7F" },
-        points: { show: false }
-            },
-        ],{            
+        points: { show: false}
+            }      
+ var data2 = [ d5];
+
+
+ var plot2 =$.plot($("#Strokes"),
+       data2,{            
             grid: {
                 backgroundColor: false,
          borderColor: "#f3f3f3",
@@ -697,17 +248,277 @@ $(function () {
             }     
         }
     );
- var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Strokes(spm)").appendTo($('#train-history'));
+ var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Strokes(spm)").appendTo($('#Strokes'));
 
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#train-history'));
+var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#Strokes'));
 yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
-});
 
-  }); 
+
+
+            $("#promenaParametra").click(function(){
+
+      var niz=[];
+
+            
+      
+      niz=document.getElementsByName("parameters");
+      
+       for(var i=0;i< niz.length; i++){
+        if(niz[i].checked==true){
+          if( niz[i].getAttribute("id")=="time"){
+            data2.push(d6);
+            plot2.setData(data2);
+            plot2.setupGrid();
+            plot2.draw();
+
+           
+             
+
+
+          }
+         
+         
+
+
+        }
+        if(niz[i].checked==false){
+          
+          
+          
+
+
+        }
+
+      }
+
+
+     });   
+           
+
+
+
+            
+
+              
+        
+            document.getElementById("time").innerHTML = sesija2.time;
+            document.getElementById("stroke_count").innerHTML = sesija2.stroke_count;
+            document.getElementById("distance").innerHTML = sesija2.distance+"<span class='description-percentage'>km</span>";
+            document.getElementById("stroke_rate").innerHTML = sesija2.stroke_rate_average+"<span class='description-percentage'>spm</span>";
+            document.getElementById("stroke_rate_max").innerHTML = sesija2.stroke_rate_max+"<span class='description-percentage'>spm</span>";
+            document.getElementById("hr").innerHTML = sesija2.heart_rate_average+"<span class='description-percentage'>bpm</span>";
+            document.getElementById("hr_max").innerHTML = sesija2.heart_rate_max+"<span class='description-percentage'>bpm</span>";
+            document.getElementById("pace").innerHTML = sesija2.pace_average;
+            document.getElementById("speed").innerHTML = sesija2.speed_average+"<span class='description-percentage'>km/h</span>";
+            document.getElementById("power").innerHTML = sesija2.power_average+"<span class='description-percentage'>W</span>";
+            document.getElementById("power_max").innerHTML = sesija2.power_max+"<span class='description-percentage'>W</span>";
+            document.getElementById("power_balance").innerHTML = sesija2.power_balance+"<span class='description-percentage'>W</span>";
+            document.getElementById("angle").innerHTML = sesija2.angle_average;
+
+            document.getElementById("calories").innerHTML ="<span class='description-percentage'>kCal</span>";
+            document.getElementById("uvod").innerHTML="BY <a href='profile.html'><?php echo $id; ?></a>"+" "+dat[0].date;
+          
+
+
+ 
+    $.plotAnimator($("#left-hand"),
+        [{
+              data: forceL1,
+        color: "#536A7F",
+        lines: { show: true, color: "#536A7F", fillColor: "#536A7F" },
+        points: { show: false, fill:true }
+            },
+        ],{            
+            grid: {
+                hoverable: false, 
+                clickable: false, 
+                backgroundColor: false,
+         borderColor: "#f3f3f3",
+            borderWidth: 1,
+            tickColor: "#f3f3f3" 
+            },
+      shadowSize: 0,
+      legend: {
+          noColumns: 1,
+        },
+      yaxis: {
+            show: true,
+          },
+            xaxis:{
+            show:true,
+            }     
+        }
+    );
+   var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Angle(°)").appendTo($('#left-hand'));
+
+var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Forse(N)").appendTo($('#left-hand'));
+yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+
+
+
+
+
+     $.plotAnimator($("#right-hand"),
+        [{
+              data: forceR1,
+        color: "#536A7F",
+        lines: { show: true, color: "#536A7F", fillColor: "#536A7F" },
+        points: { show: false, fill:true }
+            },
+        ],{            
+            grid: {
+                hoverable: false, 
+                clickable: false, 
+                backgroundColor: false,
+         borderColor: "#f3f3f3",
+            borderWidth: 1,
+            tickColor: "#f3f3f3" 
+            },
+      shadowSize: 0,
+      legend: {
+          noColumns: 1,
+        },
+      yaxis: {
+            show: true,
+          },
+            xaxis:{
+            show:true,
+            }     
+        }
+    );
+   var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Angle(°)").appendTo($('#right-hand'));
+
+var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Forse(N)").appendTo($('#right-hand'));
+yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+
+
+
+
+        var d1 = {
+          data: power_l2,
+          color: "#3c8dbc",
+      label: 'Left Power',
+        };
+
+      var d2 = {
+      label:'Right Power',
+      data: power_r2};
+      var d3 = {
+
+      label:'Angle Left',
+      data: angle_Ltime2};
+       var d4 = {
+
+      label:'Angle Right',
+      data: angle_Rtime2};
+
+
+    var data =
+     [ d1, d2 ,d3, d4]
+      placeholder = $("#signals-graph");
+
+    var plot = $.plotAnimator(placeholder, data,
+    
+     {
+      
+      grid: {
+                backgroundColor: false,
+         borderColor: "#f3f3f3",
+            borderWidth: 1,
+            tickColor: "#f3f3f3",
+      },
+      splines: {
+                        show: true,
+                        tension: 0.4,
+                        lineWidth: 1,
+                        fill: 0.4
+                    },
+      series: {
+        lines: {
+          show: true,
+          //fill: true
+        },
+        shadowSize: 0,
+        legend: {
+          noColumns: 5,
+        },
+      },
+      xaxis: {
+        zoomRange: [0.1, 10],
+        panRange: [-10, 10]
+      },
+      yaxis: {
+        zoomRange: [0.1, 10],
+        panRange: [-10, 10]
+      },
+      zoom: {
+        interactive: true
+      },
+      pan: {
+        interactive: true
+      }
+    });
+
+    placeholder.bind("plotzoom", function (event, plot) {
+      var axes = plot.getAxes();
+      $(".message").html("Zooming to x: "  + axes.xaxis.min.toFixed(2)
+      + " &ndash; " + axes.xaxis.max.toFixed(2)
+      + " and y: " + axes.yaxis.min.toFixed(2)
+      + " &ndash; " + axes.yaxis.max.toFixed(2));
+    });
+
+    // add zoom out button 
+
+    $("<div class='button fa fa-icon' id='icon-zoomOut' style='right:44px; top:46px;'></div>")
+      .appendTo(placeholder)
+      .click(function (event) {
+        event.preventDefault();
+        plot.zoomOut();
+      });
+
+$("<div class='button' id='icon-zoomIn' style='right:44px; top:22px;'></div>")
+      .appendTo(placeholder)
+      .click(function (event) {
+        event.preventDefault();
+        plot.zoom();
+      });
+      
+      var axes = plot.getAxes(),
+    xaxis = axes.xaxis.options,
+    yaxis = axes.yaxis.options;
+xaxis.min = null;
+xaxis.max = null;
+yaxis.min = null;
+yaxis.max = null;
+
+// Don't forget to redraw the plot
+plot.setupGrid();
+plot.draw();
+
+   }
+          });
+
+    // and add panning buttons
+
+    // little helper for taking the repetitive work out of placing
+    // panning arrows
+ var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Time(s)").appendTo($('#signals-graph'));
+
+var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#signals-graph'));
+yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+  });
+
+
+
+
   
   
   </script> 
+<!-- REQUIRED JS SCRIPTS --> 
+
+
+
 
 @endsection
 
@@ -769,20 +580,159 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
       <div class="box-header margin-bottom graphic-box no-padding no-pad-top">
         <div class="traninig-graph">
         <div class="traninig-graph-header">
-              <h3 class="training-h3">Training History</h3>
+              <h3 class="training-h3">Strokes</h3>
 
-        <div class="traninig-graph-tab graphBtn-tab pull-right">
-        <ul class="nav nav-tabs pull-right ui-sortable-handle">
-                  <li class="active"><a href="#revenue-chart" data-toggle="tab" aria-expanded="true">All</a></li>
-                  <li class=""><a href="#sales-chart" data-toggle="tab" aria-expanded="false">Week</a></li>
-                  <li class=""><a href="#revenue-chart" data-toggle="tab" aria-expanded="false">Month</a></li>
-                  <li class=""><a href="#sales-chart" data-toggle="tab" aria-expanded="false">Year</a></li>
-                </ul>
-</div>
+    
      </div>   
-        <div id="train-history" class="clear" style="height: 300px;"></div>
+        <div id="Strokes" class="clear" style="height: 300px;"></div>
         <div class="graphic-footer row">
-                  <div class="pull-right btn-param"><i class="fa fa-cog"></i></div>
+                
+                            <div class="graphic-footer row">
+                                <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam"><i class="fa fa-cog"></i></a>
+                            </div>
+
+
+                            <div class="example-modal">
+                                <div class="modal" id="myParam">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header no-border">
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="modal-param">
+                                                    <h2>Choose parametars</h2>
+                                                    <p>Choose three parametars from the list</p>
+                                                </div>
+                                                <!-- List of Parametars -->
+                                                <div id="history-graph-params" class="param-box">
+                                                    <ul class="checkbox icheck modalParm-list">
+                                                        <li>
+                                                            <label for="strokeCount">
+                                                                <input type="checkbox" name="parameters" id="strokeCount" value="stroke_count">
+                                                                Stroke Count
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="strokeDistance">
+                                                                <input type="checkbox" name="parameters" id="strokeDistance" disabled>
+                                                                Stroke Distance
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="speedMax">
+                                                                <input type="checkbox" name="parameters" id="speedMax" value="speed_max">
+                                                                Speed Max
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="pace2km">
+                                                                <input type="checkbox" name="parameters" id="pace2km" disabled>
+                                                                Pace 2km
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="hrMax">
+                                                                <input type="checkbox" name="parameters" id="hrMax" disabled>
+                                                                HR Max
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="calories">
+                                                                <input type="checkbox" name="parameters" id="calories" disabled>
+                                                                Calories
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="time">
+                                                                <input type="checkbox" name="parameters" id="time" value="time">
+                                                                Time
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="strokeDistMax">
+                                                                <input type="checkbox" name="parameters" id="strokeDistMax" value="stroke_distance_max">
+                                                                Stroke Dist. Max
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="pace500m">
+                                                                <input type="checkbox" name="parameters" id="pace500m" disabled>
+                                                                Pace 500m
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="pace2kmMax">
+                                                                <input type="checkbox" name="parameters" id="pace2kmMax" disabled>
+                                                                Pace 2km Max
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="strokeRate">
+                                                                <input type="checkbox" name="parameters" id="strokeRate" value="stroke_rate_average">
+                                                                Stroke Rate
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="powerL">
+                                                                <input type="checkbox" name="parameters" id="powerL" value="power_left_average">
+                                                                Power L
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="distance">
+                                                                <input type="checkbox" name="parameters" id="distance" value="distance">
+                                                                Distance
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="speed">
+                                                                <input type="checkbox" name="parameters" id="speed" value="speed_average">
+                                                                Speed
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="pace500mMax">
+                                                                <input type="checkbox" name="parameters" id="pace500mMax" disabled>
+                                                                Pace 500m Max
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="hr">
+                                                                <input type="checkbox" name="parameters" id="hr" disabled>
+                                                                HR
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="strokeRateMax">
+                                                                <input type="checkbox" name="parameters" id="strokeRateMax" value="stroke_rate_max">
+                                                                Stroke Rate Max
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="powerLMax">
+                                                                <input type="checkbox" name="parameters" id="powerLMax" value="power_left_max">
+                                                                Power L Max
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                    </ul><!-- /.contatcts-list -->
+
+
+                                                </div><!-- /.List of Parametars -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                                                <button type="button" id="promenaParametra" class="btn btn-primary margin-r-5" data-dismiss="modal" >
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            </div><!-- /.example-modal -->
+
                           </div>
         </div>
         </div>
@@ -1103,6 +1053,9 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
  
 @endsection
+
+
+
 
 
 
