@@ -68,7 +68,7 @@ class SessionsController extends Controller {
 				$userFirst = $user->first();
 
 				if ($user->isEmpty()){
-					$statusCode = 403;
+					$statusCode = 408;
 				}
 			}
 
@@ -83,7 +83,8 @@ class SessionsController extends Controller {
 				foreach (Input::get("sessions") as $valInput) {
 					$session = new Session();
 					$session->user_id = $userFirst->id;
-
+					$session->name = $valInput["name"];
+					$session->description = $valInput["description"];
 					$session->data = json_encode($valInput["splits"]);
 					$session->dataVersion = $valInput["dataVersion"];
 					$session->deviceType = $valInput["deviceType"];
@@ -91,10 +92,14 @@ class SessionsController extends Controller {
 					$session->firmwareVersion = $valInput["firmwareVersion"];
 					if (config('app.website') == 1)
 					{
-						$session->mobileUserAgent = $valInput["userAgent"]["type"]."; ".$valInput["userAgent"]["name"]."; ".$valInput["userAgent"]["serialNumber"]."; ".$valInput["userAgent"]["application"]."; ".$valInput["userAgent"]["appVersion"];
+						$session->UA_type			= $valInput["userAgent"]["type"];
+						$session->UA_name			= $valInput["userAgent"]["name"];
+						$session->UA_serialNumber	= $valInput["userAgent"]["serialNumber"];
+						$session->UA_application	= $valInput["userAgent"]["application"];
+						$session->UA_appVersion		= $valInput["userAgent"]["appVersion"];		
 					}
 					else{
-						$session->mobileUserAgent = $valInput["mobileUserAgent"];
+						//$session->mobileUserAgent = $valInput["mobileUserAgent"];
 						$session->sampleRate = $valInput["sampleRate"];
 						$session->fftRange = $valInput["fftRange"];
 						$session->duration = $valInput["duration"];						
@@ -111,12 +116,15 @@ class SessionsController extends Controller {
 							$sessionData->stroke_count 				= $valInput["summary"]["scnt"];
 							$sessionData->time 						= $valInput["summary"]["time"];
 							$sessionData->distance 					= $valInput["summary"]["dist"];
+							$sessionData->calories					= $valInput["summary"]["cal"];
 							$sessionData->stroke_distance_average 	= $valInput["summary"]["sdist_avg"];
 							$sessionData->stroke_distance_max 		= $valInput["summary"]["sdist_max"];
 							$sessionData->speed_average 			= $valInput["summary"]["spd_avg"];
 							$sessionData->speed_max 				= $valInput["summary"]["spd_max"];
 							$sessionData->pace_average 				= $valInput["summary"]["pace500_avg"];
 							$sessionData->pace_max 					= $valInput["summary"]["pace500_max"];
+							$sessionData->pace2km_average 			= $valInput["summary"]["pace2k_avg"];
+							$sessionData->pace2km_max 				= $valInput["summary"]["pace2k_max"];
 							$sessionData->power_average 			= $valInput["summary"]["pwr_avg"];
 							$sessionData->power_max 				= $valInput["summary"]["pwr_max"];
 							$sessionData->power_left_average 		= $valInput["summary"]["pwr_l_avg"];
@@ -124,6 +132,7 @@ class SessionsController extends Controller {
 							$sessionData->power_right_average 		= $valInput["summary"]["pwr_r_avg"];
 							$sessionData->power_right_max 			= $valInput["summary"]["pwr_r_max"];
 							$sessionData->power_balance 			= $valInput["summary"]["pwr_bal_avg"];
+							$sessionData->power_balance_max			= $valInput["summary"]['pwr_bal_max'];
 							$sessionData->stroke_rate_average 		= $valInput["summary"]["srate_avg"];
 							$sessionData->stroke_rate_max 			= $valInput["summary"]["srate_max"];
 							$sessionData->heart_rate_average 		= $valInput["summary"]["hr_avg"];
@@ -209,7 +218,7 @@ class SessionsController extends Controller {
 	 	{
 	    	DB::rollBack();
 	    	if ($statusCode != 403){
-	    		$statusCode = 400;
+	    		$statusCode = 402;
 	    	}
         }
         
