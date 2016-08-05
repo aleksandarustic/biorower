@@ -168,10 +168,10 @@ $(function () {
         $.post('api/v1/sessions_history', data, function (response) {
             /* About Me */
             if (response.historydata.length !== 0) {
-                $('.power-max').append(Math.max.apply(Math, response.historydata.power_max));
-                $('.power-average').append(Math.max.apply(Math, response.historydata.power_average));
-                $('.stroke-rate-max').append(Math.max.apply(Math, response.historydata.stroke_rate_max));
-                $('.stroke-distance-max').append(Math.max.apply(Math, response.historydata.stroke_distance_max));
+                $('.power-max').append(Math.max.apply(Math, response.historydata.pwr_max));
+                $('.power-average').append(Math.max.apply(Math, response.historydata.pwr_avg));
+                $('.stroke-rate-max').append(Math.max.apply(Math, response.historydata.srate_max));
+                $('.stroke-distance-max').append(Math.max.apply(Math, response.historydata.sdist_max));
                 var latest_session = response.historydata.date[response.historydata.date.length - 1];
                 $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
             } else {
