@@ -51,83 +51,70 @@ class GetsessionsController extends Controller {
 				array_push($arrayIds, $valInput);
 			}
 
-			$sessions = Session::whereIn('id', $arrayIds)->with("sessionSummary")
-								 ->get();
+			$sessions = Session::whereIn('id', $arrayIds)->with("sessionSummary")->get();
 
 			$arraySessions = array();
 			foreach ($sessions as $session) {
 				$tmp = array();
 				//za biorower
 
-				$tmp["dataVersion"] = $session["dataVersion"];
-				$tmp["deviceType"] = $session["deviceType"];
-				$tmp["serialNumber"] = $session["serialNumber"];
+				$tmp["ID"] 				= $arrayIds[0];
+				$tmp["name"] 			= $session["name"];
+				$tmp["description"]		= $session["description"];
+				$tmp["dataVersion"] 	= $session["dataVersion"];
+				$tmp["deviceType"] 		= $session["deviceType"];
+				$tmp["serialNumber"] 	= $session["serialNumber"];
 				$tmp["firmwareVersion"] = $session["firmwareVersion"];
-				$tmp["userAgent"] = $session["mobileUserAgent"];
-				$tmp["account"] = Input::get("account");
-				$tmp["UTC"] = $session["utc"];
-				$tmp["date"] = $session["date"];
-				/* 
-				//ovo je za beeger
-				$tmp["sampleRate"] = $session["sampleRate"];
-				$tmp["fftRange"] = $session["fftRange"];
-				$tmp["duration"] = $session["duration"];
-				*/
-				$tmp["splits"] = json_decode($session["data"]);
-				$tmp["summary"] = $session->sessionSummary;
 
-				/*
-				"dataVersion":1,
-				"deviceType":"Biorower V1",
-				"serialNumber":"6856",
-				"firmwareVersion":0,
-				"userAgent":
-					{
-						"type":"onboard",
-						"name":"asus; WW_K013; K013",
-						"serialNumber":"6856",
-						"application":"Biorower Client",
-						"appVersion":1
-					},
-				"account":"biorower:gaboroki@gmail.com",
-				"UTC":1442233708361,
-				"date":"2015-09-14T14:28:28.361+0200",
-				"summary":{
-					"scnt":300.0,
-					"time":300.0,
-					"spd_avg":300.0,
-					"spd_max":300.0,
-					"distance":300.0,
-					"sdist_max":300,
-					"pace_avg":300.0,
-					"pace_max":300.0,
-					"pwr_avg":300.0,
-					"pwr_avg_l":300.0,
-					"pwr_avg_r":300.0,
-					"pwr_max":300.0,
-					"pwr_max_l":300.0,
-					"pwr_max_r":300.0,
-					"pwr_bal":49.0,
-					"srate_avg":300.0,
-					"srate_max":300.0,
-					"ang_avg":300.0,
-					"ang_avg_l":300.0,
-					"ang_avg_r":300.0,
-					"ang_max":300.0,
-					"ang_max_l":300.0,
-					"ang_max_r":300.0,
-					"hr_avg":300.0,
-					"hr_max":300.0,
-					"mml2":300.0,
-					"mml4":300.0,
-					"temperature":0,
-					"altitude":0,
-					"boatPosition":1,
-					"weight":90,
-					"maxHeartRate":100,
-					"maxMinutePower":0
-				},
-				*/
+				$UA = array();
+				$UA['type'] 			= $session["UA_type"];
+				$UA['name'] 			= $session["UA_name"];
+				$UA['serialNumber'] 	= $session["UA_serialNumber"];
+				$UA['application'] 		= $session["UA_application"];
+				$UA['appVersion'] 		= $session["UA_appVersion"];
+
+				$tmp["userAgent"] 		= $UA;
+
+				$tmp["account"] 		= Input::get("account");
+				$tmp["UTC"] 			= $session["utc"];
+				$tmp["date"] 			= $session["date"];
+		
+				$tmp["splits"]			= json_decode($session["data"]);
+
+				$summary_list = array();
+				$summary_list["scnt"] 		= $session->sessionSummary->stroke_count;
+				$summary_list["time"] 		= $session->sessionSummary->time;
+				$summary_list["dist"] 		= $session->sessionSummary->distance;
+				$summary_list['cal']		= $session->sessionSummary->calories;
+				$summary_list["sdist_avg"] 	= $session->sessionSummary->stroke_distance_average;
+				$summary_list["sdist_max"] 	= $session->sessionSummary->stroke_distance_max;
+				$summary_list["spd_avg"] 	= $session->sessionSummary->speed_average;
+				$summary_list["spd_max"] 	= $session->sessionSummary->speed_max;
+				$summary_list["pace500_avg"]= $session->sessionSummary->pace_average;
+				$summary_list["pace500_max"]= $session->sessionSummary->pace_max;
+				$summary_list["pace2k_avg"]	= $session->sessionSummary->pace2km_average;
+				$summary_list["pace2k_max"]	= $session->sessionSummary->pace2km_max;
+				$summary_list["hr_avg"] 	= $session->sessionSummary->heart_rate_average;
+				$summary_list["hr_max"] 	= $session->sessionSummary->heart_rate_max;
+				$summary_list["srate_avg"] 	= $session->sessionSummary->stroke_rate_average;
+				$summary_list["srate_max"] 	= $session->sessionSummary->stroke_rate_max;
+				$summary_list["pwr_avg"] 	= $session->sessionSummary->power_average;
+				$summary_list["pwr_max"] 	= $session->sessionSummary->power_max;
+				$summary_list["pwr_l_avg"] 	= $session->sessionSummary->power_left_average;
+				$summary_list["pwr_l_max"] 	= $session->sessionSummary->power_left_max;
+				$summary_list["pwr_r_avg"] 	= $session->sessionSummary->power_right_average;
+				$summary_list["pwr_r_max"] 	= $session->sessionSummary->power_right_max;
+				$summary_list["pwr_bal_avg"]= $session->sessionSummary->power_balance;
+				$summary_list["pwr_bal_max"]= $session->sessionSummary->power_balance_max;
+				$summary_list["ang_l_avg"] 	= $session->sessionSummary->angle_left_average;
+				$summary_list["ang_l_max"] 	= $session->sessionSummary->angle_left_max;
+				$summary_list["ang_r_avg"] 	= $session->sessionSummary->angle_right_average;
+				$summary_list["ang_r_max"] 	= $session->sessionSummary->angle_right_max;
+				$summary_list["ang_avg"] 	= $session->sessionSummary->angle_average;
+				$summary_list["ang_max"] 	= $session->sessionSummary->angle_max;
+				$summary_list["mml2"] 		= $session->sessionSummary->mml_2_level;
+				$summary_list["mml4"] 		= $session->sessionSummary->mml_4_level;
+				$tmp["summary"] 			= $summary_list;
 			
 				array_push($arraySessions, $tmp);
 			}
