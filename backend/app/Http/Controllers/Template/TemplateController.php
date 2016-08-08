@@ -4,15 +4,17 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request as req;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
+use Auth;
+use App\Library\GlobalFunctions;
 use App\User;
 use View;
-use Auth;
+
 use App\Watching;
 use App\Session;
 use Hashids\Hashids;
 use Carbon;
 
-use App\Library\GlobalFunctions;
+
 use Input;
 use Closure;
 
@@ -205,7 +207,10 @@ class TemplateController extends Controller {
 		$jsonChart = json_encode($jsonChart["data"]);
 
 		$firstDay = Carbon\Carbon::createFromDate(1970, 1, 1);
-		$totalStatisticsParameters = GlobalFunctions::GetHistoryStatistics("", "all", $firstDay, $userid, true);
+
+		$totalStatisticsParameters = GlobalFunctions::GetTotalStatistics($userid);
+		$totalStatisticsParameters = GlobalFunctions::PrepareArrayParametersStatistics($totalStatisticsParameters);
+		//$totalStatisticsParameters = GlobalFunctions::GetHistoryStatistics("", "all", $firstDay, $userid, true);
 
     	return view('/template/overview', compact('imageid', 'isMyProfile', 'userid', 'allWatching', 'allWatched', 'myWatching', 'user', 'userLinkname', 'allSessions', 'isApproved', 'requestToFollowUserAlreadySent', 'notSentRequest', 'arrayHeatMap', 'encodedID', 'jsonChart', 'monday', 'sunday', 'firstDayOfYear', 'lastDayOfYear', 'sessionsHistory', 'parametersProgress', 'emptyChartsBoolHistory', 'emptyChartsDataHistory', 'emptyChartsBoolProgress', 'totalStatisticsParameters'));
         //}
