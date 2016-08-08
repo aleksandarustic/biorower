@@ -139,27 +139,27 @@
             <div class="row">
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ $parametersProgress['sescnt'][0] }}</h5>
+                        <h5 class="description-header">{{ $totalStatisticsParameters['sescnt'][0] }}</h5>
                         <span class="description-text">Total training sessions</span>
                     </div><!-- /.description-block -->
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{  gmdate("H:i:s", $parametersProgress["time"][0]) }}</h5>
+                        <h5 class="description-header">{{  gmdate("H:i:s", $totalStatisticsParameters["time"][0]) }}</h5>
                         <span class="description-text">Total training time </span>
                         <span class="description-percentage-small-small text-blue btn-block">[hh:mm:ss]</span>
                     </div><!-- /.description-block -->
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ round($parametersProgress["dist"][0], 2) }}</h5>
+                        <h5 class="description-header">{{ round($totalStatisticsParameters["dist"][0], 2) }}</h5>
                         <span class="description-text">Total Distance</span>
                         <span class="description-percentage-small text-blue btn-block">[km]</span>
                     </div><!-- /.description-block -->
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block">
-                        <h5 class="description-header">{{ round($parametersProgress["pwr_avg"][0], 2) }}</h5>
+                        <h5 class="description-header">{{ round($totalStatisticsParameters["pwr_avg"][0], 2) }}</h5>
                         <span class="description-text">Total Power average </span>
                         <span class="description-percentage-small text-blue btn-block">[W]</span>
                     </div><!-- /.description-block -->
@@ -170,27 +170,27 @@
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block border-right">
 
-                        <h5 class="description-header">{{ $parametersProgress["scnt"][0] }}</h5>
+                        <h5 class="description-header">{{ $totalStatisticsParameters['scnt'][0] }}</h5>
                         <span class="description-text">Total number of strokes</span>
                     </div><!-- /.description-block -->
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ round($parametersProgress["sdist_avg"][0], 2) }}</h5>
+                        <h5 class="description-header">{{ round($totalStatisticsParameters["sdist_avg"][0], 2) }}</h5>
                         <span class="description-text">Total Stroke distance average </span>
                         <span class="description-percentage-small text-blue inline">[spm]</span>
                     </div><!-- /.description-block -->
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ round($parametersProgress["ang_avg"][0], 2) }}</h5>
+                        <h5 class="description-header">{{ round($totalStatisticsParameters["ang_avg"][0], 2) }}</h5>
                         <span class="description-text">Total Angle average</span>
                         <span class="description-percentage-small text-blue btn-block">[°]</span>
                     </div><!-- /.description-block -->
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block">
-                        <h5 class="description-header">{{ round($parametersProgress["hr_avg"][0], 2) }}</h5>
+                        <h5 class="description-header">{{ round($totalStatisticsParameters["hr_avg"][0], 2) }}</h5>
                         <span class="description-text ">Total HR average</span>
                         <span class="description-percentage-small text-blue btn-block">[bmp]</span>
 

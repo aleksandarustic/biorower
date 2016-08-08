@@ -403,7 +403,7 @@ use Carbon;
 		}
 
 		public static function getEmptyDataHistory(){
-				return '{"position_in_date":[0],"date":["1970-01-01 00:00:00"],"training_sessions":[0],"stroke_count":["0"],"time":[0],"distance":[0],"stroke_distance_average":[0],"stroke_distance_max":[0],"speed_average":[0],"speed_max":[0],"pace_average":[0],"pace_max":[0],"pace2km_average":[0],"pace2km_max":[0], heart_rate_average":[0],"heart_rate_max":[0],"stroke_rate_average":[0],"stroke_rate_max":[0],"calories":[0], power_average":[0],"power_max":[0],"power_left_average":[0],"power_left_max":[0],"power_right_average":[0],"power_right_max":[0],"power_balance":[0],"power_balance_max":[0],"angle_average":[0],"angle_max":[0],"angle_left_average":[0],"angle_left_max":[0],"angle_right_average":[0],"angle_right_max":[0],"mml_2_level":[0],"mml_4_level":[0]}';
+				return '{"position_in_date":[0],"date":["1970-01-01 00:00:00"],"sescnt":[0],"scnt":["0"],"time":[0],"distance":[0],"sdist_avg":[0],"sdist_max":[0],"spd_avg":[0],"spd_max":[0],"pace500_avg":[0],"pace500_max":[0],"pace2k_avg":[0],"pace2k_max":[0], "hr_avg":[0],"hr_max":[0],"srate_avg":[0],"srate_max":[0],"cal":[0], pwr_avg":[0],"pwr_max":[0],"pwr_l_avg":[0],"pwr_l_max":[0],"pwr_r_avg":[0],"pwr_r_max":[0],"pwr_bal_avg":[0],"pwr_bal_max":[0],"ang_avg":[0],"ang_max":[0],"ang_l_avg":[0],"ang_l_max":[0],"ang_r_avg":[0],"ang_r_max":[0],"mml2":[0],"mml4":[0]}';
 
 		}
 
