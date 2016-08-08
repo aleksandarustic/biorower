@@ -124,6 +124,7 @@
               var sesija2;
               var split;
               var nizsplita=[];
+
              
 
                 for(var i=0;i< dat.length; i++){
@@ -134,6 +135,7 @@
                   
             }
             var time=[];
+
             var nizPower=[];
           
             var angle_r=[];
@@ -297,26 +299,25 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
            
 
 
-
             
 
               
         
-            document.getElementById("time").innerHTML = sesija2.time;
-            document.getElementById("stroke_count").innerHTML = sesija2.stroke_count;
-            document.getElementById("distance").innerHTML = sesija2.distance+"<span class='description-percentage'>km</span>";
-            document.getElementById("stroke_rate").innerHTML = sesija2.stroke_rate_average+"<span class='description-percentage'>spm</span>";
-            document.getElementById("stroke_rate_max").innerHTML = sesija2.stroke_rate_max+"<span class='description-percentage'>spm</span>";
-            document.getElementById("hr").innerHTML = sesija2.heart_rate_average+"<span class='description-percentage'>bpm</span>";
-            document.getElementById("hr_max").innerHTML = sesija2.heart_rate_max+"<span class='description-percentage'>bpm</span>";
-            document.getElementById("pace").innerHTML = sesija2.pace_average;
-            document.getElementById("speed").innerHTML = sesija2.speed_average+"<span class='description-percentage'>km/h</span>";
-            document.getElementById("power").innerHTML = sesija2.power_average+"<span class='description-percentage'>W</span>";
-            document.getElementById("power_max").innerHTML = sesija2.power_max+"<span class='description-percentage'>W</span>";
-            document.getElementById("power_balance").innerHTML = sesija2.power_balance+"<span class='description-percentage'>W</span>";
-            document.getElementById("angle").innerHTML = sesija2.angle_average;
+            document.getElementById("time").innerHTML = sesija2.time+"<span class='description-percentage'>s</span>";;
+            document.getElementById("stroke_count").innerHTML = sesija2.scnt;
+            document.getElementById("distance").innerHTML = sesija2.dist+"<span class='description-percentage'>km</span>";
+            document.getElementById("stroke_rate").innerHTML = sesija2.srate_avg+"<span class='description-percentage'>spm</span>";
+            document.getElementById("stroke_rate_max").innerHTML = sesija2.srate_max+"<span class='description-percentage'>spm</span>";
+            document.getElementById("hr").innerHTML = sesija2.hr_avg+"<span class='description-percentage'>bpm</span>";
+            document.getElementById("hr_max").innerHTML = sesija2.hr_max+"<span class='description-percentage'>bpm</span>";
+            document.getElementById("pace").innerHTML = sesija2.pace500_avg;
+            document.getElementById("speed").innerHTML = sesija2.spd_avg+"<span class='description-percentage'>km/h</span>";
+            document.getElementById("power").innerHTML = sesija2.pwr_avg+"<span class='description-percentage'>W</span>";
+            document.getElementById("power_max").innerHTML = sesija2.pwr_max+"<span class='description-percentage'>W</span>";
+            document.getElementById("power_balance").innerHTML = sesija2.pwr_bal_avg+"<span class='description-percentage'>W</span>";
+            document.getElementById("angle").innerHTML = sesija2.ang_avg;
 
-            document.getElementById("calories").innerHTML ="<span class='description-percentage'>kCal</span>";
+            document.getElementById("calories").innerHTML =sesija2.cal+"<span class='description-percentage'>kCal</span>";
             document.getElementById("uvod").innerHTML="BY <a href='profile.html'><?php echo $id; ?></a>"+" "+dat[0].date;
           
 
@@ -640,14 +641,14 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
-                                                            <label for="calories">
-                                                                <input type="checkbox" name="parameters" id="calories" disabled>
+                                                            <label for="calories2">
+                                                                <input type="checkbox" name="parameters" id="calories2" disabled>
                                                                 Calories
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
-                                                            <label for="time">
-                                                                <input type="checkbox" name="parameters" id="time" value="time">
+                                                            <label for="time2">
+                                                                <input type="checkbox" name="parameters" id="time2" value="time2">
                                                                 Time
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -682,14 +683,14 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
-                                                            <label for="distance">
-                                                                <input type="checkbox" name="parameters" id="distance" value="distance">
+                                                            <label for="distance2">
+                                                                <input type="checkbox" name="parameters" id="distance2" value="distance2">
                                                                 Distance
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
-                                                            <label for="speed">
-                                                                <input type="checkbox" name="parameters" id="speed" value="speed_average">
+                                                            <label for="speed2">
+                                                                <input type="checkbox" name="parameters" id="speed2" value="speed_average">
                                                                 Speed
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -700,8 +701,8 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
-                                                            <label for="hr">
-                                                                <input type="checkbox" name="parameters" id="hr" disabled>
+                                                            <label for="hr2">
+                                                                <input type="checkbox" name="parameters" id="hr2" disabled>
                                                                 HR
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -1053,8 +1054,6 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
  
 @endsection
-
-
 
 
 

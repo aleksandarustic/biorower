@@ -273,6 +273,7 @@
 		        	var dat=data;
 		        	
 		        	delete dat.account;
+
 		        	
 		        	
 		        	
@@ -365,7 +366,7 @@
 					
 					});
 	$("tr > td:nth-child(2)").hide();		
-     $("tr > td:nth-child(10)").hide();
+
      $("tr > td:nth-child(11)").hide();
      $("tr > td:nth-child(12)").hide();
      $("tr > td:nth-child(13)").hide();
@@ -373,11 +374,12 @@
      $("tr > td:nth-child(15)").hide();
      $("tr > td:nth-child(16)").hide();
      $("tr > td:nth-child(17)").hide();
+      $("tr > td:nth-child(18)").hide();
 
 
 
 
-     $('#my-sessions').delegate('tbody > tr > td:nth-child(-n +10)', 'click', function ()
+     $('#my-sessions').delegate('tbody > tr > td:nth-child(-n +11)', 'click', function ()
 {
 	var eee =$(this).closest('tr');
 	var id4=eee.find('td:eq(1)').text();
@@ -396,7 +398,7 @@
      	
      	 for(var i=0;i< niz.length; i++){
      	 	if(niz[i].checked==true){
-     	 		$(".hiden").eq(i).show();
+     	 		$(".hiden").eq(i+1).show();
      	 		var broj=i+11;
      	 		
 
@@ -405,7 +407,7 @@
 
      	 	}
      	 	if(niz[i].checked==false){
-     	 		$(".hiden").eq(i).hide();
+     	 		$(".hiden").eq(i+1).hide();
      	 		var broj=i+11;
      	 		
 

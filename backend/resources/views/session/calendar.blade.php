@@ -75,9 +75,7 @@
 				left: 'prev,next today',
 				center: 'title',
 				right: 'year,month,agendaWeek'
-			},
-			 editable: true,
-            selectable: true,
+			},			
             defaultView: 'year',
 			events: function( start, end, callback) { 
 				var moment = j('#calendar').fullCalendar('getDate');
@@ -102,11 +100,13 @@
                     	var dd=doc.sessionIdsUTCs;
         				var nizid=[];
         				var sesije=[];
+                var desc=[];
                         var ime=[];
 
        				 	for(var r=0;r<dd.length;r++){
         					nizid.push(dd[r].DateTime);
         					sesije.push(dd[r].sessionID);
+                  desc.push(dd[r].Description)
                             if(dd[r].Name!=null && dd[r].Name!=""){
                                 ime.push(dd[r].Name);
                             }
@@ -130,7 +130,7 @@
                                           id:sesije[r],
        									  title:ime[r],
      									  start: nizid[r],
-                                          description:"session:"+sesije[r],
+                                          description:desc[r],
                                           allDay:false
      									  
     									 });
@@ -152,7 +152,7 @@
             eventMouseover: function(event, jsEvent, view) {
               
 
-                        var tooltip = "<div class='tooltipevent' style='width:180px;height:180px;background:#ccc;position:absolute;z-index:10001;'><h3>"+event.title+"</h3><p><b>Start:</b>"+event.start+"<br /><p><strong><a href="+urlBase+"/profile/"+display_name+"/session/"+event.id+" >Read More</a></strong></p></div>";
+                        var tooltip = "<div class='tooltipevent' style='width:180px;height:180px;background:#ccc;position:absolute;z-index:10001;'><h3>"+event.title+"</h3><p><b>Start:</b>"+event.start+"<br /><p>Description:"+event.description+"</p></div>";
             j("body").append(tooltip);
             j(this).mouseover(function(e) {
                 j(this).css('z-index', 10000);
