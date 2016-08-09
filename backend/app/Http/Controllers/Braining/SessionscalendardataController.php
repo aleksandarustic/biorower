@@ -72,7 +72,7 @@ class SessionscalendardataController extends Controller {
 
 				$arrayIds = array();
 				foreach ($sessions as $key => $value) {
-					$tmp = array("sessionID" => $value["id"], "DateTime" => $value["date"],"Name"=>$value["name"],"Description"=>$value["description"]);
+					$tmp = array("sessionID" => $value["id"], "DateTime" => $value["date"],"Name"=>$value["name"],"Description"=>$value["description"],"duration"=>$value->sessionSummary->time,"distance"=>$value->sessionSummary->distance,"power"=>$value->sessionSummary->power_average,"hr"=>$value->sessionSummary->heart_rate_average);
 					array_push($arrayIds, $tmp);
 				}
 

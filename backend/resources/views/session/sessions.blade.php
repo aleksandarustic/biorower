@@ -28,7 +28,7 @@
 				<!-- Check all button -->
 
 				<div class="box-body sessions-table">
-				 <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam"><i class="fa fa-cog">Filter parametars</i></a>
+				 <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam" style="visibility:hidden;"><i class="fa fa-cog" >Filter parametars</i></a>
 					
 
 					<!-- /.pull-right -->
@@ -36,25 +36,25 @@
 						<thead>
 						<tr>
 							<th class="nosort">x</th>
-							<th class="hiden">id</th>
+							<th class="hiden" style="display:none;">id</th>
 						    <th class="nosort">Session</th>
 							<th class="nosort">Description</th>
 							<th class="nosort">Date</th>
 							<th class="nosort">Power</th>
-							<th class="nosort">Strokes</th>
 							<th class="nosort">Distance</th>
 							<th class="nosort">HR</th>
 							<th class="nosort">Time</th>
 							
 							
-							<th class="hiden">Speed</th>
-							<th class="hiden">Angle</th>
-							<th class="hiden">Pace</th>
-							<th class="hiden">Power Max</th>
-							<th class="hiden">Power Balance</th>
-							<th class="hiden">Stroke Rate</th>
-							<th class="hiden">Stroke Rate Max</th>
-							<th class="hiden">Hearth Rate Max</th>
+							<th class="hiden" style="display:none;">Speed</th>
+							<th class="hiden" style="display:none;">Angle</th>
+							<th class="hiden" style="display:none;">Pace</th>
+							<th class="hiden" style="display:none;">Power Max</th>
+							<th class="hiden" style="display:none;">Power Balance</th>
+							<th class="hiden" style="display:none;">Stroke Rate</th>
+							<th class="hiden" style="display:none;">Stroke Rate Max</th>
+							<th class="hiden" style="display:none;">Hearth Rate Max</th>
+							<th class="hiden" style="display:none;">Strokes</th>
 							<th>action</th>
 							
 							
@@ -239,12 +239,13 @@
 		<!-- DataTables -->
 <script src="{{ URL::asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+
 <script>
 	function OnloadFunction ()
 {   
+	$(".hiden").hide();
 
-     $(".hiden").hide();
-    
+  
 
 
 
@@ -300,7 +301,7 @@
 		        	  for(var i=0;i< d.length; i++){
 	
 		        	  	var ime=d[i].Session;
-		        	  	    d[i].x=i;
+		        	  	    d[i].x=i+1;
 
 		        	  	  
 					        d[i].action="<span> <a href='#' class='update'  id="+d[i].id+" data-toggle='modal' data-target='#edit-session'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id="+d[i].id+" href='#'' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#delete-session'><i class='fa fa-trash-o inline btn btn-sm btn-primary'></i></a </span>";
@@ -347,7 +348,6 @@
 		  	     	{ 'data' : 'Description' },
 		  	     	{ 'data' : 'Date' },
 		  	     	{ 'data' : 'Power' },
-		  	     	{ 'data' : 'Strokes' },
 		  	     	{ 'data' : 'Distance' },
 		  	     	{ 'data' : 'HR' },
 		  	     	{ 'data' : 'Time' },
@@ -359,14 +359,16 @@
 		  	     	{ 'data' : 'Stroke Rate' },
 		  	     	{ 'data' : 'Stroke Rate Max' },
 		  	     	{ 'data' : 'Heart Rate Max' },
+		  	     	{ 'data' : 'Strokes' },
 		  	     	{ 'data' : 'action' }			  	       	    
 		  	     	],
 		  	     	responsive: true,
 		  	     	'iDisplayLength': 100
 					
 					});
-	$("tr > td:nth-child(2)").hide();		
+	$("tr > td:nth-child(2)").hide();
 
+    $("tr > td:nth-child(10)").hide();
      $("tr > td:nth-child(11)").hide();
      $("tr > td:nth-child(12)").hide();
      $("tr > td:nth-child(13)").hide();
@@ -374,12 +376,12 @@
      $("tr > td:nth-child(15)").hide();
      $("tr > td:nth-child(16)").hide();
      $("tr > td:nth-child(17)").hide();
-      $("tr > td:nth-child(18)").hide();
+     $("tr > td:nth-child(18)").hide();
 
 
 
 
-     $('#my-sessions').delegate('tbody > tr > td:nth-child(-n +11)', 'click', function ()
+     $('#my-sessions').delegate('tbody > tr > td:nth-child(-n +17)', 'click', function ()
 {
 	var eee =$(this).closest('tr');
 	var id4=eee.find('td:eq(1)').text();
@@ -399,7 +401,7 @@
      	 for(var i=0;i< niz.length; i++){
      	 	if(niz[i].checked==true){
      	 		$(".hiden").eq(i+1).show();
-     	 		var broj=i+11;
+     	 		var broj=i+10;
      	 		
 
      	 		 $('tr > td:nth-child('+broj+')').show();
@@ -408,7 +410,7 @@
      	 	}
      	 	if(niz[i].checked==false){
      	 		$(".hiden").eq(i+1).hide();
-     	 		var broj=i+11;
+     	 		var broj=i+10;
      	 		
 
      	 		 $('tr > td:nth-child('+broj+')').hide();
@@ -458,6 +460,7 @@
      		   });
 
    				  });
+
   
   		 $(".update").unbind().click(function() {
 		       		  

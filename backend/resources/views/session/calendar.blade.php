@@ -50,6 +50,7 @@
 
 
 
+
 	
 		j('#calendar').fullCalendar({
              titleFormat: {
@@ -71,6 +72,7 @@
         window.location.href = urlBase+"/profile/"+display_name+"/session/"+calEvent.id;
 
     },
+
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -98,15 +100,12 @@
                     success: function (doc) { 
 
                     	var dd=doc.sessionIdsUTCs;
-        				var nizid=[];
-        				var sesije=[];
-                var desc=[];
+
                         var ime=[];
 
        				 	for(var r=0;r<dd.length;r++){
-        					nizid.push(dd[r].DateTime);
-        					sesije.push(dd[r].sessionID);
-                  desc.push(dd[r].Description)
+        			
+
                             if(dd[r].Name!=null && dd[r].Name!=""){
                                 ime.push(dd[r].Name);
                             }
@@ -117,27 +116,30 @@
 
                                  ime.push("Session:"+novi);
                             }
+
+
+
+                  
+                   events.push({
+                                          id:dd[r].sessionID,
+                                          title:ime[r],
+                                           start: dd[r].DateTime,
+                                          description:dd[r].Description,
+                                          duration:dd[r].duration,
+                                          distance:dd[r].distance,
+                                          power:dd[r].power,
+                                          hr:dd[r].hr,
+                                         
+                                          allDay:false
+                        
+                       });
                            
         					
 
 
         					}
-        				for(var r=0;r<nizid.length;r++){
-                          
-                         
-        					
-        					 events.push({
-                                          id:sesije[r],
-       									  title:ime[r],
-     									  start: nizid[r],
-                                          description:desc[r],
-                                          allDay:false
-     									  
-    									 });
-        					 
 
 
-        					}
         					callback(events);
         					
            	         	
@@ -149,23 +151,20 @@
                 }); 
 
             },
-            eventMouseover: function(event, jsEvent, view) {
-              
+                eventRender: function(event, element) {
+               $(element).popover({
+                html : true, 
+                trigger: "hover",
+            title: "<h3>"+event.title+"</h3>",
+            placement: 'auto',
+            container: 'body',
+            content: '<strong>Description: </strong>' + event.description + '<br /><strong>DateTime:</strong> ' + event.start+'<br /><strong>Duration:</strong> '+event.duration+'<br /><strong>Distance: </strong>'+event.distance+'<br /><strong>Power: </strong>'+event.power+'<br /><strong>Hr: </strong>'+event.hr ,
+        });             
+  },
 
-                        var tooltip = "<div class='tooltipevent' style='width:180px;height:180px;background:#ccc;position:absolute;z-index:10001;'><h3>"+event.title+"</h3><p><b>Start:</b>"+event.start+"<br /><p>Description:"+event.description+"</p></div>";
-            j("body").append(tooltip);
-            j(this).mouseover(function(e) {
-                j(this).css('z-index', 10000);
-                j('.tooltipevent').fadeIn('500');
-                j('.tooltipevent').fadeTo('10', 1.9);
-            }).mousemove(function(e) {
-                j('.tooltipevent').css('top', e.pageY + 10);
-                j('.tooltipevent').css('left', e.pageX + 20);
-            });
-        },
-        eventMouseout: function(event, jsEvent, view) {
-    $(".tooltipevent").remove();
-}
+
+
+            
           
 
 
@@ -177,7 +176,15 @@
 			 
 		
 		});
-		
+		j(".fc-year-monthly-td").click(function(){
+
+
+              // Clicked on the entire day
+            j('#calendar').fullCalendar('changeView', 'month'/* or 'basicDay' */)
+                .fullCalendar('gotoDate',
+                    date.getFullYear(), date.getMonth(), date.getDate());
+
+    });
 	});
 	</script>
       <div class="row">
