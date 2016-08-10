@@ -17,13 +17,6 @@
 			$("#date_of_birth").datepicker();
 			$("#date_of_birth").datepicker( "option", "dateFormat", "yy-mm-dd" );
 
-			/*
-				$("#changeImage").click(function(){
-					alert('aaaaaa');
-
-					return false;
-				});
-			*/
 
 		    function showCoords(c)
 		    {
@@ -41,84 +34,6 @@
 				$("#ch").val($ch);
    		    };
 
-   		    //saveProfileImage
-
-			var urlBase = "<?php echo Request::root() ?>";
-			var form = $('#uploadForm');
-			var jcrop_api = null;
-
-			$("#uploadTempFile input.file").change(function () {
-				$("#loadingGif").show();
-
-				var fd = new FormData(document.getElementById("uploadForm"));
-
-				$("#idImageWrapper").hide();
-
-		        $.ajax({
-		        	    url : urlBase + '/user/user-upload-temp-image',
-		        	    type: "POST",
-			            data: fd,
-						processData: false,  // tell jQuery not to process the data
-						contentType: false   // tell jQuery not to set contentType		            
-			        }).done(function (data) {
-
-			        	$("#loadingGif").hide();			        	
-
-			        	if (data != "false"){
-
-				        	if ($("#idImageWrapper").attr("src") != "")
-				        	{
-				        		JcropAPI = $('#idImageWrapper').data('Jcrop');
-				        		JcropAPI.destroy();
-								$("#idImageWrapper").remove();
-				        		$("<img src='' id='idImageWrapper' width='550' />").appendTo("#idImageWrapperWrapper");
-				        	}
-				        	
-				        	$("#idImageWrapper").attr("src", "../../storage/temp_profile_images/" + data.filename);
-
-				        	$("#tempImage").val(data.filename);
-
-				        	$('#idImageWrapper').Jcrop({
-					            setSelect:   [ 10, 10, 50, 50 ],
-					            aspectRatio: 1,
-					            onChange: showCoords,
-					            trueSize: [data.width,data.height]
-							});
-						}
-						else{
-							alert("Error! Wrong file extension.");
-						}
-
-			        }).fail(function () {
-		        });
-			});
-
-			$("#saveProfileImage").click(function () {
-
-				var formSend = $("#sendForm");
-
-		        $.ajax({
-		        	    url : urlBase + '/user/user-change-profile-image',
-		        	    type: "POST",
-			            data: formSend.serialize(),
-						//processData: false,  // tell jQuery not to process the data
-						//contentType: false   // tell jQuery not to set contentType
-			        }).done(function (data) {
-						
-						//$("#profileImageLayout").attr("src", "../images/testSlika.png");
-						$("#myModal").modal('hide');
-
-			        }).fail(function () {
-		        });				
-
-			});
-		
-			/*
-		    $('#uploadForm').on('submit', function(e) {
-		        e.preventDefault();
-		    });
-			*/
-			
 			$("#mainFormEdit").validate();
 
 			//itd...
@@ -168,44 +83,59 @@
 		</div>
 		<div class="nav-tabs-custom col-md-7 no-padding padding-bottom pull-left edit-tabs">
 			<div class="box box-primary padding-all">
-				<form method="POST" action="user/edit" accept-charset="UTF-8" id="mainFormEdit">
-                                    
-					<input name="_token" type="hidden" value="LSoFI4hQLii3O5perBoyDdGQZReepW9mUEm4eI7r">
-					<div class="tab-content tab-cont">
-						<div class="active tab-pane edit-box margin-top" id="profile-image">
-							<h2 class="h2-tabs">Change your profile image</h2>
-							<p class="h2-subhead">Update your avatar</p>
-							<div class="upload-photo-cont" >
-								<span class="user-header"><img src="../dist/img/user2-160x160.jpg" alt="User Image"></span>
+				<div class="tab-content tab-cont">
+
+				<div class="active tab-pane edit-box margin-top" id="profile-image">
+						<h2 class="h2-tabs">Change your profile image</h2>
+						<p class="h2-subhead">Update your avatar</p>
+
+					<div class="upload-photo-cont" >
+								<span class="user-header"><img src="{{ URL::asset($user['profile']['image']['name']) }}" alt="User Image" height="160" width="160"></span>
 								<div class="upload-photo">
 									<a href="#" class="mailedit-box-attachment-name" data-toggle="modal" data-target="#myModal">
-										<i class="fa fa-camera"></i> <span class="upload-txt">Upload a photo</span></a>
+										<i class="fa fa-camera"></i> <span class="upload-txt">CHANGE AVATAR</span></a>
 								</div>
-								<div class="example-modal">
-									<div class="modal" id="myModal">
-										<div class="modal-dialog">
-											<div class="modal-content">
+					<!--  Modal za izmenu avatara -->			
+							<div class="example-modal">
+								<div class="modal" id="myModal">
+									<div class="modal-dialog">
+										<div class="modal-content">
+										<form enctype="multipart/form-data" action="avatar" method="POST">
 												<div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 													<h4 class="modal-title">Upload a image</h4>
 												</div>
+
 												<div class="modal-body">
 													<div class=" modal-choose">
-                                                                                                            <input type="file" class="col-md-12"name='image'>
-														<span class="choose-image"><i class="fa fa-plus"></i> Upload Image</span>
+                                                    <input type="file" class="col-md-12" name='avatar'>
+													<span class="choose-image"><i class="fa fa-plus"></i> Select a image</span>
 													</div>
+													<input type="hidden" name="_token" value="{{ csrf_token() }}">
 												</div>
+
 												<div class="modal-footer model-mdown">
-													<button type="button" class="btn btn-primary">Save changes</button>
+													<button type="submit" class="btn btn-primary">Change avatar</button>
+													 
 												</div>
-											</div><!-- /.modal-content -->
-										</div><!-- /.modal-dialog -->
-									</div><!-- /.modal -->
-								</div><!-- /.example-modal -->
-							</div>
-						</div>
-						<!-- /.tab-pane -->
-						<div class="tab-pane edit-box margin-top" id="user-details"> <h2 class="h2-tabs">User Details</h2>
+										</form>		
+										</div><!-- /.modal-content -->
+									</div><!-- /.modal-dialog -->
+								</div><!-- /.modal -->
+							</div><!-- /.example-modal -->
+						<!--  Modal za izmenu avatara -->	
+
+					</div>
+				</div>
+	
+		<!-- /.tab-pane -->
+
+			<div class="tab-pane edit-box margin-top" id="user-details"> 
+				<h2 class="h2-tabs">User Details</h2>
+
+						<form method="POST" action="user/edit" accept-charset="UTF-8" id="mainFormEdit">
+                            <input name="_token" type="hidden" value="LSoFI4hQLii3O5perBoyDdGQZReepW9mUEm4eI7r">
+
 							<p class="h2-subhead">Update your personal info</p>
 							<div class="form-group">
 								<label for="display_name" class="">Display name</label>
@@ -230,10 +160,7 @@
                                                         
                                                         
                                                         
-                                                        
-                                                        
-                                                        
-                                                        
+                                                                           
                                                         
 							<div class="form-group">
 								<label for="dic_languages_id" class="">Language</label>
@@ -467,11 +394,13 @@
 						</div>
 						<!-- /.tab-content -->
 
-
+						<br> 
 						<div class="pull-left">
 							<input class="btn btn-primary btn-primary" id="idSubmitEditProfile" type="submit" value="Save profile">
 							<input class="btn btn-primary btn-primary" id="idSubmitEditProfile" type="reset" value="Reset">
+							<br>
 						</div>
+						<br> 
 				</form>
 			</div>
 		</div>
@@ -480,54 +409,5 @@
 	</div>
 	</div>
 	<!-- /.row -->
-
-<!-- MODAL -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-
-		<form id="uploadForm" method="post" enctype="multipart/form-data" name="uploadForm">
-	      	<div id="uploadTempFile">
-	        	<input type="file" class="file" name="file" />
-	        </div>
-	    </form>
-
-	    <div style="width:100%;">
-	        <div id="loadingGif" style="margin:0 auto; display:none; width:120px;">
-	            Loading...
-	            {!! HTML::image('images/ajax-loader.gif', 'loading') !!}
-	        </div>
-        </div>
-
-	    <div id="idImageWrapperWrapper">
-	    	<img src="" id="idImageWrapper" width="550" />
-	    </div>
-
-	    <!--
-        	<img src="../images/testSlika.png" id="targetCroping" />
-        -->
-		<form id="sendForm" method="post" name="sendForm">
-	        <input type="hidden" id="cx1" name="cx1">
-	        <input type="hidden" id="cy1" name="cy1">
-	        <input type="hidden" id="cx2" name="cx2">
-	        <input type="hidden" id="cy2" name="cy2">
-	        <input type="hidden" id="cw" name="cw">
-	        <input type="hidden" id="ch" name="ch">
-	        <input type="hidden" id="tempImage" name="tempImage">
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="saveProfileImage">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 @endsection

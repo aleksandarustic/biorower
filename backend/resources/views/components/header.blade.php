@@ -15,20 +15,19 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                
                 <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu"> <a href="#"  data-toggle="control-sidebar"> <i class="fa fa-comment-o"></i> <span class="label label-success">4</span> </a>
+                <!-- <li class="dropdown messages-menu"> <a href="#"  data-toggle="control-sidebar"> <i class="fa fa-comment-o"></i> <span class="label label-success">4</span> </a>
                     <ul class="dropdown-menu">
                         <li class="header">You have 4 messages</li>
                         <li>
-                            <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                <li><!-- start message -->
+                                <li><
                                     <a href="#">
                                         <div class="pull-left"> <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> </div>
                                         <h4> Support Team <small><i class="fa fa-clock-o"></i> 5 mins</small> </h4>
                                         <p class="h2-subhead">Why not buy a new awesome theme?</p>
                                     </a> </li>
-                                <!-- end message -->
                                 <li> <a href="#">
                                         <div class="pull-left"> <img src="" class="img-circle" alt="User Image"> </div>
                                         <h4> AdminLTE Design Team <small><i class="fa fa-clock-o"></i> 2 hours</small> </h4>
@@ -54,12 +53,12 @@
                         <li class="footer"><a href="messages.html">See All Messages</a></li>
                     </ul>
                 </li>
+                -->
                 <!-- Notifications: style can be found in dropdown.less -->
-                <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-bell-o"></i> <span class="label label-warning">10</span> </a>
+            <!--    <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-bell-o"></i> <span class="label label-warning">10</span> </a>
                     <ul class="dropdown-menu">
                         <li class="header">You have 10 notifications</li>
                         <li>
-                            <!-- inner menu: contains the actual data -->
                             <ul class="menu">
                                 <li> <a href="#"> <i class="fa fa-users text-aqua"></i> 5 new members joined today </a> </li>
                                 <li> <a href="#"> <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems </a> </li>
@@ -70,30 +69,29 @@
                         </li>
                         <li class="footer"><a href="#">View all</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        @if(Auth::user()->profile->image !== null)
-                        <img src="{{ URL::asset('dist/img') .'/'. Auth::user()->profile->image->name }}" class="user-image" alt="User Image">
-                        @else
-                        <img src="{{ URL::asset('dist/img/no-userImg.jpg') }}" class="user-image" alt="User Image">
-                        @endif
+                        <img src="{{ URL::asset(Auth::user()->profile->image->name) }}" class="user-image" alt="User Image">
+
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</span> </a>
+                        <span class="hidden-xs">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</span> 
+                    </a>
+
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
+                        <br>
                             <a href="{{ url('/profile/edit') }}">
-                                @if(Auth::user()->profile->image !== null)
-                                    <img src="{{ URL::asset('dist/img') .'/'. Auth::user()->profile->image->name }}" class="user-image" alt="User Image">
-                                @else
-                                    <img src="{{ URL::asset('dist/img/no-userImg.jpg') }}" class="user-image" alt="User Image">
-                                @endif
+                                    <img src="{{ URL::asset(Auth::user()->profile->image->name) }}" class="user-image" alt="User Image">                
                             </a>
+
                             <p class="h2-subhead"> {{ Auth::user()->first_name.' '.Auth::user()->last_name }} <small>Member since {{ date('M Y', strtotime(Auth::user()->created_at)) }}</small> </p>
+
+
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
