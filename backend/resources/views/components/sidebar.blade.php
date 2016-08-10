@@ -6,14 +6,12 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                @if(Auth::user()->profile->image !== null)
-                    <img src="{{ URL::asset('dist/img') .'/'. Auth::user()->profile->image->name }}" class="user-image" alt="User Image">
-                @else
-                    <img src="{{ URL::asset('dist/img/no-userImg.jpg') }}" class="user-image" alt="User Image">
-                @endif
+                    <img src="{{ URL::asset(Auth::user()->profile->image->name) }}" class="user-image" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</p>
+
+                <!-- STATUS ONLINE - iskljucen privremeno
                 <a href="#"  data-toggle="dropdown" aria-expanded="true"><i class="fa fa-circle text-success"></i> Online</a>
                 <ul class="dropdown-menu chat-status" role="menu">
                     <li><a href="#"><i class="fa fa-circle text-success"></i> Online</a></li>
