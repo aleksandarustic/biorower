@@ -29,7 +29,13 @@ class UsersController extends Controller {
 
 			if (Auth::attempt(array('email' => $email, 'password' => $password)))
 			{
-				$user = User::where('email', $email)->with('usersettings')->first();
+
+			if(!Auth::user()->activated == 1){
+				$statusCode = 409;
+				Auth::logout();
+			}
+
+				$user = User::where('email', $email)->first();
 
 				$token = bin2hex(openssl_random_pseudo_bytes(16));
 				$user->auth_token = $token;
