@@ -421,9 +421,9 @@
 			</div>			
 
 			<h3>Response</h3>
-			<p>200</p>
-			
-			<p>Error Code - 409</p>
+			<p>200 - Successful login</p>
+			<p>Error Code 403 - Incorrect email or password</p>
+			<p>Error Code 409 - User profile is not activated</p>
 
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -1112,6 +1112,73 @@
 			</div>
 
 			<hr></hr>
+			
+			
+				<h2>Edit session</h2>
+			<p>Edit selected session (name and comment)</p>
+
+			<div class="alert alert-info" role="alert"><span class="clsApiAlertMethod">POST</span> <span class="clsApiAlertContent">https://www.biorower.com/api/v1/</span><span class="clsApiMethod">session_edit</span></div>			
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+				<table class="table table-striped ">
+					<tr>
+						<th>Field</th>
+						<th>Required</th>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>account</td>
+						<td>YES</td>
+						<td>string</td>
+						<td>Login 'type' facebook|twitter|biorower followed by unique identifier i.e. biorower:email@domain, twitter:twitter_userid, facebook:facebook_id</td>
+					</tr>
+					<tr>
+						<td>id</td>
+						<td>YES</td>
+						<td>integer</td>
+						<td>ID of session</td>
+					</tr>
+					<tr>
+						<td>name</td>
+						<td>YES</td>
+						<td>string</td>
+						<td>Name of session</td>
+					</tr>
+					<tr>
+						<td>comment</td>
+						<td>YES</td>
+						<td>string</td>
+						<td>Comment for the session</td>
+					</tr>
+				</table>
+				</div>
+			</div>		
+
+			<h3>Response</h3>
+			<p>200</p>
+			
+			<p>Error Code - 400</p>
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+				<table class="table table-striped ">
+					<tr>
+						<th>Field</th>
+						<th>Value</th>
+					</tr>
+
+					<tr>
+						<td>response</td>
+						<td>ok</td>
+					</tr>					
+		
+				</table>
+				</div>
+			</div>
 
 
 
