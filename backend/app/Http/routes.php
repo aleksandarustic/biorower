@@ -89,6 +89,7 @@ Route::get('/profile/{username}/session/{session}', 'SessionController@index');
 Route::get('/profile/{username}/sessions/{date1}/{date2}', 'SessionController@sessionsRangeSearch');
 
 Route::post('/profile/edit', 'User\UserController@postEdit');
+Route::post('/profile/avatar', 'User\UserController@UpdateUserAvatar');
 Route::post('/profile/edit/user/user-upload-temp-image', 'User\UserController@postUserUploadTempImage');
 Route::post('/profile/edit/user/user-change-profile-image', 'User\UserController@postUserChangeProfileImage');
 Route::get('/profile/logout', 'WelcomeController@getLogout');
