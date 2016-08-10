@@ -11,11 +11,7 @@
                 <div class="box-body box-profile">
                     <div class="img-circle-width">
                         <a href="{{ url('/profile/edit') }}"><span class="label-edit edit-img"><i class="fa fa-pencil"></i></span></a>
-                        @if($imageid == null)
-                        <img class="profile-user-img img-responsive img-circle" src="{{ URL::asset('dist/img/no-userImg.jpg') }}" alt="User profile picture">
-                        @else
-                        <img class="profile-user-img img-responsive img-circle" src="{{ URL::asset('dist/img').'/'.$user->profile->image->name }}" alt="User profile picture">
-                        @endif
+                        <img class="profile-user-img img-responsive img-circle" src="{{ URL::asset(Auth::user()->profile->image->name) }}" alt="User profile picture">
                     </div>
                     <h3 class="profile-username text-center">{{ $user->first_name.' '.$user->last_name }}</h3>
                     <p class="text-muted text-center">{{ $user->display_name }}</p>
