@@ -160,39 +160,44 @@ $(function () {
 
     $(function () {
 
-        var data = {
-            account: 'biorower:' + $('#user-email').val(),
-            rangeType: 'all'
-        };
+        var email2 = 'biorower:' + $('#user-email').val();
 
-        $.post('api/v1/sessions_history', data, function (response) {
-            /* About Me */
-            if (response.historydata.length !== 0) {
-                $('.power-max').append(Math.max.apply(Math, response.historydata.pwr_max));
-                $('.power-average').append(Math.max.apply(Math, response.historydata.pwr_avg));
-                $('.stroke-rate-max').append(Math.max.apply(Math, response.historydata.srate_max));
-                $('.stroke-distance-max').append(Math.max.apply(Math, response.historydata.sdist_max));
-                var latest_session = response.historydata.date[response.historydata.date.length - 1];
+        $.ajax({ 
+        type: 'POST', 
+        dataType: 'json',
+        url : 'api/v1/sessions_recent_list',
+        data: {account: email2 ,offset:0,pageSize:1, web: 1
+            }, 
+            success: function (response) {
+            var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
+            // PRIKAZ PODATAKA POSLEDNJE SESIJE
+            if (response.sessionsRecentList.length !== 0) {
+                $('.time').append(json[0].time);
+                $('.distance').append(json[0].dist);
+                $('.power-average').append(json[0].pwr_avg);
+                $('.heart-rate-avg').append(json[0].hr_avg);
+                var latest_session = json[0].date;
                 $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
-            } else {
-                $('.power-max').append('0');
-                $('.power-average').append('0');
-                $('.stroke-rate-max').append('0');
-                $('.stroke-distance-max').append('0');
-                $('.latest-session').append('No sessions yet');
+            }else{
+                $('.time').append('-');
+                $('.distance').append('-');
+                $('.power-average').append('-');
+                $('.heart-rate-avg').append('-');
+                $('.latest-session').append('No workouts');
             }
 
+
             /* History Graph */
-            var arr = [],
+           /* var arr = [],
                     power = [];
-            var power_max = response.historydata.power_max;
-            var dates = response.historydata.date;
+            //var power_max = response.historydata.power_max;
+            //var dates = response.historydata.date;
 
             power_max.forEach(function (value, index) {
                 arr.push([value, dates[index]]);
                 power.push(arr[arr.length - 1]);
                 //console.log(power);
-            });
+            });*/
             //console.log(power);
             //console.log(power.length);
 
@@ -297,7 +302,7 @@ $(function () {
                 $("#history").UseTooltip();
             });
 
-
+             }
         });
 
 
