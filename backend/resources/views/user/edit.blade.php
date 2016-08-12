@@ -70,14 +70,16 @@
 							<li><a href="#change-pass" class="btn-block" data-toggle="tab">Change Password</a></li>
 						</ul>
 					</div>
+					<!-- My Profile deo privremeno ugasen jer nema funkciju
 					<div class="panel">
-						<li class="title-section"><a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">My Profile</a></li>
+						<li class="title-section"><a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">My Profile</a<>/li>
 						<ul id="collapseTwo" class="panel-collapse collapse sub-ul">
 							<li><a href="#total-parm" class="btn-block" data-toggle="tab">Total Parmetars</a></li>
 							<li><a href="#edit-history" class="btn-block" data-toggle="tab">Edit History</a></li>
 							<li><a href="#progress" class="btn-block" data-toggle="tab">Progress</a></li>
 						</ul>
 					</div>
+					--> 
 				</ul>
 			</div>
 		</div>
