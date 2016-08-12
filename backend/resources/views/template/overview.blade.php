@@ -36,6 +36,8 @@
                     <div class="col-sm-6 about-value-box">
                         <div class="about-desc latest-session"></div>
                         <div class="about-name">Latest Session</div>
+
+
                     </div>
                     <!-- Item 2 -->
                     <div class="col-sm-12 about-border-t">
@@ -45,14 +47,14 @@
                         <!-- Item 3.1 -->
                         <div class="col-sm-6 about-middle">
                             <div class="act-block about-value-box">
-                                <div class="about-value power-max"></div>
-                                <div class="about-vname">Power Max</div>
+                                <div class="about-value time"></div>
+                                <div class="about-vname">Training time</div>
                             </div>
                             <!-- Item 3.2 -->
 
                             <div class="act-block about-value-box about-middle">
-                                <div class="about-value power-average"></div>
-                                <div class="about-vname">Power Average</div>
+                                <div class="about-value distance"></div>
+                                <div class="about-vname">Distance</div>
                             </div>
                             <!-- Item 3.3 -->
                         </div>
@@ -60,13 +62,13 @@
                     <!-- Item 3 -->
                     <div class="col-sm-12 about-border-t">
                         <div class="col-sm-6 about-value-box about-border-r">
-                            <div class="about-value stroke-rate-max"></div>
-                            <div class="about-vname about-vname-last">Stroke Rate Max</div>
+                            <div class="about-value power-average"></div>
+                            <div class="about-vname about-vname-last">Power average</div>
                         </div>
                         <!-- Item 4 -->
                         <div class="col-sm-6 about-value-box">
-                            <div class="about-value stroke-distance-max"></div>
-                            <div class="about-vname about-vname-last">Stroke Distance Max</div>
+                            <div class="about-value heart-rate-avg"></div>
+                            <div class="about-vname about-vname-last">Heart rate average</div>
                         </div>
                         <!-- Item 5 -->
                     </div>
