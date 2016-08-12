@@ -29,8 +29,6 @@ class SessionsRecentListController extends Controller {
 	        $response = [
 	          'account'  => '',
 	          'sessionsRecentList'  => '',
-
-
 	        ];
 
 	        $email = explode(":", Input::get("account"));
@@ -84,45 +82,39 @@ class SessionsRecentListController extends Controller {
 				$sessionsRecentList = array();
 			
 			
-
-
-
-
-
 				foreach ($sessions as $key => $value) {
 
 				$komentari=Comment::Where("user_id",$userFirst->id)->Where("session_id",$value["id"])->select('text')->get();
 
-				
-				
-				   $tmp = array("ID" => $value["id"], 
-						"date" => $value["date"],
-						"UTC"=>$value["utc"],
-						"name"=>$value["name"],
-						"description"=>$value["description"],
-						"time"=>$value->sessionSummary["time"],
-						"dist"=>$value->sessionSummary["distance"],
-						"pwr_avg"=>$value->sessionSummary["power_average"],
-						"hr_avg"=>$value->sessionSummary["heart_rate_average"],
-						"speed"=>$value->sessionSummary["speed_average"],
-						"Angle"=>$value->sessionSummary["angle_average"],
-						"Pace"=>$value->sessionSummary["pace_average"],
-						"pwr_max"=>$value->sessionSummary["power_max"],
-						"pwr_balance"=>$value->sessionSummary["power_balance"],
-						"stroke_rate"=>$value->sessionSummary["stroke_rate_average"],
-						"stroke_rate_max"=>$value->sessionSummary["stroke_rate_max"],
-						"hr_rate_max"=>$value->sessionSummary["heart_rate_max"]);
+					
+				   $tmp = array(
+				   		"ID" 				=> 	$value["id"], 
+						"date" 				=> 	$value["date"],
+						"UTC"				=>	$value["utc"],
+						"name"				=>	$value["name"],
+						"description"		=>	$value["description"],
+						"speed"				=>	$value->sessionSummary["speed_average"],
+						"Angle"				=>	$value->sessionSummary["angle_average"],
+						"Pace"				=>	$value->sessionSummary["pace_average"],
+						"pwr_max"			=>	$value->sessionSummary["power_max"],
+						"pwr_balance"		=>	$value->sessionSummary["power_balance"],
+						"stroke_rate"		=>	$value->sessionSummary["stroke_rate_average"],
+						"stroke_rate_max"	=>	$value->sessionSummary["stroke_rate_max"],
+						"hr_rate_max"		=>	$value->sessionSummary["heart_rate_max"]);
 
+				   	// Ukoliko se api koristi preko weba, posalji vec uredjene parametre
+				   	if( Input::get("web") == 1){
+						$tmp['time']		=	gmdate("H:i:s", $value->sessionSummary["time"]);
+						$tmp['dist']		=	round($value->sessionSummary["distance"], 3);
+						$tmp['pwr_avg']		=	round($value->sessionSummary["power_average"], 2);
+						$tmp['hr_avg']		=	round($value->sessionSummary["heart_rate_average"], 2);
+					}else{ // ukoliko korisnik ide preko aplikacije
+						$tmp['time']		= 	$value->sessionSummary["time"];
+						$tmp['dist']		=	$value->sessionSummary["distance"];
+						$tmp['pwr_avg']		=	$value->sessionSummary["power_average"];
+						$tmp['hr_avg']		=	$value->sessionSummary["heart_rate_average"];
+					}
 			
-
-
-
-
-					
-
-
-					
-
 					array_push($sessionsRecentList, $tmp);
 				}
 
