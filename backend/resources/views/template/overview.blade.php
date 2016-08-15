@@ -36,6 +36,8 @@
                     <div class="col-sm-6 about-value-box">
                         <div class="about-desc latest-session"></div>
                         <div class="about-name">Latest Session</div>
+
+
                     </div>
                     <!-- Item 2 -->
                     <div class="col-sm-12 about-border-t">
@@ -45,14 +47,14 @@
                         <!-- Item 3.1 -->
                         <div class="col-sm-6 about-middle">
                             <div class="act-block about-value-box">
-                                <div class="about-value power-max"></div>
-                                <div class="about-vname">Power Max</div>
+                                <div class="about-value time"></div>
+                                <div class="about-vname">Training time</div>
                             </div>
                             <!-- Item 3.2 -->
 
                             <div class="act-block about-value-box about-middle">
-                                <div class="about-value power-average"></div>
-                                <div class="about-vname">Power Average</div>
+                                <div class="about-value distance"></div>
+                                <div class="about-vname">Distance</div>
                             </div>
                             <!-- Item 3.3 -->
                         </div>
@@ -60,13 +62,13 @@
                     <!-- Item 3 -->
                     <div class="col-sm-12 about-border-t">
                         <div class="col-sm-6 about-value-box about-border-r">
-                            <div class="about-value stroke-rate-max"></div>
-                            <div class="about-vname about-vname-last">Stroke Rate Max</div>
+                            <div class="about-value power-average"></div>
+                            <div class="about-vname about-vname-last">Power average</div>
                         </div>
                         <!-- Item 4 -->
                         <div class="col-sm-6 about-value-box">
-                            <div class="about-value stroke-distance-max"></div>
-                            <div class="about-vname about-vname-last">Stroke Distance Max</div>
+                            <div class="about-value heart-rate-avg"></div>
+                            <div class="about-vname about-vname-last">Heart rate average</div>
                         </div>
                         <!-- Item 5 -->
                     </div>
@@ -78,55 +80,8 @@
             </div><!-- /.box -->
 
             <!--I am Following -->
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i> I'm following</h3>
-                </div>
-                <div class="box-body">
-                    <div class="box-body no-padding">
-                        <ul class="users-list clearfix">
-                            @foreach($allWatching as $following)
-                            <li>
-                                {{ $following }}
-                            </li>
-                            @endforeach
-                            <li>
-                                <img src="dist/img/user3-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="diff-profile.html">Nadia</a>
-                                <span class="users-list-date">15 Jan</span>
-                            </li>
-                        </ul><!-- /.users-list -->
-                    </div><!-- /.box-body -->
-                    <div class="box-footer text-center padding-bottom-zero">
-                        <a href="javascript::" class="uppercase">View All Users</a>
-                    </div><!-- /.box-footer -->
-                </div><!--/.box -->
-            </div>
-
-
+            <!-- privremeno gasenje -->
             <!-- Following me -->
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i>  Following me</h3>
-                </div>
-                <div class="box-body">
-                    <div class="box-body no-padding">
-                        <ul class="users-list clearfix">
-                            @foreach($allWatched as $followers)
-                            <li>{{ $followers }}</li>
-                            @endforeach
-                            <li>
-                                <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="diff-profile.html">Alexander Pierce</a>
-                                <span class="users-list-date">Today</span>
-                            </li>
-                        </ul><!-- /.users-list -->
-                    </div><!-- /.box-body -->
-                    <div class="box-footer text-center padding-bottom-zero">
-                        <a href="javascript::" class="uppercase">View All Users</a>
-                    </div><!-- /.box-footer -->
-                </div><!--/.box -->
-            </div>
 
 
         </div><!-- /.col -->
@@ -486,7 +441,7 @@
                         <h3 class="pull-left graphic-padding-t ">Sessions</h3>
                         <div class="pull-right">
                             <a href="{{ url('/profile/sessions') }}" class="btn btn-primary pull-right">List</a>
-                            <a href="{{ url('/profile/calendar') }}" class="btn btn-primary pull-right margin-r-5">Calendar</a>
+                            <a href="{{ url('/sessions/calendar') }}" class="btn btn-primary pull-right margin-r-5">Calendar</a>
                         </div>
                         <div class="clear"></div>
                     </div>

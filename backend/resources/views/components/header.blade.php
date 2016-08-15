@@ -105,6 +105,7 @@
 
 
         <!-- search form -->
+        <!-- Trenutno ne treba da se prikazuje 
         <div class="nav-search pull-right">
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group search-onTop col-md-12">
@@ -113,6 +114,7 @@
                 </div>
             </form>
         </div>
+        -->
         <!-- /.search form -->
 
     </nav>

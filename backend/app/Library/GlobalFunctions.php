@@ -300,25 +300,46 @@ use Carbon;
 				    	$lastDay = clone $firstDay;
 				        $lastDay->addYear();
 				        break;
-				    case ("all"):
-				    	$firstDay = Carbon\Carbon::createFromDate(1970, 1, 1);
-				    	$lastDay = Carbon\Carbon::now();
-				        break;
+				  /*case ("all"):
+				        $firstDay = Carbon\Carbon::createFromDate(1970, 1, 1);
+				        $lastDay = Carbon\Carbon::now();
+				        break;*/
 				}
 
+
 				if ($groupBy == "" && !$totalStatisticsWithNoGrouping){
-					$results = DB::select(DB::raw(
-						"SELECT ".GlobalFunctions::GetParametersValuesBySessionsQuery($positionDate).
+
+					if($rangeType == 'all'){
+						$results = DB::select(DB::raw(
+							"SELECT ".GlobalFunctions::GetParametersValuesBySessionsQuery($positionDate).
+							" FROM data_biorower_sessions
+							 	  INNER JOIN sessions
+							 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
+							 WHERE sessions.user_id = ".$userId.
+							 " AND deleted=0 ORDER BY date ASC" ));
+					}else{
+						$results = DB::select(DB::raw(
+							"SELECT ".GlobalFunctions::GetParametersValuesBySessionsQuery($positionDate).
+							" FROM data_biorower_sessions
+							 	  INNER JOIN sessions
+							 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
+							 WHERE sessions.user_id = ".$userId.
+							 " AND deleted=0 AND date>=\"".$firstDay."\" AND date<=\"".$lastDay."\"".
+							 " ORDER BY date ASC"
+							 ));
+					}
+
+				}else{
+					if($rangeType == 'all'){
+						$results = DB::select(DB::raw(
+						"SELECT ".GlobalFunctions::GetParametersValuesByAverageQuery($positionDate).
 						" FROM data_biorower_sessions
 						 	  INNER JOIN sessions
 						 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
 						 WHERE sessions.user_id = ".$userId.
-						 " AND deleted=0 AND date>=\"".$firstDay."\" AND date<=\"".$lastDay."\"".
-						 " ORDER BY date ASC"
-						 ));
-				}
-				else{
-					$results = DB::select(DB::raw(
+						 " AND deleted=0 " .$groupBy. " ORDER BY date ASC" ));
+					}else{						
+						$results = DB::select(DB::raw(
 						"SELECT ".GlobalFunctions::GetParametersValuesByAverageQuery($positionDate).
 						" FROM data_biorower_sessions
 						 	  INNER JOIN sessions
@@ -326,15 +347,11 @@ use Carbon;
 						 WHERE sessions.user_id = ".$userId.
 						 " AND deleted=0 AND date>=\"".$firstDay."\" AND date<=\"".$lastDay."\""
 						 .$groupBy.
-						 " ORDER BY date ASC"
-						 ));
+						 " ORDER BY date ASC" ));
+					}	
 				}
 
-				//return $firstDay." ".$lastDay;
-				//"datetime":[],"time":[],"power":[]
-
 				return GlobalFunctions::PrepareArrayParametersStatistics($results);
-
 		}
 
 		public static function PrepareArrayParametersStatistics($arrayParameters){

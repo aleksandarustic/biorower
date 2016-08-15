@@ -18,7 +18,7 @@
 	<?php $title = config('app.title') ?>
 	<head>
 		<meta name="viewport" content="width = device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	    <title>Biorower - My Profile</title>
+	    <title>Biorower - Settings</title>
 	    <meta name="keywords" content="" />
 	    <meta name="description" content="" />
 
@@ -182,6 +182,7 @@
 
 
 		<!-- search form -->
+		<!-- Privremeno gasenje pretrage
 		<div class="nav-search pull-right">
 			<form action="#" method="get" class="sidebar-form">
 				<div class="input-group">
@@ -192,6 +193,7 @@
 				</div>
 			</form>
 		</div>
+		-->
 		<!-- /.search form -->
 
 	</nav>
@@ -220,7 +222,9 @@
 			<li class="{{ setActive('profile') }}"><a href="{{ url('/profile') }}"><i class="fa fa-user"></i> <span>My Profile</span></a></li>
 			<li class="{{ setActive('sessions/calendar') }}"><a href="{{ url('/sessions/calendar') }}"><i class="fa fa-calendar"></i> <span>My Calendar</span></a></li>
 			<li class="{{ setActive('profile/sessions') }}"><a href="{{ url('/profile/sessions') }}"><i class="fa fa-tasks"></i> <span>My Sessions</span></a></li>
+			<!--
 			<li class="{{ setActive('sessions/training') }}"><a href="{{ url('/sessions/training') }}"><i class="fa  fa-ship"></i> <span>My Training Session</span></a></li>
+			-->
 			<li class="{{ setActive('profile/edit') }}"><a href="{{ url('/profile/edit') }}"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
 		</ul>
 		<!-- /.sidebar-menu -->
