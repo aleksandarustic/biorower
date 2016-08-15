@@ -1,5 +1,3 @@
-
-
 @extends('layouts.main')
 @section('page-scripts')
     <!-- DataTables -->
@@ -124,6 +122,10 @@
               var sesija2;
               var split;
               var nizsplita=[];
+                var k1=[];
+                var k2=[];
+                var k3=[];
+                var k4=[];
 
              
 
@@ -132,8 +134,14 @@
                  
                    sesija2=dat[i].summary;
                    split=dat[i].splits;
+
+
                   
             }
+
+
+
+
             var time=[];
 
             var nizPower=[];
@@ -144,19 +152,33 @@
             var force_l=[];
             var power_l=[];
             var power_r=[];
+             var angle_Ltime=[];
+            var angle_Rtime=[];
+
+
               for(var i2=0;i2< split[0].length; i2++){
+
+
+
 
                 power_l.push(split[0][i2].time);
                 power_l.push(split[0][i2].pwr_l);
                 power_r.push(split[0][i2].time);
                 power_r.push(split[0][i2].pwr_r);
 
-                angle_r.push(split[0][i2].ang_r);
-                angle_l.push(split[0][i2].ang_l);
-                force_r.push(split[0][i2].frc_r);
-                force_l.push(split[0][i2].frc_l);
 
-             
+
+                  angle_Ltime.push(split[0][i2].time);
+                  angle_Ltime.push(split[0][i2].ang_l);
+                  angle_Rtime.push(split[0][i2].time);
+                  angle_Rtime.push(split[0][i2].ang_r);
+
+                angle_r.push(split[0][i2].signal.ang_r2);
+                angle_l.push(split[0][i2].signal.ang_l2);
+                force_r.push(split[0][i2].signal.frc_r2);
+                force_l.push(split[0][i2].signal.frc_l2);
+
+
                  nizPower.push(split[0][i2].srate);
                  nizPower.push(split[0][i2].pwr);
                  time.push(split[0][i2].srate);
@@ -174,16 +196,14 @@
 
             var nizForceL2=[];
             var nizForceR2=[];
-            var angle_Ltime=[];
-            var angle_Rtime=[];
+           
 
              for(var i3=0;i3< angle_r.length; i3++){
 
+
                for(var i4=0;i4< angle_r[i3].length; i4++){
-                  angle_Ltime.push(split[0][i3].time);
-                  angle_Ltime.push(angle_l[i3][i4]);
-                  angle_Rtime.push(split[0][i3].time);
-                  angle_Rtime.push(angle_r[i3][i4]);
+
+                
                   nizForceL2.push(angle_l[i3][i4]);
                   nizForceL2.push(force_l[i3][i4]);
                   nizForceR2.push(angle_r[i3][i4]);
@@ -207,27 +227,28 @@
           while(time.length) nizTime.push(time.splice(0,2));
           while(nizForceL2.length) forceL1.push(nizForceL2.splice(0,2));
           while(nizForceR2.length) forceR1.push(nizForceR2.splice(0,2));
+        
  
 
 
- d6={
+  var d6={
               data: nizTime,
         label:'Time(s)',
         color: "#9c8dbc",
         lines: { show: true, color: "#3c8dbc" },
         points: { show: false}
-            }  
+            }  ;
 
 
 
- d5={
+  var d5={
               data: power1,
         label:'Power(W)',
         color: "#3c8dbc",
         lines: { show: true, color: "#3c8dbc" },
         points: { show: false}
-            }      
- var data2 = [ d5];
+            };
+ var data2 = [ d5,];
 
 
  var plot2 =$.plot($("#Strokes"),
@@ -262,10 +283,10 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
       var niz=[];
 
-            
-      
+
+
       niz=document.getElementsByName("parameters");
-      
+
        for(var i=0;i< niz.length; i++){
         if(niz[i].checked==true){
           if( niz[i].getAttribute("id")=="time"){
@@ -274,20 +295,20 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
             plot2.setupGrid();
             plot2.draw();
 
-           
-             
+
+
 
 
           }
-         
-         
+
+
 
 
         }
         if(niz[i].checked==false){
-          
-          
-          
+
+
+
 
 
         }
@@ -295,8 +316,8 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
       }
 
 
-     });   
-           
+     });
+
 
 
             
@@ -323,7 +344,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
 
  
-    $.plotAnimator($("#left-hand"),
+    $.plot($("#left-hand"),
         [{
               data: forceL1,
         color: "#536A7F",
@@ -360,7 +381,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
 
 
-     $.plotAnimator($("#right-hand"),
+     $.plot($("#right-hand"),
         [{
               data: forceR1,
         color: "#536A7F",
@@ -419,7 +440,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
      [ d1, d2 ,d3, d4]
       placeholder = $("#signals-graph");
 
-    var plot = $.plotAnimator(placeholder, data,
+    var plot = $.plot(placeholder, data,
     
      {
       
@@ -949,19 +970,19 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
  </div>
   </div>
   </div>
-  </div>
+
   <!-- /.row --> 
   
 </section>
 <!-- /.content -->
-</div>
+
 <!-- /.content-wrapper --> 
 
        
-</div>
+
       <!-- /.row --> 
       
-    </section>
+
     <!-- /.content --> 
     
     <aside class="control-sidebar control-sidebar-dark chat-open-right">
@@ -1054,13 +1075,3 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
  
 @endsection
-
-
-
-
-
-
-
-
-
-
