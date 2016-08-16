@@ -97,11 +97,15 @@ class GetsessionsController extends Controller {
                 }
                 return $num;
             }
-
             $d1=array();
             $d2=array();
             $d3=array();
             $d4=array();
+            
+            $pc=Input::get("pc");
+       
+
+            
 
          foreach ($sessions as $session) {
             $tmp = array();
@@ -131,11 +135,8 @@ class GetsessionsController extends Controller {
             $tmp["splits"]       = json_decode($session["data"]);
 
 
-
-
-
-
-
+                    if($pc==1){
+                
                 foreach ($tmp["splits"][0] as $spl) {
                     $var1 = base64_decode($spl->signal->ang_l);
                     $var2 = base64_decode($spl->signal->ang_r);
@@ -170,10 +171,10 @@ class GetsessionsController extends Controller {
 
                     }
                     
-                    $spl->signal->ang_l2=$d1;
-                    $spl->signal->ang_r2=$d2;
-                    $spl->signal->frc_l2=$d3;
-                    $spl->signal->frc_r2=$d4;
+                    $spl->signal->ang_l=$d1;
+                    $spl->signal->ang_r=$d2;
+                    $spl->signal->frc_l=$d3;
+                    $spl->signal->frc_r=$d4;
 
 
 
@@ -184,6 +185,15 @@ class GetsessionsController extends Controller {
 
 
                 }
+
+
+                
+                
+                
+                
+                                 }
+
+
 
 
 

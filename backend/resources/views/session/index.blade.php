@@ -112,12 +112,13 @@
             type: 'POST', 
             dataType: 'json',
             url : urlBase + '/api/v1/sessions_get',
-            data: {account: email2 ,sessionIds:niz
+            data: {account: email2 ,sessionIds:niz,pc:"1",
           
 
         }, 
             success: function (data) {
-              
+                
+        
               var dat=data.sessions;
               var sesija2;
               var split;
@@ -152,37 +153,62 @@
             var force_l=[];
             var power_l=[];
             var power_r=[];
-             var angle_Ltime=[];
+            var angle_Ltime=[];
             var angle_Rtime=[];
+            
+            var speed2=[];
+            var pace2500=[];
+            var pace2km2=[];
+            var strokerate2=[];
+            var distance2=[];
+            var calories2=[];
+            var powerbalance2=[];
+            var powerL2=[];
+            var powerR2=[];
+            var angle5=[];
+            var angle5L=[];
+            var angle5R=[];
 
 
               for(var i2=0;i2< split[0].length; i2++){
+                  
+  
+
+                angle_r.push(split[0][i2].signal.ang_r);
+                pace2500.push(i2);
+                pace2500.push(split[0][i2].pace500);
+                powerbalance2.push(i2);
+                powerbalance2.push(split[0][i2].pwr_bal);
+                pace2500.push(i2);
+                pace2500.push(split[0][i2].pace500);
+                powerL2.push(i2);
+                powerL2.push(split[0][i2].pwr_l);
+                powerR2.push(i2);
+                powerR2.push(split[0][i2].pwr_r);
+                angle5.push(i2);
+                angle5.push(split[0][i2].ang);
+                angle5L.push(i2);
+                angle5L.push(split[0][i2].ang_l);
+                angle5R.push(i2);
+                angle5R.push(split[0][i2].ang_r);
+                strokerate2.push(i2);
+                strokerate2.push(split[0][i2].srate);
+                calories2.push(i2);
+                calories2.push(split[0][i2].cal);
+                speed2.push(i2);
+                speed2.push(split[0][i2].spd);
+                distance2.push(i2);
+                distance2.push(split[0][i2].dist);
+                angle_l.push(split[0][i2].signal.ang_l);
+                force_r.push(split[0][i2].signal.frc_r);
+                force_l.push(split[0][i2].signal.frc_l);
 
 
-
-
-                power_l.push(split[0][i2].time);
-                power_l.push(split[0][i2].pwr_l);
-                power_r.push(split[0][i2].time);
-                power_r.push(split[0][i2].pwr_r);
-
-
-
-                  angle_Ltime.push(split[0][i2].time);
-                  angle_Ltime.push(split[0][i2].ang_l);
-                  angle_Rtime.push(split[0][i2].time);
-                  angle_Rtime.push(split[0][i2].ang_r);
-
-                angle_r.push(split[0][i2].signal.ang_r2);
-                angle_l.push(split[0][i2].signal.ang_l2);
-                force_r.push(split[0][i2].signal.frc_r2);
-                force_l.push(split[0][i2].signal.frc_l2);
-
-
-                 nizPower.push(split[0][i2].srate);
+                 nizPower.push(i2);
                  nizPower.push(split[0][i2].pwr);
-                 time.push(split[0][i2].srate);
+                 time.push(i2);
                  time.push(split[0][i2].time);
+             
 
 
 
@@ -191,17 +217,41 @@
                 
                   
             }
+            
+           
+           
 
 
 
             var nizForceL2=[];
             var nizForceR2=[];
+            
            
 
              for(var i3=0;i3< angle_r.length; i3++){
+                 
+                   var tt=0;
+                  
+                
 
 
                for(var i4=0;i4< angle_r[i3].length; i4++){
+                    tt=tt+0.01;
+                 
+                  
+                     
+                  
+                   
+                power_l.push(tt);
+                power_l.push(force_l[i3][i4]);
+                power_r.push(tt);
+                power_r.push(force_r[i3][i4]);
+                
+                 angle_Ltime.push(tt);
+                  angle_Ltime.push(angle_l[i3][i4]);
+                  angle_Rtime.push(tt);
+                  angle_Rtime.push(angle_r[i3][i4]);
+               
 
                 
                   nizForceL2.push(angle_l[i3][i4]);
@@ -210,6 +260,7 @@
                   nizForceR2.push(force_r[i3][i4]);
                    }
              }
+          
             var nizTime=[];
             var power_l2=[];
             var power_r2=[];
@@ -218,6 +269,33 @@
             var forceR1=[];
             var angle_Ltime2=[];
             var angle_Rtime2=[];
+            
+            var speed3=[];
+            var pace3500=[];
+            var pace2km3=[];
+            var strokerate3=[];
+            var distance3=[];
+            var calories3=[];
+            var powerbalance3=[];
+            var powerL3=[];
+            var powerR3=[];
+            var angle3=[];
+            var angle3L=[];
+            var angle3R=[];
+            
+          while(speed2.length) speed3.push(speed2.splice(0,2));
+          while(pace2500.length) pace3500.push(pace2500.splice(0,2));
+          while(pace2km2.length) pace2km3.push(pace2km2.splice(0,2));
+          while(strokerate2.length) strokerate3.push(strokerate2.splice(0,2));
+          while(distance2.length) distance3.push(distance2.splice(0,2));
+          while(calories2.length) calories3.push(calories2.splice(0,2));
+          while(powerbalance2.length) powerbalance3.push(powerbalance2.splice(0,2));
+          while(powerL2.length) powerL3.push(powerL2.splice(0,2)); 
+          while(powerR2.length) powerR3.push(powerR2.splice(0,2));
+          while(angle5.length) angle3.push(angle5.splice(0,2));
+          while(angle5L.length) angle3L.push(angle5L.splice(0,2));
+          while(angle5R.length) angle3R.push(angle5R.splice(0,2)); 
+            
 
           while(angle_Rtime.length) angle_Rtime2.push(angle_Rtime.splice(0,2));
           while(angle_Ltime.length) angle_Ltime2.push(angle_Ltime.splice(0,2));
@@ -228,6 +306,7 @@
           while(nizForceL2.length) forceL1.push(nizForceL2.splice(0,2));
           while(nizForceR2.length) forceR1.push(nizForceR2.splice(0,2));
         
+        
  
 
 
@@ -235,17 +314,15 @@
               data: nizTime,
         label:'Time(s)',
         color: "#9c8dbc",
-        lines: { show: true, color: "#3c8dbc" },
+        lines: { show: true, },
         points: { show: false}
             }  ;
-
-
 
   var d5={
               data: power1,
         label:'Power(W)',
         color: "#3c8dbc",
-        lines: { show: true, color: "#3c8dbc" },
+        lines: { show: true,},
         points: { show: false}
             };
  var data2 = [ d5,];
@@ -263,7 +340,7 @@
       legend: {
           noColumns: 1,
         },
-      yaxis: {
+      yaxes: {
             show: true,
           },
             xaxis:{
@@ -289,7 +366,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
        for(var i=0;i< niz.length; i++){
         if(niz[i].checked==true){
-          if( niz[i].getAttribute("id")=="time"){
+          if( niz[i].getAttribute("id")=="time2"){
             data2.push(d6);
             plot2.setData(data2);
             plot2.setupGrid();
@@ -366,9 +443,12 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         },
       yaxis: {
             show: true,
+            max:1000,
           },
             xaxis:{
             show:true,
+            max:60,
+            min:-90,
             }     
         }
     );
@@ -403,9 +483,12 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         },
       yaxis: {
             show: true,
+             max:1000,
           },
             xaxis:{
             show:true,
+            max:60,
+            min:-90,
             }     
         }
     );
@@ -420,20 +503,24 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         var d1 = {
           data: power_l2,
           color: "#3c8dbc",
-      label: 'Left Power',
+      label: 'Left Force',
+      yaxis:1,
+    
         };
 
       var d2 = {
-      label:'Right Power',
-      data: power_r2};
+      label:'Right Force',
+      data: power_r2,
+      yaxis:1,};
       var d3 = {
 
       label:'Angle Left',
-      data: angle_Ltime2};
+      data: angle_Ltime2,
+        yaxis:2,};
        var d4 = {
 
       label:'Angle Right',
-      data: angle_Rtime2};
+      data: angle_Rtime2,yaxis:2,};
 
 
     var data =
@@ -466,14 +553,14 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
           noColumns: 5,
         },
       },
+      yaxes: [  {zoomRange: [0.1, 10],
+        panRange: [-10, 10],position:"left",max:1000  },{zoomRange: [0.1, 10],
+        panRange: [-10, 10],position:"right",max:60,min:-90,  } ],
+      
       xaxis: {
         zoomRange: [0.1, 10],
         panRange: [-10, 10]
-      },
-      yaxis: {
-        zoomRange: [0.1, 10],
-        panRange: [-10, 10]
-      },
+      },  
       zoom: {
         interactive: true
       },
@@ -506,18 +593,7 @@ $("<div class='button' id='icon-zoomIn' style='right:44px; top:22px;'></div>")
         plot.zoom();
       });
       
-      var axes = plot.getAxes(),
-    xaxis = axes.xaxis.options,
-    yaxis = axes.yaxis.options;
-xaxis.min = null;
-xaxis.max = null;
-yaxis.min = null;
-yaxis.max = null;
-
-// Don't forget to redraw the plot
-plot.setupGrid();
-plot.draw();
-
+     
    }
           });
 
@@ -574,7 +650,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
           <div class="clear"></div>
           <div id="signals-graph" class="demo-placeholder" style="height: 300px;"></div>
           <div class="graphic-footer row">
-                  <div class="pull-right btn-param"><i class="fa fa-cog"></i></div>
+              <br><br><br><br>
                           </div>
           
 <div class="clear margin-bottom"></div>
@@ -631,39 +707,19 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
                                                 <!-- List of Parametars -->
                                                 <div id="history-graph-params" class="param-box">
                                                     <ul class="checkbox icheck modalParm-list">
-                                                        <li>
-                                                            <label for="strokeCount">
-                                                                <input type="checkbox" name="parameters" id="strokeCount" value="stroke_count">
-                                                                Stroke Count
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="strokeDistance">
-                                                                <input type="checkbox" name="parameters" id="strokeDistance" disabled>
-                                                                Stroke Distance
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="speedMax">
-                                                                <input type="checkbox" name="parameters" id="speedMax" value="speed_max">
-                                                                Speed Max
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                                     
+                                         
+                                                      
                                                         <li>
                                                             <label for="pace2km">
-                                                                <input type="checkbox" name="parameters" id="pace2km" disabled>
+                                                                <input type="checkbox" name="parameters" id="pace2km" >
                                                                 Pace 2km
                                                             </label>
                                                         </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="hrMax">
-                                                                <input type="checkbox" name="parameters" id="hrMax" disabled>
-                                                                HR Max
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                                     
                                                         <li>
                                                             <label for="calories2">
-                                                                <input type="checkbox" name="parameters" id="calories2" disabled>
+                                                                <input type="checkbox" name="parameters" id="calories2" >
                                                                 Calories
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -673,34 +729,42 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
                                                                 Time
                                                             </label>
                                                         </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="strokeDistMax">
-                                                                <input type="checkbox" name="parameters" id="strokeDistMax" value="stroke_distance_max">
-                                                                Stroke Dist. Max
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                                     
                                                         <li>
                                                             <label for="pace500m">
-                                                                <input type="checkbox" name="parameters" id="pace500m" disabled>
+                                                                <input type="checkbox" name="parameters" id="pace500m" >
                                                                 Pace 500m
                                                             </label>
                                                         </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="pace2kmMax">
-                                                                <input type="checkbox" name="parameters" id="pace2kmMax" disabled>
-                                                                Pace 2km Max
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                                      
                                                         <li>
                                                             <label for="strokeRate">
                                                                 <input type="checkbox" name="parameters" id="strokeRate" value="stroke_rate_average">
                                                                 Stroke Rate
                                                             </label>
                                                         </li><!-- End Parametar Item -->
+                                                         <li>
+                                                            <label for="power5">
+                                                                <input type="checkbox" name="parameters" id="power5" value="power" checked>
+                                                                Power
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                         <li>
+                                                            <label for="powerBalance">
+                                                                <input type="checkbox" name="parameters" id="powerBalance" value="power_left_average">
+                                                                Power Balance
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="powerL">
                                                                 <input type="checkbox" name="parameters" id="powerL" value="power_left_average">
                                                                 Power L
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                         <li>
+                                                            <label for="powerR">
+                                                                <input type="checkbox" name="parameters" id="powerR" value="power_right_average">
+                                                                Power R
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
@@ -715,30 +779,36 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
                                                                 Speed
                                                             </label>
                                                         </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="pace500mMax">
-                                                                <input type="checkbox" name="parameters" id="pace500mMax" disabled>
-                                                                Pace 500m Max
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                                      
                                                         <li>
                                                             <label for="hr2">
-                                                                <input type="checkbox" name="parameters" id="hr2" disabled>
+                                                                <input type="checkbox" name="parameters" id="hr2" >
                                                                 HR
                                                             </label>
                                                         </li><!-- End Parametar Item -->
+                                                         
                                                         <li>
-                                                            <label for="strokeRateMax">
-                                                                <input type="checkbox" name="parameters" id="strokeRateMax" value="stroke_rate_max">
-                                                                Stroke Rate Max
+                                                            <label for="angle5">
+                                                                <input type="checkbox" name="parameters" id="angle5" >
+                                                                angle
                                                             </label>
                                                         </li><!-- End Parametar Item -->
+                                                         
                                                         <li>
-                                                            <label for="powerLMax">
-                                                                <input type="checkbox" name="parameters" id="powerLMax" value="power_left_max">
-                                                                Power L Max
+                                                            <label for="angle5l">
+                                                                <input type="checkbox" name="parameters" id="angle5l" >
+                                                                angle l
                                                             </label>
                                                         </li><!-- End Parametar Item -->
+                                                         
+                                                        <li>
+                                                            <label for="angle5R">
+                                                                <input type="checkbox" name="parameters" id="angle5R" >
+                                                                angle r
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                   
+                                                      
                                                     </ul><!-- /.contatcts-list -->
 
 
