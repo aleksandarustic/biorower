@@ -6,9 +6,7 @@
       <link rel="stylesheet" href="{{ URL::asset('dist/css/skins/skin-blue.min.css') }}">
      
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  
     <!-- Theme style -->
     
     <link rel="stylesheet" href="{{ URL::asset('dist/css/AdminLTE.min.css') }}">    
@@ -16,11 +14,10 @@
 <!-- Bootstrap 3.3.5 --> 
 <script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App --> 
-<script src="{{ URL::asset('js/jquery-ui-multiselect-widget/jquery.multiselect.css') }}"></script>
+
 <!-- FLOT CHeartS --> 
 <script src="{{ URL::asset('plugins/flot/jquery.flot.min.js') }}"></script>
 
- <script src="{{ Request::root() }}/../node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
  
 
 
@@ -122,12 +119,7 @@
               var dat=data.sessions;
               var sesija2;
               var split;
-              var nizsplita=[];
-                var k1=[];
-                var k2=[];
-                var k3=[];
-                var k4=[];
-
+          
              
 
                 for(var i=0;i< dat.length; i++){
@@ -168,6 +160,7 @@
             var angle5=[];
             var angle5L=[];
             var angle5R=[];
+            var hr2=[];
 
 
               for(var i2=0;i2< split[0].length; i2++){
@@ -177,10 +170,12 @@
                 angle_r.push(split[0][i2].signal.ang_r);
                 pace2500.push(i2);
                 pace2500.push(split[0][i2].pace500);
+                hr2.push(i2);
+                hr2.push(split[0][i2].hr);
                 powerbalance2.push(i2);
                 powerbalance2.push(split[0][i2].pwr_bal);
-                pace2500.push(i2);
-                pace2500.push(split[0][i2].pace500);
+                pace2km2.push(i2);
+                pace2km2.push(split[0][i2].pace2k);
                 powerL2.push(i2);
                 powerL2.push(split[0][i2].pwr_l);
                 powerR2.push(i2);
@@ -282,6 +277,7 @@
             var angle3=[];
             var angle3L=[];
             var angle3R=[];
+            var hr3=[];
             
           while(speed2.length) speed3.push(speed2.splice(0,2));
           while(pace2500.length) pace3500.push(pace2500.splice(0,2));
@@ -296,7 +292,7 @@
           while(angle5L.length) angle3L.push(angle5L.splice(0,2));
           while(angle5R.length) angle3R.push(angle5R.splice(0,2)); 
             
-
+          while(hr2.length) hr3.push(hr2.splice(0,2));
           while(angle_Rtime.length) angle_Rtime2.push(angle_Rtime.splice(0,2));
           while(angle_Ltime.length) angle_Ltime2.push(angle_Ltime.splice(0,2));
           while(power_l.length) power_l2.push(power_l.splice(0,2));
@@ -305,23 +301,140 @@
           while(time.length) nizTime.push(time.splice(0,2));
           while(nizForceL2.length) forceL1.push(nizForceL2.splice(0,2));
           while(nizForceR2.length) forceR1.push(nizForceR2.splice(0,2));
+          
+            var d19={
+              data:hr3,
+        label:'heart rate(bmp)',
+   
+         yaxis:9,
+        lines: { show: true, },
+        points: { show: false}
+            }  ; 
+          
+          var d18={
+              data:calories3,
+        label:'calories(kCal)',
+   
+         yaxis:8,
+        lines: { show: true, },
+        points: { show: false}
+            }  ; 
+          
+        var d17={
+              data:angle3R,
+        label:'angle3 right(+)',
+   
+         yaxis:7,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
         
+        var d16={
+              data:angle3L,
+        label:'angle3 left(+)',
+   
+         yaxis:7,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
         
- 
+        var d15={
+              data:angle3,
+        label:'angle(+)',
+   
+         yaxis:7,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+        
+         var d14={
+              data:strokerate3,
+        label:'stroke rate(spm)',
+   
+         yaxis:6,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+        
+         var d13={
+              data:pace2km3,
+        label:'pace 2km(mm:ss)',
+   
+         yaxis:1,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+            
+         var d12={
+              data:pace3500,
+        label:'pace 500m(mm:ss)',
+   
+         yaxis:1,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+        
+         var d11={
+              data:speed3,
+        label:'speed(m/s)',
+   
+         yaxis:5,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+        
+         var d10={
+              data:distance3,
+        label:'distance(m)',
+   
+         yaxis:3,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+        
+      var d9={
+              data:powerbalance3,
+        label:'Power balance(W)',
+   
+         yaxis:1,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+              
+        var d8={
+              data: powerL3,
+        label:'Power left(W)',
+   
+         yaxis:1,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+            var d7={
+              data: powerR3,
+        label:'Power right(W)',
+   
+         yaxis:1,
+        lines: { show: true, },
+        points: { show: false}
+            }  ;
+            
 
 
   var d6={
               data: nizTime,
         label:'Time(s)',
-        color: "#9c8dbc",
+   
+         yaxis:4,
         lines: { show: true, },
         points: { show: false}
             }  ;
+            
 
   var d5={
               data: power1,
         label:'Power(W)',
-        color: "#3c8dbc",
+    
+        yaxis:1,
         lines: { show: true,},
         points: { show: false}
             };
@@ -340,18 +453,13 @@
       legend: {
           noColumns: 1,
         },
-      yaxes: {
-            show: true,
-          },
+      yaxes: [  {position:"left",max:1500},{position:"right",max:60,min:-90,  },{position:"right",max:20,  } ,{position:"right",max:5,  },{max:10,  },{max:50,position:"right",  },{max:150,  },{max:2,position:"right",  },{max:250,position:"right",  },],
             xaxis:{
         show: true,
             }     
         }
     );
- var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Strokes(spm)").appendTo($('#Strokes'));
 
-var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#Strokes'));
-yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
 
 
@@ -359,6 +467,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
             $("#promenaParametra").click(function(){
 
       var niz=[];
+  
 
 
 
@@ -366,17 +475,132 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 
        for(var i=0;i< niz.length; i++){
         if(niz[i].checked==true){
+            
+              if( niz[i].getAttribute("id")=="hr2"){
+            data2.push(d19);
+           
+
+
+
+          } 
+            
+               if( niz[i].getAttribute("id")=="calories2"){
+            data2.push(d18);
+           
+
+
+
+          } 
+            
+              if( niz[i].getAttribute("id")=="strokeRate"){
+            data2.push(d14);
+           
+
+
+
+          } 
+            
+             if( niz[i].getAttribute("id")=="pace2km"){
+            data2.push(d13);
+           
+
+
+
+          } 
+            
+             if( niz[i].getAttribute("id")=="pace500m"){
+            data2.push(d12);
+           
+
+
+
+          } 
+            
+            
+             if( niz[i].getAttribute("id")=="speed2"){
+            data2.push(d11);
+           
+
+
+
+          } 
+            
+             if( niz[i].getAttribute("id")=="angle5R"){
+            data2.push(d17);
+           
+
+
+
+          } 
+            
+            
+               if( niz[i].getAttribute("id")=="angle5l"){
+            data2.push(d16);
+           
+
+
+
+
+
+          } 
+            
+            
+            
+             if( niz[i].getAttribute("id")=="angle5"){
+            data2.push(d15);
+           
+
+
+
+
+
+          } 
+            
+            if( niz[i].getAttribute("id")=="distance2"){
+            data2.push(d10);
+           
+
+
+
+
+
+          } 
+            
           if( niz[i].getAttribute("id")=="time2"){
             data2.push(d6);
-            plot2.setData(data2);
-            plot2.setupGrid();
-            plot2.draw();
+           
 
 
 
 
 
           }
+          if( niz[i].getAttribute("id")=="powerBalance"){
+            data2.push(d9);
+            
+
+
+
+
+          }
+          if( niz[i].getAttribute("id")=="powerL"){
+            data2.push(d8);
+           
+
+
+
+
+
+          }
+          if( niz[i].getAttribute("id")=="powerR"){
+            data2.push(d7);
+          
+
+
+
+
+          }
+           
 
 
 
@@ -391,6 +615,10 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         }
 
       }
+  
+       plot2.setData(data2);
+            plot2.setupGrid();
+            plot2.draw();
 
 
      });

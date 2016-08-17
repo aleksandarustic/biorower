@@ -23,6 +23,7 @@ class GetsessionsController extends Controller {
    {
 
       try{
+          
            $statusCode = 200;
            $response = [
              'sessionIds'  => '',

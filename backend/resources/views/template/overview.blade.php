@@ -36,8 +36,6 @@
                     <div class="col-sm-6 about-value-box">
                         <div class="about-desc latest-session"></div>
                         <div class="about-name">Latest Session</div>
-
-
                     </div>
                     <!-- Item 2 -->
                     <div class="col-sm-12 about-border-t">
@@ -47,14 +45,14 @@
                         <!-- Item 3.1 -->
                         <div class="col-sm-6 about-middle">
                             <div class="act-block about-value-box">
-                                <div class="about-value time"></div>
-                                <div class="about-vname">Training time</div>
+                                <div class="about-value power-max"></div>
+                                <div class="about-vname">Power Max</div>
                             </div>
                             <!-- Item 3.2 -->
 
                             <div class="act-block about-value-box about-middle">
-                                <div class="about-value distance"></div>
-                                <div class="about-vname">Distance</div>
+                                <div class="about-value power-average"></div>
+                                <div class="about-vname">Power Average</div>
                             </div>
                             <!-- Item 3.3 -->
                         </div>
@@ -62,13 +60,13 @@
                     <!-- Item 3 -->
                     <div class="col-sm-12 about-border-t">
                         <div class="col-sm-6 about-value-box about-border-r">
-                            <div class="about-value power-average"></div>
-                            <div class="about-vname about-vname-last">Power average</div>
+                            <div class="about-value stroke-rate-max"></div>
+                            <div class="about-vname about-vname-last">Stroke Rate Max</div>
                         </div>
                         <!-- Item 4 -->
                         <div class="col-sm-6 about-value-box">
-                            <div class="about-value heart-rate-avg"></div>
-                            <div class="about-vname about-vname-last">Heart rate average</div>
+                            <div class="about-value stroke-distance-max"></div>
+                            <div class="about-vname about-vname-last">Stroke Distance Max</div>
                         </div>
                         <!-- Item 5 -->
                     </div>
@@ -80,8 +78,55 @@
             </div><!-- /.box -->
 
             <!--I am Following -->
-            <!-- privremeno gasenje -->
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i> I'm following</h3>
+                </div>
+                <div class="box-body">
+                    <div class="box-body no-padding">
+                        <ul class="users-list clearfix">
+                            @foreach($allWatching as $following)
+                            <li>
+                                {{ $following }}
+                            </li>
+                            @endforeach
+                            <li>
+                                <img src="dist/img/user3-128x128.jpg" alt="User Image">
+                                <a class="users-list-name" href="diff-profile.html">Nadia</a>
+                                <span class="users-list-date">15 Jan</span>
+                            </li>
+                        </ul><!-- /.users-list -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer text-center padding-bottom-zero">
+                        <a href="javascript::" class="uppercase">View All Users</a>
+                    </div><!-- /.box-footer -->
+                </div><!--/.box -->
+            </div>
+
+
             <!-- Following me -->
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i>  Following me</h3>
+                </div>
+                <div class="box-body">
+                    <div class="box-body no-padding">
+                        <ul class="users-list clearfix">
+                            @foreach($allWatched as $followers)
+                            <li>{{ $followers }}</li>
+                            @endforeach
+                            <li>
+                                <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                                <a class="users-list-name" href="diff-profile.html">Alexander Pierce</a>
+                                <span class="users-list-date">Today</span>
+                            </li>
+                        </ul><!-- /.users-list -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer text-center padding-bottom-zero">
+                        <a href="javascript::" class="uppercase">View All Users</a>
+                    </div><!-- /.box-footer -->
+                </div><!--/.box -->
+            </div>
 
 
         </div><!-- /.col -->
@@ -240,7 +285,7 @@
                                                     <ul class="checkbox icheck modalParm-list">
                                                         <li>
                                                             <label for="strokeCount">
-                                                                <input type="checkbox" name="parameters" id="strokeCount" value="stroke_count">
+                                                                <input type="checkbox" name="parameters" id="strokeCount" value="scnt">
                                                                 <span class="stroke_count">Stroke Count</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -252,7 +297,7 @@
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="speedMax">
-                                                                <input type="checkbox" name="parameters" id="speedMax" value="speed_max">
+                                                                <input type="checkbox" name="parameters" id="speedMax" value="spd_max">
                                                                 <span class="speed_max">Speed Max</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -282,7 +327,7 @@
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="strokeDistMax">
-                                                                <input type="checkbox" name="parameters" id="strokeDistMax" value="stroke_distance_max">
+                                                                <input type="checkbox" name="parameters" id="strokeDistMax" value="sdist_max">
                                                                 <span class="stroke_distance_max">Stroke Dist. Max</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -300,25 +345,25 @@
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="strokeRate">
-                                                                <input type="checkbox" name="parameters" id="strokeRate" value="stroke_rate_average">
+                                                                <input type="checkbox" name="parameters" id="strokeRate" value="srate_avg">
                                                                 <span class="stroke_rate_average">Stroke Rate</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="powerL">
-                                                                <input type="checkbox" name="parameters" id="powerL" value="power_left_average">
+                                                                <input type="checkbox" name="parameters" id="powerL" value="pwr_l_avg">
                                                                 <span class="power_left_average">Power L</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="distance">
-                                                                <input type="checkbox" name="parameters" id="distance" value="distance">
+                                                                <input type="checkbox" name="parameters" id="distance" value="dist">
                                                                 <span class="distance">Distance</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="speed">
-                                                                <input type="checkbox" name="parameters" id="speed" value="speed_average">
+                                                                <input type="checkbox" name="parameters" id="speed" value="spd_avg">
                                                                 <span class="speed_average">Speed</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -336,13 +381,13 @@
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="strokeRateMax">
-                                                                <input type="checkbox" name="parameters" id="strokeRateMax" value="stroke_rate_max">
+                                                                <input type="checkbox" name="parameters" id="strokeRateMax" value="srate_max">
                                                                 <span class="stroke_rate_max">Stroke Rate Max</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
                                                         <li>
                                                             <label for="powerLMax">
-                                                                <input type="checkbox" name="parameters" id="powerLMax" value="power_left_max">
+                                                                <input type="checkbox" name="parameters" id="powerLMax" value="pwr_l_max">
                                                                 <span class="power_left_max">Power L Max</span>
                                                             </label>
                                                         </li><!-- End Parametar Item -->
@@ -395,30 +440,25 @@
 
                         <div class="progress-left">
                             <div class="progress-groupOne">
-                                <div class="box-tools pull-right">
-                                    <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"><i class="fa fa-chevron-left"></i></a> <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"><i class="fa fa-chevron-right"></i></a>
-                                </div>
+                              
                                 <div>
                                 </div>
                                 <!--Btn links -->
 
                                 <div class="pull-right changeP-btn">
-                                    <a href="#" class="btn btn-link">Week</a>
-                                    <a href="#" class="btn btn-link">Month</a>
-                                    <a href="#" class="btn btn-link">Year</a>
-                                    <a href="#" class="btn btn-sm btn-primary">All</a>
+                                     <a href="javascript:;" class="btn btn-link" id="year_progress"
+                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));"
+                                   >Year</a>
+                                <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
+                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','');"
+                                   >All</a>
                                 </div>
 
 
                             </div>
 
                             <!-- Date and time range -->
-                            <div class="form-group pull-right choose-date">
-                                <div id="reportrange1" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #eee; margin-right: 12px; margin-top: 2px;">
-                                    <i class="glyphicon glyphicon-calendar fa fa-calendar margin-r-5 text-blue"></i>
-                                    <span class="margin-r-5">Choose the date</span> <b class="caret text-blue margin-r-5"></b>
-                                </div>
-                            </div>
+                      
                         </div><!-- /.form group -->
                     </div>
 
@@ -426,8 +466,165 @@
                         <div id="progress" style="height: 300px;"></div>
 
                         <div class="graphic-footer row">
-                            <a class="pull-right btn-param" href="edit-profile.html#parentVerticalTab10"><i class="fa fa-cog"></i></a>
+                            <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam2"><i class="fa fa-cog"></i></a>
                         </div>
+                          <div class="example-modal">
+                                <div class="modal" id="myParam2">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header no-border">
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="modal-param">
+                                                    <h2>Choose parametars</h2>
+                                                    <p>Choose three parametars from the list</p>
+                                                </div>
+                                                <!-- List of Parametars -->
+                                                <div id="progress-graph-params" class="param-box">
+                                                    <ul class="checkbox icheck modalParm-list">
+                                                        <li>
+                                                            <label for="strokeCount2">
+                                                                <input type="checkbox" name="parameters2" id="strokeCount2" value="scnt">
+                                                                <span class="stroke_count2">Stroke Count</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="strokeDistance2">
+                                                                <input type="checkbox" name="parameters2" id="strokeDistance2" disabled>
+                                                                <span class="">Stroke Distance</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="speedMax2">
+                                                                <input type="checkbox" name="parameters2" id="speedMax2" value="spd_max">
+                                                                <span class="speed_max2">Speed Max</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="pace2km2">
+                                                                <input type="checkbox" name="parameters2" id="pace2km2" disabled>
+                                                                <span class="">Pace 2km</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="hrMax2">
+                                                                <input type="checkbox" name="parameters2" id="hrMax2" disabled>
+                                                                <span class="">HR Max</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="calories2">
+                                                                <input type="checkbox" name="parameters2" id="calories2" disabled>
+                                                                <span class="">Calories</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="time2">
+                                                                <input type="checkbox" name="parameters2" id="time2" value="time">
+                                                                <span class="time2">Time</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="strokeDistMax2">
+                                                                <input type="checkbox" name="parameters2" id="strokeDistMax2" value="sdist_max">
+                                                                <span class="stroke_distance_max2">Stroke Dist. Max</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="pace500m2">
+                                                                <input type="checkbox" name="parameters2" id="pace500m2" disabled>
+                                                                <span class="">Pace 500m</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="pace2kmMax2">
+                                                                <input type="checkbox" name="parameters2" id="pace2kmMax2" disabled>
+                                                                <span class="">Pace 2km Max</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="strokeRate2">
+                                                                <input type="checkbox" name="parameters2" id="strokeRate2" value="srate_avg">
+                                                                <span class="stroke_rate_average2">Stroke Rate</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="powerL2">
+                                                                <input type="checkbox" name="parameters2" id="powerL2" value="pwr_l_avg">
+                                                                <span class="power_left_average2">Power L</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="distance2">
+                                                                <input type="checkbox" name="parameters2" id="distance2" value="dist">
+                                                                <span class="distance2">Distance</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="speed2">
+                                                                <input type="checkbox" name="parameters2" id="speed2" value="spd_avg">
+                                                                <span class="speed_average2">Speed</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="pace500mMax2">
+                                                                <input type="checkbox" name="parameters2" id="pace500mMax2" disabled>
+                                                                <span class="">Pace 500m Max</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="hr2">
+                                                                <input type="checkbox" name="parameters2" id="hr2" disabled>
+                                                                <span class="hr2">HR</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="strokeRateMax2">
+                                                                <input type="checkbox" name="parameters2" id="strokeRateMax2" value="srate_max">
+                                                                <span class="stroke_rate_max2">Stroke Rate Max</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                        <li>
+                                                            <label for="powerLMax2">
+                                                                <input type="checkbox" name="parameters2" id="powerLMax2" value="pwr_l_max">
+                                                                <span class="power_left_max2">Power L Max</span>
+                                                            </label>
+                                                        </li><!-- End Parametar Item -->
+                                                    </ul><!-- /.contatcts-list -->
+
+
+                                                </div><!-- /.List of Parametars -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-primary margin-r-5" 
+                                                        onclick="var newHistoryParams = $('#progress-graph-params input:checked').map(function(){
+                                                                    var value = $(this).val();
+                                                                    var parameter = {
+                                                                        slug: value,
+                                                                        label: $('.'+value).text()
+                                                                    }
+                                                                    return parameter; 
+                                                                 }).get();
+                                                                 var newHistoryData = piktoBiorowerGraph2.getHistoryData(newHistoryParams);
+                                                                 piktoBiorowerGraph2.progressPlot.setData(newHistoryData);
+                                                                 piktoBiorowerGraph2.progressPlot.setupGrid();
+                                                                 piktoBiorowerGraph2.progressPlot.draw();
+                                                                 $('#myParam2').modal('hide');">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            </div><!-- /.example-modal -->
+                        
+                        
+                        
+                        
                     </div>
                 </div>
                 <div class="clear dum-space"></div>
@@ -441,7 +638,7 @@
                         <h3 class="pull-left graphic-padding-t ">Sessions</h3>
                         <div class="pull-right">
                             <a href="{{ url('/profile/sessions') }}" class="btn btn-primary pull-right">List</a>
-                            <a href="{{ url('/sessions/calendar') }}" class="btn btn-primary pull-right margin-r-5">Calendar</a>
+                            <a href="{{ url('/profile/calendar') }}" class="btn btn-primary pull-right margin-r-5">Calendar</a>
                         </div>
                         <div class="clear"></div>
                     </div>

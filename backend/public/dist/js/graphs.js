@@ -5,80 +5,7 @@ $(function () {
         increaseArea: '10%' // optional
     });
 
-//    Date Range Picker
 
-    $(document).ready(function () {
-
-        var cb = function (start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
-        }
-
-        var optionSet1 = {
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment(),
-            minDate: '01/01/2012',
-            maxDate: '12/31/2015',
-            dateLimit: {
-                days: 60
-            },
-            showDropdowns: true,
-            showWeekNumbers: true,
-            timePicker: false,
-            timePickerIncrement: 1,
-            timePicker12Hour: true,
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-            opens: 'left',
-            buttonClasses: ['btn btn-default'],
-            applyClass: 'btn-small btn-primary',
-            cancelClass: 'btn-small',
-            format: 'MM/DD/YYYY',
-            separator: ' to ',
-            locale: {
-                applyLabel: 'Submit',
-                cancelLabel: 'Clear',
-                fromLabel: 'From',
-                toLabel: 'To',
-                customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                firstDay: 1
-            }
-        };
-        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-        $('#reportrange').daterangepicker(optionSet1, cb);
-        $('#reportrange').on('show.daterangepicker', function () {
-            console.log("show event fired");
-        });
-        $('#reportrange').on('hide.daterangepicker', function () {
-            console.log("hide event fired");
-        });
-        $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
-            console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
-        });
-        $('#reportrange').on('cancel.daterangepicker', function (ev, picker) {
-            console.log("cancel event fired");
-        });
-        $('#options1').click(function () {
-            $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
-        });
-        $('#options2').click(function () {
-            $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
-        });
-        $('#destroy').click(function () {
-            $('#reportrange').data('daterangepicker').remove();
-        });
-    });
-
-//     Date Range Picker 1
 
     $(document).ready(function () {
 
@@ -160,75 +87,54 @@ $(function () {
 
     $(function () {
 
-        var email2 = 'biorower:' + $('#user-email').val();
+        var data = {
+            account: 'biorower:' + $('#user-email').val(),
+            rangeType: 'all',
+       
+          
+        };
+        var data2 = {
+            account: 'biorower:' + $('#user-email').val(),
+            rangeType: 'all',
+            groupType:'week',
+            
+            
+        };
+        
 
-        $.ajax({ 
-        type: 'POST', 
-        dataType: 'json',
-        url : 'api/v1/sessions_recent_list',
-        data: {account: email2 ,offset:0,pageSize:1, web: 1
-            }, 
-            success: function (response) {
-            var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
-            // PRIKAZ PODATAKA POSLEDNJE SESIJE
-            if (response.sessionsRecentList.length !== 0) {
-                $('.time').append(json[0].time);
-                $('.distance').append(json[0].dist);
-                $('.power-average').append(json[0].pwr_avg);
-                $('.heart-rate-avg').append(json[0].hr_avg);
-                var latest_session = json[0].date;
+        $.post('api/v1/sessions_history', data, function (response) {
+            $.post('api/v1/sessions_history', data2, function (response2) {
+            if (response.historydata.length !== 0) {
+                $('.power-max').append(Math.max.apply(Math, response.historydata.pwr_max));
+                $('.power-average').append(Math.max.apply(Math, response.historydata.pwr_avg));
+                $('.stroke-rate-max').append(Math.max.apply(Math, response.historydata.srate_max));
+                $('.stroke-distance-max').append(Math.max.apply(Math, response.historydata.sdist_max));
+                var latest_session = response.historydata.date[response.historydata.date.length - 1];
                 $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
-            }else{
-                $('.time').append('-');
-                $('.distance').append('-');
-                $('.power-average').append('-');
-                $('.heart-rate-avg').append('-');
-                $('.latest-session').append('No workouts');
+            } else {
+                $('.power-max').append('0');
+                $('.power-average').append('0');
+                $('.stroke-rate-max').append('0');
+                $('.stroke-distance-max').append('0');
+                $('.latest-session').append('No sessions yet');
             }
 
-
             /* History Graph */
-           /* var arr = [],
-                    power = [];
-            //var power_max = response.historydata.power_max;
-            //var dates = response.historydata.date;
+           
+            var power_max = response.historydata.pwr_max;
+            var dates = response.historydata.date;
 
-            power_max.forEach(function (value, index) {
-                arr.push([value, dates[index]]);
-                power.push(arr[arr.length - 1]);
-                //console.log(power);
-            });*/
+          
             //console.log(power);
             //console.log(power.length);
 
             var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-            var data9_1 = [
-                [1, 926.13135], [2, 6580], [3, 1980], [4, 6630], [5, 8010], [6, 10800],
-                [7, 8530], [8, 300], [9, 6580], [10, 1980], [11, 6630], [12, 8010], [13, 10800],
-                [14, 8530],
-            ];
-
-            var data_test = [];
-
-            var data_dates = [];
-            for (var j = 1; j < dates.length; j++) {
-                var one_d = [j, dates[j]];
-                data_dates.push(one_d);
-            }
-
-            var data_dates_show_x = [];
-            for (var x = 0; x < data_dates.length; x++) {
-                if (x == 12) {
-                    var z = 0;
-                    data_dates_show_x.push([z + 1, data_dates[z][0]]);
-                }
-                data_dates_show_x.push([x + 1, data_dates[x][0]]);
-            }
-
-            console.log(data_dates_show_x);
+        
 
             piktoBiorowerGraph.historyData = response.historydata;
-            data_test = piktoBiorowerGraph.getHistoryData([{slug:'stroke_count',label:'Stroke Count'}]);
+            piktoBiorowerGraph2.historyData = response2.historydata;
+            data_test = piktoBiorowerGraph.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
+            data_test2 = piktoBiorowerGraph2.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
             console.log(data_test);
             //console.log(data_dates);
 
@@ -272,61 +178,10 @@ $(function () {
 
 
             $(function () {
-                piktoBiorowerGraph.historyPlot = $.plot($("#history"),
-                        data_test, {
-                    grid: {
-                        hoverable: true,
-                        clickable: true,
-                        mouseActiveRadius: 30,
-                        backgroundColor: false,
-                        borderColor: "#f3f3f3",
-                        borderWidth: 1,
-                        tickColor: "#f3f3f3",
-                    },
-                    legend: {
-                        noColumns: 3
-                    },
-                    yaxis: {
-                        show: true,
-                        labelWidth: 30
-                    },
-                    xaxis: {
-                        show: true,
-                        labelHeight: 30,
-                        mode: 'time',
-                        timeformat: "%d.%m.%Y"
-                    }
-                }
-                );
-
-                $("#history").UseTooltip();
-            });
-
-             }
-        });
-
-
-
-
-    });
-
-});
-//Line Graph - Progress
-
-$(function () {
-
-    var data9_1 = [
-        [1, 1530], [2, 6580], [3, 1980], [4, 6630], [5, 8010], [6, 10800],
-        [7, 8530],
-    ];
-    var data9_2 = [
-        [1, 1830], [2, 3580], [3, 1900], [4, 7630], [5, 2010], [6, 10000],
-        [7, 3530],
-    ];
-    var data9_3 = [
-        [1, 5530], [2, 9580], [3, 2980], [4, 6630], [5, 10010], [6, 2800],
-        [7, 5530],
-    ];
+                
+                
+                
+   
 
     $.fn.UseTooltip = function () {
         var previousPoint = null;
@@ -366,30 +221,9 @@ $(function () {
     }
 
 
-    $(function () {
-        $.plot($("#progress"),
-                [{
-                        data: data9_1,
-                        label: '<a href="#">Power(W)</a>',
-                        color: "#3c8dbc",
-                        lines: {show: true, color: "#3c8dbc", fillColor: "#3c8dbc"},
-                        points: {show: true, fill: true}
-                    }, {
-                        data: data9_2,
-                        label: '<a href="#">HR(bmp)</a>',
-                        color: "#536A7F",
-                        lines: {show: true, color: "#536A7F", fillColor: "#536A7F"},
-                        points: {show: true, fill: true}
-                    },
-                    {
-                        data: data9_3,
-                        label: '<a href="#">Stroke rate</a>',
-                        color: "#b8c7ce",
-                        labelColor: "#b8c7ce",
-                        lines: {show: true, color: "#b8c7ce", fillColor: "#b8c7ce"},
-                        points: {show: true, fill: true}
-                    }
-                ], {
+    
+         piktoBiorowerGraph2.progressPlot=$.plot($("#progress"),
+               data_test2, {
             grid: {
                 hoverable: true,
                 clickable: false,
@@ -406,10 +240,12 @@ $(function () {
                 show: true,
                 labelWidth: 30
             },
-            xaxis: {
-                show: true,
-                labelHeight: 30
-            },
+              xaxis: {
+                        show: true,
+                        labelHeight: 30,
+                        mode: 'time',
+                        timeformat: "%d.%m.%Y"
+                    },
             legend: {
                 show: true
             }
@@ -423,7 +259,66 @@ $(function () {
 
         var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#progress'));
         yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+    
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                piktoBiorowerGraph.historyPlot = $.plot($("#history"),
+                        data_test, {
+                    grid: {
+                        hoverable: true,
+                        clickable: true,
+                        mouseActiveRadius: 30,
+                        backgroundColor: false,
+                        borderColor: "#f3f3f3",
+                        borderWidth: 1,
+                        tickColor: "#f3f3f3",
+                    },
+                    legend: {
+                        noColumns: 3
+                    },
+                    yaxis: {
+                        show: true,
+                        labelWidth: 30
+                    },
+                    xaxis: {
+                        show: true,
+                        labelHeight: 30,
+                        mode: 'time',
+                        timeformat: "%d.%m.%Y"
+                    }
+                }
+                );
+
+                $("#history").UseTooltip();
+            });
+
+
+        });
+        });
+
+
+
+
     });
+
+});
+//Line Graph - Progress
+
+$(function () {
 
 });
 
@@ -490,6 +385,58 @@ var piktoBiorowerGraph = {
             }
             piktoBiorowerGraph.historyPlot.setupGrid();
             piktoBiorowerGraph.historyPlot.draw();
+        });
+    }
+};
+
+
+var piktoBiorowerGraph2 = {
+    progressPlot: null,
+    historyData: null,
+    startDate: null,
+    rangeType: 'all',
+    parameters: null,
+    groupType2:'month',
+    transormData: function (historyData, parameter) {
+        var rv = [];
+        rv['label'] = parameter.label;
+        rv['data'] = [];
+        for (var i in historyData.date) {
+            rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
+        }
+        return rv;
+    },
+    getHistoryData: function (params) {
+        piktoBiorowerGraph2.parameters = params;
+        var rv = [];
+        for(var i in params) {
+            rv.push(this.transormData(this.historyData, params[i]));
+        }
+        return rv;
+    },
+    loadHistoryData: function (account, rangeType, startDate,groupType="week") {
+        var data = {
+            account: 'biorower:' + account,
+            rangeType: rangeType,
+            dateStart: startDate?startDate.format('YYYY-MM-DD'):'',
+            groupType: groupType,
+        };
+        piktoBiorowerGraph2.startDate = startDate;
+        piktoBiorowerGraph2.rangeType = rangeType;
+        $.post('api/v1/sessions_history', data, function (response) {
+            piktoBiorowerGraph2.historyData = response.historydata;
+            var newHistoryData = piktoBiorowerGraph2.getHistoryData(piktoBiorowerGraph2.parameters);
+            piktoBiorowerGraph2.progressPlot.setData(newHistoryData);
+            var axes = piktoBiorowerGraph2.progressPlot.getAxes();
+            if(piktoBiorowerGraph2.rangeType=='all'){
+                axes.xaxis.options.min = undefined;
+                axes.xaxis.options.max = undefined;
+            } else {
+                axes.xaxis.options.min = piktoBiorowerGraph2.startDate;
+                axes.xaxis.options.max = moment(piktoBiorowerGraph2.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph2.rangeType);
+            }
+            piktoBiorowerGraph2.progressPlot.setupGrid();
+            piktoBiorowerGraph2.progressPlot.draw();
         });
     }
 };
