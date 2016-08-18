@@ -86,6 +86,8 @@ $(function () {
 
 
     $(function () {
+        
+        var email2 = 'biorower:' + $('#user-email').val();
 
         var data = {
             account: 'biorower:' + $('#user-email').val(),
@@ -102,27 +104,45 @@ $(function () {
         };
         
 
-        $.post('api/v1/sessions_history', data, function (response) {
-            $.post('api/v1/sessions_history', data2, function (response2) {
-            if (response.historydata.length !== 0) {
-                $('.power-max').append(Math.max.apply(Math, response.historydata.pwr_max));
-                $('.power-average').append(Math.max.apply(Math, response.historydata.pwr_avg));
-                $('.stroke-rate-max').append(Math.max.apply(Math, response.historydata.srate_max));
-                $('.stroke-distance-max').append(Math.max.apply(Math, response.historydata.sdist_max));
-                var latest_session = response.historydata.date[response.historydata.date.length - 1];
-                $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
-            } else {
-                $('.power-max').append('0');
-                $('.power-average').append('0');
-                $('.stroke-rate-max').append('0');
-                $('.stroke-distance-max').append('0');
-                $('.latest-session').append('No sessions yet');
+        $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url : 'api/v1/sessions_recent_list',
+        data: {account: email2 ,offset:0,pageSize:1, web: 1
+            },
+            success: function (response) {
+            var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
+            // PRIKAZ PODATAKA POSLEDNJE SESIJE
+            if (response.sessionsRecentList.length !== 0) {
+                $('.time').append(json[0].time);
+                $('.distance').append(json[0].dist);
+                $('.power-average').append(json[0].pwr_avg);
+                $('.heart-rate-avg').append(json[0].hr_avg);
+                var latest_session = json[0].date;
+                 $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
+                
+                 }else{
+                $('.time').append('-');
+                $('.distance').append('-');
+                $('.power-average').append('-');
+                $('.heart-rate-avg').append('-');
+                $('.latest-session').append('No workouts');
             }
+            
+            
+               $.post('api/v1/sessions_history', data, function (response3) {
+            
+            
+            
+            
+            
+            $.post('api/v1/sessions_history', data2, function (response2) {
+          
 
             /* History Graph */
            
-            var power_max = response.historydata.pwr_max;
-            var dates = response.historydata.date;
+            var power_max = response3.historydata.pwr_max;
+           var dates = response3.historydata.date;
 
           
             //console.log(power);
@@ -131,13 +151,13 @@ $(function () {
             var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
         
 
-            piktoBiorowerGraph.historyData = response.historydata;
+            piktoBiorowerGraph.historyData = response3.historydata;
             piktoBiorowerGraph2.historyData = response2.historydata;
             data_test = piktoBiorowerGraph.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
             data_test2 = piktoBiorowerGraph2.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
             console.log(data_test);
             //console.log(data_dates);
-
+            
             function showTooltip(x, y, contents) {
                 $('<div id="tooltip">' + contents + '</div>').css({
                     position: 'absolute',
@@ -308,6 +328,8 @@ $(function () {
 
 
         });
+    });
+    }
         });
 
 
