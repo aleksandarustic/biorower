@@ -29,6 +29,8 @@ class WelcomeController extends Controller {
 		return view('auth.login');
 	}
 
+
+
 	public function postLogin(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
@@ -153,22 +155,21 @@ class WelcomeController extends Controller {
 
 	public function passwordReset(Request $request)
 	{
-		$user = $this->user->where('email', $request->email)->firstOrFail();
+		$user = $this->user->where('email', $request->email)->first();
 
-		Mail::send('emails.password', ['user' => $user], function ($m) use ($user) {
-			$m->from('admin@biorower', 'Biorower');
-
-			$m->to($user->email, $user->first_name)->subject('Biorower Password Reset');
-		});
-
-		return back()->with('status-ok', 'Check your email to process your request');
-
+		if(!$user){
+			return back()->with('status', 'There is no user with that email address');
+		}else{
+				Mail::send('emails.password', ['user' => $user], function ($m) use ($user) {
+				$m->from('admin@biorower', 'Biorower');
+				$m->to($user->email, $user->first_name)->subject('Biorower Password Reset');
+				});
+			return back()->with('status-ok', 'Check your email to process your request');
+		}
 	}
 
 	public function resetPassword($token)
 	{
-
-
 		$user = $this->user->where('reset_password_code', $token)->firstOrFail();
 
 		if(!$user)
