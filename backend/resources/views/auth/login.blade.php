@@ -78,8 +78,8 @@
 				</form>
 				<div class="social-auth-links text-center margin-top">
 					<p>- or sign in via social network -</p>
-					<a href="{{ url('/auth/login-facebook') }}" class="btn btn-social btn-facebook btn-flat ghost-btn inline col-xs-5"><i class="fa fa-facebook"></i> Facebook login</a>
-					<a href="#" class="btn btn-social btn-google btn-flat ghost-btn inline col-xs-5 margin-left"><i class="fa fa-google-plus"></i> Google+ login</a>
+					<a href="{{ url('login/facebook') }}" class="btn btn-social btn-facebook btn-flat ghost-btn inline col-xs-5"><i class="fa fa-facebook"></i> Facebook login</a>
+					<a href="{{ url('login/twitter') }}" class="btn btn-social btn-twitter btn-flat ghost-btn inline col-xs-5 margin-left"><i class="fa fa-twitter"></i> Twitter login</a>
 				</div>
 				<!-- /.social-auth-links -->
 
@@ -102,8 +102,7 @@
 						<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 					</div>
 					<div class="btn btn-block margin-left-neg">
-						<button type="submit" class="btn btn-primary col-xs-10 inline">Reset password</button>
-						<button type="reset" class="btn btn-default ghost-btn col-sm-pull-12 inline margin-left">Cancel</button>
+						<button type="submit" class="btn btn-primary btn-block btn-flat">Reset password</button>
 					</div><!-- /.col -->
 				</form>
 

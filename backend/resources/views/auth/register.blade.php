@@ -69,7 +69,7 @@
 				<div class="social-auth-links text-center margin-top">
 					<p>- or sign in via social network -</p>
 					<a href="{{ url('/auth/login-facebook') }}" class="btn btn-social btn-facebook btn-flat ghost-btn inline col-xs-5"><i class="fa fa-facebook"></i> Facebook login</a>
-					<a href="#" class="btn btn-social btn-google btn-flat ghost-btn inline col-xs-5 margin-left"><i class="fa fa-google-plus"></i> Google+ login</a>
+					<a href="#" class="btn btn-social btn-twitter btn-flat ghost-btn inline col-xs-5 margin-left"><i class="fa fa-twitter"></i> Twitter login</a>
 				</div>
 				<!-- /.social-auth-links -->
 
