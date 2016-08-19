@@ -10,8 +10,8 @@
             <div class="box box-primary">
                 <div class="box-body box-profile">
                     <div class="img-circle-width">
-                        <a href="{{ url('/profile/edit') }}"><span class="label-edit edit-img"><i class="fa fa-pencil"></i></span></a>
-                        <img class="profile-user-img img-responsive img-circle" src="{{ URL::asset(Auth::user()->profile->image->name) }}" alt="User profile picture">
+                        <a href="{{ url('/profile/edit') }}"><span class="label-edit edit-img"></span>
+                        <img class="profile-user-img img-responsive img-circle" src="{{ URL::asset(Auth::user()->profile->image->name) }}" alt="User profile picture"></a>
                     </div>
                     <h3 class="profile-username text-center">{{ $user->first_name.' '.$user->last_name }}</h3>
                     <p class="text-muted text-center">{{ $user->display_name }}</p>
@@ -23,9 +23,6 @@
 
             <!-- About Me Box -->
             <div class="box no-bg no-border aboutMe-box">
-                <div class="about-me">
-                    <h3>About me</h3>
-                </div>
 
                 <div class="aboutMe-body">
                     <div class="col-sm-6 about-border-r about-value-box">
@@ -102,14 +99,14 @@
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ round($totalStatisticsParameters["dist"][0], 2) }}</h5>
+                        <h5 class="description-header">{{ round($totalStatisticsParameters["dist"][0], 1) }}</h5>
                         <span class="description-text">Total Distance</span>
                         <span class="description-percentage-small text-blue btn-block">[km]</span>
                     </div><!-- /.description-block -->
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block">
-                        <h5 class="description-header">{{ round($totalStatisticsParameters["pwr_avg"][0], 2) }}</h5>
+                        <h5 class="description-header">{{ round($totalStatisticsParameters["pwr_avg"][0], 0) }}</h5>
                         <span class="description-text">Total Power average </span>
                         <span class="description-percentage-small text-blue btn-block">[W]</span>
                     </div><!-- /.description-block -->
@@ -128,12 +125,12 @@
                     <div class="description-block border-right">
                         <h5 class="description-header">{{ round($totalStatisticsParameters["sdist_avg"][0], 2) }}</h5>
                         <span class="description-text">Total Stroke distance average </span>
-                        <span class="description-percentage-small text-blue inline">[spm]</span>
+                        <span class="description-percentage-small text-blue inline">[m]</span>
                     </div><!-- /.description-block -->
                 </div><!-- /.col -->
                 <div class="col-sm-3 col-xs-12">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ round($totalStatisticsParameters["ang_avg"][0], 2) }}</h5>
+                        <h5 class="description-header">{{ round($totalStatisticsParameters["ang_avg"][0], 0) }}</h5>
                         <span class="description-text">Total Angle average</span>
                         <span class="description-percentage-small text-blue btn-block">[°]</span>
                     </div><!-- /.description-block -->
@@ -142,7 +139,7 @@
                     <div class="description-block">
                         <h5 class="description-header">{{ round($totalStatisticsParameters["hr_avg"][0], 2) }}</h5>
                         <span class="description-text ">Total HR average</span>
-                        <span class="description-percentage-small text-blue btn-block">[bmp]</span>
+                        <span class="description-percentage-small text-blue btn-block">[bpm]</span>
 
 
                     </div><!-- /.description-block -->
@@ -152,21 +149,8 @@
         <!-- graph -->
         <div class="col-md-9" id="graphs">
             <div class="heading-above col-md-12 no-padding">
-                <h1 class="pull-left">Tranings</h1>
-                <div class="pull-right heading-above-right">
-                    <a class="pull-right" style="background: #fff; cursor: pointer; padding: 7px 12px; color: #555; border: 1px solid #ccc; font-size:13px; margin-top: -2px;" href="edit-profile.html#parentVerticalTab9"><i class="fa fa-filter"></i> </a>
-                    <!-- Date and time range -->
-                    <div class="inline margin-r-5">
-                        <div id="reportrange" class="inline choose-date" style="background: transperant; cursor: pointer; padding: 7px 12px; padding-left:2px; color: #555; border: 1px solid #ccc;">
-                            <i class="glyphicon glyphicon-calendar fa fa-calendar btn-icon"></i>
-                            <span>Choose the date</span> <b class="caret"></b>
-                        </div>
-                    </div>
-                    <!-- ./ Date and time range -->
-
-                </div>
                 <div class="clear"></div>
-            </div>
+            </div> 
             <!-- Graph Block-->
             <div class="col-md-12 white-bg box box-primary no-padding historyGraph graph-box">
                 <div class="graphic-header historyGraph-header">
