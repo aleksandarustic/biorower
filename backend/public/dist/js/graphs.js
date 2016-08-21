@@ -157,6 +157,8 @@ $(function () {
                         data_test2 = piktoBiorowerGraph2.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
                         $('#tekst').text("History "+" "+" "+moment(response3.historydata.date[0]).format('MMMM Do YYYY')+" - "
                         +moment().format('MMMM Do YYYY'));
+                        $('#tekst2').text("Progress "+" "+" "+moment(response2.historydata.date[0]).format('MMMM Do YYYY')+" - "
+                        +moment().format('MMMM Do YYYY'));
 
                         console.log(data_test);
                         //console.log(data_dates);
@@ -261,7 +263,8 @@ $(function () {
                                     },
                                     yaxis: {
                                         show: true,
-                                        labelWidth: 30
+                                        labelWidth: 30,
+                                        max:500,
                                     },
                                     xaxis: {
                                         show: true,
@@ -315,7 +318,8 @@ $(function () {
                                     },
                                     yaxis: {
                                         show: true,
-                                        labelWidth: 30
+                                        labelWidth: 30,
+                                        max:100,
                                     },
                                     xaxis: {
                                         show: true,
@@ -459,15 +463,26 @@ var piktoBiorowerGraph2 = {
         };
         piktoBiorowerGraph2.startDate = startDate;
         piktoBiorowerGraph2.rangeType = rangeType;
+        if(piktoBiorowerGraph2.rangeType!="all"){
+
+            $('#tekst2').text("Progress        "+" "+" "+moment(piktoBiorowerGraph2.startDate.format('YYYY-MM-DD')).
+                startOf(piktoBiorowerGraph2.rangeType).format('MMMM Do YYYY')+" - "
+            +moment(piktoBiorowerGraph2.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph2.rangeType).format('MMMM Do YYYY'));
+
+        }
         $.post('api/v1/sessions_history', data, function (response) {
             piktoBiorowerGraph2.historyData = response.historydata;
             var newHistoryData = piktoBiorowerGraph2.getHistoryData(piktoBiorowerGraph2.parameters);
             piktoBiorowerGraph2.progressPlot.setData(newHistoryData);
             var axes = piktoBiorowerGraph2.progressPlot.getAxes();
             if(piktoBiorowerGraph2.rangeType=='all'){
+                $('#strelice2').hide();
                 axes.xaxis.options.min = undefined;
                 axes.xaxis.options.max = undefined;
+                $('#tekst2').text("Progress "+" "+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
+                +moment().format('MMMM Do YYYY'));
             } else {
+                $('#strelice2').show();
                 axes.xaxis.options.min = piktoBiorowerGraph2.startDate;
                 axes.xaxis.options.max = moment(piktoBiorowerGraph2.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph2.rangeType);
             }

@@ -3,26 +3,7 @@
 @section('content')
     <section class="content">
         <script src="{{ URL::asset('js/jQuery-2.1.4.min.js') }}"></script>
-        <script>
-            $(document).ready(function () {
-                piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
-                $('#strelice').hide();
 
-                $('#link').click(function(){
-                    $('#dugme1').show();
-                    $('#dugme2').hide();
-                });
-
-                $('#link2').click(function(){
-                    $('#dugme2').show();
-                    $('#dugme1').hide();
-                })
-
-
-
-
-            })
-        </script>
 
         <div class="row">
             <div class="col-md-3 col-left">
@@ -198,6 +179,8 @@
                                 <!--Btn links -->
 
                                 <div class="pull-right change-btn" style="margin-top: -11px; margin-right: 10px;">
+
+
                                     <a href="javascript:;" class="btn btn-link" id="week_history"
                                        onclick=" piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',moment().startOf('week')); "
                                             >Week</a>
@@ -210,6 +193,8 @@
                                     <a href="javascript:;" class="btn btn-sm btn-primary" id="all_history"
                                        onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');"
                                             >All</a>
+                                    <a href="javascript:;" class="btn btn-sm btn-primary" id="skaliranje"
+                                            >X1</a>
                                 </div>
 
 
@@ -223,7 +208,9 @@
 
                                 <div class="graphic-footer row">
                                     <a class="pull-right btn-param" id="link" href="#" data-toggle="modal" data-target="#myParam"><i class="fa fa-cog"></i></a>
+
                                 </div>
+
 
 
                                 <div class="example-modal">
@@ -504,39 +491,53 @@
                 <div class="col-md-12 white-bg box box-primary">
                     <div class="graphic-box">
                         <div class="pull-left">
-                            <h3 class="progress-h3">Progress</h3>
+                            <h3 class="progress-h3" id="tekst2">Progress</h3>
                         </div>
                         <div class="graphic-header">
 
-                            <div class="progress-left">
-                                <div class="progress-groupOne">
+                            <div class="box-tools pull-right"  id="strelice2">
 
-                                    <div>
-                                    </div>
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"
+                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType)) ;"
+                                        ><i class="fa fa-chevron-left"></i></a>
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
+                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType));
+;"
+                                        ><i class="fa fa-chevron-right"></i></a>
+                            </div>
+
+
+
                                     <!--Btn links -->
 
-                                    <div class="pull-right changeP-btn">
+                                    <div class="pull-right change-btn">
                                         <a href="javascript:;" class="btn btn-link" id="year_progress"
                                            onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));"
                                                 >Year</a>
                                         <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
                                            onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','');"
                                                 >All</a>
+                                        <a href="javascript:;" class="btn btn-sm btn-primary" id="skaliranje2"
+                                                >X1</a>
                                     </div>
+
 
 
                                 </div>
 
                                 <!-- Date and time range -->
 
-                            </div><!-- /.form group -->
-                        </div>
+
 
                         <div class="graphic-body relative">
                             <div id="progress" style="height: 300px;"></div>
 
                             <div class="graphic-footer row">
                                 <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam" id="link2"><i class="fa fa-cog"></i></a>
+                                <a href="javascript:;" class="pull left btn btn-sm btn-primary" id="izbor1"  onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month')"
+                                        >Month</a>
+                                <a href="javascript:;" class="pull left btn btn-sm btn-primary" id="izbor2"  onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week')"
+                                        >Week</a>
                             </div>
 
 
@@ -572,7 +573,113 @@
     </section><!-- /.content -->
 
 @section('page-scripts')
+
+
     <script src="{{ URL::asset('dist/js/graphs.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var skaliranje=500;
+            var skaliranje2=500;
+            piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
+            piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','');
+
+
+            $('#strelice').hide();
+            $('#strelice2').hide();
+
+            $('#link').click(function(){
+                $('#dugme1').show();
+                $('#dugme2').hide();
+            });
+
+            $('#link2').click(function(){
+                $('#dugme2').show();
+                $('#dugme1').hide();
+            });
+            $('#skaliranje').click(function(){
+
+                skaliranje=skaliranje+500;
+                if(skaliranje==500){
+                    $('#skaliranje').text("X1");
+
+                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
+
+
+                    opts.yaxes[0].max =  opts.yaxes[0].max/2;
+                    piktoBiorowerGraph.historyPlot.setupGrid();
+                    piktoBiorowerGraph.historyPlot.draw();
+
+                }
+                if(skaliranje==1000){
+                    $('#skaliranje').text("X2");
+                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
+
+
+                    opts.yaxes[0].max =  opts.yaxes[0].max/2;
+                    piktoBiorowerGraph.historyPlot.setupGrid();
+                    piktoBiorowerGraph.historyPlot.draw();
+                }
+                if(skaliranje==1500){
+                    $('#skaliranje').text("1/2X");
+                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
+
+
+                    opts.yaxes[0].max =  opts.yaxes[0].max*4;
+                    piktoBiorowerGraph.historyPlot.setupGrid();
+                    piktoBiorowerGraph.historyPlot.draw();
+                    skaliranje=0;
+                }
+
+
+            });
+
+            $('#skaliranje2').click(function(){
+
+                skaliranje2=skaliranje2+500;
+                if(skaliranje2==500){
+                    $('#skaliranje2').text("X1");
+
+                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+
+
+                    opts.yaxes[0].max =  opts.yaxes[0].max/2;
+                    piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+
+                }
+                if(skaliranje2==1000){
+                    $('#skaliranje2').text("X2");
+                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+
+
+                    opts.yaxes[0].max =  opts.yaxes[0].max/2;
+                    piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+                }
+                if(skaliranje2==1500){
+                    $('#skaliranje2').text("1/2X");
+                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+
+
+                    opts.yaxes[0].max =  opts.yaxes[0].max*4;
+                    piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+                    skaliranje2=0;
+                }
+
+
+            });
+
+
+
+
+
+
+        })
+    </script>
+
 @endsection
 
 @endsection
