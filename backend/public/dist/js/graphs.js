@@ -86,250 +86,253 @@ $(function () {
 
 
     $(function () {
-        
+
         var email2 = 'biorower:' + $('#user-email').val();
 
         var data = {
             account: 'biorower:' + $('#user-email').val(),
             rangeType: 'all',
-       
-          
+
+
         };
         var data2 = {
             account: 'biorower:' + $('#user-email').val(),
             rangeType: 'all',
             groupType:'week',
-            
-            
+
+
         };
-        
+
 
         $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url : 'api/v1/sessions_recent_list',
-        data: {account: email2 ,offset:0,pageSize:1, web: 1
+            type: 'POST',
+            dataType: 'json',
+            url : 'api/v1/sessions_recent_list',
+            data: {account: email2 ,offset:0,pageSize:1, web: 1
             },
             success: function (response) {
-            var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
-            // PRIKAZ PODATAKA POSLEDNJE SESIJE
-            if (response.sessionsRecentList.length !== 0) {
-                $('.time').append(json[0].time);
-                $('.distance').append(json[0].dist);
-                $('.power-average').append(json[0].pwr_avg);
-                $('.heart-rate-avg').append(json[0].hr_avg);
-                var latest_session = json[0].date;
-                 $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
-                
-                 }else{
-                $('.time').append('-');
-                $('.distance').append('-');
-                $('.power-average').append('-');
-                $('.heart-rate-avg').append('-');
-                $('.latest-session').append('No workouts');
-            }
-            
-            
-               $.post('api/v1/sessions_history', data, function (response3) {
-            
-            
-            
-            
-            
-            $.post('api/v1/sessions_history', data2, function (response2) {
-          
+                var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
+                // PRIKAZ PODATAKA POSLEDNJE SESIJE
+                if (response.sessionsRecentList.length !== 0) {
+                    $('.time').append(json[0].time);
+                    $('.distance').append(json[0].dist);
+                    $('.power-average').append(json[0].pwr_avg);
+                    $('.heart-rate-avg').append(json[0].hr_avg);
+                    var latest_session = json[0].date;
+                    $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
 
-            /* History Graph */
-           
-            var power_max = response3.historydata.pwr_max;
-           var dates = response3.historydata.date;
+                }else{
+                    $('.time').append('-');
+                    $('.distance').append('-');
+                    $('.power-average').append('-');
+                    $('.heart-rate-avg').append('-');
+                    $('.latest-session').append('No workouts');
+                }
 
-          
-            //console.log(power);
-            //console.log(power.length);
 
-            var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-        
+                $.post('api/v1/sessions_history', data, function (response3) {
 
-            piktoBiorowerGraph.historyData = response3.historydata;
-            piktoBiorowerGraph2.historyData = response2.historydata;
-            data_test = piktoBiorowerGraph.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
-            data_test2 = piktoBiorowerGraph2.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
-            console.log(data_test);
-            //console.log(data_dates);
-            
-            function showTooltip(x, y, contents) {
-                $('<div id="tooltip">' + contents + '</div>').css({
-                    position: 'absolute',
-                    display: 'none',
-                    top: y - 5,
-                    left: x + 20,
-                    border: '2px solid #fff',
-                    padding: '5px',
-                    'box-shadow': '0px 0px 2px 0px rgba(0, 0, 0, 0.196)',
-                    size: '10',
-                    'background-color': '#fff',
-                    opacity: 0.80
-                }).appendTo("body").fadeIn(200);
-            }
 
-            $.fn.UseTooltip = function () {
-                var previousPoint = null;
 
-                $(this).bind("plothover", function (event, pos, item) {
-                    if (item) {
-                        if (previousPoint != item.dataIndex) {
-                            previousPoint = item.dataIndex;
 
-                            $("#tooltip").remove();
 
-                            var x = item.datapoint[0];
-                            var y = item.datapoint[1];
+                    $.post('api/v1/sessions_history', data2, function (response2) {
 
-                            showTooltip(item.pageX, item.pageY,
-                                    "<span class='x-asis'>" + days[x - 1] + "</span>" + "<br/>" + "<br/>" + "<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
+
+                        /* History Graph */
+
+                        var power_max = response3.historydata.pwr_max;
+                        var dates = response3.historydata.date;
+
+
+                        //console.log(power);
+                        //console.log(power.length);
+
+                        var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+
+                        piktoBiorowerGraph.historyData = response3.historydata;
+                        piktoBiorowerGraph2.historyData = response2.historydata;
+                        data_test = piktoBiorowerGraph.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
+                        data_test2 = piktoBiorowerGraph2.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
+                        $('#tekst').text("History "+" "+" "+moment(response3.historydata.date[0]).format('MMMM Do YYYY')+" - "
+                        +moment().format('MMMM Do YYYY'));
+
+                        console.log(data_test);
+                        //console.log(data_dates);
+
+                        function showTooltip(x, y, contents) {
+                            $('<div id="tooltip">' + contents + '</div>').css({
+                                position: 'absolute',
+                                display: 'none',
+                                top: y - 5,
+                                left: x + 20,
+                                border: '2px solid #fff',
+                                padding: '5px',
+                                'box-shadow': '0px 0px 2px 0px rgba(0, 0, 0, 0.196)',
+                                size: '10',
+                                'background-color': '#fff',
+                                opacity: 0.80
+                            }).appendTo("body").fadeIn(200);
                         }
-                    } else {
-                        $("#tooltip").remove();
-                        previousPoint = null;
-                    }
+
+                        $.fn.UseTooltip = function () {
+                            var previousPoint = null;
+
+                            $(this).bind("plothover", function (event, pos, item) {
+                                if (item) {
+                                    if (previousPoint != item.dataIndex) {
+                                        previousPoint = item.dataIndex;
+
+                                        $("#tooltip").remove();
+
+                                        var x = item.datapoint[0];
+                                        var y = item.datapoint[1];
+
+                                        showTooltip(item.pageX, item.pageY,
+                                            "<span class='x-asis'>" + days[x - 1] + "</span>" + "<br/>" + "<br/>" + "<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
+                                    }
+                                } else {
+                                    $("#tooltip").remove();
+                                    previousPoint = null;
+                                }
+                            });
+                        };
+
+
+                        $(function () {
+
+
+
+
+
+                            $.fn.UseTooltip = function () {
+                                var previousPoint = null;
+
+                                $(this).bind("plothover", function (event, pos, item) {
+                                    if (item) {
+                                        if (previousPoint != item.dataIndex) {
+                                            previousPoint = item.dataIndex;
+
+                                            $("#tooltip").remove();
+
+                                            var x = item.datapoint[0];
+                                            var y = item.datapoint[1];
+
+                                            showTooltip(item.pageX, item.pageY,
+                                                "<span class='x-asis'>" + x + "</span>" + "<br/>" + "<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
+                                        }
+                                    } else {
+                                        $("#tooltip").remove();
+                                        previousPoint = null;
+                                    }
+                                });
+                            };
+
+                            function showTooltip(x, y, contents) {
+                                $('<div id="tooltip">' + contents + '</div>').css({
+                                    position: 'absolute',
+                                    display: 'none',
+                                    top: y + 5,
+                                    left: x + 20,
+                                    border: '2px solid #ccc',
+                                    padding: '5px',
+                                    size: '10',
+                                    'background-color': '#fff',
+                                    opacity: 0.80
+                                }).appendTo("body").fadeIn(200);
+                            }
+
+
+
+                            piktoBiorowerGraph2.progressPlot=$.plot($("#progress"),
+                                data_test2, {
+                                    grid: {
+                                        hoverable: true,
+                                        clickable: false,
+                                        mouseActiveRadius: 30,
+                                        backgroundColor: false,
+                                        borderColor: "#f3f3f3",
+                                        borderWidth: 1,
+                                        tickColor: "#f3f3f3"
+                                    },
+                                    legend: {
+                                        noColumns: 1
+                                    },
+                                    yaxis: {
+                                        show: true,
+                                        labelWidth: 30
+                                    },
+                                    xaxis: {
+                                        show: true,
+                                        labelHeight: 30,
+                                        mode: 'time',
+                                        timeformat: "%d.%m.%Y"
+                                    },
+                                    legend: {
+                                        show: true
+                                    }
+
+                                }
+                            );
+
+                            $("#progress").UseTooltip();
+
+                            var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Time(sec)").appendTo($('#progress'));
+
+                            var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#progress'));
+                            yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            piktoBiorowerGraph.historyPlot = $.plot($("#history"),
+                                data_test, {
+                                    grid: {
+                                        hoverable: true,
+                                        clickable: true,
+                                        mouseActiveRadius: 30,
+                                        backgroundColor: false,
+                                        borderColor: "#f3f3f3",
+                                        borderWidth: 1,
+                                        tickColor: "#f3f3f3",
+                                    },
+                                    legend: {
+                                        noColumns: 3
+                                    },
+                                    yaxis: {
+                                        show: true,
+                                        labelWidth: 30
+                                    },
+                                    xaxis: {
+                                        show: true,
+                                        labelHeight: 30,
+                                        mode: 'time',
+
+                                    }
+                                }
+                            );
+
+                            $("#history").UseTooltip();
+                        });
+
+
+                    });
                 });
-            };
-
-
-            $(function () {
-                
-                
-                
-   
-
-    $.fn.UseTooltip = function () {
-        var previousPoint = null;
-
-        $(this).bind("plothover", function (event, pos, item) {
-            if (item) {
-                if (previousPoint != item.dataIndex) {
-                    previousPoint = item.dataIndex;
-
-                    $("#tooltip").remove();
-
-                    var x = item.datapoint[0];
-                    var y = item.datapoint[1];
-
-                    showTooltip(item.pageX, item.pageY,
-                            "<span class='x-asis'>" + x + "</span>" + "<br/>" + "<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
-                }
-            } else {
-                $("#tooltip").remove();
-                previousPoint = null;
             }
-        });
-    };
-
-    function showTooltip(x, y, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css({
-            position: 'absolute',
-            display: 'none',
-            top: y + 5,
-            left: x + 20,
-            border: '2px solid #ccc',
-            padding: '5px',
-            size: '10',
-            'background-color': '#fff',
-            opacity: 0.80
-        }).appendTo("body").fadeIn(200);
-    }
-
-
-    
-         piktoBiorowerGraph2.progressPlot=$.plot($("#progress"),
-               data_test2, {
-            grid: {
-                hoverable: true,
-                clickable: false,
-                mouseActiveRadius: 30,
-                backgroundColor: false,
-                borderColor: "#f3f3f3",
-                borderWidth: 1,
-                tickColor: "#f3f3f3"
-            },
-            legend: {
-                noColumns: 1
-            },
-            yaxis: {
-                show: true,
-                labelWidth: 30
-            },
-              xaxis: {
-                        show: true,
-                        labelHeight: 30,
-                        mode: 'time',
-                        timeformat: "%d.%m.%Y"
-                    },
-            legend: {
-                show: true
-            }
-
-        }
-        );
-
-        $("#progress").UseTooltip();
-
-        var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Time(sec)").appendTo($('#progress'));
-
-        var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#progress'));
-        yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-    
-
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                piktoBiorowerGraph.historyPlot = $.plot($("#history"),
-                        data_test, {
-                    grid: {
-                        hoverable: true,
-                        clickable: true,
-                        mouseActiveRadius: 30,
-                        backgroundColor: false,
-                        borderColor: "#f3f3f3",
-                        borderWidth: 1,
-                        tickColor: "#f3f3f3",
-                    },
-                    legend: {
-                        noColumns: 3
-                    },
-                    yaxis: {
-                        show: true,
-                        labelWidth: 30
-                    },
-                    xaxis: {
-                        show: true,
-                        labelHeight: 30,
-                        mode: 'time',
-                        timeformat: "%d.%m.%Y"
-                    }
-                }
-                );
-
-                $("#history").UseTooltip();
-            });
-
-
-        });
-    });
-    }
         });
 
 
@@ -340,9 +343,6 @@ $(function () {
 });
 //Line Graph - Progress
 
-$(function () {
-
-});
 
 
 /*
@@ -351,17 +351,15 @@ $(function () {
  */
 function labelFormatter(label, series) {
     return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
-            + label
-            + "<br>"
-            + Math.round(series.percent) + "%</div>";
+        + label
+        + "<br>"
+        + Math.round(series.percent) + "%</div>";
 }
 function selectTab() {
     $('[role="tab"]').has("a[href='#" + history + "']").first().trigger("click");
 }
 
-/*
- * Bojan Mitrovic 2016-07-03
- */
+
 var piktoBiorowerGraph = {
     historyPlot: null,
     historyData: null,
@@ -373,6 +371,7 @@ var piktoBiorowerGraph = {
         rv['label'] = parameter.label;
         rv['data'] = [];
         for (var i in historyData.date) {
+
             rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
         }
         return rv;
@@ -391,17 +390,32 @@ var piktoBiorowerGraph = {
             rangeType: rangeType,
             dateStart: startDate?startDate.format('YYYY-MM-DD'):''
         };
+
         piktoBiorowerGraph.startDate = startDate;
         piktoBiorowerGraph.rangeType = rangeType;
+        if(piktoBiorowerGraph.rangeType!="all"){
+
+            $('#tekst').text("History        "+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).
+                startOf(piktoBiorowerGraph.rangeType).format('MMMM Do YYYY')+" - "
+            +moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph.rangeType).format('MMMM Do YYYY'));
+
+        }
+
+
         $.post('api/v1/sessions_history', data, function (response) {
             piktoBiorowerGraph.historyData = response.historydata;
             var newHistoryData = piktoBiorowerGraph.getHistoryData(piktoBiorowerGraph.parameters);
             piktoBiorowerGraph.historyPlot.setData(newHistoryData);
             var axes = piktoBiorowerGraph.historyPlot.getAxes();
             if(piktoBiorowerGraph.rangeType=='all'){
+                $('#strelice').hide();
                 axes.xaxis.options.min = undefined;
                 axes.xaxis.options.max = undefined;
+                $('#tekst').text("History "+" "+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
+                +moment().format('MMMM Do YYYY'));
+
             } else {
+                $('#strelice').show();
                 axes.xaxis.options.min = piktoBiorowerGraph.startDate;
                 axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph.rangeType);
             }
