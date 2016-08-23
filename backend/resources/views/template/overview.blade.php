@@ -45,7 +45,7 @@
                             <!-- Item 3.1 -->
                             <div class="col-sm-6 about-middle">
                                 <div class="act-block about-value-box">
-                                    <div class="about-value time"></div>
+                                    <div class="about-value time2"></div>
                                     <div class="about-vname">Training time</div>
                                 </div>
                                 <!-- Item 3.2 -->
@@ -185,7 +185,11 @@
                                        onclick=" piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',moment().startOf('week')); "
                                             >Week</a>
                                     <a href="javascript:;" class="btn btn-link" id="month_history"
-                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));"
+                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
+                                            
+                                            
+                                       
+                                       "
                                             >Month</a>
                                     <a href="javascript:;" class="btn btn-link" id="year_history"
                                        onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));"
@@ -362,7 +366,7 @@
                                                             <li>
                                                                 <label for="powerRmax">
                                                                     <input type="checkbox" name="parameters" id="powerRmax" value="pwr_r_max">
-                                                                    <span class="pwr_r_max">Power right average</span>
+                                                                    <span class="pwr_r_max">Power right max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -398,7 +402,7 @@
                                                             <li>
                                                                 <label for="angleRightMax">
                                                                     <input type="checkbox" name="parameters" id="powerBalanceMax" value="ang_r_max">
-                                                                    <span class="ang_r_max">Angle left max</span>
+                                                                    <span class="ang_r_max">Angle right max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -409,8 +413,8 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleMax">
-                                                                    <input type="checkbox" name="parameters" id="powerBalanceMax" value="angleMax">
-                                                                    <span class="angleMax">Angle max</span>
+                                                                    <input type="checkbox" name="parameters" id="powerBalanceMax" value="ang_max">
+                                                                    <span class="ang_max">Angle max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -448,9 +452,41 @@
                                                                  var linije=['spd'];
                                                                  
                                                                  var newHistoryData = piktoBiorowerGraph.getHistoryData(newHistoryParams);
+                                                                 
+                                                                 
                                                                  piktoBiorowerGraph.historyPlot.setData(newHistoryData);
-                                                                 piktoBiorowerGraph.historyPlot.setupGrid();
-                                                                 piktoBiorowerGraph.historyPlot.draw();
+                                                                
+                                                                   var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                  var r= piktoBiorowerGraph.parameters;
+                  var duzina=r.length;
+                
+                  
+                   
+                       if(duzina==1){
+                            
+                           
+                          
+                       }
+                        if(duzina==2){
+                             
+                           
+                            
+                            opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis].position='right';
+                       }
+                        if(duzina==3){
+                           
+                            
+                            opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis].position='right';
+                            opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis].position='left';
+                            opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis].position='left';
+                       }
+                       
+                   
+                   piktoBiorowerGraph.historyPlot.setupGrid();
+                    piktoBiorowerGraph.historyPlot.draw();
+                                                                 
+                                                                 
+                                                                 
                                                                  $('#myParam').modal('hide');">
                                                         Save changes
                                                     </button>
@@ -468,6 +504,37 @@
                                                                  piktoBiorowerGraph2.progressPlot.setData(newHistoryData);
                                                                  piktoBiorowerGraph2.progressPlot.setupGrid();
                                                                  piktoBiorowerGraph2.progressPlot.draw();
+                                                                             piktoBiorowerGraph2.progressPlot.setData(newHistoryData);
+                                                                
+                                                                   var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                  var r= piktoBiorowerGraph2.parameters;
+                  var duzina=r.length;
+                
+                  
+                   
+                       if(duzina==1){
+                            
+                           
+                          
+                       }
+                        if(duzina==2){
+                             
+                           
+                            
+                            opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis].position='right';
+                       }
+                        if(duzina==3){
+                           
+                            
+                            opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis].position='right';
+                            opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis].position='left';
+                            opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis].position='left';
+                       }
+                       
+                   
+                   piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+                                                                 
                                                                  $('#myParam').modal('hide');">
                                                         Save changes
                                                     </button>
@@ -598,35 +665,68 @@
                 $('#dugme2').show();
                 $('#dugme1').hide();
             });
+            
+            
+            
+          
             $('#skaliranje').click(function(){
 
                 skaliranje=skaliranje+500;
                 if(skaliranje==500){
+                     var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                    for(var i=0;i<opts.yaxes.length; i++){
+                        
+                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                          
+                  
+                    }
+                    
+                      piktoBiorowerGraph.historyPlot.setupGrid();
+                    piktoBiorowerGraph.historyPlot.draw();
+                    
+                    
+                    
+                    
+                    
                     $('#skaliranje').text("X1");
 
-                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                    
 
 
-                    opts.yaxes[0].max =  opts.yaxes[0].max/2;
-                    piktoBiorowerGraph.historyPlot.setupGrid();
-                    piktoBiorowerGraph.historyPlot.draw();
+                  
+                  
 
                 }
                 if(skaliranje==1000){
                     $('#skaliranje').text("X2");
-                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                                        var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                      for(var i=0;i<opts.yaxes.length; i++){
 
+                                              opts.yaxes[i].max =  opts.yaxes[i].max/2;
 
-                    opts.yaxes[0].max =  opts.yaxes[0].max/2;
+                  
+                    }
+                    
+                     
+                    
+                    
                     piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
                 }
                 if(skaliranje==1500){
                     $('#skaliranje').text("1/2X");
                     var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                        for(var i=0;i<opts.yaxes.length; i++){
+                        
+                          opts.yaxes[i].max =   opts.yaxes[i].max*4;
+                          
+                  
+                    }
+                    
+                   
+                    
+                      
 
-
-                    opts.yaxes[0].max =  opts.yaxes[0].max*4;
                     piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
                     skaliranje=0;
@@ -637,33 +737,62 @@
 
             $('#skaliranje2').click(function(){
 
-                skaliranje2=skaliranje2+500;
+                     skaliranje2=skaliranje2+500;
                 if(skaliranje2==500){
+                     var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                    for(var i=0;i<opts.yaxes.length; i++){
+                        
+                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                          
+                  
+                    }
+                    
+                      piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+                    
+                    
+                    
+                    
+                    
                     $('#skaliranje2').text("X1");
 
-                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                    
 
 
-                    opts.yaxes[0].max =  opts.yaxes[0].max/2;
-                    piktoBiorowerGraph2.progressPlot.setupGrid();
-                    piktoBiorowerGraph2.progressPlot.draw();
+                  
+                  
 
                 }
                 if(skaliranje2==1000){
                     $('#skaliranje2').text("X2");
-                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                                        var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                      for(var i=0;i<opts.yaxes.length; i++){
 
+                                              opts.yaxes[i].max =  opts.yaxes[i].max/2;
 
-                    opts.yaxes[0].max =  opts.yaxes[0].max/2;
+                  
+                    }
+                    
+                     
+                    
+                    
                     piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
                 }
                 if(skaliranje2==1500){
                     $('#skaliranje2').text("1/2X");
                     var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                        for(var i=0;i<opts.yaxes.length; i++){
+                        
+                          opts.yaxes[i].max =   opts.yaxes[i].max*4;
+                          
+                  
+                    }
+                    
+                   
+                    
+                      
 
-
-                    opts.yaxes[0].max =  opts.yaxes[0].max*4;
                     piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
                     skaliranje2=0;

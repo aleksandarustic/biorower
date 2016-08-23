@@ -114,7 +114,7 @@ $(function () {
                 var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
                 // PRIKAZ PODATAKA POSLEDNJE SESIJE
                 if (response.sessionsRecentList.length !== 0) {
-                    $('.time').append(json[0].time);
+                    $('.time2').append(json[0].time);
                     $('.distance').append(json[0].dist);
                     $('.power-average').append(json[0].pwr_avg);
                     $('.heart-rate-avg').append(json[0].hr_avg);
@@ -122,7 +122,7 @@ $(function () {
                     $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
 
                 }else{
-                    $('.time').append('-');
+                    $('.time2').append('-');
                     $('.distance').append('-');
                     $('.power-average').append('-');
                     $('.heart-rate-avg').append('-');
@@ -153,7 +153,7 @@ $(function () {
 
                         piktoBiorowerGraph.historyData = response3.historydata;
                         piktoBiorowerGraph2.historyData = response2.historydata;
-                        data_test = piktoBiorowerGraph.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
+                        data_test = piktoBiorowerGraph.getHistoryData([{slug:'scnt',label:'Stroke Count',yaxis:1}]);
                         data_test2 = piktoBiorowerGraph2.getHistoryData([{slug:'scnt',label:'Stroke Count'}]);
                         $('#tekst').text("History "+" "+" "+moment(response3.historydata.date[0]).format('MMMM Do YYYY')+" - "
                         +moment().format('MMMM Do YYYY'));
@@ -261,11 +261,215 @@ $(function () {
                                     legend: {
                                         noColumns: 1
                                     },
-                                    yaxis: {
-                                        show: true,
+                                      colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
+                                        "#FF0000FF","#FF00FF00","#FFFF0000","#FFFF8000","#FFFFFF60","#FFFFFF60","#FF0000FF",
+                                        "#FFFFFFFF","#FFFF8000","#FF804000","#FFFFFF60","#FF606060","#FF606060","#FFFFFF60","#FF008000",
+                                        "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
+                                        "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
+                                      yaxes:[ {
+                                        
                                         labelWidth: 30,
-                                        max:500,
+                                        max:5000,
+                                        tickSize: 1000 ,
+                                        min:0,
+                                       
+                                    },{
+                                      
+                                        labelWidth: 30,
+                                        max:20,
+                                         tickSize: 4 ,min:0,
                                     },
+                                    {
+                                       
+                                        labelWidth: 30,
+                                        max:10,
+                                        tickSize: 2 ,min:0,
+                                    },
+                                      {
+                                       
+                                        labelWidth: 30,
+                                        max:1200,
+                                        tickSize: 240 ,min:0,
+                                    },
+                                     {
+                                        
+                                        labelWidth: 30,
+                                        max:250,
+                                         tickSize: 50 ,min:0,
+                                    },
+                                    {
+                                        
+                                        labelWidth: 30,
+                                        max:2000,
+                                         tickSize: 400 ,min:0,
+                                    },
+                                    {
+                                        
+                                        labelWidth: 30,
+                                         mode: "time",
+                                         timeformat: "%H:%M:%S",
+                                         max:9000,min:0,
+                                    },
+                                    {
+                                      
+                                        labelWidth: 30,
+                                        max:20,
+                                         tickSize: 4 ,min:0,
+                                    },
+                                      {
+                                        
+                                        labelWidth: 30,
+                                         mode: "time",
+                                         timeformat: "%M:%S",
+                                         max:300,min:0,
+                                    },
+                                     {
+                                        
+                                        labelWidth: 30,
+                                         mode: "time",
+                                         timeformat: "%M:%S",
+                                         max:1200,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:50,
+                                         tickSize: 10 ,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:750,
+                                         tickSize: 150 ,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:20,
+                                         tickSize: 4 ,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:20,
+                                        tickSize: 4 ,min:0,
+                                    },
+                                     {
+                                        
+                                        labelWidth: 30,
+                                         mode: "time",
+                                         timeformat: "%M:%S",
+                                         max:300,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:250,
+                                        tickSize: 50 ,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:50,
+                                        tickSize: 10 ,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:1500,
+                                        tickSize: 300,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:1500,
+                                        tickSize: 300,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:750,
+                                        tickSize: 150,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:750,
+                                        tickSize: 150,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:750,
+                                        tickSize: 150,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:100,
+                                        tickSize: 20,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:100,
+                                        tickSize: 20,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                        
+                                        
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:100,
+                                        tickSize: 20,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:100,
+                                        tickSize: 20,min:0,
+                                    },
+                                
+                                
+                                
+                                
+                                ],
                                     xaxis: {
                                         show: true,
                                         labelHeight: 30,
@@ -316,15 +520,221 @@ $(function () {
                                     legend: {
                                         noColumns: 3
                                     },
-                                    yaxis: {
-                                        show: true,
+                                    colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
+                                        "#FF0000FF","#FF00FF00","#FFFF0000","#FFFF8000","#FFFFFF60","#FFFFFF60","#FF0000FF",
+                                        "#FFFFFFFF","#FFFF8000","#FF804000","#FFFFFF60","#FF606060","#FF606060","#FFFFFF60","#FF008000",
+                                        "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
+                                        "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
+                                    yaxes:[ {
+                                        
+                                        labelWidth: 30,
+                                        max:5000,
+                                        tickSize: 1000 ,
+                                        min:0,
+                                       
+                                    },{
+                                      
+                                        labelWidth: 30,
+                                        max:20,
+                                         tickSize: 4 ,min:0,
+                                    },
+                                    {
+                                       
+                                        labelWidth: 30,
+                                        max:10,
+                                        tickSize: 2 ,min:0,
+                                    },
+                                      {
+                                       
+                                        labelWidth: 30,
+                                        max:1200,
+                                        tickSize: 240 ,min:0,
+                                    },
+                                     {
+                                        
+                                        labelWidth: 30,
+                                        max:250,
+                                         tickSize: 50 ,min:0,
+                                    },
+                                    {
+                                        
+                                        labelWidth: 30,
+                                        max:2000,
+                                         tickSize: 400 ,min:0,
+                                    },
+                                    {
+                                        
+                                        labelWidth: 30,
+                                         mode: "time",
+                                         timeformat: "%H:%M:%S",
+                                         max:9000,min:0,
+                                    },
+                                    {
+                                      
+                                        labelWidth: 30,
+                                        max:20,
+                                         tickSize: 4 ,min:0,
+                                    },
+                                      {
+                                        
+                                        labelWidth: 30,
+                                         mode: "time",
+                                         timeformat: "%M:%S",
+                                         max:300,min:0,
+                                    },
+                                     {
+                                        
+                                        labelWidth: 30,
+                                         mode: "time",
+                                         timeformat: "%M:%S",
+                                         max:1200,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:50,
+                                         tickSize: 10 ,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:750,
+                                         tickSize: 150 ,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:20,
+                                         tickSize: 4 ,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:20,
+                                        tickSize: 4 ,min:0,
+                                    },
+                                     {
+                                        
+                                        labelWidth: 30,
+                                         mode: "time",
+                                         timeformat: "%M:%S",
+                                         max:300,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:250,
+                                        tickSize: 50 ,min:0,
+                                    },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:50,
+                                        tickSize: 10 ,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:1500,
+                                        tickSize: 300,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:1500,
+                                        tickSize: 300,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:750,
+                                        tickSize: 150,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:750,
+                                        tickSize: 150,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:750,
+                                        tickSize: 150,min:0,
+                                    },
+                                     {
+                                      
                                         labelWidth: 30,
                                         max:100,
+                                        tickSize: 20,min:0,
                                     },
+                                     {
+                                      
+                                        labelWidth: 30,
+                                        max:100,
+                                        tickSize: 20,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                        
+                                        
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+                                      
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:100,
+                                        tickSize: 20,min:0,
+                                    },
+                                      {
+                                      
+                                        labelWidth: 30,
+                                        max:100,
+                                        tickSize: 20,min:0,
+                                    },
+                                
+                                
+                                
+                                
+                                ],
                                     xaxis: {
                                         show: true,
                                         labelHeight: 30,
                                         mode: 'time',
+                                         timeformat: "%d.%m.%Y",
+                                         
 
                                     }
                                 }
@@ -374,19 +784,170 @@ var piktoBiorowerGraph = {
         var rv = [];
         rv['label'] = parameter.label;
         rv['data'] = [];
+       
+    
         for (var i in historyData.date) {
 
             rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
         }
+       
         return rv;
     },
     getHistoryData: function (params) {
-        piktoBiorowerGraph.parameters = params;
+          
+        
         var rv = [];
+        
+
+        
         for(var i in params) {
+            
+            
+            
+            
             rv.push(this.transormData(this.historyData, params[i]));
+             switch (rv[i]['label']) {
+                    case "Stroke Count":
+                        rv[i]['yaxis'] = 1; 
+                         params[i]['yaxis']=1;
+                        
+                        break;
+                    case "Stroke Distance":
+                        rv[i]['yaxis'] = 2;
+                          params[i]['yaxis']=2;
+                      
+                        break;
+                    case "Speed Max":
+                        rv[i]['yaxis'] = 3; 
+                          params[i]['yaxis']=3;
+                        break;
+                    case "Pace 2km":
+                        rv[i]['yaxis'] = 4; 
+                            params[i]['yaxis']=4;
+                        break;
+                    case "HR Max":
+                        rv[i]['yaxis'] = 5; 
+                           params[i]['yaxis']=5;
+                        break;
+                    case "Calories":
+                        rv[i]['yaxis'] = 6; 
+                            params[i]['yaxis']=6;
+                        break;
+                     case "Time":
+                        rv[i]['yaxis'] = 7; 
+                           params[i]['yaxis']=7;
+                        break; 
+                     case "Stroke Dist. Max":
+                        rv[i]['yaxis'] = 8; 
+                          params[i]['yaxis']=8;
+                        break;    
+                    case "Pace 500m":
+                        rv[i]['yaxis'] = 9; 
+                    params[i]['yaxis']=9;
+                        break; 
+                      case "Pace 2km Max":
+                        rv[i]['yaxis'] = 10; 
+                            params[i]['yaxis']=10;
+                         break; 
+                     case "Stroke Rate":
+                        rv[i]['yaxis'] = 11; 
+                            params[i]['yaxis']=11;
+                        break;      
+                     case "Power L":
+                        rv[i]['yaxis'] = 12; 
+                            params[i]['yaxis']=12;
+                        break;    
+                     case "Distance":
+                        rv[i]['yaxis'] = 13; 
+                            params[i]['yaxis']=13;
+                        break; 
+                       case "Speed":
+                        rv[i]['yaxis'] = 14; 
+                          params[i]['yaxis']=14;
+                        break;    
+                    case "Pace 500m Max":
+                        rv[i]['yaxis'] = 15; 
+                         params[i]['yaxis']=15;
+                        break; 
+                      case "HR":
+                        rv[i]['yaxis'] = 16; 
+                            params[i]['yaxis']=16;
+                         break; 
+                     case "Stroke Rate Max":
+                        rv[i]['yaxis'] = 17; 
+                          params[i]['yaxis']=17;
+                        break;      
+                     case "Power average":
+                        rv[i]['yaxis'] = 18;
+                            params[i]['yaxis']=18;
+                        break;    
+                     case "Power max":
+                        rv[i]['yaxis'] = 19;
+                      params[i]['yaxis']=19;
+                        break; 
+                      case "Power L Max":
+                        rv[i]['yaxis'] = 20; 
+                            params[i]['yaxis']=20;
+                        break;    
+                     case "Power right average":
+                        rv[i]['yaxis'] = 21; 
+                          params[i]['yaxis']=21;
+                        break; 
+                       case "Power right max":
+                        rv[i]['yaxis'] = 22; 
+                          params[i]['yaxis']=22;
+                        break;    
+                    case "Power balance":
+                        rv[i]['yaxis'] = 23; 
+                        params[i]['yaxis']=23;
+                        break; 
+                      case "Power balance max":
+                        rv[i]['yaxis'] = 24; 
+                            params[i]['yaxis']=24;
+                         break; 
+                     case "Angle left average":
+                        rv[i]['yaxis'] = 25; 
+                          params[i]['yaxis']=25;
+                        break;      
+                     case "Angle left Max":
+                        rv[i]['yaxis'] = 26; 
+                          params[i]['yaxis']=26;
+                        break;    
+                     case "Angle right average":
+                        rv[i]['yaxis'] = 27; 
+                           params[i]['yaxis']=27;
+                        break;    
+                     case "Angle right max":
+                        rv[i]['yaxis'] = 28; 
+                          params[i]['yaxis']=28;
+                        break;  
+                     case "Angle average":
+                        rv[i]['yaxis'] = 29; 
+                           params[i]['yaxis']=29;
+                        break;  
+                       case "Angle max":
+                        rv[i]['yaxis'] = 30; 
+                      params[i]['yaxis']=30;
+                        break; 
+                     case "MML 2 Level":
+                        rv[i]['yaxis'] = 31; 
+                           params[i]['yaxis']=31;
+                        break;  
+                       case "MML 4 Level":
+                        rv[i]['yaxis'] = 32; 
+                           params[i]['yaxis']=32;
+                        break;    
+                }
+             
         }
+        piktoBiorowerGraph.parameters = params;
+       
+  
+  
+       
+      
         return rv;
+        
     },
     loadHistoryData: function (account, rangeType, startDate) {
         var data = {
@@ -404,7 +965,8 @@ var piktoBiorowerGraph = {
             +moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph.rangeType).format('MMMM Do YYYY'));
 
         }
-
+        
+       
 
         $.post('api/v1/sessions_history', data, function (response) {
             piktoBiorowerGraph.historyData = response.historydata;
@@ -417,6 +979,7 @@ var piktoBiorowerGraph = {
                 axes.xaxis.options.max = undefined;
                 $('#tekst').text("History "+" "+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
                 +moment().format('MMMM Do YYYY'));
+          
 
             } else {
                 $('#strelice').show();
@@ -451,7 +1014,141 @@ var piktoBiorowerGraph2 = {
         var rv = [];
         for(var i in params) {
             rv.push(this.transormData(this.historyData, params[i]));
+             switch (rv[i]['label']) {
+                    case "Stroke Count":
+                        rv[i]['yaxis'] = 1; 
+                         params[i]['yaxis']=1;
+                        
+                        break;
+                    case "Stroke Distance":
+                        rv[i]['yaxis'] = 2;
+                          params[i]['yaxis']=2;
+                      
+                        break;
+                    case "Speed Max":
+                        rv[i]['yaxis'] = 3; 
+                          params[i]['yaxis']=3;
+                        break;
+                    case "Pace 2km":
+                        rv[i]['yaxis'] = 4; 
+                            params[i]['yaxis']=4;
+                        break;
+                    case "HR Max":
+                        rv[i]['yaxis'] = 5; 
+                           params[i]['yaxis']=5;
+                        break;
+                    case "Calories":
+                        rv[i]['yaxis'] = 6; 
+                            params[i]['yaxis']=6;
+                        break;
+                     case "Time":
+                        rv[i]['yaxis'] = 7; 
+                           params[i]['yaxis']=7;
+                        break; 
+                     case "Stroke Dist. Max":
+                        rv[i]['yaxis'] = 8; 
+                          params[i]['yaxis']=8;
+                        break;    
+                    case "Pace 500m":
+                        rv[i]['yaxis'] = 9; 
+                    params[i]['yaxis']=9;
+                        break; 
+                      case "Pace 2km Max":
+                        rv[i]['yaxis'] = 10; 
+                            params[i]['yaxis']=10;
+                         break; 
+                     case "Stroke Rate":
+                        rv[i]['yaxis'] = 11; 
+                            params[i]['yaxis']=11;
+                        break;      
+                     case "Power L":
+                        rv[i]['yaxis'] = 12; 
+                            params[i]['yaxis']=12;
+                        break;    
+                     case "Distance":
+                        rv[i]['yaxis'] = 13; 
+                            params[i]['yaxis']=13;
+                        break; 
+                       case "Speed":
+                        rv[i]['yaxis'] = 14; 
+                          params[i]['yaxis']=14;
+                        break;    
+                    case "Pace 500m Max":
+                        rv[i]['yaxis'] = 15; 
+                         params[i]['yaxis']=15;
+                        break; 
+                      case "HR":
+                        rv[i]['yaxis'] = 16; 
+                            params[i]['yaxis']=16;
+                         break; 
+                     case "Stroke Rate Max":
+                        rv[i]['yaxis'] = 17; 
+                          params[i]['yaxis']=17;
+                        break;      
+                     case "Power average":
+                        rv[i]['yaxis'] = 18;
+                            params[i]['yaxis']=18;
+                        break;    
+                     case "Power max":
+                        rv[i]['yaxis'] = 19;
+                      params[i]['yaxis']=19;
+                        break; 
+                      case "Power L Max":
+                        rv[i]['yaxis'] = 20; 
+                            params[i]['yaxis']=20;
+                        break;    
+                     case "Power right average":
+                        rv[i]['yaxis'] = 21; 
+                          params[i]['yaxis']=21;
+                        break; 
+                       case "Power right max":
+                        rv[i]['yaxis'] = 22; 
+                          params[i]['yaxis']=22;
+                        break;    
+                    case "Power balance":
+                        rv[i]['yaxis'] = 23; 
+                        params[i]['yaxis']=23;
+                        break; 
+                      case "Power balance max":
+                        rv[i]['yaxis'] = 24; 
+                            params[i]['yaxis']=24;
+                         break; 
+                     case "Angle left average":
+                        rv[i]['yaxis'] = 25; 
+                          params[i]['yaxis']=25;
+                        break;      
+                     case "Angle left Max":
+                        rv[i]['yaxis'] = 26; 
+                          params[i]['yaxis']=26;
+                        break;    
+                     case "Angle right average":
+                        rv[i]['yaxis'] = 27; 
+                           params[i]['yaxis']=27;
+                        break;    
+                     case "Angle right max":
+                        rv[i]['yaxis'] = 28; 
+                          params[i]['yaxis']=28;
+                        break;  
+                     case "Angle average":
+                        rv[i]['yaxis'] = 29; 
+                           params[i]['yaxis']=29;
+                        break;  
+                       case "Angle max":
+                        rv[i]['yaxis'] = 30; 
+                      params[i]['yaxis']=30;
+                        break; 
+                     case "MML 2 Level":
+                        rv[i]['yaxis'] = 31; 
+                           params[i]['yaxis']=31;
+                        break;  
+                       case "MML 4 Level":
+                        rv[i]['yaxis'] = 32; 
+                           params[i]['yaxis']=32;
+                        break;    
+                }
+                
         }
+         piktoBiorowerGraph2.parameters = params;
         return rv;
     },
     loadHistoryData: function (account, rangeType, startDate,groupType="week") {
@@ -481,7 +1178,8 @@ var piktoBiorowerGraph2 = {
                 axes.xaxis.options.max = undefined;
                 $('#tekst2').text("Progress "+" "+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
                 +moment().format('MMMM Do YYYY'));
-            } else {
+            }
+            else {
                 $('#strelice2').show();
                 axes.xaxis.options.min = piktoBiorowerGraph2.startDate;
                 axes.xaxis.options.max = moment(piktoBiorowerGraph2.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph2.rangeType);
