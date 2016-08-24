@@ -166,11 +166,12 @@
 
                             <div class="box-tools pull-right" style="margin-top: -8px;" id="strelice">
 
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous" id="next2"
                                    onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
+                                <a href="javascript:;" id="next1" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));
+                     
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
@@ -451,6 +452,7 @@
                                                                  }).get();
                                                                  var linije=['spd'];
                                                                  
+                                                                 
                                                                  var newHistoryData = piktoBiorowerGraph.getHistoryData(newHistoryParams);
                                                                  
                                                                  
@@ -464,22 +466,23 @@
                    
                        if(duzina==1){
                             
-                           
+                            opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
                           
                        }
                         if(duzina==2){
-                             
+                              opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
                            
                             
-                            opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis].position='right';
+                            opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
                        }
                         if(duzina==3){
                            
                             
-                            opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis].position='right';
-                            opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis].position='left';
-                            opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis].position='left';
+                            opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
+                            opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
+                            opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='left';
                        }
+                       
                        
                    
                    piktoBiorowerGraph.historyPlot.setupGrid();
@@ -512,23 +515,24 @@
                 
                   
                    
+                     
                        if(duzina==1){
                             
-                           
+                            opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
                           
                        }
                         if(duzina==2){
-                             
+                              opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
                            
                             
-                            opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis].position='right';
+                            opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
                        }
                         if(duzina==3){
                            
                             
-                            opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis].position='right';
-                            opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis].position='left';
-                            opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis].position='left';
+                            opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
+                            opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
+                            opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis-1].position='left';
                        }
                        
                    
@@ -564,10 +568,10 @@
 
                             <div class="box-tools pull-right"  id="strelice2">
 
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType)) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType));
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
@@ -641,17 +645,18 @@
 
 @section('page-scripts')
 
-
+    <script src="{{ URL::asset('js/moment-range.js') }}"></script>
     <script src="{{ URL::asset('dist/js/graphs.js') }}"></script>
+ 
 
     <script>
         $(document).ready(function () {
-
+             piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
+             piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all',piktoBiorowerGraph2.startDate,'week');
+       
             var skaliranje=500;
             var skaliranje2=500;
-            piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
-            piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','');
-
+          
 
             $('#strelice').hide();
             $('#strelice2').hide();
@@ -677,6 +682,7 @@
                     for(var i=0;i<opts.yaxes.length; i++){
                         
                           opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                          opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
                           
                   
                     }
@@ -703,6 +709,7 @@
                       for(var i=0;i<opts.yaxes.length; i++){
 
                                               opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                                                opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
 
                   
                     }
@@ -719,7 +726,7 @@
                         for(var i=0;i<opts.yaxes.length; i++){
                         
                           opts.yaxes[i].max =   opts.yaxes[i].max*4;
-                          
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
                   
                     }
                     
@@ -743,6 +750,7 @@
                     for(var i=0;i<opts.yaxes.length; i++){
                         
                           opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
                           
                   
                     }
@@ -769,6 +777,7 @@
                       for(var i=0;i<opts.yaxes.length; i++){
 
                                               opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                                               opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
 
                   
                     }
@@ -785,6 +794,7 @@
                         for(var i=0;i<opts.yaxes.length; i++){
                         
                           opts.yaxes[i].max =   opts.yaxes[i].max*4;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
                           
                   
                     }
