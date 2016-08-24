@@ -457,37 +457,37 @@
                                                                  
                                                                  
                                                                  piktoBiorowerGraph.historyPlot.setData(newHistoryData);
-                                                                
+
                                                                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
                   var r= piktoBiorowerGraph.parameters;
                   var duzina=r.length;
-                
-                  
-                   
+
+
+
                        if(duzina==1){
-                            
+
                             opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
-                          
+
                        }
                         if(duzina==2){
                               opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
-                           
-                            
+
+
                             opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
                        }
                         if(duzina==3){
-                           
-                            
+
+
                             opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
                             opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
                             opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='left';
                        }
-                       
-                       
-                   
+
+
+
                    piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
-                                                                 
+
                                                                  
                                                                  
                                                                  $('#myParam').modal('hide');">
@@ -508,34 +508,34 @@
                                                                  piktoBiorowerGraph2.progressPlot.setupGrid();
                                                                  piktoBiorowerGraph2.progressPlot.draw();
                                                                              piktoBiorowerGraph2.progressPlot.setData(newHistoryData);
-                                                                
+
                                                                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
                   var r= piktoBiorowerGraph2.parameters;
                   var duzina=r.length;
-                
-                  
-                   
-                     
+
+
+
+
                        if(duzina==1){
-                            
+
                             opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
-                          
+
                        }
                         if(duzina==2){
                               opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
-                           
-                            
+
+
                             opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
                        }
                         if(duzina==3){
-                           
-                            
+
+
                             opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
                             opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
                             opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis-1].position='left';
                        }
-                       
-                   
+
+
                    piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
                                                                  

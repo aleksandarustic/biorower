@@ -130,7 +130,7 @@ $(function () {
                 }
 
 
-               
+
 
 
                   
@@ -254,30 +254,8 @@ $(function () {
                         
 
                             $("#history").UseTooltip();
-                            piktoBiorowerGraph.start=moment( piktoBiorowerGraph.historyData.date[0]);
-                            piktoBiorowerGraph2.start=moment( piktoBiorowerGraph2.historyData.date[0]);
-                            
-                        var end   = moment();
-                        var s=new Date("October 10, 2016 11:13:00");
-                        var s2=new Date("October 10, 2017 11:13:00");
-                        var dr2=moment.range(s, s2);
-                        var range2=moment.range(piktoBiorowerGraph.start, end);
-                        var range3=moment.range(piktoBiorowerGraph.start, end);
-                        if(range2<dr2){
-                           piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
-                           $("#all_history").hide();
-                            $("#year_history").hide();
-                         
-                          
-                        }
-                        
-                          if(range3<dr2){
-                           piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
-                           $("#all_progress").hide();
-                            $("#year_progress").hide();
-                         
-                          
-                        }
+
+
                         
                        
 
@@ -286,6 +264,80 @@ $(function () {
                
             }
         });
+
+
+
+    var data = {
+        account: 'biorower:' + $('#user-email').val(),
+        rangeType: 'all',
+
+
+    };
+    var data2 = {
+        account: 'biorower:' + $('#user-email').val(),
+        rangeType: 'all',
+        groupType:'week',
+
+
+    };
+
+
+    $.post('api/v1/sessions_history', data, function (response) {
+
+        piktoBiorowerGraph.start=moment( response.historydata.date[0]);
+
+
+        var end= moment();
+        var s=new Date("October 10, 2016 11:13:00");
+        var s2=new Date("October 10, 2017 11:13:00");
+        var dr2=moment.range(s, s2);
+        var range2=moment.range(piktoBiorowerGraph.start, end);
+
+
+        if(range2<dr2){
+            piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
+            $("#all_history").hide();
+            $("#year_history").hide();
+
+
+        }
+
+
+
+
+
+
+
+
+    });
+
+    $.post('api/v1/sessions_history', data2, function (response) {
+        piktoBiorowerGraph2.start=moment( response.historydata.date[0]);
+
+
+        var end= moment();
+        var s=new Date("October 10, 2016 11:13:00");
+        var s2=new Date("October 10, 207 11:13:00");
+        var dr2=moment.range(s, s2);
+
+        var range3=moment.range(piktoBiorowerGraph2.start, end);
+
+
+        if(range3<dr2){
+            piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
+            $("#all_progress").hide();
+
+
+
+        }
+
+
+
+
+    })
+
+
+
 
 
 
@@ -548,223 +600,222 @@ var piktoBiorowerGraph = {
                                         "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
                                         "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
                                     yaxes:[ {
-                                        
+
                                         labelWidth: 30,
-                                        max:5000,
-                                        tickSize: 1000 ,
+
                                         min:0,
-                                       
+
                                     },{
-                                      
+
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                     {
-                                       
+
                                         labelWidth: 30,
                                         max:10,
                                         tickSize: 2 ,min:0,
                                     },
                                       {
-                                       
+
                                         labelWidth: 30,
                                         max:1200,
                                         tickSize: 240 ,min:0,
                                     },
                                      {
-                                        
+
                                         labelWidth: 30,
                                         max:250,
                                          tickSize: 50 ,min:0,
                                     },
                                     {
-                                        
+
                                         labelWidth: 30,
                                         max:2000,
                                          tickSize: 400 ,min:0,
                                     },
                                     {
-                                        
+
                                         labelWidth: 30,
                                          mode: "time",
                                          timeformat: "%H:%M:%S",
                                          max:9000,min:0,
                                     },
                                     {
-                                      
+
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                       {
-                                        
+
                                         labelWidth: 30,
                                          mode: "time",
                                          timeformat: "%M:%S",
                                          max:300,min:0,
                                     },
                                      {
-                                        
+
                                         labelWidth: 30,
                                          mode: "time",
                                          timeformat: "%M:%S",
                                          max:1200,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:50,
                                          tickSize: 10 ,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:750,
                                          tickSize: 150 ,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:20,
                                         tickSize: 4 ,min:0,
                                     },
                                      {
-                                        
+
                                         labelWidth: 30,
                                          mode: "time",
                                          timeformat: "%M:%S",
                                          max:300,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:250,
                                         tickSize: 50 ,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:50,
                                         tickSize: 10 ,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                        {
-                                      
+
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                        {
-                                      
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
-                                      
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
-                                      
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
-                                        
-                                        
+
+
                                     },
                                        {
-                                      
-                                        labelWidth: 30,
-                                        max:150,
-                                        tickSize: 30,min:0,
-                                    },
-                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
-                                      
+
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
-                                
-                                
-                                
-                                
+
+
+
+
                                 ],
                                     xaxis: {
                                         show: true,
                                         labelHeight: 30,
                                         mode: 'time',
-                                   
+
                                         timeformat:"%b",
                                         tickSize:[1,"month"],
-                                         
+
 
                                     }
                                 }
                             );
-                    
-            
+
+
               if(piktoBiorowerGraph.rangeType!="all"){
 
             $('#tekst').text("History"+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).
@@ -803,72 +854,164 @@ var piktoBiorowerGraph = {
             var time2=0;
             var scnt2=0;
             var dist2=0;
-         
             if(cal){
-             for(var i=0;i<cal.length; i++){
+                cal2 = Math.max.apply(Math, cal);
+            }
+            if(time){
+                time2 = Math.max.apply(Math, time);
+            }
+            if(scnt){
+
+                scnt2 = Math.max.apply(Math, scnt);
+
+
+            }
+            if(dist){
+                dist2 = Math.max.apply(Math, dist);
+            }
+
+
+
+
+            if(dist2>niz[8] && dist2<=niz[9]){
+                dist2=niz[10];
+            }
+            if(dist2>niz[7] && dist2<=niz[8]){
+                dist2=niz[9];
+            }
+            if(dist2>niz[6] && dist2<=niz[7]){
+                dist2=niz[8];
+            }
+            if(dist2>niz[5] && dist2<=niz[6]){
+                dist2=niz[7];
+            }
+            if(dist2>niz[4] && dist2<=niz[5]){
+                dist2=niz[6];
+            }
+            if(dist2>niz[3] && dist2<=niz[4]){
+                dist2=niz[5];
+            }
+            if(dist2>niz[2] && dist2<=niz[3]){
+                dist2=niz[4];
+            }
+            if(dist2>niz[1] && dist2<=niz[2]){
+                dist2=niz[4];
+            }
+            if(dist2>niz[0] && dist2<=niz[1]){
+                dist2=niz[3];
+            }
+            if(dist2<=niz[0]){
+
+                dist2=niz[2];
+            }
+
+
+
+            if(time2>niz[8] && time2<=niz[9]){
+                time2=niz[10];
+            }
+            if(time2>niz[7] && time2<=niz[8]){
+                time2=niz[9];
+            }
+            if(time2>niz[6] && time2<=niz[7]){
+                time2=niz[8];
+            }
+            if(time2>niz[5] && time2<=niz[6]){
+                time2=niz[7];
+            }
+            if(time2>niz[4] && time2<=niz[5]){
+                time2=niz[6];
+            }
+            if(time2>niz[3] && time2<=niz[4]){
+                time2=niz[5];
+            }
+            if(time2>niz[2] && time2<=niz[3]){
+                time2=niz[4];
+            }
+            if(time2>niz[1] && time2<=niz[2]){
+                time2=niz[4];
+            }
+            if(time2>niz[0] && time2<=niz[1]){
+                time2=niz[3];
+            }
+            if(time2<=niz[0]){
+
+                time2=niz[2];
+            }
+
+
+            if(cal2>niz[8] && cal2<=niz[9]){
+                cal2=niz[10];
+            }
+            if(cal2>niz[7] && cal2<=niz[8]){
+                cal2=niz[9];
+            }
+            if(cal2>niz[6] && cal2<=niz[7]){
+                cal2=niz[8];
+            }
+            if(cal2>niz[5] && cal2<=niz[6]){
+                cal2=niz[7];
+            }
+            if(cal2>niz[4] && cal2<=niz[5]){
+                cal2=niz[6];
+            }
+            if(cal2>niz[3] && cal2<=niz[4]){
+                cal2=niz[5];
+            }
+            if(cal2>niz[2] && cal2<=niz[3]){
+                cal2=niz[4];
+            }
+            if(cal2>niz[1] && cal2<=niz[2]){
+                cal2=niz[4];
+            }
+            if(cal2>niz[0] && cal2<=niz[1]){
+                cal2=niz[3];
+            }
+            if(cal2<=niz[0]){
+
+                cal2=niz[2];
+            }
+
+
+
+            if(scnt2>niz[8] && scnt2<=niz[9]){
+                scnt2=niz[10];
+            }
+            if(scnt2>niz[7] && scnt2<=niz[8]){
+                scnt2=niz[9];
+            }
+            if(scnt2>niz[6] && scnt2<=niz[7]){
+                scnt2=niz[8];
+            }
+            if(scnt2>niz[5] && scnt2<=niz[6]){
+                scnt2=niz[7];
+            }
+            if(scnt2>niz[4] && scnt2<=niz[5]){
+                scnt2=niz[6];
+            }
+            if(scnt2>niz[3] && scnt2<=niz[4]){
+                scnt2=niz[5];
+            }
+            if(scnt2>niz[2] && scnt2<=niz[3]){
+                scnt2=niz[4];
+            }
+            if(scnt2>niz[1] && scnt2<=niz[2]){
+                scnt2=niz[4];
+            }
+            if(scnt2>niz[0] && scnt2<=niz[1]){
+                scnt2=niz[3];
+            }
+            if(scnt2<=niz[0]){
+
+                scnt2=niz[2];
+            }
+
+
                  
-                 if(cal2<cal[i]){
-                     cal2=cal[i];
-                 }
-             }
-         }
-         if(time){
-             for(var i=0;i<time.length; i++){
                  
-                 if(time2<time[i]){
-                     time2=time[i];
-                 }
-             }
-         }
-          if(scnt){
-             for(var i=0;i<scnt.length; i++){
-                 
-                 if(scnt2<scnt[i]){
-                     scnt2=scnt[i];
-                 }
-             }
-         }
-          if(dist){
-             for(var i=0;i<dist.length; i++){
-                 
-                 if(dist2<dist[i]){
-                     dist2=dist[i];
-                 }
-             }
-         }
+
              
-             for(var i=0;i<niz.length; i++){
-                 if(dist2<niz[0]){
-                 dist2=niz[0];
-             }
-              if(dist2<niz[i] && dist2>niz[i-1]){
-                 dist2=niz[i];
-             }
-                  if(time2<niz[0]){
-                 time2=niz[0];
-             }
-              if(time2<niz[i] && time2>niz[i-1]){
-                 time2=niz[i];
-             }
-             
-                   if(cal2<niz[0]){
-                 cal2=niz[0];
-             }
-              if(cal2<niz[i] && cal2>niz[i-1]){
-                 cal2=niz[i];
-             }
-             
-                   if(scnt2<niz[0]){
-                 scnt2=niz[0];
-             }
-              if(scnt2<niz[i] && scnt2>niz[i-1]){
-                 scnt2=niz[i];
-             }
-                 
-                 
-             }
-             
-          
+
               opts.yaxes[0].max = scnt2;
               opts.yaxes[0].tickSize=scnt2/5;
               opts.yaxes[5].max = cal2;
@@ -877,6 +1020,47 @@ var piktoBiorowerGraph = {
               opts.yaxes[6].tickSize=time2/5;
               opts.yaxes[12].max = dist2;
               opts.yaxes[12].tickSize=dist2/5;
+
+
+
+
+
+
+
+
+            var opts = piktoBiorowerGraph.historyPlot.getOptions();
+            var r= piktoBiorowerGraph.parameters;
+            var duzina=r.length;
+
+
+
+            if(duzina==1){
+
+                opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
+
+            }
+            if(duzina==2){
+                opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
+
+
+                opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
+            }
+            if(duzina==3){
+
+
+                opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
+                opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
+                opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='left';
+            }
+
+
+
+
+
+
+
+
+
            
                  
                         
@@ -1378,11 +1562,15 @@ var piktoBiorowerGraph2 = {
             axes.xaxis.options.timeformat="%b";
             axes.xaxis.options.tickSize=[1,"month"];
         }
-               
-               
-               
-               
-           
+
+
+
+
+
+
+
+            var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+            var axes = piktoBiorowerGraph2.progressPlot.getAxes();
             var niz=[10,20,50,100,200,500,1000,2000,5000,10000,20000];
             var cal=response.historydata.cal;
             var time=response.historydata.time;
@@ -1392,91 +1580,224 @@ var piktoBiorowerGraph2 = {
             var time2=0;
             var scnt2=0;
             var dist2=0;
-         
             if(cal){
-             for(var i=0;i<cal.length; i++){
-                 
-                 if(cal2<cal[i]){
-                     cal2=cal[i];
-                 }
-             }
-         }
-         if(time){
-             for(var i=0;i<time.length; i++){
-                 
-                 if(time2<time[i]){
-                     time2=time[i];
-                 }
-             }
-         }
-          if(scnt){
-             for(var i=0;i<scnt.length; i++){
-                 
-                 if(scnt2<scnt[i]){
-                     scnt2=scnt[i];
-                 }
-             }
-         }
-          if(dist){
-             for(var i=0;i<dist.length; i++){
-                 
-                 if(dist2<dist[i]){
-                     dist2=dist[i];
-                 }
-             }
-         }
-             
-             for(var i=0;i<niz.length; i++){
-                 if(dist2<niz[0]){
-                 dist2=niz[0];
-             }
-              if(dist2<niz[i] && dist2>niz[i-1]){
-                 dist2=niz[i];
-             }
-                  if(time2<niz[0]){
-                 time2=niz[0];
-             }
-              if(time2<niz[i] && time2>niz[i-1]){
-                 time2=niz[i];
-             }
-             
-                   if(cal2<niz[0]){
-                 cal2=niz[0];
-             }
-              if(cal2<niz[i] && cal2>niz[i-1]){
-                 cal2=niz[i];
-             }
-             
-                   if(scnt2<niz[0]){
-                 scnt2=niz[0];
-             }
-              if(scnt2<niz[i] && scnt2>niz[i-1]){
-                 scnt2=niz[i];
-             }
-                 
-                 
-             }
-             
-          
-              opts.yaxes[0].max = scnt2;
-              opts.yaxes[0].tickSize=scnt2/5;
-              opts.yaxes[5].max = cal2;
-              opts.yaxes[5].tickSize=cal2/5;
-              opts.yaxes[6].max = time2;
-              opts.yaxes[6].tickSize=time2/5;
-              opts.yaxes[12].max = dist2;
-              opts.yaxes[12].tickSize=dist2/5;
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+                cal2 = Math.max.apply(Math, cal);
+            }
+            if(time){
+                time2 = Math.max.apply(Math, time);
+            }
+            if(scnt){
+
+                scnt2 = Math.max.apply(Math, scnt);
+
+
+            }
+            if(dist){
+                dist2 = Math.max.apply(Math, dist);
+            }
+
+
+
+
+            if(dist2>niz[8] && dist2<=niz[9]){
+                dist2=niz[10];
+            }
+            if(dist2>niz[7] && dist2<=niz[8]){
+                dist2=niz[9];
+            }
+            if(dist2>niz[6] && dist2<=niz[7]){
+                dist2=niz[8];
+            }
+            if(dist2>niz[5] && dist2<=niz[6]){
+                dist2=niz[7];
+            }
+            if(dist2>niz[4] && dist2<=niz[5]){
+                dist2=niz[6];
+            }
+            if(dist2>niz[3] && dist2<=niz[4]){
+                dist2=niz[5];
+            }
+            if(dist2>niz[2] && dist2<=niz[3]){
+                dist2=niz[4];
+            }
+            if(dist2>niz[1] && dist2<=niz[2]){
+                dist2=niz[4];
+            }
+            if(dist2>niz[0] && dist2<=niz[1]){
+                dist2=niz[3];
+            }
+            if(dist2<=niz[0]){
+
+                dist2=niz[2];
+            }
+
+
+
+            if(time2>niz[8] && time2<=niz[9]){
+                time2=niz[10];
+            }
+            if(time2>niz[7] && time2<=niz[8]){
+                time2=niz[9];
+            }
+            if(time2>niz[6] && time2<=niz[7]){
+                time2=niz[8];
+            }
+            if(time2>niz[5] && time2<=niz[6]){
+                time2=niz[7];
+            }
+            if(time2>niz[4] && time2<=niz[5]){
+                time2=niz[6];
+            }
+            if(time2>niz[3] && time2<=niz[4]){
+                time2=niz[5];
+            }
+            if(time2>niz[2] && time2<=niz[3]){
+                time2=niz[4];
+            }
+            if(time2>niz[1] && time2<=niz[2]){
+                time2=niz[4];
+            }
+            if(time2>niz[0] && time2<=niz[1]){
+                time2=niz[3];
+            }
+            if(time2<=niz[0]){
+
+                time2=niz[2];
+            }
+
+
+            if(cal2>niz[8] && cal2<=niz[9]){
+                cal2=niz[10];
+            }
+            if(cal2>niz[7] && cal2<=niz[8]){
+                cal2=niz[9];
+            }
+            if(cal2>niz[6] && cal2<=niz[7]){
+                cal2=niz[8];
+            }
+            if(cal2>niz[5] && cal2<=niz[6]){
+                cal2=niz[7];
+            }
+            if(cal2>niz[4] && cal2<=niz[5]){
+                cal2=niz[6];
+            }
+            if(cal2>niz[3] && cal2<=niz[4]){
+                cal2=niz[5];
+            }
+            if(cal2>niz[2] && cal2<=niz[3]){
+                cal2=niz[4];
+            }
+            if(cal2>niz[1] && cal2<=niz[2]){
+                cal2=niz[4];
+            }
+            if(cal2>niz[0] && cal2<=niz[1]){
+                cal2=niz[3];
+            }
+            if(cal2<=niz[0]){
+
+                cal2=niz[2];
+            }
+
+
+
+            if(scnt2>niz[8] && scnt2<=niz[9]){
+                scnt2=niz[10];
+            }
+            if(scnt2>niz[7] && scnt2<=niz[8]){
+                scnt2=niz[9];
+            }
+            if(scnt2>niz[6] && scnt2<=niz[7]){
+                scnt2=niz[8];
+            }
+            if(scnt2>niz[5] && scnt2<=niz[6]){
+                scnt2=niz[7];
+            }
+            if(scnt2>niz[4] && scnt2<=niz[5]){
+                scnt2=niz[6];
+            }
+            if(scnt2>niz[3] && scnt2<=niz[4]){
+                scnt2=niz[5];
+            }
+            if(scnt2>niz[2] && scnt2<=niz[3]){
+                scnt2=niz[4];
+            }
+            if(scnt2>niz[1] && scnt2<=niz[2]){
+                scnt2=niz[4];
+            }
+            if(scnt2>niz[0] && scnt2<=niz[1]){
+                scnt2=niz[3];
+            }
+            if(scnt2<=niz[0]){
+
+                scnt2=niz[2];
+            }
+
+
+
+
+
+
+
+            opts.yaxes[0].max = scnt2;
+            opts.yaxes[0].tickSize=scnt2/5;
+            opts.yaxes[5].max = cal2;
+            opts.yaxes[5].tickSize=cal2/5;
+            opts.yaxes[6].max = time2;
+            opts.yaxes[6].tickSize=time2/5;
+            opts.yaxes[12].max = dist2;
+            opts.yaxes[12].tickSize=dist2/5;
+
+
+
+
+
+
+
+
+            var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+            var r= piktoBiorowerGraph2.parameters;
+            var duzina=r.length;
+
+
+
+            if(duzina==1){
+
+                opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
+
+            }
+            if(duzina==2){
+                opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
+
+
+                opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
+            }
+            if(duzina==3){
+
+
+                opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
+                opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
+                opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis-1].position='left';
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             if(piktoBiorowerGraph2.rangeType=='all'){
                 $('#strelice2').hide();
                 axes.xaxis.options.min = undefined;
