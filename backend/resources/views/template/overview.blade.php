@@ -86,32 +86,33 @@
             </div><!-- /.col -->
 
             <div class="col-md-9 margin-bottom ">
-                <div class="row">
+                 <div class="row">
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
-                            <h5 class="description-header">{{ $totalStatisticsParameters['sescnt'][0] }}</h5>
-                            <span class="description-text">Total training sessions</span>
+                            <h5 class="description-header">{{ $totalStatisticsParameters[config('parameters.sescnt.tag')][0] }}</h5>
+                            <span class="description-text">{{ config('parameters.sescnt.title') }}</span>
                         </div><!-- /.description-block -->
                     </div><!-- /.col -->
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
-                            <h5 class="description-header">{{  gmdate("H:i:s", $totalStatisticsParameters["time"][0]) }}</h5>
+                            <h5 class="description-header">{{  gmdate(config('parameters.time.format'), $totalStatisticsParameters[config('parameters.time.tag')][0]) }}</h5>
                             <span class="description-text">Total training time </span>
-                            <span class="description-percentage-small-small text-blue btn-block">[hh:mm:ss]</span>
+                            <span class="description-percentage-small-small text-blue btn-block">{{ config('parameters.time.unit') }}</span>
                         </div><!-- /.description-block -->
                     </div><!-- /.col -->
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
-                            <h5 class="description-header">{{ round($totalStatisticsParameters["dist"][0], 1) }}</h5>
+                            <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.tdist.tag')][0],
+                            config('parameters.tdist.format') ) }}</h5>
                             <span class="description-text">Total Distance</span>
-                            <span class="description-percentage-small text-blue btn-block">[km]</span>
+                            <span class="description-percentage-small text-blue btn-block">{{ config('parameters.tdist.unit') }}</span>
                         </div><!-- /.description-block -->
                     </div><!-- /.col -->
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block">
-                            <h5 class="description-header">{{ round($totalStatisticsParameters["pwr_avg"][0], 0) }}</h5>
+                            <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.pwr_avg.tag')][0], config('parameters.pwr_avg.format') ) }}</h5>
                             <span class="description-text">Total Power average </span>
-                            <span class="description-percentage-small text-blue btn-block">[W]</span>
+                            <span class="description-percentage-small text-blue btn-block">{{ config('parameters.pwr_avg.unit') }}</span>
                         </div><!-- /.description-block -->
                     </div>
                 </div>
@@ -119,30 +120,32 @@
                 <div class="row">
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
+                            <h5 class="description-header">{{ $totalStatisticsParameters[config('parameters.tscnt.tag')][0] }}</h5>
+                            <span class="description-text">{{ config('parameters.tscnt.title') }}</span>
+                        </div><!-- /.description-block -->
+                    </div><!-- /.col -->
 
-                            <h5 class="description-header">{{ $totalStatisticsParameters['scnt'][0] }}</h5>
-                            <span class="description-text">Total number of strokes</span>
-                        </div><!-- /.description-block -->
-                    </div><!-- /.col -->
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
-                            <h5 class="description-header">{{ round($totalStatisticsParameters["sdist_avg"][0], 2) }}</h5>
+                            <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.sdist_avg.tag')][0], config('parameters.sdist_avg.format')) }}</h5>
                             <span class="description-text">Total Stroke distance average </span>
-                            <span class="description-percentage-small text-blue inline">[m]</span>
+                            <span class="description-percentage-small text-blue inline">{{ config('parameters.sdist_avg.unit') }}</span>
                         </div><!-- /.description-block -->
                     </div><!-- /.col -->
+
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
-                            <h5 class="description-header">{{ round($totalStatisticsParameters["ang_avg"][0], 0) }}</h5>
+                            <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.ang_avg.tag')][0], config('parameters.ang_avg.format')) }}</h5>
                             <span class="description-text">Total Angle average</span>
-                            <span class="description-percentage-small text-blue btn-block">[°]</span>
+                            <span class="description-percentage-small text-blue btn-block">{{ config('parameters.ang_avg.unit') }}</span>
                         </div><!-- /.description-block -->
                     </div><!-- /.col -->
+
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block">
-                            <h5 class="description-header">{{ round($totalStatisticsParameters["hr_avg"][0], 2) }}</h5>
+                            <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.hr_avg.tag')][0], config('parameters.hr_avg.format')) }}</h5>
                             <span class="description-text ">Total HR average</span>
-                            <span class="description-percentage-small text-blue btn-block">[bpm]</span>
+                            <span class="description-percentage-small text-blue btn-block">{{ config('parameters.hr_avg.unit') }}</span>
 
 
                         </div><!-- /.description-block -->
@@ -457,37 +460,37 @@
                                                                  
                                                                  
                                                                  piktoBiorowerGraph.historyPlot.setData(newHistoryData);
-                                                                
+
                                                                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
                   var r= piktoBiorowerGraph.parameters;
                   var duzina=r.length;
-                
-                  
-                   
+
+
+
                        if(duzina==1){
-                            
+
                             opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
-                          
+
                        }
                         if(duzina==2){
                               opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
-                           
-                            
+
+
                             opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
                        }
                         if(duzina==3){
-                           
-                            
+
+
                             opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
                             opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
                             opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='left';
                        }
-                       
-                       
-                   
+
+
+
                    piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
-                                                                 
+
                                                                  
                                                                  
                                                                  $('#myParam').modal('hide');">
@@ -508,34 +511,34 @@
                                                                  piktoBiorowerGraph2.progressPlot.setupGrid();
                                                                  piktoBiorowerGraph2.progressPlot.draw();
                                                                              piktoBiorowerGraph2.progressPlot.setData(newHistoryData);
-                                                                
+
                                                                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
                   var r= piktoBiorowerGraph2.parameters;
                   var duzina=r.length;
-                
-                  
-                   
-                     
+
+
+
+
                        if(duzina==1){
-                            
+
                             opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
-                          
+
                        }
                         if(duzina==2){
                               opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
-                           
-                            
+
+
                             opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
                        }
                         if(duzina==3){
-                           
-                            
+
+
                             opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
                             opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
                             opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis-1].position='left';
                        }
-                       
-                   
+
+
                    piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
                                                                  
