@@ -320,7 +320,7 @@ $(function () {
 
         var s2=new Date("October 10, 2017 11:13:00");
 
-        var s2=new Date("October 10, 207 11:13:00");
+       
 
         var dr2=moment.range(s, s2);
 

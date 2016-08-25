@@ -45,7 +45,7 @@
                             <!-- Item 3.1 -->
                             <div class="col-sm-6 about-middle">
                                 <div class="act-block about-value-box">
-                                    <div class="about-value time2"></div>
+                                    <div class="about-value time"></div>
                                     <div class="about-vname">Training time</div>
                                 </div>
                                 <!-- Item 3.2 -->
@@ -86,7 +86,7 @@
             </div><!-- /.col -->
 
             <div class="col-md-9 margin-bottom ">
-                 <div class="row">
+                <div class="row">
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
                             <h5 class="description-header">{{ $totalStatisticsParameters[config('parameters.sescnt.tag')][0] }}</h5>
@@ -102,11 +102,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
-<<<<<<< HEAD
                             <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.tdist.tag')][0],
-=======
-                            <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.tdist.tag')][0], 
->>>>>>> origin/biorower_tomke
                             config('parameters.tdist.format') ) }}</h5>
                             <span class="description-text">Total Distance</span>
                             <span class="description-percentage-small text-blue btn-block">{{ config('parameters.tdist.unit') }}</span>
@@ -173,12 +169,11 @@
 
                             <div class="box-tools pull-right" style="margin-top: -8px;" id="strelice">
 
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous" id="next2"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"
                                    onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
-                                <a href="javascript:;" id="next1" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));
-                     
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
@@ -193,11 +188,7 @@
                                        onclick=" piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',moment().startOf('week')); "
                                             >Week</a>
                                     <a href="javascript:;" class="btn btn-link" id="month_history"
-                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
-                                            
-                                            
-                                       
-                                       "
+                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));"
                                             >Month</a>
                                     <a href="javascript:;" class="btn btn-link" id="year_history"
                                        onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));"
@@ -374,7 +365,7 @@
                                                             <li>
                                                                 <label for="powerRmax">
                                                                     <input type="checkbox" name="parameters" id="powerRmax" value="pwr_r_max">
-                                                                    <span class="pwr_r_max">Power right max</span>
+                                                                    <span class="pwr_r_max">Power right average</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -410,7 +401,7 @@
                                                             <li>
                                                                 <label for="angleRightMax">
                                                                     <input type="checkbox" name="parameters" id="powerBalanceMax" value="ang_r_max">
-                                                                    <span class="ang_r_max">Angle right max</span>
+                                                                    <span class="ang_r_max">Angle left max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -421,8 +412,8 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleMax">
-                                                                    <input type="checkbox" name="parameters" id="powerBalanceMax" value="ang_max">
-                                                                    <span class="ang_max">Angle max</span>
+                                                                    <input type="checkbox" name="parameters" id="powerBalanceMax" value="angleMax">
+                                                                    <span class="angleMax">Angle max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -447,7 +438,7 @@
                                                     </div><!-- /.List of Parametars -->
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                                                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                                                     <button type="button" class="btn btn-primary margin-r-5" id="dugme1"
                                                             onclick="var newHistoryParams = $('#history-graph-params input:checked').map(function(){
                                                                     var value = $(this).val();
@@ -575,10 +566,10 @@
 
                             <div class="box-tools pull-right"  id="strelice2">
 
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType)) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType));
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
@@ -651,8 +642,7 @@
     </section><!-- /.content -->
 
 @section('page-scripts')
-
-    <script src="{{ URL::asset('js/moment-range.js') }}"></script>
+  <script src="{{ URL::asset('js/moment-range.js') }}"></script>
     <script src="{{ URL::asset('dist/js/graphs.js') }}"></script>
  
 
@@ -825,7 +815,6 @@
 
         })
     </script>
-
 @endsection
 
 @endsection
