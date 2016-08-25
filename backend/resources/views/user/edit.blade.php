@@ -1,23 +1,10 @@
-
-<?php 
-	  use App\Language;
-	  use App\Country;
-	  use App\UserType;
-?>
+@extends('layouts.main')
 
 @section('page-script')
 	
-	<link rel="stylesheet" href="../js/jcrop/css/jquery.Jcrop.css" type="text/css" />
-	<link rel="stylesheet" href="../js/jquery-validation-1.13.1/css/screen.css" type="text/css" />
-	<script src="../js/jcrop/js/jquery.Jcrop.min.js"></script>
-	<script src="../js/jquery-validation-1.13.1/jquery.validate.js"></script>
 
 	<script type="text/javascript">
-		$(function(){
-			$("#date_of_birth").datepicker();
-			$("#date_of_birth").datepicker( "option", "dateFormat", "yy-mm-dd" );
-
-
+		$(function(){	
 		    function showCoords(c)
 		    {
    		        // variables can be accessed here as
@@ -45,15 +32,14 @@
 		})
 	</script>
 
-	<script src="../js/validations_edit_view.js"></script>
 
 @endsection
 
-@extends('layouts.myframe')
+
 
 @section('content')
-
-	<div class="row" style="margin-bottom: 350px"><!-- /.col -->
+<section class="content">
+	<div class="row"><!-- /.col -->
 		<h1 class="h1-settings">Change</h1>
 		<div class="col-md-3 pull-left">
 			<div class=" box box-primary">
@@ -66,7 +52,7 @@
 							<li><a href="#user-type" class="btn-block" data-toggle="tab">User type</a></li>
 							<li><a href="#e-mail" class="btn-block" data-toggle="tab">E-mail</a></li>
 							<li><a href="#notifi" class="btn-block" data-toggle="tab">Notifications</a></li>
-							<li><a href="#account-priv" class="btn-block" data-toggle="tab">Account Privicy</a></li>
+							<li><a href="#account-priv" class="btn-block" data-toggle="tab">Account Privacy</a></li>
 							<li><a href="#change-pass" class="btn-block" data-toggle="tab">Change Password</a></li>
 						</ul>
 					</div>
@@ -184,7 +170,7 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-                                                                    <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="{{$user['profile']['date_of_birth']}}" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                                                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{$user['profile']['date_of_birth']}}" >
 								</div>
 							</div>
                                                         
@@ -350,12 +336,11 @@
 								</select>
 							</div>
 						</div><!-- /.tab-pane -->
-						<div class="tab-pane edit-box margin-top" id="account-priv"> <h2 class="h2-tabs">Account Privicy</h2>
-							<p class="h2-subhead">Update your account privicy</p>
+						<div class="tab-pane edit-box margin-top" id="account-priv"> <h2 class="h2-tabs">Account privacy</h2>
+							<p class="h2-subhead">Update your account privacy</p>
 							<p class="instructions">If selected your account will not be publicly viewable.</p>
 							<div class="form-group">
 								<select class="form-control select2" style="width: 100%;" name="privacy">
-									<option value="3" <?php if($user['profile']['privacy']==3) echo 'selected="selected"' ?>>-------</option>
 									<option value="1" <?php if($user['profile']['privacy']==1) echo 'selected="selected"' ?>>Yes</option>
 									<option value="0" <?php if($user['profile']['privacy']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
@@ -410,6 +395,7 @@
 		<div class="clear"></div>
 	</div>
 	</div>
+</section>	
 	<!-- /.row -->
 
 @endsection

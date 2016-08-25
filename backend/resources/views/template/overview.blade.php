@@ -102,7 +102,11 @@
                     </div><!-- /.col -->
                     <div class="col-sm-3 col-xs-12">
                         <div class="description-block border-right">
+<<<<<<< HEAD
                             <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.tdist.tag')][0],
+=======
+                            <h5 class="description-header">{{ round($totalStatisticsParameters[config('parameters.tdist.tag')][0], 
+>>>>>>> origin/biorower_tomke
                             config('parameters.tdist.format') ) }}</h5>
                             <span class="description-text">Total Distance</span>
                             <span class="description-percentage-small text-blue btn-block">{{ config('parameters.tdist.unit') }}</span>
