@@ -1,37 +1,5 @@
 @extends('layouts.main')
 @section('page-scripts')
-    <!-- DataTables -->
-  <!-- <link rel="canonical" href="{{ Request::url() }}" /> -->
-     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap.min.css') }}">
-      <link rel="stylesheet" href="{{ URL::asset('dist/css/skins/skin-blue.min.css') }}">
-     
-    <!-- Font Awesome -->
-  
-    <!-- Theme style -->
-    
-    <link rel="stylesheet" href="{{ URL::asset('dist/css/AdminLTE.min.css') }}">    
-<script src="{{ URL::asset('js/jQuery-2.1.4.min.js') }}"></script>
-<!-- Bootstrap 3.3.5 --> 
-<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
-<!-- AdminLTE App --> 
-
-<!-- FLOT CHeartS --> 
-<script src="{{ URL::asset('plugins/flot/jquery.flot.min.js') }}"></script>
-
- 
-
-
-<!-- FLOT RESIZE PLUGIN - allows the cHeart to redraw when the window is resized --> 
-
-<script src="{{ URL::asset('plugins/flot/jquery.flot.resize.min.js') }}"></script>
-<script src="{{ URL::asset('plugins/flot/jquery.flot.canvas.js') }}"></script>
-
-<script src="{{ URL::asset('plugins/flot/jquery.flot.animator.min.js') }}"></script>
-<!-- FLOT CATEGORIES PLUGIN - Used to draw bar cHearts --> 
-<script src="{{ URL::asset('plugins/flot/jquery.flot.categories.min.js') }}"></script>
-
-<script src="{{ URL::asset('plugins/flot/jquery.flot.navigate.js') }}"></script>
-
 <script type="text/javascript">
 
   $(function() {
@@ -629,22 +597,22 @@
 
               
         
-            document.getElementById("time").innerHTML = sesija2.time+"<span class='description-percentage'>s</span>";;
+            document.getElementById("time").innerHTML = sesija2.time;
             document.getElementById("stroke_count").innerHTML = sesija2.scnt;
-            document.getElementById("distance").innerHTML = sesija2.dist+"<span class='description-percentage'>km</span>";
-            document.getElementById("stroke_rate").innerHTML = sesija2.srate_avg+"<span class='description-percentage'>spm</span>";
-            document.getElementById("stroke_rate_max").innerHTML = sesija2.srate_max+"<span class='description-percentage'>spm</span>";
-            document.getElementById("hr").innerHTML = sesija2.hr_avg+"<span class='description-percentage'>bpm</span>";
-            document.getElementById("hr_max").innerHTML = sesija2.hr_max+"<span class='description-percentage'>bpm</span>";
+            document.getElementById("distance").innerHTML = sesija2.dist;
+            document.getElementById("stroke_rate").innerHTML = sesija2.srate_avg;
+            document.getElementById("stroke_rate_max").innerHTML = sesija2.srate_max;
+            document.getElementById("hr").innerHTML = sesija2.hr_avg;
+            document.getElementById("hr_max").innerHTML = sesija2.hr_max;
             document.getElementById("pace").innerHTML = sesija2.pace500_avg;
-            document.getElementById("speed").innerHTML = sesija2.spd_avg+"<span class='description-percentage'>km/h</span>";
-            document.getElementById("power").innerHTML = sesija2.pwr_avg+"<span class='description-percentage'>W</span>";
-            document.getElementById("power_max").innerHTML = sesija2.pwr_max+"<span class='description-percentage'>W</span>";
-            document.getElementById("power_balance").innerHTML = sesija2.pwr_bal_avg+"<span class='description-percentage'>W</span>";
+            document.getElementById("speed").innerHTML = sesija2.spd_avg;
+            document.getElementById("power").innerHTML = sesija2.pwr_avg;
+            document.getElementById("power_max").innerHTML = sesija2.pwr_max;
+            document.getElementById("power_balance").innerHTML = sesija2.pwr_bal_avg;
             document.getElementById("angle").innerHTML = sesija2.ang_avg;
 
-            document.getElementById("calories").innerHTML =sesija2.cal+"<span class='description-percentage'>kCal</span>";
-            document.getElementById("uvod").innerHTML="BY <a href='profile.html'><?php echo $id; ?></a>"+" "+dat[0].date;
+            document.getElementById("calories").innerHTML =sesija2.cal;
+            document.getElementById("uvod").innerHTML="BY <a href='#'><?php echo $id; ?></a>"+" "+dat[0].date;
           
 
 
@@ -836,15 +804,8 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
   });
 
 
-
-
-  
-  
-  </script> 
+</script> 
 <!-- REQUIRED JS SCRIPTS --> 
-
-
-
 
 @endsection
 
@@ -927,121 +888,128 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="modal-param">
+
+                                <div class="modal-body">
+                                    <div class="modal-param">
                                                     <h2>Choose parametars</h2>
                                                     <p>Choose three parametars from the list</p>
-                                                </div>
-                                                <!-- List of Parametars -->
-                                                <div id="history-graph-params" class="param-box">
-                                                    <ul class="checkbox icheck modalParm-list">
+                                     </div>
+                                    
+                            <!-- List of Parametars -->
+                            <div id="history-graph-params" class="param-box">
+                                    <ul class="checkbox icheck modalParm-list">
                                                      
-                                         
-                                                      
-                                                        <li>
-                                                            <label for="pace2km">
-                                                                <input type="checkbox" name="parameters" id="pace2km" >
-                                                                Pace 2km
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                      <li>
+                                          <label for="time2">
+                                          <input type="checkbox" name="parameters" id="time2" value="time2">
+                                                 {{ config('parameters.time.title') }}
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+
+                                      <li>
+                                          <label for="distance2">
+                                          <input type="checkbox" name="parameters" id="distance2" value="distance2">
+                                                  {{ config('parameters.dist.title') }}
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+
+                                      <li>
+                                          <label for="speed2">
+                                          <input type="checkbox" name="parameters" id="speed2" value="speed_average">
+                                                     Speed
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+
+
+                                      <li>
+                                          <label for="pace500m">
+                                          <input type="checkbox" name="parameters" id="pace500m" >
+                                                Pace 500m
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+
+                                      <li>
+                                          <label for="pace2km">
+                                          <input type="checkbox" name="parameters" id="pace2km" >
+                                              Pace 2km
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+
+                                      <li>
+                                          <label for="hr2">
+                                          <input type="checkbox" name="parameters" id="hr2" >
+                                                HR
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+
+                                      <li>
+                                          <label for="strokeRate">
+                                          <input type="checkbox" name="parameters" id="strokeRate" value="stroke_rate_average">
+                                                Stroke Rate
+                                          </label>
+                                      </li><!-- End Parametar Item -->
                                                      
-                                                        <li>
-                                                            <label for="calories2">
-                                                                <input type="checkbox" name="parameters" id="calories2" >
-                                                                Calories
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="time2">
-                                                                <input type="checkbox" name="parameters" id="time2" value="time2">
-                                                                Time
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                     
-                                                        <li>
-                                                            <label for="pace500m">
-                                                                <input type="checkbox" name="parameters" id="pace500m" >
-                                                                Pace 500m
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                      <li>
+                                          <label for="calories2">
+                                          <input type="checkbox" name="parameters" id="calories2" > 
+                                                Calories
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+                                                        
+                                      <li>
+                                          <label for="powerBalance">
+                                          <input type="checkbox" name="parameters" id="powerBalance" value="power_left_average">
+                                                  Power Balance
+                                          </label>
+                                      </li><!-- End Parametar Item -->               
                                                       
-                                                        <li>
-                                                            <label for="strokeRate">
-                                                                <input type="checkbox" name="parameters" id="strokeRate" value="stroke_rate_average">
-                                                                Stroke Rate
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                         <li>
-                                                            <label for="power5">
-                                                                <input type="checkbox" name="parameters" id="power5" value="power" checked>
-                                                                Power
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                         <li>
-                                                            <label for="powerBalance">
-                                                                <input type="checkbox" name="parameters" id="powerBalance" value="power_left_average">
-                                                                Power Balance
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="powerL">
-                                                                <input type="checkbox" name="parameters" id="powerL" value="power_left_average">
-                                                                Power L
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                         <li>
-                                                            <label for="powerR">
-                                                                <input type="checkbox" name="parameters" id="powerR" value="power_right_average">
-                                                                Power R
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="distance2">
-                                                                <input type="checkbox" name="parameters" id="distance2" value="distance2">
-                                                                Distance
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                        <li>
-                                                            <label for="speed2">
-                                                                <input type="checkbox" name="parameters" id="speed2" value="speed_average">
-                                                                Speed
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                      
-                                                        <li>
-                                                            <label for="hr2">
-                                                                <input type="checkbox" name="parameters" id="hr2" >
-                                                                HR
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                      <li>
+                                          <label for="power5">
+                                          <input type="checkbox" name="parameters" id="power5" value="power" checked>
+                                                  Power
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+                                                       
+                                      <li>
+                                          <label for="powerL">
+                                          <input type="checkbox" name="parameters" id="powerL" value="power_left_average">
+                                                  Power L
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+
+                                      <li>
+                                          <label for="powerR">
+                                          <input type="checkbox" name="parameters" id="powerR" value="power_right_average">
+                                                  Power R
+                                          </label>
+                                      </li><!-- End Parametar Item -->
+                                                                       
+                                      <li>
+                                          <label for="angle5">
+                                           <input type="checkbox" name="parameters" id="angle5" >
+                                                  Angle 
+                                          </label>
+                                      </li><!-- End Parametar Item -->
                                                          
-                                                        <li>
-                                                            <label for="angle5">
-                                                                <input type="checkbox" name="parameters" id="angle5" >
-                                                                angle
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                      <li>
+                                          <label for="angle5l">
+                                          <input type="checkbox" name="parameters" id="angle5l" >
+                                                  Angle L
+                                          </label>
+                                      </li><!-- End Parametar Item -->
                                                          
-                                                        <li>
-                                                            <label for="angle5l">
-                                                                <input type="checkbox" name="parameters" id="angle5l" >
-                                                                angle l
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
-                                                         
-                                                        <li>
-                                                            <label for="angle5R">
-                                                                <input type="checkbox" name="parameters" id="angle5R" >
-                                                                angle r
-                                                            </label>
-                                                        </li><!-- End Parametar Item -->
+                                      <li>
+                                          <label for="angle5R">
+                                          <input type="checkbox" name="parameters" id="angle5R" >
+                                                  Angle R
+                                          </label>
+                                      </li><!-- End Parametar Item -->
                                                    
                                                       
-                                                    </ul><!-- /.contatcts-list -->
-
-
-                                                </div><!-- /.List of Parametars -->
+                                    </ul><!-- /.contatcts-list -->
+                            </div><!-- /.List of Parametars -->
                                             </div>
+
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                                                 <button type="button" id="promenaParametra" class="btn btn-primary margin-r-5" data-dismiss="modal" >
@@ -1110,10 +1078,11 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
       </div>
      <!-- ./ End of Share Btn -->
       <div class="row">
+      <br><br><br>
         <div class="col-sm-6 col-xs-12">
           <div class="description-block border-right">
             <h5 class="description-header diff" id="time"></h5>
-            <span class="description-text">Time</span> </div>
+            <span class="description-text">Time</span> {{ config('parameters.time.unit') }} </div>
           <!-- /.description-block --> 
         </div>
         <!-- /.col -->
@@ -1128,70 +1097,70 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         <div class="col-sm-6 col-xs-12">
           <div class="description-block border-right">
             <h5 class="description-header diff" id="distance"> <span class="description-percentage">km</span></h5>
-            <span class="description-text">Distance </span> </div>
+            <span class="description-text">Distance </span> {{ config('parameters.dist.unit') }} </div>
           <!-- /.description-block --> 
         </div>
         <!-- /.col -->
         <div class="col-sm-6 col-xs-12">
           <div class="description-block">
             <h5 class="description-header" id="stroke_rate"><span class="description-percentage">spm</span></h5>
-            <span class="description-text">Stroke rate</span> </div>
+            <span class="description-text">Stroke rate Average</span> {{ config('parameters.srate_avg.unit') }} </div>
           <!-- /.description-block --> 
         </div>
       </div>
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
           <h5 class="description-header diff" id="stroke_rate_max"> <span class="description-percentage">spm</span></h5>
-          <span class="description-text">Stroke rate MAX</span> </div>
+          <span class="description-text">Stroke rate MAX</span> {{ config('parameters.srate_max.unit') }} </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
           <h5 class="description-header diff" id="hr"> <span class="description-percentage">bpm</span></h5>
-          <span class="description-text">HR</span> </div>
+          <span class="description-text">Heart Rate Average</span> {{ config('parameters.hr_avg.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
           <h5 class="description-header diff" id="hr_max"><span class="description-percentage">bpm</span></h5>
-          <span class="description-text">HR MAX</span> </div>
+          <span class="description-text">Heart Rate MAX</span> {{ config('parameters.hr_max.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
           <h5 class="description-header diff" id="pace"></h5>
-          <span class="description-text">Pace 500m</span> </div>
+          <span class="description-text">Pace 500m</span> {{ config('parameters.pace500_avg.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
           <h5 class="description-header diff" id="speed"> <span class="description-percentage">km/h</span></h5>
-          <span class="description-text">Speed</span> </div>
+          <span class="description-text">Speed Average</span> {{ config('parameters.spd_avg.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
           <h5 class="description-header diff" id="power"> <span class="description-percentage">W</span></h5>
-          <span class="description-text">Power</span> </div>
+          <span class="description-text">Power Average</span> {{ config('parameters.pwr_avg.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
           <h5 class="description-header diff" id="power_max"> <span class="description-percentage">W</span></h5>
-          <span class="description-text">Power MAX</span> </div>
+          <span class="description-text">Power MAX</span> {{ config('parameters.pwr_max.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
           <h5 class="description-header diff-h2" id="power_balance"></h5>
-          <span class="description-text">Power Balance</span> </div>
+          <span class="description-text">Power Balance</span> {{ config('parameters.pwr_bal_avg.unit') }} </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
@@ -1200,13 +1169,14 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         <div class="col-sm-6 col-xs-12">
           <div class="description-block border-right">
             <h5 class="description-header diff" id="angle"></h5>
-            <span class="description-text">Angle</span> </div>
-          <!-- /.description-block --> 
+            <span class="description-text">Angle</span> {{ config('parameters.ang_avg.unit') }} </div>
+          <!-- /.description-block -->
+        </div> 
         <!-- /.col -->
-        <div class="col-sm-6 col-xs-12 height-fix">
-          <div class="description-block border-right">
-            <h5 class="description-header diff" id="calories"><span class="description-percentage">kCal</span></h5>
-            <span class="description-text">Calories</span> </div>
+        <div class="col-sm-6 col-xs-12">
+          <div class="description-block">
+            <h5 class="description-header diff" id="calories"><span class="description-percentage"></span></h5>
+            <span class="description-text">Calories</span> {{ config('parameters.cal.unit') }} </div>
           <!-- /.description-block --> 
         </div>
         <!-- /.col --> 
