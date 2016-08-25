@@ -159,7 +159,7 @@
                 <div class="col-md-12 white-bg box box-primary no-padding historyGraph graph-box">
                     <div class="graphic-header historyGraph-header">
                         <div class="historyGraph-header-body">
-                            <div>
+                                 <div>
                                 <h3 class="pull-left" id="tekst">History</h3>
                             </div>
                             <div class="pull-left left-options">
@@ -169,11 +169,12 @@
 
                             <div class="box-tools pull-right" style="margin-top: -8px;" id="strelice">
 
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous" id="next2"
                                    onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
+                                <a href="javascript:;" id="next1" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));
+                     
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
@@ -188,7 +189,11 @@
                                        onclick=" piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',moment().startOf('week')); "
                                             >Week</a>
                                     <a href="javascript:;" class="btn btn-link" id="month_history"
-                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));"
+                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
+                                            
+                                            
+                                       
+                                       "
                                             >Month</a>
                                     <a href="javascript:;" class="btn btn-link" id="year_history"
                                        onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));"
@@ -232,7 +237,7 @@
                                                     </div>
                                                     <!-- List of Parametars -->
                                                     <div id="history-graph-params" class="param-box">
-                                                        <ul class="checkbox icheck modalParm-list">
+                                                          <ul class="checkbox icheck modalParm-list">
                                                             <li>
                                                                 <label for="strokeCount">
                                                                     <input type="checkbox" name="parameters" id="strokeCount" value="scnt">
@@ -365,7 +370,7 @@
                                                             <li>
                                                                 <label for="powerRmax">
                                                                     <input type="checkbox" name="parameters" id="powerRmax" value="pwr_r_max">
-                                                                    <span class="pwr_r_max">Power right average</span>
+                                                                    <span class="pwr_r_max">Power right max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -401,7 +406,7 @@
                                                             <li>
                                                                 <label for="angleRightMax">
                                                                     <input type="checkbox" name="parameters" id="powerBalanceMax" value="ang_r_max">
-                                                                    <span class="ang_r_max">Angle left max</span>
+                                                                    <span class="ang_r_max">Angle right max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -412,8 +417,8 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleMax">
-                                                                    <input type="checkbox" name="parameters" id="powerBalanceMax" value="angleMax">
-                                                                    <span class="angleMax">Angle max</span>
+                                                                    <input type="checkbox" name="parameters" id="powerBalanceMax" value="ang_max">
+                                                                    <span class="ang_max">Angle max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
@@ -557,7 +562,7 @@
                 <!-- /.Graph Block-->
 
                 <!-- Graph Block-->
-                <div class="col-md-12 white-bg box box-primary">
+                   <div class="col-md-12 white-bg box box-primary">
                     <div class="graphic-box">
                         <div class="pull-left">
                             <h3 class="progress-h3" id="tekst2">Progress</h3>
@@ -566,10 +571,10 @@
 
                             <div class="box-tools pull-right"  id="strelice2">
 
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType)) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Next"
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType));
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
@@ -640,7 +645,6 @@
         </div><!-- /.row -->
 
     </section><!-- /.content -->
-
 @section('page-scripts')
   <script src="{{ URL::asset('js/moment-range.js') }}"></script>
     <script src="{{ URL::asset('dist/js/graphs.js') }}"></script>
