@@ -104,10 +104,10 @@ class SessionsRecentListController extends Controller {
 
 				   	// Ukoliko se api koristi preko weba, posalji vec uredjene parametre
 				   	if( Input::get("web") == 1){
-						$tmp['time']		=	gmdate("H:i:s", $value->sessionSummary["time"]);
-						$tmp['dist']		=	round($value->sessionSummary["distance"], 3);
-						$tmp['pwr_avg']		=	round($value->sessionSummary["power_average"], 2);
-						$tmp['hr_avg']		=	round($value->sessionSummary["heart_rate_average"], 2);
+						$tmp['time']		=	gmdate(config('parameters.time.format'), $value->sessionSummary["time"]);
+						$tmp['dist']		=	round($value->sessionSummary["distance"], config('parameters.dist.format'));
+						$tmp['pwr_avg']		=	round($value->sessionSummary["power_average"], config('parameters.pwr_avg.format'));
+						$tmp['hr_avg']		=	round($value->sessionSummary["heart_rate_average"], config('parameters.hr_avg.format'));
 					}else{ // ukoliko korisnik ide preko aplikacije
 						$tmp['time']		= 	$value->sessionSummary["time"];
 						$tmp['dist']		=	$value->sessionSummary["distance"];
