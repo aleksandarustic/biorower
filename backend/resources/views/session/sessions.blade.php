@@ -1,20 +1,6 @@
-
-
 @extends('layouts.main')
 
 @section('content')
- 	<!-- Main content -->
- <script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
-   <script type="text/javascript">
-
-
-        
- 
-
-</script>   
-
-
-
 <section class="content">
 
 
@@ -35,15 +21,15 @@
 					<table id="my-sessions" class="table table-hover table-bordered table-striped">
 						<thead>
 						<tr>
-							<th class="nosort">x</th>
+							<th class="nosort">#</th>
 							<th class="hiden" style="display:none;">id</th>
 						    <th class="nosort">Session</th>
 							<th class="nosort">Description</th>
-							<th class="nosort">Date</th>
-							<th class="nosort">Power</th>
-							<th class="nosort">Distance</th>
-							<th class="nosort">HR</th>
-							<th class="nosort">Time</th>
+							<th class="nosort">Date/Time</th>
+							<th class="nosort">Power {{ config('parameters.pwr_avg.unit') }}</th>
+							<th class="nosort">Distance {{ config('parameters.dist.unit') }}</th>
+							<th class="nosort">HR {{ config('parameters.hr_avg.unit') }}</th>
+							<th class="nosort">Time {{ config('parameters.time.unit') }}</th>
 							
 							
 							<th class="hiden" style="display:none;">Speed</th>
@@ -55,7 +41,7 @@
 							<th class="hiden" style="display:none;">Stroke Rate Max</th>
 							<th class="hiden" style="display:none;">Hearth Rate Max</th>
 							<th class="hiden" style="display:none;">Strokes</th>
-							<th>action</th>
+							<th>Action</th>
 							
 							
 							
@@ -265,7 +251,7 @@
 		        type: 'POST', 
 		        dataType: 'json',
 		        url : urlBase + '/api/v1/sessions_recent_list',
-		        data: {account: email2 ,offset:0,pageSize:80000
+		        data: {account: email2 ,offset:0,pageSize:80000, web:1
 		      
 
 		    }, 

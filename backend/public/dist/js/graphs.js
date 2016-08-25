@@ -317,11 +317,11 @@ $(function () {
 
         var end= moment();
         var s=new Date("October 10, 2016 11:13:00");
-<<<<<<< HEAD
+
         var s2=new Date("October 10, 2017 11:13:00");
-=======
+
         var s2=new Date("October 10, 207 11:13:00");
->>>>>>> ed776df7ab2986a2df1cc99b5a91f1cfd375666f
+
         var dr2=moment.range(s, s2);
 
         var range3=moment.range(piktoBiorowerGraph2.start, end);
