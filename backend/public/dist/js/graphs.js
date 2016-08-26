@@ -2,6 +2,8 @@
 
 
 $(function () {
+    
+    
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
@@ -11,6 +13,7 @@ $(function () {
 
 
     $(document).ready(function () {
+            
        
 
         var cb = function (start, end, label) {
@@ -122,7 +125,7 @@ $(function () {
                     $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
 
                 }else{
-                    $('.time2').append('-');
+                    $('.time').append('-');
                     $('.distance').append('-');
                     $('.power-average').append('-');
                     $('.heart-rate-avg').append('-');
@@ -157,6 +160,107 @@ $(function () {
                         
                         //console.log(data_dates);
 
+                        
+                       
+
+
+                  
+               
+            }
+        });
+
+
+
+    var data = {
+        account: 'biorower:' + $('#user-email').val(),
+        rangeType: 'all',
+
+
+    };
+    var data2 = {
+        account: 'biorower:' + $('#user-email').val(),
+        rangeType: 'all',
+        groupType:'week',
+
+
+    };
+
+
+    $.post('api/v1/sessions_history', data, function (response) {
+
+        piktoBiorowerGraph.start=moment( response.historydata.date[0]);
+        
+
+
+        var end= moment();
+        var s=new Date("October 10, 2016 11:13:00");
+        var s2=new Date("October 10, 2017 11:13:00");
+        var dr2=moment.range(s, s2);
+        var range2=moment.range(piktoBiorowerGraph.start, end);
+
+
+        if(range2<dr2){
+          
+            piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));
+            
+            $("#all_history").hide();
+            
+           
+            
+
+
+        }
+        else{
+            piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
+        }
+
+
+
+
+
+
+
+
+    });
+
+    $.post('api/v1/sessions_history', data2, function (response) {
+        piktoBiorowerGraph2.start=moment( response.historydata.date[0]);
+        
+
+
+        var end= moment();
+        var s=new Date("October 10, 2016 11:13:00");
+
+        var s2=new Date("October 10, 2017 11:13:00");
+
+       
+
+        var dr2=moment.range(s, s2);
+
+        var range3=moment.range(piktoBiorowerGraph2.start, end);
+
+
+        if(range3<dr2){
+            piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
+            $("#all_progress").hide();
+            $("#year_progress").hide();
+
+
+
+        }
+        else{
+              piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','','week');
+            
+        }
+
+
+
+
+    })
+    
+    
+    
+    
                         function showTooltip(x, y, contents) {
                             $('<div id="tooltip">' + contents + '</div>').css({
                                 position: 'absolute',
@@ -256,89 +360,10 @@ $(function () {
                             $("#history").UseTooltip();
 
 
-                        
-                       
-
-
-                  
-               
-            }
-        });
-
-
-
-    var data = {
-        account: 'biorower:' + $('#user-email').val(),
-        rangeType: 'all',
-
-
-    };
-    var data2 = {
-        account: 'biorower:' + $('#user-email').val(),
-        rangeType: 'all',
-        groupType:'week',
-
-
-    };
-
-
-    $.post('api/v1/sessions_history', data, function (response) {
-
-        piktoBiorowerGraph.start=moment( response.historydata.date[0]);
-
-
-        var end= moment();
-        var s=new Date("October 10, 2016 11:13:00");
-        var s2=new Date("October 10, 2017 11:13:00");
-        var dr2=moment.range(s, s2);
-        var range2=moment.range(piktoBiorowerGraph.start, end);
-
-
-        if(range2<dr2){
-            piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
-            $("#all_history").hide();
-            $("#year_history").hide();
-
-
-        }
-
-
-
-
-
-
-
-
-    });
-
-    $.post('api/v1/sessions_history', data2, function (response) {
-        piktoBiorowerGraph2.start=moment( response.historydata.date[0]);
-
-
-        var end= moment();
-        var s=new Date("October 10, 2016 11:13:00");
-
-        var s2=new Date("October 10, 2017 11:13:00");
-
-       
-
-        var dr2=moment.range(s, s2);
-
-        var range3=moment.range(piktoBiorowerGraph2.start, end);
-
-
-        if(range3<dr2){
-            piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
-            $("#all_progress").hide();
-
-
-
-        }
-
-
-
-
-    })
+    
+    
+    
+    
 
 
 
@@ -375,6 +400,7 @@ var piktoBiorowerGraph = {
     rangeType: 'all',
     parameters: [{slug:'scnt',label:'Stroke Count',yaxis:1}],
     start:null,
+    sadasnjost:null,
     transormData: function (historyData, parameter) {
         var rv = [];
         rv['label'] = parameter.label;
@@ -553,12 +579,19 @@ var piktoBiorowerGraph = {
 
         piktoBiorowerGraph.startDate = startDate;
         piktoBiorowerGraph.rangeType = rangeType;
+        
+        
+        
+          if(piktoBiorowerGraph.rangeType!="all"){
+               $('#strelice').show();
+          }
+     
       
         
          
                         var end= moment();
                                              
-                           if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
+                           if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end.subtract(1, piktoBiorowerGraph.rangeType)){
                                $("#next1").hide();
                                                             
                            }
@@ -583,6 +616,17 @@ var piktoBiorowerGraph = {
         $.post('api/v1/sessions_history', data, function (response) {
              piktoBiorowerGraph.historyData = response.historydata;
             var newHistoryData = piktoBiorowerGraph.getHistoryData(piktoBiorowerGraph.parameters);
+            
+            
+            
+               function formatter(val, axis) {
+                   var minutes = parseInt( val / 60 ) % 60;
+        
+                   
+                   
+    return minutes+":00" ; 
+}
+       
             
                 piktoBiorowerGraph.historyPlot = $.plot($("#history"),
                                 newHistoryData, {
@@ -625,7 +669,7 @@ var piktoBiorowerGraph = {
 
                                         labelWidth: 30,
                                         max:1200,
-                                        tickSize: 240 ,min:0,
+                                       tickFormatter: formatter ,min:0,
                                     },
                                      {
 
@@ -642,8 +686,7 @@ var piktoBiorowerGraph = {
                                     {
 
                                         labelWidth: 30,
-                                         mode: "time",
-                                         timeformat: "%H:%M:%S",
+                                       tickFormatter: formatter ,
                                          max:9000,min:0,
                                     },
                                     {
@@ -655,15 +698,14 @@ var piktoBiorowerGraph = {
                                       {
 
                                         labelWidth: 30,
-                                         mode: "time",
-                                         timeformat: "%M:%S",
-                                         max:300,min:0,
+                                        tickFormatter: formatter ,
+                                        max:300,
+                                        min:0
                                     },
                                      {
 
                                         labelWidth: 30,
-                                         mode: "time",
-                                         timeformat: "%M:%S",
+                                         tickFormatter: formatter ,
                                          max:1200,min:0,
                                     },
                                      {
@@ -693,8 +735,7 @@ var piktoBiorowerGraph = {
                                      {
 
                                         labelWidth: 30,
-                                         mode: "time",
-                                         timeformat: "%M:%S",
+                                          tickFormatter: formatter ,
                                          max:300,min:0,
                                     },
                                      {
@@ -820,27 +861,80 @@ var piktoBiorowerGraph = {
                             );
 
 
-              if(piktoBiorowerGraph.rangeType!="all"){
 
-            $('#tekst').text("History"+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).
-                startOf(piktoBiorowerGraph.rangeType).format('MMMM Do YYYY')+" - "
-            +moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph.rangeType).format('MMMM Do YYYY'));
 
-        }
         if(piktoBiorowerGraph.rangeType=="month"){
+            
+              var end= moment();
+          
+               if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>moment().startOf("month")){
+                  
+                   piktoBiorowerGraph.sadasnjost="ss";
+                   
+                               
+                                   piktoBiorowerGraph.startDate = end.subtract(1, "month"); 
+                                   
+                           }
+                           else{
+                                  piktoBiorowerGraph.sadasnjost=null;
+                           }
+                        
+             
+            
+            
             var axes = piktoBiorowerGraph.historyPlot.getAxes();
             axes.xaxis.options.timeformat="%d";
             axes.xaxis.options.tickSize=[1,"day"];
+              
+                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
+                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'month');
+            
+            $('#tekst').text("History"+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+            +moment(piktoBiorowerGraph.startDate).add(1,'month').format('MMMM Do YYYY'));
+           
         }
          if(piktoBiorowerGraph.rangeType=="week"){
+             var end=moment();
+             
+                 if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
+                              piktoBiorowerGraph.sadasnjost="ss";
+                            
+                                   piktoBiorowerGraph.startDate = end.subtract(1, "week"); 
+                                   
+                           }
+                            else{
+                                  piktoBiorowerGraph.sadasnjost=null;
+                           }
+             
+             
             var axes = piktoBiorowerGraph.historyPlot.getAxes();
             axes.xaxis.options.timeformat="%a %d";
             axes.xaxis.options.tickSize=[1,"day"];
+            
+                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
+                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'week');
+                 $('#tekst').text("History"+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+            +moment(piktoBiorowerGraph.startDate).add(1,'week').format('MMMM Do YYYY'));
         }
          if(piktoBiorowerGraph.rangeType=="year"){
+                 var end= moment();
+               if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
+                               piktoBiorowerGraph.sadasnjost="s";
+                                   piktoBiorowerGraph.startDate = end.subtract(1, "year"); 
+                                   
+                           }
+                            else{
+                                  piktoBiorowerGraph.sadasnjost=null;
+                           }
+             
             var axes = piktoBiorowerGraph.historyPlot.getAxes();
             axes.xaxis.options.timeformat="%b";
             axes.xaxis.options.tickSize=[1,"month"];
+              
+                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
+                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'year');
+                 $('#tekst').text("History"+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+            +moment(piktoBiorowerGraph.startDate).add(1,'year').format('MMMM Do YYYY'));
         }
             
             
@@ -868,14 +962,10 @@ var piktoBiorowerGraph = {
 
                 scnt2 = Math.max.apply(Math, scnt);
 
-
             }
             if(dist){
                 dist2 = Math.max.apply(Math, dist);
             }
-
-
-
 
             if(dist2>niz[8] && dist2<=niz[9]){
                 dist2=niz[10];
@@ -908,8 +998,6 @@ var piktoBiorowerGraph = {
 
                 dist2=niz[2];
             }
-
-
 
             if(time2>niz[8] && time2<=niz[9]){
                 time2=niz[10];
@@ -1010,12 +1098,6 @@ var piktoBiorowerGraph = {
                 scnt2=niz[2];
             }
 
-
-                 
-                 
-
-             
-
               opts.yaxes[0].max = scnt2;
               opts.yaxes[0].tickSize=scnt2/5;
               opts.yaxes[5].max = cal2;
@@ -1024,15 +1106,7 @@ var piktoBiorowerGraph = {
               opts.yaxes[6].tickSize=time2/5;
               opts.yaxes[12].max = dist2;
               opts.yaxes[12].tickSize=dist2/5;
-
-
-
-
-
-
-
-
-            var opts = piktoBiorowerGraph.historyPlot.getOptions();
+      
             var r= piktoBiorowerGraph.parameters;
             var duzina=r.length;
 
@@ -1073,6 +1147,19 @@ var piktoBiorowerGraph = {
             
             if(piktoBiorowerGraph.rangeType=='all'){
                 $('#strelice').hide();
+                
+                   var end= moment();
+               if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
+                               piktoBiorowerGraph.sadasnjost="s";
+                                  
+                                   
+                           }
+                            else{
+                                  piktoBiorowerGraph.sadasnjost=null;
+                           }
+                
+                
+                
                 axes.xaxis.options.min = undefined;
                 axes.xaxis.options.max = undefined;
                
@@ -1087,11 +1174,8 @@ var piktoBiorowerGraph = {
                 +moment().format('MMMM Do YYYY'));
           
 
-            } else {
-                $('#strelice').show();
-                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
-                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph.rangeType);
-            }
+            } 
+         
             piktoBiorowerGraph.historyPlot.setupGrid();
             piktoBiorowerGraph.historyPlot.draw();
         });
@@ -1270,8 +1354,7 @@ var piktoBiorowerGraph2 = {
         piktoBiorowerGraph2.rangeType = rangeType;
          piktoBiorowerGraph2.groupType = groupType;
         
-        
-       
+     
         
              var end= moment();
                                           
@@ -1308,239 +1391,245 @@ var piktoBiorowerGraph2 = {
             
             
             
+                function formatter(val, axis) {
+                   var minutes = parseInt( val / 60 ) % 60;
+        
+                   
+                   
+    return minutes+":00" ; 
+}
+            
+            
+            
                piktoBiorowerGraph2.progressPlot=$.plot($("#progress"),
                                 newHistoryData, {
                                     grid: {
                                         hoverable: true,
-                                        clickable: false,
+                                        clickable: true,
                                         mouseActiveRadius: 30,
                                         backgroundColor: false,
                                         borderColor: "#f3f3f3",
                                         borderWidth: 1,
-                                        tickColor: "#f3f3f3"
+                                        tickColor: "#f3f3f3",
                                     },
                                     legend: {
-                                        noColumns: 1
+                                        noColumns: 3
                                     },
-                                      colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
+                                    colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
                                         "#FF0000FF","#FF00FF00","#FFFF0000","#FFFF8000","#FFFFFF60","#FFFFFF60","#FF0000FF",
                                         "#FFFFFFFF","#FFFF8000","#FF804000","#FFFFFF60","#FF606060","#FF606060","#FFFFFF60","#FF008000",
                                         "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
                                         "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
-                                      yaxes:[ {
-                                        
+                                    yaxes:[ {
+
                                         labelWidth: 30,
-                                        max:5000,
-                                        tickSize: 1000 ,
+
                                         min:0,
-                                       
+
                                     },{
-                                      
+
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                     {
-                                       
+
                                         labelWidth: 30,
                                         max:10,
                                         tickSize: 2 ,min:0,
                                     },
                                       {
-                                       
+
                                         labelWidth: 30,
                                         max:1200,
-                                        tickSize: 240 ,min:0,
+                                       tickFormatter: formatter ,min:0,
                                     },
                                      {
-                                        
+
                                         labelWidth: 30,
                                         max:250,
                                          tickSize: 50 ,min:0,
                                     },
                                     {
-                                        
+
                                         labelWidth: 30,
                                         max:2000,
                                          tickSize: 400 ,min:0,
                                     },
                                     {
-                                        
+
                                         labelWidth: 30,
-                                         mode: "time",
-                                         timeformat: "%H:%M:%S",
+                                       tickFormatter: formatter ,
                                          max:9000,min:0,
                                     },
                                     {
-                                      
+
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                       {
-                                        
+
                                         labelWidth: 30,
-                                         mode: "time",
-                                         timeformat: "%M:%S",
-                                         max:300,min:0,
+                                        tickFormatter: formatter ,
+                                        max:300,
+                                        min:0
                                     },
                                      {
-                                        
+
                                         labelWidth: 30,
-                                         mode: "time",
-                                         timeformat: "%M:%S",
+                                         tickFormatter: formatter ,
                                          max:1200,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:50,
                                          tickSize: 10 ,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:750,
                                          tickSize: 150 ,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:20,
                                         tickSize: 4 ,min:0,
                                     },
                                      {
-                                        
+
                                         labelWidth: 30,
-                                         mode: "time",
-                                         timeformat: "%M:%S",
+                                          tickFormatter: formatter ,
                                          max:300,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:250,
                                         tickSize: 50 ,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:50,
                                         tickSize: 10 ,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                        {
-                                      
+
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                      {
-                                      
+
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                        {
-                                      
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
-                                      
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
-                                      
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
-                                        
-                                        
+
+
                                     },
                                        {
-                                      
-                                        labelWidth: 30,
-                                        max:150,
-                                        tickSize: 30,min:0,
-                                    },
-                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
-                                      
+
+                                        labelWidth: 30,
+                                        max:150,
+                                        tickSize: 30,min:0,
+                                    },
+                                       {
+
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                       {
-                                      
+
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
-                                
-                                
-                                
-                                
+
+
+
+
                                 ],
                                     xaxis: {
                                         show: true,
                                         labelHeight: 30,
                                         mode: 'time',
-                                        timeformat: "%d.%m.%Y"
-                                    },
-                                    legend: {
-                                        show: true
-                                    }
 
+                                        timeformat:"%b",
+                                        tickSize:[1,"month"],
+
+
+                                    }
                                 }
                             );
             

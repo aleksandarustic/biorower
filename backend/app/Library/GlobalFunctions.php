@@ -294,7 +294,7 @@ use Carbon;
 				    case ("month"):
 				    	$lastDay = clone $firstDay;
 				    	$lastDay->addMonth();
-						$lastDay->day = 0;
+						
 				        break;
 				    case ("year"):
 				    	$lastDay = clone $firstDay;

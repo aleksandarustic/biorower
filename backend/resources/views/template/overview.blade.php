@@ -45,7 +45,7 @@
                             <!-- Item 3.1 -->
                             <div class="col-sm-6 about-middle">
                                 <div class="act-block about-value-box">
-                                    <div class="about-value time"></div>
+                                    <div class="about-value time2"></div>
                                     <div class="about-vname">Training time</div>
                                 </div>
                                 <!-- Item 3.2 -->
@@ -186,17 +186,55 @@
 
 
                                     <a href="javascript:;" class="btn btn-link" id="week_history"
-                                       onclick=" piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',moment().startOf('week')); "
+                                       onclick="
+                                    if(piktoBiorowerGraph.startDate==''){
+                piktoBiorowerGraph.startDate=moment().startOf('week');
+             
+                  
+            }  
+         
+            if(piktoBiorowerGraph.sadasnjost!=null){
+                  piktoBiorowerGraph.startDate=moment().startOf('week');
+                
+            }
+         
+    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',piktoBiorowerGraph.startDate); "
                                             >Week</a>
                                     <a href="javascript:;" class="btn btn-link" id="month_history"
-                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
+                                       onclick="
+                                                                          
+            if(piktoBiorowerGraph.startDate==''){
+                piktoBiorowerGraph.startDate=moment().startOf('month');
+                  
+            } 
+            
+             if(piktoBiorowerGraph.sadasnjost!=null){
+                  piktoBiorowerGraph.startDate=moment().startOf('month');
+                  
+            }
+          
+            
+            
+                piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',piktoBiorowerGraph.startDate);
                                             
                                             
                                        
                                        "
                                             >Month</a>
                                     <a href="javascript:;" class="btn btn-link" id="year_history"
-                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));"
+                                       onclick="
+                                            if(piktoBiorowerGraph.startDate==''){
+                piktoBiorowerGraph.startDate=moment().startOf('year');
+                  
+            } 
+            
+             if(piktoBiorowerGraph.sadasnjost!=null){
+                  piktoBiorowerGraph.startDate=moment().startOf('year');
+                 
+            }
+           
+    
+    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph.startDate);"
                                             >Year</a>
                                     <a href="javascript:;" class="btn btn-sm btn-primary" id="all_history"
                                        onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');"
@@ -572,7 +610,8 @@
                             <div class="box-tools pull-right"  id="strelice2">
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
-                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType)) ;"
+                                   onclick="
+                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType)) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType));
@@ -586,10 +625,24 @@
 
                                     <div class="pull-right change-btn">
                                         <a href="javascript:;" class="btn btn-link" id="year_progress"
-                                           onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));"
+                                           onclick="
+                                       
+                        if(piktoBiorowerGraph2.startDate==''){
+                piktoBiorowerGraph2.startDate=moment().startOf('year');
+             
+                  
+            }  
+         
+            if(piktoBiorowerGraph2.sadasnjost!=null){
+                  piktoBiorowerGraph2.startDate=moment().startOf('year');
+                
+            }
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate);"
                                                 >Year</a>
                                         <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
-                                           onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','');"
+                                           onclick="
+                                     
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','');"
                                                 >All</a>
                                         <a href="javascript:;" class="btn btn-sm btn-primary" id="skaliranje2"
                                                 >X1</a>
@@ -652,9 +705,12 @@
 
     <script>
         $(document).ready(function () {
-             piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
-             piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all',piktoBiorowerGraph2.startDate,'week');
+            
+            
+            
+             
        
+             
             var skaliranje=500;
             var skaliranje2=500;
           
