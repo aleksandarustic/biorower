@@ -204,6 +204,7 @@ $(function () {
             piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));
             
             $("#all_history").hide();
+       
             
            
             
@@ -212,6 +213,10 @@ $(function () {
         }
         else{
             piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
+             
+             
+             
+             
         }
 
 
@@ -241,15 +246,17 @@ $(function () {
 
 
         if(range3<dr2){
-            piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'month',moment().startOf('month'));
+            piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));
             $("#all_progress").hide();
-            $("#year_progress").hide();
+           
+            
 
 
 
         }
         else{
               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','','week');
+               
             
         }
 
@@ -640,7 +647,9 @@ var piktoBiorowerGraph = {
                                         tickColor: "#f3f3f3",
                                     },
                                     legend: {
-                                        noColumns: 3
+                                        noColumns: 3,
+                                        position:"nw"
+                                        
                                     },
                                     colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
                                         "#FF0000FF","#FF00FF00","#FFFF0000","#FFFF8000","#FFFFFF60","#FFFFFF60","#FF0000FF",
@@ -866,6 +875,7 @@ var piktoBiorowerGraph = {
         if(piktoBiorowerGraph.rangeType=="month"){
             
               var end= moment();
+              
           
                if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>moment().startOf("month")){
                   
@@ -889,7 +899,7 @@ var piktoBiorowerGraph = {
                 axes.xaxis.options.min = piktoBiorowerGraph.startDate;
                 axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'month');
             
-            $('#tekst').text("History"+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+            $('#tekst').html("History"+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
             +moment(piktoBiorowerGraph.startDate).add(1,'month').format('MMMM Do YYYY'));
            
         }
@@ -913,11 +923,12 @@ var piktoBiorowerGraph = {
             
                 axes.xaxis.options.min = piktoBiorowerGraph.startDate;
                 axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'week');
-                 $('#tekst').text("History"+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+                 $('#tekst').html("History"+'&nbsp;&nbsp;&nbsp;&nbsp'+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
             +moment(piktoBiorowerGraph.startDate).add(1,'week').format('MMMM Do YYYY'));
         }
          if(piktoBiorowerGraph.rangeType=="year"){
                  var end= moment();
+                  
                if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
                                piktoBiorowerGraph.sadasnjost="s";
                                    piktoBiorowerGraph.startDate = end.subtract(1, "year"); 
@@ -933,7 +944,7 @@ var piktoBiorowerGraph = {
               
                 axes.xaxis.options.min = piktoBiorowerGraph.startDate;
                 axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'year');
-                 $('#tekst').text("History"+" "+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+                 $('#tekst').html("History"+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
             +moment(piktoBiorowerGraph.startDate).add(1,'year').format('MMMM Do YYYY'));
         }
             
@@ -1147,6 +1158,8 @@ var piktoBiorowerGraph = {
             
             if(piktoBiorowerGraph.rangeType=='all'){
                 $('#strelice').hide();
+              
+                
                 
                    var end= moment();
                if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
@@ -1155,6 +1168,7 @@ var piktoBiorowerGraph = {
                                    
                            }
                             else{
+                                $
                                   piktoBiorowerGraph.sadasnjost=null;
                            }
                 
@@ -1170,7 +1184,7 @@ var piktoBiorowerGraph = {
          
             
        
-                $('#tekst').text("History "+" "+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
+                $('#tekst').html("History "+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
                 +moment().format('MMMM Do YYYY'));
           
 
@@ -1379,7 +1393,7 @@ var piktoBiorowerGraph2 = {
         
         if(piktoBiorowerGraph2.rangeType!="all"){
 
-            $('#tekst2').text("Progress        "+" "+" "+moment(piktoBiorowerGraph2.startDate.format('YYYY-MM-DD')).
+            $('#tekst2').html("Progress"+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(piktoBiorowerGraph2.startDate.format('YYYY-MM-DD')).
                 startOf(piktoBiorowerGraph2.rangeType).format('MMMM Do YYYY')+" - "
             +moment(piktoBiorowerGraph2.startDate.format('YYYY-MM-DD')).endOf(piktoBiorowerGraph2.rangeType).format('MMMM Do YYYY'));
 
@@ -1413,7 +1427,8 @@ var piktoBiorowerGraph2 = {
                                         tickColor: "#f3f3f3",
                                     },
                                     legend: {
-                                        noColumns: 3
+                                        noColumns: 3,
+                                        position:"nw",
                                     },
                                     colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
                                         "#FF0000FF","#FF00FF00","#FFFF0000","#FFFF8000","#FFFFFF60","#FFFFFF60","#FF0000FF",
@@ -1898,7 +1913,7 @@ var piktoBiorowerGraph2 = {
                       
                  axes.xaxis.options.timeformat="%b";
                     axes.xaxis.options.tickSize=[1,"month"];
-                $('#tekst2').text("Progress "+" "+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
+                $('#tekst2').html("Progress "+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
                 +moment().format('MMMM Do YYYY'));
             }
             else {
