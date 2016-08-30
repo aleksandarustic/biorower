@@ -51,13 +51,12 @@ class ResetController extends Controller {
 				array_push($recipient, $user->first_name);
 				array_push($recipient, $user->last_name);				
 
-				$linkAdd = Request::root()."/password/reset-password?id_and=".$encodedID."&email=".$encodedEmail."&exp=".$encodedTime;
+				//$linkAdd = Request::root()."/password/reset-password?id_and=".$encodedID."&email=".$encodedEmail."&exp=".$encodedTime;
 
 				if (strpos($user->email, "@btemp.com") === false){
-					Mail::send('emails.password_andr', ['url' => $linkAdd], function($message) use ($recipient)
-					{
-						$name = $recipient[1]." ".$recipient[2];
-					    $message->to($recipient[0], $name)->subject('Your Password Reset Link');
+					Mail::send('emails.password', ['user' => $user], function ($m) use ($user) {
+					$m->from('admin@biorower', 'Biorower');
+					$m->to($user->email, $user->first_name)->subject('Biorower Password Reset');
 					});
 				}
 			}
