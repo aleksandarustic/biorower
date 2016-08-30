@@ -52,7 +52,10 @@ class AddUserController extends Controller {
 			 		$user->password = bcrypt(Input::get("password"));
 
 			 		$token = bin2hex(openssl_random_pseudo_bytes(16));
+			 		$random = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 100)), 0, 100);
+			 		
 					$user->auth_token = $token;
+					$user->reset_password_code = $random;
 
 					$arrayEmail = explode("@", Input::get("emailAddress"));
 					$allUsers = User::where('linkname', 'LIKE',  $arrayEmail[0] . '%')->get();
