@@ -832,10 +832,10 @@
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="
-                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType)) ;"
+                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
-                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType));
+                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
@@ -854,23 +854,23 @@
 
                     <a href="javascript:;" class="btn btn-link" id="year_progress"
                                            onclick="
-                                       
-                        if(piktoBiorowerGraph2.startDate==''){
+                                                    if(piktoBiorowerGraph2.startDate==''){
                 piktoBiorowerGraph2.startDate=moment().startOf('year');
-             
                   
-            }  
-         
-            if(piktoBiorowerGraph2.sadasnjost!=null){
+            } 
+            
+             if(piktoBiorowerGraph2.sadasnjost!=null){
                   piktoBiorowerGraph2.startDate=moment().startOf('year');
-                
+                 
             }
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate);"
+           
+    
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);"
                                                 >Year</a>
                                         <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
                                            onclick="
                                      
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','');"
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','',piktoBiorowerGraph2.groupType);"
                                                 >All</a>
                                 
                                 </div>
@@ -887,9 +887,13 @@
                                 <div class="graphic-footer" >
                                         <a href="javascript:;" class="pull-right btn-param" style=" margin-right: 10px;" id="skaliranje2"
                                                 >X1</a>
-                                                 <a href="javascript:;" class="pull-right btn-param" id="izbor1"  onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month')"
+                                                 <a href="javascript:;" class="pull-right btn-param" id="izbor1"  onclick="
+                                         
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month')"
                                         >Month</a>
-                                <a href="javascript:;" class="pull-right btn-param" id="izbor2"  onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week')"
+                                <a href="javascript:;" class="pull-right btn-param" id="izbor2"  onclick="
+                               
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week')"
                                         >Week</a>
                                     
                                  <a class="pull-left btn-param" href="#" data-toggle="modal" data-target="#myParam" id="link2"><i class="fa fa-cog"></i></a>
