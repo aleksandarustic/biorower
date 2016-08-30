@@ -117,7 +117,7 @@ $(function () {
                 var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
                 // PRIKAZ PODATAKA POSLEDNJE SESIJE
                 if (response.sessionsRecentList.length !== 0) {
-                    $('.time2').append(json[0].time);
+                    $('.time3').append(json[0].time);
                     $('.distance').append(json[0].dist);
                     $('.power-average').append(json[0].pwr_avg);
                     $('.heart-rate-avg').append(json[0].hr_avg);
@@ -199,7 +199,8 @@ $(function () {
         if(range2<dr2){
           
             piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));
-            
+              $("#year_history").css("text-decoration","underline");             
+              
             $("#all_history").hide();
        
             
@@ -210,7 +211,7 @@ $(function () {
         }
         else{
             piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
-             
+               $("#all_history").css("background-color","#286090");
              
              
              
@@ -246,6 +247,7 @@ $(function () {
         if(range3<dr2){
             piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'),'week');
             $("#all_progress").hide();
+            $("#year_progress").css("text-decoration","underline");     
            
             
 
@@ -254,6 +256,7 @@ $(function () {
         }
         else{
               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','','week');
+              $("#all_progress").css("background-color","#286090");
                
             
         }
@@ -873,8 +876,11 @@ var piktoBiorowerGraph = {
         if(piktoBiorowerGraph.rangeType=="month"){
             
               var end= moment();
-              
-          
+                 $("#year_history").css("text-decoration","none");
+                 $("#week_history").css("text-decoration","none");
+                 $("#month_history").css("text-decoration","underline");
+                 $("#all_history").css("background-color","#3c8dbc");
+                 
                if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>moment().startOf("month")){
                   
                    piktoBiorowerGraph.sadasnjost="ss";
@@ -903,7 +909,10 @@ var piktoBiorowerGraph = {
         }
          if(piktoBiorowerGraph.rangeType=="week"){
              var end=moment();
-             
+                $("#year_history").css("text-decoration","none");
+                 $("#week_history").css("text-decoration","underline");
+                 $("#month_history").css("text-decoration","none");
+                 $("#all_history").css("background-color","#3c8dbc");
                  if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
                               piktoBiorowerGraph.sadasnjost="ss";
                             
@@ -926,6 +935,10 @@ var piktoBiorowerGraph = {
         }
          if(piktoBiorowerGraph.rangeType=="year"){
                  var end= moment();
+                 $("#year_history").css("text-decoration","underline");
+                 $("#week_history").css("text-decoration","none");
+                 $("#month_history").css("text-decoration","none");
+                 $("#all_history").css("background-color","#3c8dbc");
                   
                if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
                                piktoBiorowerGraph.sadasnjost="s";
@@ -1156,8 +1169,12 @@ var piktoBiorowerGraph = {
             
             if(piktoBiorowerGraph.rangeType=='all'){
                 $('#strelice').hide();
-              
-                
+                  $("#year_history").css("text-decoration","none");
+                 $("#week_history").css("text-decoration","none");
+                 $("#month_history").css("text-decoration","none");
+                  $("#all_history").css("background-color","#286090");
+               
+               
                 
                    var end= moment();
                if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
@@ -1647,6 +1664,8 @@ var piktoBiorowerGraph2 = {
         
              if(piktoBiorowerGraph2.rangeType=="year"){
                  var end= moment();
+                   $("#year_progress").css("text-decoration","underline");
+                 $("#all_progress").css("background-color","#3c8dbc");
                   
                if(moment(piktoBiorowerGraph2.startDate).endOf(piktoBiorowerGraph2.rangeType)>end){
                                piktoBiorowerGraph2.sadasnjost="s";
@@ -1673,7 +1692,9 @@ var piktoBiorowerGraph2 = {
         
           if(piktoBiorowerGraph2.rangeType=='all'){
                 $('#strelice2').hide();
-              
+               $("#year_progress").css("text-decoration","none");
+               
+                  $("#all_progress").css("background-color","#286090");
                 
                 
                    var end= moment();
@@ -1778,8 +1799,6 @@ var piktoBiorowerGraph2 = {
 
                 dist2=niz[2];
             }
-
-
 
             if(time2>niz[8] && time2<=niz[9]){
                 time2=niz[10];

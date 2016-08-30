@@ -45,7 +45,7 @@
                             <!-- Item 3.1 -->
                             <div class="col-sm-6 about-middle">
                                 <div class="act-block about-value-box">
-                                    <div class="about-value time2"></div>
+                                    <div class="about-value time3"></div>
                                     <div class="about-vname">Training time</div>
                                 </div>
                                 <!-- Item 3.2 -->
@@ -312,14 +312,14 @@
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
                                                             <li>
-                                                                <label for="calories">
-                                                                    <input type="checkbox" class="parameters" id="calories" value="cal">
+                                                                <label for="calories23">
+                                                                    <input type="checkbox" class="parameters" id="calories23" value="cal">
                                                                     <span class="cal">Calories</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
                                                             <li>
-                                                                <label for="time2">
-                                                                    <input type="checkbox" class="parameters" id="time2" value="time">
+                                                                <label for="time23">
+                                                                    <input type="checkbox" class="parameters" id="time23" value="time">
                                                                     <span class="time">Time</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
@@ -436,19 +436,19 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleLeftMax">
-                                                                    <input type="checkbox" class="parameters" id="powerBalanceMax" value="ang_l_max">
+                                                                    <input type="checkbox" class="parameters" id="angleLeftMax" value="ang_l_max">
                                                                     <span class="ang_l_max">Angle left Max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
                                                                 <label for="angleRightAvg">
-                                                                    <input type="checkbox" class="parameters" id="powerBalanceMax" value="ang_r_avg">
+                                                                    <input type="checkbox" class="parameters" id="angleRightAvg" value="ang_r_avg">
                                                                     <span class="ang_r_avg">Angle right average</span>
                                                                 </label>
                                                             </li>
                                                             <li>
                                                                 <label for="angleRightMax">
-                                                                    <input type="checkbox" class="parameters" id="powerBalanceMax" value="ang_r_max">
+                                                                    <input type="checkbox" class="parameters" id="angleRightMax" value="ang_r_max">
                                                                     <span class="ang_r_max">Angle right max</span>
                                                                 </label>
                                                             </li>
@@ -460,7 +460,7 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleMax">
-                                                                    <input type="checkbox" class="parameters" id="powerBalanceMax" value="ang_max">
+                                                                    <input type="checkbox" class="parameters" id="angleMax" value="ang_max">
                                                                     <span class="ang_max">Angle max</span>
                                                                 </label>
                                                             </li>
@@ -643,19 +643,19 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleLeftMax2">
-                                                                    <input type="checkbox" class="parameters2" id="powerBalanceMax2" value="ang_l_max">
+                                                                    <input type="checkbox" class="parameters2" id="angleLeftMax2" value="ang_l_max">
                                                                     <span class="ang_l_max2">Angle left Max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
                                                                 <label for="angleRightAvg2">
-                                                                    <input type="checkbox" class="parameters2" id="powerBalanceMax2" value="ang_r_avg">
+                                                                    <input type="checkbox" class="parameters2" id="angleRightAvg2" value="ang_r_avg">
                                                                     <span class="ang_r_avg2">Angle right average</span>
                                                                 </label>
                                                             </li>
                                                             <li>
                                                                 <label for="angleRightMax2">
-                                                                    <input type="checkbox" class="parameters2" id="powerBalanceMax2" value="ang_r_max">
+                                                                    <input type="checkbox" class="parameters2" id="angleRightMax2" value="ang_r_max">
                                                                     <span class="ang_r_max2">Angle right max</span>
                                                                 </label>
                                                             </li>
@@ -667,7 +667,7 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleMax2">
-                                                                    <input type="checkbox" class="parameters2" id="powerBalanceMax2" value="ang_max">
+                                                                    <input type="checkbox" class="parameters2" id="angleMax2" value="ang_max">
                                                                     <span class="ang_max2">Angle max</span>
                                                                 </label>
                                                             </li>
@@ -949,20 +949,39 @@
 
     <script>
         $(document).ready(function () {
+            
          
-        
-        $('#history-graph-params ul input').click(function(){
-            if($('.parameters:checked').size()==4){
-                
-                var last_element =  $('.parameters:checked')[ $('.parameters:checked').length - 1];
-                
+  
+            
+            
+         
+     $('.parameters').on('ifClicked', function(event){
+            
+             if ($('.parameters').filter(':checked').length == 3) {
+              var s=$('.parameters').filter(':checked')[2].id;
              
-             $('.parameters:checked')[ $('.parameters:checked').length - 1].iCheck('uncheck');
+      $('#'+s).iCheck('uncheck');
       
-               
-            }
+    }
+           
+           
           
         });
+        
+        
+          $('.parameters2').on('ifClicked', function(event){
+            
+             if ($('.parameters2').filter(':checked').length == 3) {
+              var s=$('.parameters2').filter(':checked')[2].id;
+             
+      $('#'+s).iCheck('uncheck');
+      
+    }
+           
+           
+          
+        });
+     
         
      
        
