@@ -16,6 +16,8 @@
 </div>
 
 <div class="login">
+
+
 	<div>
 		@if (session('status-success'))
 			<div class="alert alert-success">
@@ -31,7 +33,18 @@
 			<div class="alert alert-danger">
 				<strong>Whoops!</strong> There were some problems with your input.<br><br>
 				<ul>
-					<li>{{ session('status') }}</li>
+					<li>{{ session('status') }}</li>	
+				</ul>
+			</div>
+		@endif
+	</div>
+	<div>
+		@if ($errors->first('password') or $errors->first('email') )
+			<div class="alert alert-danger">
+				<strong>Whoops!</strong> There were some problems with your input.<br><br>
+				<ul>
+					<?php echo $errors->first('email', '<li>:message</li>'); ?>
+					<?php echo $errors->first('password', '<li>:message</li>'); ?>	
 				</ul>
 			</div>
 		@endif
@@ -79,7 +92,7 @@
 				<div class="social-auth-links text-center margin-top">
 					<p>- or sign in via social network -</p>
 					<a href="{{ url('login/facebook') }}" class="btn btn-social btn-facebook btn-flat ghost-btn inline col-xs-5"><i class="fa fa-facebook"></i> Facebook login</a>
-					<a href="{{ url('login/twitter') }}" class="btn btn-social btn-twitter btn-flat ghost-btn inline col-xs-5 margin-left"><i class="fa fa-twitter"></i> Twitter login</a>
+					<a href="{{ url('auth/twitter') }}" class="btn btn-social btn-twitter btn-flat ghost-btn inline col-xs-5 margin-left"><i class="fa fa-twitter"></i> Twitter login</a>
 				</div>
 				<!-- /.social-auth-links -->
 
@@ -122,6 +135,21 @@
 <script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ URL::asset('plugins/iCheck/icheck.min.js') }}"></script>
+<script>
+	$(function() { 
+    // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        // save the latest tab; use cookies if you like 'em better:
+        localStorage.setItem('lastTab', $(this).attr('href'));
+    });
+
+    // go to the latest tab, if it exists:
+    var lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+        $('[href="' + lastTab + '"]').tab('show');
+    }
+});
+</script>
 <script>
 	$(function () {
 		$('input').iCheck({
