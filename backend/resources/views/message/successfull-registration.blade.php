@@ -24,11 +24,17 @@
             </div>
         </div>
 
-        <div style="text-align: center">
+        <div style="text-align: center;">
             <h3>Thank you for registering! </h3>
             <p>
                 Your registration request has been sent to our administration for approval. <br>
-                <a href="{{ url('/') }}">Go back</a>
+            <br>
+            <div class="row">
+            <div class="col-xs-6 col-md-4"></div>
+            <div class="col-xs-6 col-md-4">
+                <a href="{{ url('/') }}" class="btn btn-primary btn-block btn-flat">Go back</a>
+            </div>
+            </div>
             </p>
         </div>
 
