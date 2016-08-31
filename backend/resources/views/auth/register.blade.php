@@ -15,30 +15,42 @@
 	<div class="dark-bg"></div>
 </div>
 <div class="login">
-	@if (count($errors) > 0) 
-	<div class="alert alert-danger"> 
-		<strong>Whoops!</strong> There were some problems with your input.<br><br> 
-		<ul> 
-			@foreach ($errors->all() as $error) 
-			<li>{{ $error }}</li> 
-			@endforeach
-		</ul> 
-	</div> 
-	@endif
+	<div>
+		@if (session('status'))
+			<div class="alert alert-danger">
+				<strong>Whoops!</strong> There were some problems with your input.<br><br>
+				<ul>
+					<li>{{ session('status') }}</li>	
+				</ul>
+			</div>
+		@endif
+	</div>
+	<div>
+		@if ($errors->first('password') or $errors->first('email') or $errors->first('terms'))
+			<div class="alert alert-danger">
+				<strong>Whoops!</strong> There were some problems with your input.<br><br>
+				<ul>
+					<?php echo $errors->first('email', '<li>:message</li>'); ?>
+					<?php echo $errors->first('password', '<li>:message</li>'); ?>
+					<?php echo $errors->first('terms', '<li>:message</li>'); ?>		
+				</ul>
+			</div>
+		@endif
+	</div>
 	<div class="tab-content">
 		<div class="login-box active tab-pane" id="login">
 			<div class="login-box-body">
 				<div class="login-logo">
-					<a href="profile.html"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
+					<a href="{{ url('/') }}"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
 				</div><!-- /.login-logo -->
 				<form action="{{ url('/register') }}" method="post">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group has-feedback">
-						<input type="text" name="first_name" placeholder="First name">
+						<input type="text" name="first_name" placeholder="First name" value="{{ old('first_name') }}">
 						<span class="glyphicon glyphicon-user form-control-feedback"></span>
 					</div>
 					<div class="form-group has-feedback">
-						<input type="text" name="last_name" placeholder="Last name">
+						<input type="text" name="last_name" placeholder="Last name" value="{{ old('last_name') }}">
 						<span class="glyphicon glyphicon-user form-control-feedback"></span>
 					</div>
 					<div class="form-group has-feedback">
@@ -57,7 +69,7 @@
 						<div class="col-xs-6">
 							<div class="checkbox icheck">
 								<label>
-									<input type="checkbox"> I agree to the <a href="#">terms</a>
+									<input type="checkbox" name="terms"> I agree to the <a href="#" class="link-underline">terms</a>
 								</label>
 							</div>
 						</div><!-- /.col -->

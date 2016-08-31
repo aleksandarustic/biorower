@@ -11,6 +11,18 @@
             </div>
         @endif
     </div>
+    <div>
+        @if ($errors->first('password') or $errors->first('password_confirmation') )
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    <?php echo $errors->first('password', '<li>:message</li>'); ?>
+                    <?php echo $errors->first('password_confirmation', '<li>:message</li>'); ?>  
+                </ul>
+            </div>
+        @endif
+    </div>
+
     <div id="myCarousel" class="carousel container slide carousel-fade">
         <div class="carousel-inner">
             <div class="active item one"></div>

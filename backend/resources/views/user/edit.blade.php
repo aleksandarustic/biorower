@@ -1,8 +1,6 @@
 @extends('layouts.main')
 
 @section('page-script')
-	
-
 	<script type="text/javascript">
 		$(function(){	
 		    function showCoords(c)
@@ -31,8 +29,6 @@
 
 		})
 	</script>
-
-
 @endsection
 
 
@@ -40,7 +36,8 @@
 @section('content')
 <section class="content">
 	<div class="row"><!-- /.col -->
-		<h1 class="h1-settings">Change</h1>
+		<h1 class="h1-settings">Settings</h1>
+	
 		<div class="col-md-3 pull-left">
 			<div class=" box box-primary">
 				<ul class="edit-tab white-bg" id="accordion">
@@ -49,10 +46,12 @@
 						<ul id="collapseOne" class="panel-collapse collapse in sub-ul">
 							<li class="active"><a href="#profile-image" class="btn-block" data-toggle="tab">Profile image</a></li>
 							<li><a href="#user-details" class="btn-block" data-toggle="tab">Users Details</a></li>
-							<li><a href="#user-type" class="btn-block" data-toggle="tab">User type</a></li>
-							<li><a href="#e-mail" class="btn-block" data-toggle="tab">E-mail</a></li>
+							<!-- Privremeno iskljuceno 
+							<li><a href="#user-type" class="btn-block" data-toggle="tab">User type</a></li> -->	
 							<li><a href="#notifi" class="btn-block" data-toggle="tab">Notifications</a></li>
-							<li><a href="#account-priv" class="btn-block" data-toggle="tab">Account Privacy</a></li>
+							<!-- Privremeno iskljuceno
+							<li><a href="#account-priv" class="btn-block" data-toggle="tab">Account Privacy</a></li> -->
+
 							<li><a href="#change-pass" class="btn-block" data-toggle="tab">Change Password</a></li>
 						</ul>
 					</div>
@@ -70,6 +69,7 @@
 			</div>
 		</div>
 		<div class="nav-tabs-custom col-md-7 no-padding padding-bottom pull-left edit-tabs">
+		
 			<div class="box box-primary padding-all">
 				<div class="tab-content tab-cont">
 
@@ -82,7 +82,10 @@
 								<div class="upload-photo">
 									<a href="#" class="mailedit-box-attachment-name" data-toggle="modal" data-target="#myModal">
 										<i class="fa fa-camera"></i> <span class="upload-txt">CHANGE AVATAR</span></a>
+
 								</div>
+
+			
 					<!--  Modal za izmenu avatara -->			
 							<div class="example-modal">
 								<div class="modal" id="myModal">
@@ -114,6 +117,14 @@
 						<!--  Modal za izmenu avatara -->	
 
 					</div>
+					<form enctype="multipart/form-data" action="avatar" method="POST">
+					<a href="#"><label for="form-file"><h3> <i class="fa fa-plus"></i> Select a new avatar </h3></label> </a>
+					<input type="file" name="avatar" id="form-file" class="hidden" />
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<br>					
+					<button type="submit" class="btn btn-primary">Upload avatar</button>									 									
+			</form>	
+
 				</div>
 	
 		<!-- /.tab-pane -->
@@ -140,6 +151,11 @@
 								<br />
 								<input class="form-control input-sm" id="id_lastname" name="last_name" type="text" value="{{$user['last_name']}}">
 							</div>
+							<div class="form-group">
+								<label for="email" class="">E-mail</label>
+								<input class="form-control input-sm email required" id="id_email" name="email" type="text" value="{{$user['email']}}">
+							</div>
+
 							<div class="form-group">
 								<label for="about_me" class="">About me</label>
 								<br />
@@ -273,13 +289,6 @@
 							</div>
 						</div> <!-- /.tab-pane -->
 
-						<div class="tab-pane edit-box margin-top" id="e-mail"> <h2 class="h2-tabs">E-mail</h2>
-							<p class="h2-subhead">Update email data</p>
-							<div class="form-group">
-								<label for="email" class="">E-mail</label>
-								<input class="form-control input-sm email required" id="id_email" name="email" type="text" value="{{$user['email']}}">
-							</div>
-						</div> <!-- /.tab-pane -->
 						<div class="tab-pane edit-box margin-top" id="notifi"> <h2 class="h2-tabs">Notifications</h2>
 							<p class="h2-subhead">Update your notifications</p>
 							<div class="form-group">
@@ -289,27 +298,7 @@
 									<option value="0" <?php if($user['profile']['notify_me_on_comment']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
-							<hr />
-							<label>Notify Me on New Session</label>
-							<p class="instructions">Email me when someone I'm watching adds a session</p>
-							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="notify_me_on_new_session">
-									<option value="3" <?php if($user['profile']['notify_me_on_new_session']==3) echo 'selected="selected"' ?>>-------</option>
-									<option value="1" <?php if($user['profile']['notify_me_on_new_session']==1) echo 'selected="selected"' ?>>Yes</option>
-									<option value="0"<?php if($user['profile']['notify_me_on_new_session']==0) echo 'selected="selected"' ?>>No</option>
-								</select>
-							</div>
-							<hr />
-							<label>Notify Me on New Watcher</label>
-							<p class="instructions">Email me if someone new starts watching me</p>
-							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="notify_me_on_new_watcher">
-									<option value="3" <?php if($user['profile']['notify_me_on_new_watcher']==3) echo 'selected="selected"' ?>>-------</option>
-									<option value="1" <?php if($user['profile']['notify_me_on_new_watcher']==1) echo 'selected="selected"' ?>>Yes</option>
-									<option value="0" <?php if($user['profile']['notify_me_on_new_watcher']==0) echo 'selected="selected"' ?>>No</option>
-								</select>
-							</div>
-							<hr />
+							<hr />					
 							<label>Send Session Summary </label>
 							<p class="instructions">Email me a summary when I upload a session</p>
 							<div class="form-group">
@@ -320,21 +309,6 @@
 								</select>
 							</div>
 							<hr />
-							<label>Session Summary Alternative </label>
-							<p class="instructions">Alternate email address for session summary emails only. i.e. Coach</p>
-							<div class="form-group">
-								<input class="form-control input-sm email" id="id_email_alternative" name="email_summary_alternative" type="text" value="{{$user['profile']['email_summary_alternative']}}">
-							</div>
-							<hr />
-							<label>Send Session Summary Alternate </label>
-							<p class="instructions">Email a summary of my sessions to the alternate email address i.e. Coach</p>
-							<div class="form-group">
-								<select class="form-control select2" style="width: 100%;" name="send_session_summary_alternate">
-									<option value="3" <?php if($user['profile']['send_session_summary_alternate']==3) echo 'selected="selected"' ?>>-------</option>
-									<option value="1" <?php if($user['profile']['send_session_summary_alternate']==1) echo 'selected="selected"' ?>>Yes</option>
-									<option value="0" <?php if($user['profile']['send_session_summary_alternate']==0) echo 'selected="selected"' ?>>No</option>
-								</select>
-							</div>
 						</div><!-- /.tab-pane -->
 						<div class="tab-pane edit-box margin-top" id="account-priv"> <h2 class="h2-tabs">Account privacy</h2>
 							<p class="h2-subhead">Update your account privacy</p>
@@ -382,10 +356,8 @@
 						<!-- /.tab-content -->
 
 						<br> 
-						<div class="pull-left">
-							<input class="btn btn-primary btn-primary" id="idSubmitEditProfile" type="submit" value="Save profile">
-							<input class="btn btn-primary btn-primary" id="idSubmitEditProfile" type="reset" value="Reset">
-							<br>
+						<div class="pull-right">
+							<input class="btn btn-primary btn-primary" id="idSubmitEditProfile" type="submit" value="Saves profile">
 						</div>
 						<br> 
 				</form>

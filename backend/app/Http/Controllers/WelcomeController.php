@@ -6,6 +6,8 @@ use App\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class WelcomeController extends Controller {
 
@@ -38,33 +40,27 @@ class WelcomeController extends Controller {
 			'password'   => 'required|min:6',
 		]);
 
-		if($validator->fails())
-		{
+		if($validator->fails()){
 			return back()
 				->withErrors($validator->errors())
-				->withInput();
-		}
-		else
-		{
+				->withInput();	
+		}else{
 			if(Auth::attempt([
 				'email'    => $request->input('email'),
 				'password' => $request->input('password'),
-			]))
-			{
-				if(Auth::user()->activated == 1)
-				{
-					return redirect('/profile');
+			])){
+
+				if(Auth::user()->activated == 1){
+						return redirect('/profile');
+				}else{
+						Auth::logout();
+						return redirect('/')->with('status', 'You profile is not activated yet. Come back soon.');
 				}
-				else
-				{
-					Auth::logout();
-					return redirect('/')->with('status', 'You profile is not activated yet. Come back soon.');
-				}
-			}
-			else
-			{
+
+			}else{
 				return redirect()
 					->back()
+					->withInput()
 					->with('status', 'Incorrect email or password');
 			}
 		}
@@ -83,6 +79,7 @@ class WelcomeController extends Controller {
 			'email'      => 'required|unique:users|email',
 			'password'   => 'required|min:6|confirmed',
 			'password_confirmation'   => 'required|min:6',
+			'terms'		 => 'accepted',
 		]);
 
 		if($validator->fails())
@@ -92,7 +89,6 @@ class WelcomeController extends Controller {
 				->withInput();
 		}else{
 			$random = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 100)), 0, 100);
-
 
 			$user = new User();
 			$profile = new Profile();
@@ -110,17 +106,17 @@ class WelcomeController extends Controller {
 
 			if($user->save())
 			{
-
 				Mail::send('emails.new_registration', ['user' => $user], function ($m) use ($user) {
 					$m->from('root@localhost', 'Biorower');
-
 					$m->to("biorower.braining@gmail.com", "Admin")->subject('New Registration Request!');
 				});
 
 				return view('message.successfull-registration');
 			}
 			else {
-				return back()
+			return redirect()
+					->back()
+					->withInput()
 					->with('status', 'Whoops! Something went wrong. Please try again.');
 			}
 		}
@@ -158,7 +154,7 @@ class WelcomeController extends Controller {
 		$user = $this->user->where('email', $request->email)->first();
 
 		if(!$user){
-			return back()->with('status', 'There is no user with that email address');
+			return Redirect::to(URL::previous() . "#forgot-pass")->with('status', 'There is no user with that email address');;
 		}else{
 				Mail::send('emails.password', ['user' => $user], function ($m) use ($user) {
 				$m->from('admin@biorower', 'Biorower');
@@ -191,7 +187,10 @@ class WelcomeController extends Controller {
 
 		if($validator->fails())
 		{
-			return back()->with('status', $validator->error);
+			//return back()->with('status', $validator->error);
+				return back()
+				->withErrors($validator->errors())
+				->withInput();
 		}
 
 		$user = $this->user->where('email', $request->st_usr)->first();
