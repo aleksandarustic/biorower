@@ -59,6 +59,8 @@ Route::group(array('prefix' => 'api'), function()
 					['only' => ['store']]);		
 
 	Route::resource('v1/set_user_settings', 'Braining\SetusersettingsController',
+					['only' => ['store']]);	
+        Route::resource('v1/graph_setting', 'Braining\SettingController',
 					['only' => ['store']]);		
 });
 

@@ -24,18 +24,16 @@
                 </div><!-- /.box -->
 
                 <!-- About Me Box -->
-                <div class="box no-bg no-border aboutMe-box">
-
-
+                <div class="box aboutMe-box">
                     <div class="aboutMe-body">
                         <div class="col-sm-6 about-border-r about-value-box">
-                            <div class="about-desc">{{ date('Y-m-d', strtotime($user->created_at)) }}</div>
-                            <div class="about-name">Member Since</div>
+                            <div class="about-desc latest-session"></div>
+                            <div class="about-name">Latest Session</div>
                         </div>
                         <!-- Item 1 -->
                         <div class="col-sm-6 about-value-box">
-                            <div class="about-desc latest-session"></div>
-                            <div class="about-name">Latest Session</div>
+                            <div class="about-desc time3"></div>
+                            <div class="about-name">Training time</div>
                         </div>
                         <!-- Item 2 -->
                         <div class="col-sm-12 about-border-t">
@@ -45,14 +43,14 @@
                             <!-- Item 3.1 -->
                             <div class="col-sm-6 about-middle">
                                 <div class="act-block about-value-box">
-                                    <div class="about-value time3"></div>
-                                    <div class="about-vname">Training time</div>
+                                    <div class="about-value distance"></div>
+                                    <div class="about-vname">Distance</div>
                                 </div>
                                 <!-- Item 3.2 -->
 
                                 <div class="act-block about-value-box about-middle">
-                                    <div class="about-value distance"></div>
-                                    <div class="about-vname">Distance</div>
+                                    <div class="about-value power-average"></div>
+                                    <div class="about-vname">Power Average</div>
                                 </div>
                                 <!-- Item 3.3 -->
                             </div>
@@ -60,8 +58,8 @@
                         <!-- Item 3 -->
                         <div class="col-sm-12 about-border-t">
                             <div class="col-sm-6 about-value-box about-border-r">
-                                <div class="about-value power-average"></div>
-                                <div class="about-vname about-vname-last">Power average</div>
+                                <div class="about-value stroke-rate"></div>
+                                <div class="about-vname about-vname-last">Stroke rate average</div>
                             </div>
                             <!-- Item 4 -->
                             <div class="col-sm-6 about-value-box">
@@ -160,25 +158,110 @@
                     <div class="graphic-header historyGraph-header">
                         <div class="historyGraph-header-body">
                                  <div>
-                                <h3 class="pull-left" id="tekst">History</h3>
-                                  <div class="box-default pull-left" style="margin-top: -8px;" id="strelice">
+                                         <div class="box-default pull-left" style="margin-top: -8px;margin-left: 10px;margin-right: 20px" id="strelice">
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous" id="next2"
-                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;"
+                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;
+                                                  
+            var s=[];
+                 for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph.parameters[0]){
+                    s[0]=piktoBiorowerGraph.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph.parameters[1]){
+                      s[1]=piktoBiorowerGraph.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph.parameters[2]){
+                      s[2]=piktoBiorowerGraph.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'history',
+            date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+            groupType:'none',
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });
+
+                                   "
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" id="next1" class="btn btn-box-tool" dat a-toggle="tooltip" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));
-                     
+                                      
+            var s=[];
+                 for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph.parameters[0]){
+                    s[0]=piktoBiorowerGraph.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph.parameters[1]){
+                      s[1]=piktoBiorowerGraph.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph.parameters[2]){
+                      s[2]=piktoBiorowerGraph.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'history',
+            date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:'none',
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });
+
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
+                                <h3 class="pull-left" id="tekst">History</h3>
+                              
                             </div>
                             <div class="pull-left left-options">
                                 <!-- /.form group -->
 
                             </div>
 
-                          
+
                             <div>
 
                                 <!--Btn links -->
@@ -189,58 +272,235 @@
                                     <a href="javascript:;" class="btn btn-link" id="week_history"
                                        onclick="
                                     if(piktoBiorowerGraph.startDate==''){
-                piktoBiorowerGraph.startDate=moment().startOf('week');
-             
-                  
-            }  
-         
-            if(piktoBiorowerGraph.sadasnjost!=null){
-                  piktoBiorowerGraph.startDate=moment().startOf('week');
-                
+                piktoBiorowerGraph.startDate=moment().subtract(1, 'week');
+
+
             }
-         
-    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',piktoBiorowerGraph.startDate); "
+
+            if(piktoBiorowerGraph.sadasnjost!=null){
+                  piktoBiorowerGraph.startDate=moment().subtract(1, 'week');
+
+            }
+
+    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',piktoBiorowerGraph.startDate);
+
+  var s=[];
+                 for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph.parameters[0]){
+                    s[0]=piktoBiorowerGraph.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph.parameters[1]){
+                      s[1]=piktoBiorowerGraph.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph.parameters[2]){
+                      s[2]=piktoBiorowerGraph.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'history',
+            date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:'none',
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });
+
+                                       "
                                             >Week</a>
                                     <a href="javascript:;" class="btn btn-link" id="month_history"
                                        onclick="
-                                                                          
+
             if(piktoBiorowerGraph.startDate==''){
-                piktoBiorowerGraph.startDate=moment().startOf('month');
-                  
-            } 
-            
-             if(piktoBiorowerGraph.sadasnjost!=null){
-                  piktoBiorowerGraph.startDate=moment().startOf('month');
-                  
+                piktoBiorowerGraph.startDate=moment().subtract(1, 'month');
+
             }
-          
-            
-            
+
+             if(piktoBiorowerGraph.sadasnjost!=null){
+                piktoBiorowerGraph.startDate=moment().subtract(1, 'month');
+
+            }
+
+
+
                 piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',piktoBiorowerGraph.startDate);
-                                            
-                                            
-                                       
+                var s=[];
+                 for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph.parameters[0]){
+                    s[0]=piktoBiorowerGraph.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph.parameters[1]){
+                      s[1]=piktoBiorowerGraph.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph.parameters[2]){
+                      s[2]=piktoBiorowerGraph.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'history',
+            date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:'none',
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });
+
+
+
+
                                        "
                                             >Month</a>
                                     <a href="javascript:;" class="btn btn-link" id="year_history"
                                        onclick="
                                             if(piktoBiorowerGraph.startDate==''){
-                piktoBiorowerGraph.startDate=moment().startOf('year');
-                  
-            } 
-            
-             if(piktoBiorowerGraph.sadasnjost!=null){
-                  piktoBiorowerGraph.startDate=moment().startOf('year');
-                 
+                piktoBiorowerGraph.startDate=moment().subtract(1, 'year');;
+
             }
-           
-    
-    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph.startDate);"
+
+             if(piktoBiorowerGraph.sadasnjost!=null){
+                  piktoBiorowerGraph.startDate=moment().subtract(1, 'year');;
+
+            }
+
+
+    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph.startDate);
+                                    var s=[];
+                 for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph.parameters[0]){
+                    s[0]=piktoBiorowerGraph.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph.parameters[1]){
+                      s[1]=piktoBiorowerGraph.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph.parameters[2]){
+                      s[2]=piktoBiorowerGraph.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'history',
+            date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+            groupType:'none',
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });
+
+                                       "
                                             >Year</a>
                                     <a href="javascript:;" class="btn btn-sm btn-primary" id="all_history"
-                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');"
+                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
+                                            var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'history',
+            date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph.rangeType,
+            cilj:2,
+              groupType:'none',
+        };
+            var s=[];
+                 for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph.parameters[0]){
+                    s[0]=piktoBiorowerGraph.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph.parameters[1]){
+                      s[1]=piktoBiorowerGraph.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph.parameters[2]){
+                      s[2]=piktoBiorowerGraph.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'history',
+            date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:'none',
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });
+
+
+                                       "
                                             >All</a>
-                                
+
                                 </div>
 
 
@@ -256,7 +516,7 @@
                                         <a href="javascript:;" class="pull-right btn-param" id="skaliranje" style=" margin-right: 10px;"
                                             >X1</a>
                                     <a class="pull-left btn-param" id="link" href="#" data-toggle="modal" data-target="#myParam"><i class="fa fa-cog"></i></a>
-                                  
+
 
                                 </div>
 
@@ -266,8 +526,8 @@
                                     <div class="modal" id="myParam">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                
-                                                
+
+
                                                 <div class="modal-header no-border">
 
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -283,7 +543,7 @@
                                                           <ul class="checkbox icheck modalParm-list" id="lista1">
                                                             <li>
                                                                 <label for="strokeCount">
-                                                                    <input type="checkbox" class="parameters" id="strokeCount" value="scnt" checked="">
+                                                                    <input type="checkbox" class="parameters" id="strokeCount" value="scnt" >
                                                                     <span class="scnt">Stroke Count</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
@@ -481,8 +741,8 @@
 
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
-                                                
-                                                        
+
+
 
 
                                                     </div><!-- /.List of Parametars -->
@@ -490,7 +750,7 @@
                                                           <ul class="checkbox icheck modalParm-list" >
                                                             <li>
                                                                 <label for="strokeCount2">
-                                                                    <input type="checkbox" class="parameters2" id="strokeCount2" value="scnt" checked>
+                                                                    <input type="checkbox" class="parameters2" id="strokeCount2" value="scnt" >
                                                                     <span class="scnt2">Stroke Count</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
@@ -688,20 +948,20 @@
 
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
-                                                
-                                                        
+
+
 
 
                                                     </div>
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
+
+
+
+
+
+
+
+
+
                                                 </div>
                                                 <div class="modal-footer">
                                                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
@@ -712,14 +972,14 @@
                                                                         slug: value,
                                                                         label: $('.'+value).text()
                                                                     }
-                                                                    return parameter; 
+                                                                    return parameter;
                                                                  }).get();
                                                                  var linije=['spd'];
-                                                                 
-                                                                 
+
+
                                                                  var newHistoryData = piktoBiorowerGraph.getHistoryData(newHistoryParams);
-                                                                 
-                                                                 
+
+
                                                                  piktoBiorowerGraph.historyPlot.setData(newHistoryData);
 
                                                                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
@@ -751,9 +1011,52 @@
 
                    piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
+                    
+                    
+                     
+            var s=[];
+                 for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph.parameters[i].slug;
 
-                                                                 
-                                                                 
+                 }
+                  if(piktoBiorowerGraph.parameters[0]){
+                    s[0]=piktoBiorowerGraph.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph.parameters[1]){
+                      s[1]=piktoBiorowerGraph.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph.parameters[2]){
+                      s[2]=piktoBiorowerGraph.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'history',
+            date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });
+
+
+
+
                                                                  $('#myParam').modal('hide');">
                                                         Save changes
                                                     </button>
@@ -765,7 +1068,7 @@
                                                                         slug: value,
                                                                         label: $('.'+value+'2').text(),
                                                                     }
-                                                                    return parameter; 
+                                                                    return parameter;
                                                                  }).get();
                                                                  var newHistoryData = piktoBiorowerGraph2.getHistoryData(newHistoryParams);
                                                                  piktoBiorowerGraph2.progressPlot.setData(newHistoryData);
@@ -802,7 +1105,51 @@
 
                    piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
-                                                                 
+                    
+                    
+                    
+                       var s=[];
+                 for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph2.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph2.parameters[0]){
+                    s[0]=piktoBiorowerGraph2.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph2.parameters[1]){
+                      s[1]=piktoBiorowerGraph2.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph2.parameters[2]){
+                      s[2]=piktoBiorowerGraph2.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'progress',
+            date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph2.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:piktoBiorowerGraph2.groupType,
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });   
+                    
+
                                                                  $('#myParam').modal('hide');">
                                                         Save changes
                                                     </button>
@@ -826,26 +1173,111 @@
                 <div class="col-md-12 white-bg box box-primary no-padding historyGraph graph-box">
                     <div class="graphic-header historyGraph-header">
                         <div class="historyGraph-header-body">
+                            
                                  <div>
-                             <h3 class="pull-left" id="tekst2">Progress</h3>
-                              <div class="box-default pull-left" style="margin-top: -8px;"id="strelice2">
+                                        <div class="box-default pull-left" style="margin-top: -8px;margin-left: 10px;margin-right: 20px"id="strelice2">
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="
-                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;"
+                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;
+                         var s=[];
+                 for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph2.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph2.parameters[0]){
+                    s[0]=piktoBiorowerGraph2.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph2.parameters[1]){
+                      s[1]=piktoBiorowerGraph2.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph2.parameters[2]){
+                      s[2]=piktoBiorowerGraph2.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'progress',
+            date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph2.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:piktoBiorowerGraph2.groupType,
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });         
+    
+    ;"
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
+                               
+                                   var s=[];
+                 for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph2.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph2.parameters[0]){
+                    s[0]=piktoBiorowerGraph2.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph2.parameters[1]){
+                      s[1]=piktoBiorowerGraph2.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph2.parameters[2]){
+                      s[2]=piktoBiorowerGraph2.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'progress',
+            date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph2.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:piktoBiorowerGraph2.groupType,
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });         
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
+                             <h3 class="pull-left" id="tekst2">Progress</h3>
+                           
                             </div>
                             <div class="pull-left left-options">
                                 <!-- /.form group -->
 
                             </div>
 
-                          
+
                             <div>
 
                                 <!--Btn links -->
@@ -855,24 +1287,104 @@
                     <a href="javascript:;" class="btn btn-link" id="year_progress"
                                            onclick="
                                                     if(piktoBiorowerGraph2.startDate==''){
-                piktoBiorowerGraph2.startDate=moment().startOf('year');
-                  
-            } 
-            
-             if(piktoBiorowerGraph2.sadasnjost!=null){
-                  piktoBiorowerGraph2.startDate=moment().startOf('year');
-                 
+                piktoBiorowerGraph2.startDate=moment().subtract(1, 'year');
+
             }
-           
-    
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);"
+
+             if(piktoBiorowerGraph2.sadasnjost!=null){
+                  piktoBiorowerGraph2.startDate=moment().subtract(1, 'year');
+
+            }
+
+
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
+                                               var s=[];
+                 for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph2.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph2.parameters[0]){
+                    s[0]=piktoBiorowerGraph2.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph2.parameters[1]){
+                      s[1]=piktoBiorowerGraph2.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph2.parameters[2]){
+                      s[2]=piktoBiorowerGraph2.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'progress',
+            date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph2.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:piktoBiorowerGraph2.groupType,
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });         "
                                                 >Year</a>
                                         <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
                                            onclick="
-                                     
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','',piktoBiorowerGraph2.groupType);"
+
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','',piktoBiorowerGraph2.groupType);
+                                               var s=[];
+                 for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph2.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph2.parameters[0]){
+                    s[0]=piktoBiorowerGraph2.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph2.parameters[1]){
+                      s[1]=piktoBiorowerGraph2.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph2.parameters[2]){
+                      s[2]=piktoBiorowerGraph2.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'progress',
+            date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph2.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:piktoBiorowerGraph2.groupType,
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });         "
                                                 >All</a>
-                                
+
                                 </div>
 
 
@@ -887,26 +1399,21 @@
                                 <div class="graphic-footer" >
                                         <a href="javascript:;" class="pull-right btn-param" style=" margin-right: 10px;" id="skaliranje2"
                                                 >X1</a>
-                                                 <a href="javascript:;" class="pull-right btn-param" id="izbor1"  onclick="
-                                         
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month')"
-                                        >Month</a>
-                                <a href="javascript:;" class="pull-right btn-param" id="izbor2"  onclick="
-                               
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week')"
-                                        >Week</a>
-                                    
+                                    <a href="javascript:;" style="margin-right: 10px" class="pull-right btn-param" id="izbor1"  
+                                        >Group by Month</a>
+                          
+
                                  <a class="pull-left btn-param" href="#" data-toggle="modal" data-target="#myParam" id="link2"><i class="fa fa-cog"></i></a>
-                                  
+
 
                                 </div>
-                                
-                                
-                                
 
 
 
-                                
+
+
+
+
 
 
                             </div>
@@ -916,9 +1423,9 @@
                     </div>
                     <div class="clear relative"></div>
                 </div>
-                
-                
-                
+
+
+
                 <!-- /.Graph Block-->
 
                 <!-- Graph Block-->
@@ -945,50 +1452,311 @@
 @section('page-scripts')
   <script src="{{ URL::asset('js/moment-range.js') }}"></script>
     <script src="{{ URL::asset('dist/js/graphs.js') }}"></script>
- 
+
 
     <script>
         $(document).ready(function () {
+
+           var end= moment();
+        var s=new Date("October 10, 2016 11:13:00");
+        var s2=new Date("October 10, 2017 11:13:00");
+        var dr2=moment.range(s, s2);
+        
+            var data4 = {
+            account: 'biorower:' + $('#user-email').val(),
+            cilj:1,
+        };
+             $.post('api/v1/graph_setting', data4, function (response4) {
+
+
+
+        var dateStart=response4.history[0].dateStart;
+        var rangeType=response4.history[0].rangeType;
+        var parametar1=response4.history[0].parametar1;
+        var parametar2=response4.history[0].parametar2;
+        var parametar3=response4.history[0].parametar3;
+        
+        
+        
+        
+        
+        
+        
+        var groupType=response4.progress[0].groupType;
+         var dateStart2=response4.progress[0].dateStart;
+        var rangeType2=response4.progress[0].rangeType;
+        var parametar12=response4.progress[0].parametar1;
+        var parametar22=response4.progress[0].parametar2;
+        var parametar32=response4.progress[0].parametar3;
+      
+        
+
+
+        for(var i=0;i<document.getElementsByClassName("parameters").length; i++){
+
+
+
+                  if(document.getElementsByClassName("parameters")[i].value==parametar1){
             
-         
-  
+                 var id2=document.getElementsByClassName("parameters")[i].id;
+     
+                $('#'+id2).iCheck('check');
+                 
+                  
+
+
+             }
+               if(document.getElementsByClassName("parameters")[i].value==parametar2){
+                  var id2=document.getElementsByClassName("parameters")[i].id;
+     
+                $('#'+id2).iCheck('check');
+                 
+                
+
+
+             }
+               if(document.getElementsByClassName("parameters")[i].value==parametar3){
+                  var id2=document.getElementsByClassName("parameters")[i].id;
+     
+                $('#'+id2).iCheck('check');
+                 
+                
+
+
+             }
+
+
+
+
+    }
+ 
+         for(var i=0;i<document.getElementsByClassName("parameters2").length; i++){
+
+
+
+                  if(document.getElementsByClassName("parameters2")[i].value==parametar12){
             
-            
-         
+                 var id2=document.getElementsByClassName("parameters2")[i].id;
+     
+                $('#'+id2).iCheck('check');
+                 
+                  
+
+
+             }
+               if(document.getElementsByClassName("parameters2")[i].value==parametar22){
+                  var id2=document.getElementsByClassName("parameters2")[i].id;
+     
+                $('#'+id2).iCheck('check');
+                 
+                
+
+
+             }
+               if(document.getElementsByClassName("parameters2")[i].value==parametar32){
+                  var id2=document.getElementsByClassName("parameters2")[i].id;
+     
+                $('#'+id2).iCheck('check');
+                 
+                
+
+
+             }
+
+
+
+
+    }
+ 
+
+
+      
+
+
+           var dr2=moment.range(s, s2);
+      
+        var range2=moment.range(piktoBiorowerGraph.start, end);
+     
+
+
+        if(range2<dr2){
+
+
+              $("#year_history").css("text-decoration","underline");
+
+            $("#all_history").hide();
+
+        }
+        else{
+
+
+              $("#all_progress").css("background-color","#286090");
+
+        }
+       
+
+        if(rangeType=="all"){
+
+
+
+
+
+              piktoBiorowerGraph.loadHistoryData($('#user-email').val(),rangeType,'');
+
+
+
+
+
+
+
+        }
+        else{
+           
+              piktoBiorowerGraph.loadHistoryData($('#user-email').val(),rangeType,moment(dateStart));
+
+                  
+        }
+      
+                       
+                       
+                       
+                          var range3=moment.range(piktoBiorowerGraph2.start, end);
+                          
+                          
+        if(range3<dr2){
+           
+            $("#all_progress").hide();
+            $("#year_progress").css("text-decoration","underline");
+
+
+
+
+
+        }
+        else{
+              
+              $("#all_progress").css("background-color","#286090");
+
+
+        }
+        
+          if(rangeType2=="all"){
+        
+
+
+
+
+
+              piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),rangeType2,'',groupType);
+
+
+
+
+
+
+
+        }
+        else{
+          
+           
+              piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),rangeType2,moment(dateStart2),groupType);
+
+                  
+        }
+        
+        
+        
+        
+        
+        
+          var niz=[];
+        
+          var parameter1 = { slug: parametar1,label: $('.'+parametar1).text()}
+          niz.push(parameter1);
+          if(parametar2!="nista"){
+              var parameter2= { slug: parametar2,label: $('.'+parametar2).text()}
+              niz.push(parameter2);
+          }
+          if(parametar3!="nista"){
+              var parameter3= { slug: parametar3,label: $('.'+parametar3).text()}
+               niz.push(parameter3);
+          }
+          piktoBiorowerGraph.parameters=niz;
+          
+           var niz2=[];
+        
+          var parameter12 = { slug: parametar12,label: $('.'+parametar12).text()}
+          niz2.push(parameter12);
+          if(parametar22!="nista"){
+              var parameter22= { slug: parametar22,label: $('.'+parametar22).text()}
+              niz2.push(parameter22);
+          }
+          if(parametar32!="nista"){
+              var parameter32= { slug: parametar32,label: $('.'+parametar32).text()}
+               niz2.push(parameter32);
+          }
+          piktoBiorowerGraph2.parameters=niz2;
+          
+          
+          
+        $("#dugme1").click();
+        $("#dugme2").click();
+
+         });
+
      $('.parameters').on('ifClicked', function(event){
-            
+             if(this.checked==true){
+
+
+
+             }
+             else{
+
              if ($('.parameters').filter(':checked').length == 3) {
               var s=$('.parameters').filter(':checked')[2].id;
-             
-      $('#'+s).iCheck('uncheck');
-      
+
+
+              $('#'+s).iCheck('uncheck');
+             }
+
+
     }
-           
-           
-          
+
+
+
         });
-        
-        
+
+
           $('.parameters2').on('ifClicked', function(event){
-            
+
+                if(this.checked==true){
+
+
+
+             }
+             else{
+
+
              if ($('.parameters2').filter(':checked').length == 3) {
               var s=$('.parameters2').filter(':checked')[2].id;
-             
+
       $('#'+s).iCheck('uncheck');
-      
+
     }
-           
-           
-          
+    }
+
+
+
         });
-     
-        
-     
-       
-             
+
+
+
+
+
             var skaliranje=500;
             var skaliranje2=500;
-          
+         
+
 
             $('#strelice').hide();
             $('#strelice2').hide();
@@ -1007,36 +1775,130 @@
                  $("#progress-graph-params").show();
             });
             
-            
-            
-          
+            $('#izbor1').click(function(){
+               
+                if(piktoBiorowerGraph2.groupType=="month"){
+                     piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week');
+                      var s=[];
+                 for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph2.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph2.parameters[0]){
+                    s[0]=piktoBiorowerGraph2.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph2.parameters[1]){
+                      s[1]=piktoBiorowerGraph2.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph2.parameters[2]){
+                      s[2]=piktoBiorowerGraph2.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'progress',
+            date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph2.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:piktoBiorowerGraph2.groupType,
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });      
+                    
+                }
+                else{
+                     piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month');
+                      var s=[];
+                 for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
+                    s[i]=piktoBiorowerGraph2.parameters[i].slug;
+
+                 }
+                  if(piktoBiorowerGraph2.parameters[0]){
+                    s[0]=piktoBiorowerGraph2.parameters[0].slug;
+                 }
+
+                 if(piktoBiorowerGraph2.parameters[1]){
+                      s[1]=piktoBiorowerGraph2.parameters[1].slug;
+                 }
+                 else{
+                     s[1]='nista';
+                 }
+                   if(piktoBiorowerGraph2.parameters[2]){
+                      s[2]=piktoBiorowerGraph2.parameters[2].slug;
+                 }
+                  else{
+                     s[2]='nista';
+                 }
+
+
+
+                     var data3 = {
+            account: 'biorower:' + $('#user-email').val(),
+            name: 'progress',
+            date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
+            range_type:piktoBiorowerGraph2.rangeType,
+            parametar1:s[0],
+            parametar2:s[1],
+            parametar3:s[2],
+              groupType:piktoBiorowerGraph2.groupType,
+            cilj:2,
+
+        };
+             $.post('api/v1/graph_setting', data3, function (response3) {
+
+
+             });      
+                      
+                }
+               
+             
+            });
+
+
+
+
             $('#skaliranje').click(function(){
 
                 skaliranje=skaliranje+500;
                 if(skaliranje==500){
                      var opts = piktoBiorowerGraph.historyPlot.getOptions();
                     for(var i=0;i<opts.yaxes.length; i++){
-                        
+
                           opts.yaxes[i].max =  opts.yaxes[i].max/2;
                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
-                          
-                  
+
+
                     }
-                    
+
                       piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     $('#skaliranje').text("X1");
 
-                    
 
 
-                  
-                  
+
+
+
 
                 }
                 if(skaliranje==1000){
@@ -1047,12 +1909,12 @@
                                               opts.yaxes[i].max =  opts.yaxes[i].max/2;
                                                 opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
 
-                  
+
                     }
-                    
-                     
-                    
-                    
+
+
+
+
                     piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
                 }
@@ -1060,15 +1922,15 @@
                     $('#skaliranje').text("1/2X");
                     var opts = piktoBiorowerGraph.historyPlot.getOptions();
                         for(var i=0;i<opts.yaxes.length; i++){
-                        
+
                           opts.yaxes[i].max =   opts.yaxes[i].max*4;
                            opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
-                  
+
                     }
-                    
-                   
-                    
-                      
+
+
+
+
 
                     piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
@@ -1084,27 +1946,27 @@
                 if(skaliranje2==500){
                      var opts = piktoBiorowerGraph2.progressPlot.getOptions();
                     for(var i=0;i<opts.yaxes.length; i++){
-                        
+
                           opts.yaxes[i].max =  opts.yaxes[i].max/2;
                            opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
-                          
-                  
+
+
                     }
-                    
+
                       piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     $('#skaliranje2').text("X1");
 
-                    
 
 
-                  
-                  
+
+
+
 
                 }
                 if(skaliranje2==1000){
@@ -1115,12 +1977,12 @@
                                               opts.yaxes[i].max =  opts.yaxes[i].max/2;
                                                opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
 
-                  
+
                     }
-                    
-                     
-                    
-                    
+
+
+
+
                     piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
                 }
@@ -1128,16 +1990,16 @@
                     $('#skaliranje2').text("1/2X");
                     var opts = piktoBiorowerGraph2.progressPlot.getOptions();
                         for(var i=0;i<opts.yaxes.length; i++){
-                        
+
                           opts.yaxes[i].max =   opts.yaxes[i].max*4;
                            opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
-                          
-                  
+
+
                     }
-                    
-                   
-                    
-                      
+
+
+
+
 
                     piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();

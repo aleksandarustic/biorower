@@ -131,6 +131,9 @@ $(function () {
                     $('.heart-rate-avg').append('-');
                     $('.latest-session').append('No workouts');
                 }
+                
+                
+                
 
 
 
@@ -143,10 +146,6 @@ $(function () {
 
                    
 
-
-               
-                        data_test = piktoBiorowerGraph.getHistoryData(piktoBiorowerGraph.parameters);
-                        data_test2 = piktoBiorowerGraph2.getHistoryData(piktoBiorowerGraph2.parameters);
                         
                        
                         
@@ -189,34 +188,6 @@ $(function () {
         
 
 
-        var end= moment();
-        var s=new Date("October 10, 2016 11:13:00");
-        var s2=new Date("October 10, 2017 11:13:00");
-        var dr2=moment.range(s, s2);
-        var range2=moment.range(piktoBiorowerGraph.start, end);
-
-
-        if(range2<dr2){
-          
-            piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'));
-              $("#year_history").css("text-decoration","underline");             
-              
-            $("#all_history").hide();
-       
-            
-           
-            
-
-
-        }
-        else{
-            piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
-               $("#all_history").css("background-color","#286090");
-             
-             
-             
-        }
-
 
 
 
@@ -231,36 +202,7 @@ $(function () {
          piktoBiorowerGraph2.groupType="week";
 
 
-        var end= moment();
-        var s=new Date("October 10, 2016 11:13:00");
-
-        var s2=new Date("October 10, 2017 11:13:00");
-
-       
-
-        var dr2=moment.range(s, s2);
-
-        var range3=moment.range(piktoBiorowerGraph2.start, end);
-        
-
-
-        if(range3<dr2){
-            piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',moment().startOf('year'),'week');
-            $("#all_progress").hide();
-            $("#year_progress").css("text-decoration","underline");     
-           
-            
-
-
-
-        }
-        else{
-              piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','','week');
-              $("#all_progress").css("background-color","#286090");
-               
-            
-        }
-
+      
 
 
 
@@ -581,12 +523,16 @@ var piktoBiorowerGraph = {
     loadHistoryData: function (account, rangeType, startDate) {
         var data = {
             account: 'biorower:' + account,
-            rangeType: rangeType,
+            rangeType: 'all',
             dateStart: startDate?startDate.format('YYYY-MM-DD'):''
         };
 
         piktoBiorowerGraph.startDate = startDate;
         piktoBiorowerGraph.rangeType = rangeType;
+        
+        
+            
+        
         
         
         
@@ -624,6 +570,21 @@ var piktoBiorowerGraph = {
         $.post('api/v1/sessions_history', data, function (response) {
              piktoBiorowerGraph.historyData = response.historydata;
             var newHistoryData = piktoBiorowerGraph.getHistoryData(piktoBiorowerGraph.parameters);
+            
+            
+            var dr2=moment.range(moment(piktoBiorowerGraph.startDate),moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType));
+
+var broj=0;
+for(var i=0;i< piktoBiorowerGraph.historyData.date.length; i++){
+   
+    if(dr2.contains(moment(piktoBiorowerGraph.historyData.date[i]))==true){
+        
+       
+          broj=broj+1;
+    }
+   
+}
+
             
             
             
@@ -873,93 +834,7 @@ var piktoBiorowerGraph = {
 
 
 
-        if(piktoBiorowerGraph.rangeType=="month"){
-            
-              var end= moment();
-                 $("#year_history").css("text-decoration","none");
-                 $("#week_history").css("text-decoration","none");
-                 $("#month_history").css("text-decoration","underline");
-                 $("#all_history").css("background-color","#3c8dbc");
-                 
-               if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>moment().startOf("month")){
-                  
-                   piktoBiorowerGraph.sadasnjost="ss";
-                   
-                               
-                                   piktoBiorowerGraph.startDate = end.subtract(1, "month"); 
-                                   
-                           }
-                           else{
-                                  piktoBiorowerGraph.sadasnjost=null;
-                           }
-                        
-             
-            
-            
-            var axes = piktoBiorowerGraph.historyPlot.getAxes();
-            axes.xaxis.options.timeformat="%d";
-            axes.xaxis.options.tickSize=[1,"day"];
-              
-                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
-                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'month');
-            
-            $('#tekst').html("History"+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
-            +moment(piktoBiorowerGraph.startDate).add(1,'month').format('MMMM Do YYYY'));
-           
-        }
-         if(piktoBiorowerGraph.rangeType=="week"){
-             var end=moment();
-                $("#year_history").css("text-decoration","none");
-                 $("#week_history").css("text-decoration","underline");
-                 $("#month_history").css("text-decoration","none");
-                 $("#all_history").css("background-color","#3c8dbc");
-                 if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
-                              piktoBiorowerGraph.sadasnjost="ss";
-                            
-                                   piktoBiorowerGraph.startDate = end.subtract(1, "week"); 
-                                   
-                           }
-                            else{
-                                  piktoBiorowerGraph.sadasnjost=null;
-                           }
-             
-             
-            var axes = piktoBiorowerGraph.historyPlot.getAxes();
-            axes.xaxis.options.timeformat="%a %d";
-            axes.xaxis.options.tickSize=[1,"day"];
-            
-                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
-                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'week');
-                 $('#tekst').html("History"+'&nbsp;&nbsp;&nbsp;&nbsp'+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
-            +moment(piktoBiorowerGraph.startDate).add(1,'week').format('MMMM Do YYYY'));
-        }
-         if(piktoBiorowerGraph.rangeType=="year"){
-                 var end= moment();
-                 $("#year_history").css("text-decoration","underline");
-                 $("#week_history").css("text-decoration","none");
-                 $("#month_history").css("text-decoration","none");
-                 $("#all_history").css("background-color","#3c8dbc");
-                  
-               if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
-                               piktoBiorowerGraph.sadasnjost="s";
-                                   piktoBiorowerGraph.startDate = end.subtract(1, "year"); 
-                                   
-                           }
-                            else{
-                                  piktoBiorowerGraph.sadasnjost=null;
-                           }
-             
-            var axes = piktoBiorowerGraph.historyPlot.getAxes();
-            axes.xaxis.options.timeformat="%b";
-            axes.xaxis.options.tickSize=[1,"month"];
-              
-                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
-                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'year');
-                 $('#tekst').html("History"+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
-            +moment(piktoBiorowerGraph.startDate).add(1,'year').format('MMMM Do YYYY'));
-        }
-            
-            
+    
             
             
             
@@ -1202,12 +1077,126 @@ var piktoBiorowerGraph = {
                 $('#tekst').html("History "+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(response.historydata.date[0]).format('MMMM Do YYYY')+" - "
                 +moment().format('MMMM Do YYYY'));
           
-
+  
+            piktoBiorowerGraph.historyPlot.setupGrid();
+            piktoBiorowerGraph.historyPlot.draw();
             } 
+            
+            
+            
+          
+         if(piktoBiorowerGraph.rangeType=="week"){
+             var end=moment();
+                $("#year_history").css("text-decoration","none");
+                 $("#week_history").css("text-decoration","underline");
+                 $("#month_history").css("text-decoration","none");
+                 $("#all_history").css("background-color","#3c8dbc");
+                 if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
+                              piktoBiorowerGraph.sadasnjost="ss";
+                            
+                                   piktoBiorowerGraph.startDate = end.subtract(1, "week"); 
+                                   
+                           }
+                            else{
+                                  piktoBiorowerGraph.sadasnjost=null;
+                           }
+             
+             
+            var axes = piktoBiorowerGraph.historyPlot.getAxes();
+            axes.xaxis.options.timeformat="%a %d";
+            axes.xaxis.options.tickSize=[1,"day"];
+            
+                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
+                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'week');
+                 $('#tekst').html("History"+'&nbsp;&nbsp;&nbsp;&nbsp'+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+            +moment(piktoBiorowerGraph.startDate).add(1,'week').format('MMMM Do YYYY'));
+      
+            piktoBiorowerGraph.historyPlot.setupGrid();
+            piktoBiorowerGraph.historyPlot.draw();
+        }
+         if(piktoBiorowerGraph.rangeType=="year"){
+                 var end= moment();
+                 $("#year_history").css("text-decoration","underline");
+                 $("#week_history").css("text-decoration","none");
+                 $("#month_history").css("text-decoration","none");
+                 $("#all_history").css("background-color","#3c8dbc");
+                  
+               if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
+                               piktoBiorowerGraph.sadasnjost="ss";
+                                   piktoBiorowerGraph.startDate = end.subtract(1, "year"); 
+                                   
+                           }
+                            else{
+                                  piktoBiorowerGraph.sadasnjost=null;
+                           }
+                           
+             
+            var axes = piktoBiorowerGraph.historyPlot.getAxes();
+            axes.xaxis.options.timeformat="%b";
+            axes.xaxis.options.tickSize=[1,"month"];
+              
+                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
+                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'year');
+                 $('#tekst').html("History"+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+            +moment(piktoBiorowerGraph.startDate).add(1,'year').format('MMMM Do YYYY'));
+    
+      
+            piktoBiorowerGraph.historyPlot.setupGrid();
+            piktoBiorowerGraph.historyPlot.draw();
+        }
+              if(piktoBiorowerGraph.rangeType=="month"){
+            
+              var end= moment();
+                 $("#year_history").css("text-decoration","none");
+                 $("#week_history").css("text-decoration","none");
+                 $("#month_history").css("text-decoration","underline");
+                 $("#all_history").css("background-color","#3c8dbc");
+                 
+               if(moment(piktoBiorowerGraph.startDate).endOf(piktoBiorowerGraph.rangeType)>end){
+                  
+                   piktoBiorowerGraph.sadasnjost="ss";
+                   
+                               
+                                   piktoBiorowerGraph.startDate = end.subtract(1, "month"); 
+                                   
+                           }
+                           else{
+                                  piktoBiorowerGraph.sadasnjost=null;
+                           }
+                        
+             
+            
+            
+            var axes = piktoBiorowerGraph.historyPlot.getAxes();
+            axes.xaxis.options.timeformat="%d";
+            axes.xaxis.options.tickSize=[1,"day"];
+              
+                axes.xaxis.options.min = piktoBiorowerGraph.startDate;
+                axes.xaxis.options.max = moment(piktoBiorowerGraph.startDate).add(1, 'month');
+            
+            $('#tekst').html("History"+"&nbsp;&nbsp;&nbsp;&nbsp"+" "+moment(piktoBiorowerGraph.startDate.format('YYYY-MM-DD')).format('MMMM Do YYYY')+" - "
+            +moment(piktoBiorowerGraph.startDate).add(1,'month').format('MMMM Do YYYY'));
+           
+        }
+            
+            
+            
+            
+            
+         
+            
+            
+            
+            
+            
          
             piktoBiorowerGraph.historyPlot.setupGrid();
             piktoBiorowerGraph.historyPlot.draw();
         });
+        
+        
+        
+        
     }
 };
 
@@ -1376,7 +1365,7 @@ var piktoBiorowerGraph2 = {
     loadHistoryData: function (account, rangeType, startDate, groupType) {
         var data = {
             account: 'biorower:' + account,
-            rangeType: rangeType,
+            rangeType: 'all',
             dateStart: startDate?startDate.format('YYYY-MM-DD'):'',
             groupType: groupType,
         };
@@ -1967,6 +1956,7 @@ var piktoBiorowerGraph2 = {
                              else{
                                  $("#next3").show();
                             }
+                             $('#izbor1').text("Group by "+piktoBiorowerGraph2.groupType);
 
 
 
