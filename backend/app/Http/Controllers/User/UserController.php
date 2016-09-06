@@ -17,6 +17,9 @@ use URL;
 use App\Image as Img;
 use App\Message;
 use App\Library\GlobalFunctions;
+use Illuminate\Support\Facades\Validator;
+//use Illuminate\Support\Facades\Redirect;
+//use Illuminate\Support\Facades\URL;
 
 use Image as Images;
 
@@ -96,8 +99,16 @@ class UserController extends Controller {
 
 
 	// Update avatar
-	public function UpdateUserAvatar(req $request)
-	{
+	public function UpdateUserAvatar(req $request){
+
+		$validator = Validator::make($request->all(), [
+			'avatar'   	=> 'required|image|mimes:jpeg,jpg,png|max:3000',
+		]);
+
+		if($validator->fails()){
+				return back()
+				->withErrors($validator->errors());		
+		}else{
 		// Handle the user upload of avatar
     	if($request->hasFile('avatar')){
     		$user 		= Auth::user();
@@ -122,96 +133,12 @@ class UserController extends Controller {
 
     		$profile->image_id = $image->id;
     		$profile->save();
+    		return redirect('/profile/edit')->with('status-success', 'You have successfully changed your avatar .');
     	}
-    	return redirect('/profile/edit');
+    	return redirect('/profile/edit')->with('status', 'An error has occurred. Please try again .');
+    	}	
 	}
 
-
-	/*public function postUserChangeProfileImage()
-	{
-
-		$x1 = Input::get("cx1");
-		$y1 = Input::get("cy1");
-		$w = Input::get("cw");
-		$h = Input::get("ch");
-
-		//return "x1:".$x1." y1:".$y1." w:".$w." h:".$h;
-		//x1:191 y1:14 w:299 h:299
-
-		$filename = Input::get("tempImage");
-		$tempPath = DIRECTORY_SEPARATOR."temp_profile_images".DIRECTORY_SEPARATOR;
-		$profilesPath = DIRECTORY_SEPARATOR."profile_images".DIRECTORY_SEPARATOR;
-		$fullfileName = $tempPath.$filename;
-
-		$ekstenzija = explode('.', $filename);
-
-		$image = new Image();
-		$image->save();
-
-		$arrayDirektorijumi = explode('/', GlobalFunctions::getFileDirectory($image->id));
-		$direktorijumi = GlobalFunctions::NapraviDirektorijume($arrayDirektorijumi);		
-
-		$fileOnDisc = md5(uniqid(rand(), true));
-		$fileOnDisc = $fileOnDisc.".".strtolower(end($ekstenzija));
-
-		GlobalFunctions::CropSaveAndResizeImage(end($ekstenzija), $fullfileName, $x1, $y1, $w, $h);
-
-	    if (copy(storage_path().$fullfileName, $direktorijumi.$fileOnDisc))
-	    {
-		    $profile = Auth::user()->profile;
-
-		    $oldImageId = null;
-		    $imageOldName = "";
-		    if (isset($profile->image_id))
-		    {
-		    	$oldImageId = $profile->image_id;
-		    	$imageOldName = $profile->image->name;
-		    }
-
-		    $profile->image_id = $image->id;
-		    $profile->save();
-
-		    if (isset($oldImageId)){
-		    	if ($imageOldName != ""){
-		    		try{
-		    			unlink(storage_path().$profilesPath.$imageOldName);
-		    		}
-					catch (Exception $e){
-		    		}
-		    	}
-		    	Image::destroy($oldImageId);
-		    }
-
-		    $image->name = GlobalFunctions::getFileDirectory($image->id).$fileOnDisc;
-		    $image->save();
-
-		    unlink(storage_path().$fullfileName);
-	    }
-	}	*/
-
-	/*public function postUserUploadTempImage()
-	{
-		if (Input::only("file") != "")
-		{
-			$eks = explode(".", $_FILES['file']['name']);
-			$filename = time().Auth::id().".".end($eks);
-
-			if (GlobalFunctions::ProveraEkstenzije(end($eks)))
-			{
-				$fullfileName = DIRECTORY_SEPARATOR."temp_profile_images".DIRECTORY_SEPARATOR.$filename;
-
-			    if (move_uploaded_file($_FILES['file']['tmp_name'], storage_path().$fullfileName))
-			    {
-			    	list($width, $height, $type, $attr) = getimagesize(storage_path().$fullfileName);
-
-			    	return response()->json(['width' => $width, 'height' => $height, 'filename' => $filename]);
-			    }
-		    }
-		    else{
-		    	return "false";
-		    }
-		}
-	}*/
 
 	public function postEdit()
 	{
