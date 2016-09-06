@@ -24,18 +24,16 @@
                 </div><!-- /.box -->
 
                 <!-- About Me Box -->
-                <div class="box no-bg no-border aboutMe-box">
-
-
+                <div class="box aboutMe-box">
                     <div class="aboutMe-body">
                         <div class="col-sm-6 about-border-r about-value-box">
-                            <div class="about-desc">{{ date('Y-m-d', strtotime($user->created_at)) }}</div>
-                            <div class="about-name">Member Since</div>
+                            <div class="about-desc latest-session"></div>
+                            <div class="about-name">Latest Session</div>
                         </div>
                         <!-- Item 1 -->
                         <div class="col-sm-6 about-value-box">
-                            <div class="about-desc latest-session"></div>
-                            <div class="about-name">Latest Session</div>
+                            <div class="about-desc time3"></div>
+                            <div class="about-name">Training time</div>
                         </div>
                         <!-- Item 2 -->
                         <div class="col-sm-12 about-border-t">
@@ -45,14 +43,14 @@
                             <!-- Item 3.1 -->
                             <div class="col-sm-6 about-middle">
                                 <div class="act-block about-value-box">
-                                    <div class="about-value time2"></div>
-                                    <div class="about-vname">Training time</div>
+                                    <div class="about-value distance"></div>
+                                    <div class="about-vname">Distance</div>
                                 </div>
                                 <!-- Item 3.2 -->
 
                                 <div class="act-block about-value-box about-middle">
-                                    <div class="about-value distance"></div>
-                                    <div class="about-vname">Distance</div>
+                                    <div class="about-value power-average"></div>
+                                    <div class="about-vname">Power Average</div>
                                 </div>
                                 <!-- Item 3.3 -->
                             </div>
@@ -60,8 +58,8 @@
                         <!-- Item 3 -->
                         <div class="col-sm-12 about-border-t">
                             <div class="col-sm-6 about-value-box about-border-r">
-                                <div class="about-value power-average"></div>
-                                <div class="about-vname about-vname-last">Power average</div>
+                                <div class="about-value stroke-rate"></div>
+                                <div class="about-vname about-vname-last">Stroke rate average</div>
                             </div>
                             <!-- Item 4 -->
                             <div class="col-sm-6 about-value-box">
@@ -312,14 +310,14 @@
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
                                                             <li>
-                                                                <label for="calories">
-                                                                    <input type="checkbox" class="parameters" id="calories" value="cal">
+                                                                <label for="calories23">
+                                                                    <input type="checkbox" class="parameters" id="calories23" value="cal">
                                                                     <span class="cal">Calories</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
                                                             <li>
-                                                                <label for="time2">
-                                                                    <input type="checkbox" class="parameters" id="time2" value="time">
+                                                                <label for="time23">
+                                                                    <input type="checkbox" class="parameters" id="time23" value="time">
                                                                     <span class="time">Time</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
@@ -436,19 +434,19 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleLeftMax">
-                                                                    <input type="checkbox" class="parameters" id="powerBalanceMax" value="ang_l_max">
+                                                                    <input type="checkbox" class="parameters" id="angleLeftMax" value="ang_l_max">
                                                                     <span class="ang_l_max">Angle left Max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
                                                                 <label for="angleRightAvg">
-                                                                    <input type="checkbox" class="parameters" id="powerBalanceMax" value="ang_r_avg">
+                                                                    <input type="checkbox" class="parameters" id="angleRightAvg" value="ang_r_avg">
                                                                     <span class="ang_r_avg">Angle right average</span>
                                                                 </label>
                                                             </li>
                                                             <li>
                                                                 <label for="angleRightMax">
-                                                                    <input type="checkbox" class="parameters" id="powerBalanceMax" value="ang_r_max">
+                                                                    <input type="checkbox" class="parameters" id="angleRightMax" value="ang_r_max">
                                                                     <span class="ang_r_max">Angle right max</span>
                                                                 </label>
                                                             </li>
@@ -460,7 +458,7 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleMax">
-                                                                    <input type="checkbox" class="parameters" id="powerBalanceMax" value="ang_max">
+                                                                    <input type="checkbox" class="parameters" id="angleMax" value="ang_max">
                                                                     <span class="ang_max">Angle max</span>
                                                                 </label>
                                                             </li>
@@ -643,19 +641,19 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleLeftMax2">
-                                                                    <input type="checkbox" class="parameters2" id="powerBalanceMax2" value="ang_l_max">
+                                                                    <input type="checkbox" class="parameters2" id="angleLeftMax2" value="ang_l_max">
                                                                     <span class="ang_l_max2">Angle left Max</span>
                                                                 </label>
                                                             </li>
                                                             <li>
                                                                 <label for="angleRightAvg2">
-                                                                    <input type="checkbox" class="parameters2" id="powerBalanceMax2" value="ang_r_avg">
+                                                                    <input type="checkbox" class="parameters2" id="angleRightAvg2" value="ang_r_avg">
                                                                     <span class="ang_r_avg2">Angle right average</span>
                                                                 </label>
                                                             </li>
                                                             <li>
                                                                 <label for="angleRightMax2">
-                                                                    <input type="checkbox" class="parameters2" id="powerBalanceMax2" value="ang_r_max">
+                                                                    <input type="checkbox" class="parameters2" id="angleRightMax2" value="ang_r_max">
                                                                     <span class="ang_r_max2">Angle right max</span>
                                                                 </label>
                                                             </li>
@@ -667,7 +665,7 @@
                                                             </li>
                                                             <li>
                                                                 <label for="angleMax2">
-                                                                    <input type="checkbox" class="parameters2" id="powerBalanceMax2" value="ang_max">
+                                                                    <input type="checkbox" class="parameters2" id="angleMax2" value="ang_max">
                                                                     <span class="ang_max2">Angle max</span>
                                                                 </label>
                                                             </li>
@@ -832,10 +830,10 @@
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="
-                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType)) ;"
+                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;"
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
-                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType));
+                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
@@ -854,23 +852,23 @@
 
                     <a href="javascript:;" class="btn btn-link" id="year_progress"
                                            onclick="
-                                       
-                        if(piktoBiorowerGraph2.startDate==''){
+                                                    if(piktoBiorowerGraph2.startDate==''){
                 piktoBiorowerGraph2.startDate=moment().startOf('year');
-             
                   
-            }  
-         
-            if(piktoBiorowerGraph2.sadasnjost!=null){
+            } 
+            
+             if(piktoBiorowerGraph2.sadasnjost!=null){
                   piktoBiorowerGraph2.startDate=moment().startOf('year');
-                
+                 
             }
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate);"
+           
+    
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);"
                                                 >Year</a>
                                         <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
                                            onclick="
                                      
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','');"
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','',piktoBiorowerGraph2.groupType);"
                                                 >All</a>
                                 
                                 </div>
@@ -887,9 +885,13 @@
                                 <div class="graphic-footer" >
                                         <a href="javascript:;" class="pull-right btn-param" style=" margin-right: 10px;" id="skaliranje2"
                                                 >X1</a>
-                                                 <a href="javascript:;" class="pull-right btn-param" id="izbor1"  onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month')"
+                                                 <a href="javascript:;" class="pull-right btn-param" id="izbor1"  onclick="
+                                         
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month')"
                                         >Month</a>
-                                <a href="javascript:;" class="pull-right btn-param" id="izbor2"  onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week')"
+                                <a href="javascript:;" class="pull-right btn-param" id="izbor2"  onclick="
+                               
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week')"
                                         >Week</a>
                                     
                                  <a class="pull-left btn-param" href="#" data-toggle="modal" data-target="#myParam" id="link2"><i class="fa fa-cog"></i></a>
@@ -945,20 +947,39 @@
 
     <script>
         $(document).ready(function () {
+            
          
-        
-        $('#history-graph-params ul input').click(function(){
-            if($('.parameters:checked').size()==4){
-                
-                var last_element =  $('.parameters:checked')[ $('.parameters:checked').length - 1];
-                
+  
+            
+            
+         
+     $('.parameters').on('ifClicked', function(event){
+            
+             if ($('.parameters').filter(':checked').length == 3) {
+              var s=$('.parameters').filter(':checked')[2].id;
              
-             $('.parameters:checked')[ $('.parameters:checked').length - 1].iCheck('uncheck');
+      $('#'+s).iCheck('uncheck');
       
-               
-            }
+    }
+           
+           
           
         });
+        
+        
+          $('.parameters2').on('ifClicked', function(event){
+            
+             if ($('.parameters2').filter(':checked').length == 3) {
+              var s=$('.parameters2').filter(':checked')[2].id;
+             
+      $('#'+s).iCheck('uncheck');
+      
+    }
+           
+           
+          
+        });
+     
         
      
        
