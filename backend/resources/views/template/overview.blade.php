@@ -1179,6 +1179,7 @@
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="
+<<<<<<< HEAD
                                piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;
                          var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
@@ -1266,6 +1267,12 @@
 
 
              });         
+=======
+                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;"
+                                        ><i class="fa fa-chevron-left"></i></a>
+                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
+                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
+>>>>>>> origin/biorower_tomke
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
@@ -1287,6 +1294,7 @@
                     <a href="javascript:;" class="btn btn-link" id="year_progress"
                                            onclick="
                                                     if(piktoBiorowerGraph2.startDate==''){
+<<<<<<< HEAD
                 piktoBiorowerGraph2.startDate=moment().subtract(1, 'year');
 
             }
@@ -1383,6 +1391,24 @@
 
 
              });         "
+=======
+                piktoBiorowerGraph2.startDate=moment().startOf('year');
+                  
+            } 
+            
+             if(piktoBiorowerGraph2.sadasnjost!=null){
+                  piktoBiorowerGraph2.startDate=moment().startOf('year');
+                 
+            }
+           
+    
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);"
+                                                >Year</a>
+                                        <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
+                                           onclick="
+                                     
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','',piktoBiorowerGraph2.groupType);"
+>>>>>>> origin/biorower_tomke
                                                 >All</a>
 
                                 </div>
@@ -1399,10 +1425,22 @@
                                 <div class="graphic-footer" >
                                         <a href="javascript:;" class="pull-right btn-param" style=" margin-right: 10px;" id="skaliranje2"
                                                 >X1</a>
+<<<<<<< HEAD
                                     <a href="javascript:;" style="margin-right: 10px" class="pull-right btn-param" id="izbor1"  
                                         >Group by Month</a>
                           
 
+=======
+                                                 <a href="javascript:;" class="pull-right btn-param" id="izbor1"  onclick="
+                                         
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month')"
+                                        >Month</a>
+                                <a href="javascript:;" class="pull-right btn-param" id="izbor2"  onclick="
+                               
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week')"
+                                        >Week</a>
+                                    
+>>>>>>> origin/biorower_tomke
                                  <a class="pull-left btn-param" href="#" data-toggle="modal" data-target="#myParam" id="link2"><i class="fa fa-cog"></i></a>
 
 
@@ -1456,6 +1494,7 @@
 
     <script>
         $(document).ready(function () {
+<<<<<<< HEAD
 
            var end= moment();
         var s=new Date("October 10, 2016 11:13:00");
@@ -1576,6 +1615,42 @@
            var dr2=moment.range(s, s2);
       
         var range2=moment.range(piktoBiorowerGraph.start, end);
+=======
+            
+         
+  
+            
+            
+         
+     $('.parameters').on('ifClicked', function(event){
+            
+             if ($('.parameters').filter(':checked').length == 3) {
+              var s=$('.parameters').filter(':checked')[2].id;
+             
+      $('#'+s).iCheck('uncheck');
+      
+    }
+           
+           
+          
+        });
+        
+        
+          $('.parameters2').on('ifClicked', function(event){
+            
+             if ($('.parameters2').filter(':checked').length == 3) {
+              var s=$('.parameters2').filter(':checked')[2].id;
+             
+      $('#'+s).iCheck('uncheck');
+      
+    }
+           
+           
+          
+        });
+     
+        
+>>>>>>> origin/biorower_tomke
      
 
 
