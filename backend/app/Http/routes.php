@@ -106,6 +106,12 @@ Route::get('session/ajaxData2', 'SessionController@ajaxData2');
 
 Route::get('/profile/edit', 'User\UserController@getEdit');
 Route::post('profile/user/edit','update@update');
+Route::post('profile/user/change-password', 'update@ChangePassword');
+
+/*
+Route::get('/auth/twitter', 'WelcomeController@redirectToProvider');
+Route::get('/auth/twitter/callback', 'WelcomeController@handleProviderCallback');
+*/
 
 Route::controllers([
 	'template' => 'Template\TemplateController',
