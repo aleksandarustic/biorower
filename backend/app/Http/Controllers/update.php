@@ -7,6 +7,8 @@ use App\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 use Hash;
 
 class update extends Controller {
@@ -72,14 +74,15 @@ class update extends Controller {
 	public function update(Request $request)
 	{
 		if (Auth::check())
-	{
+		{
 
-                    $id = Auth::id();
-                    $korisnik=Auth::User();
-                    $profile_id=$korisnik->profile_id;
-                    $profile= Profile::where('id',$profile_id)->first();
+         $id = Auth::id();
+         $korisnik=Auth::User();
+         $profile_id=$korisnik->profile_id;
+         $profile= Profile::where('id',$profile_id)->first();
 
-                 $displayname=$request->input('display_name');
+
+         $displayname=$request->input('display_name');
 		 $firstname=$request->input('first_name');
 		 $lastname=$request->input('last_name');
 		 $aboutme=$request->input('about_me');
@@ -103,8 +106,7 @@ class update extends Controller {
 		 $email_summary_alternative=$request->input('email_summary_alternative');
 		 $send_session_summary_alternate=$request->input('send_session_summary_alternate');
 		 $privacy=$request->input('privacy');
-		 $password=$request->input('password');
-		 $password_confirm=$request->input('password_confirm');
+	
                  $niz=array('first_name'=>$firstname,
                      'last_name'=>$lastname,
                      'display_name'=>$displayname,
@@ -130,25 +132,54 @@ class update extends Controller {
                      'email_summary_alternative'=>$email_summary_alternative,
                      'send_session_summary_alternate'=>$send_session_summary_alternate,
                      'privacy'=>$privacy);
-                 if (!empty($password)&& strcmp($password, $password_confirm) == 0) {
-                    $password2= Hash::make($password);
-                            $niz['password']=$password2;
-                 }
-                 $potvrda = User::where("id",$id)->update($niz);
-		 $potvrda2= Profile::where("id",$profile_id)->update($niz2);
+
+            $potvrda  	= User::where("id", $id)->update($niz);
+		 	$potvrda2 	= Profile::where("id", $profile_id)->update($niz2);
 		 
 			
-			 return redirect('/profile/edit');
+			 return redirect('/profile/edit')->with('status-success', 'You have successfully saved your changes.');
 		}
 		else{
-			echo "neuspesno";
+			return redirect('/')->with('status', 'An error has occurred. Please try again .');
 		}
 			
-
-		
-
-	
 	}
+
+	// PROMENA SIFRE PREKO SETTINGS STRANE!
+	public function ChangePassword(Request $request){
+		
+		if (Auth::check()){
+			  	$id 			= 	Auth::id();
+         	  	$user			=	Auth::User();
+
+         	  	$validator 		= 	Validator::make($request->all(), [
+									'password'   				=> 'required|min:6|confirmed',
+									'password_confirmation'   	=> 'required|min:6',
+									]);
+        // PROVERA TRENUTNE SIFRE 	  	
+        if(Hash::check($request->input('old_password'), $user->password))
+        {
+
+		if($validator->fails()){ // Provera novih sifri
+				return Redirect::to(URL::previous() . "#change-pass")
+				->withErrors($validator->errors());
+		}
+			$user->password = bcrypt($request->input('password'));
+
+			if($user->save()){ // sacuvaj novu sifru ukoliko je sve u redu
+				return redirect('/profile/edit')->with('status-success', 'You have successfully changed your password.');
+			}
+
+		}else{ // ukoliko nije ispravna trenutna sifra 
+			return redirect('/profile/edit')->with('status', 'You have entered the wrong current password.');
+		}
+
+		}else{
+			return redirect('/');
+		}
+
+	}
+
 
 	/**
 	 * Remove the specified resource from storage.
