@@ -27,7 +27,8 @@
 				$("#idSubmitEditProfile").click();
 			})
 
-		})
+		});
+
 	</script>
 @endsection
 
@@ -37,6 +38,7 @@
 <section class="content">
 	<div class="row"><!-- /.col -->
 		<h1 class="h1-settings">Settings</h1>
+	
 	
 		<div class="col-md-3 pull-left">
 			<div class=" box box-primary">
@@ -69,7 +71,40 @@
 			</div>
 		</div>
 		<div class="nav-tabs-custom col-md-7 no-padding padding-bottom pull-left edit-tabs">
-		
+	<div>
+		@if (session('status-success'))
+			<div class="alert alert-success">
+				<strong>Great!</strong><br><br>
+				<ul>
+					<li>{{ session('status-success') }}</li>
+				</ul>
+			</div>
+		@endif
+	</div>		
+
+	<div>
+		@if (session('status'))
+			<div class="alert alert-danger">
+				<strong>Whoops!</strong> There were some problems with your input.<br><br>
+				<ul>
+					<li>{{ session('status') }}</li>	
+				</ul>
+			</div>
+		@endif
+	</div>
+
+	<div>
+		@if ($errors->first('password') or $errors->first('email') or $errors->first('avatar') )
+			<div class="alert alert-danger">
+				<strong>Whoops!</strong> There were some problems with your input.<br><br>
+				<ul>
+					<?php echo $errors->first('email', '<li>:message</li>'); ?>
+					<?php echo $errors->first('password', '<li>:message</li>'); ?>
+					<?php echo $errors->first('avatar', '<li>:message</li>'); ?>		
+				</ul>
+			</div>
+		@endif
+	</div>
 			<div class="box box-primary padding-all">
 				<div class="tab-content tab-cont">
 
@@ -78,51 +113,23 @@
 						<p class="h2-subhead">Update your avatar</p>
 
 					<div class="upload-photo-cont" >
-								<span class="user-header"><img src="{{ URL::asset($user['profile']['image']['name']) }}" alt="User Image" height="160" width="160"></span>
-								<div class="upload-photo">
-									<a href="#" class="mailedit-box-attachment-name" data-toggle="modal" data-target="#myModal">
-										<i class="fa fa-camera"></i> <span class="upload-txt">CHANGE AVATAR</span></a>
-
-								</div>
-
-			
-					<!--  Modal za izmenu avatara -->			
-							<div class="example-modal">
-								<div class="modal" id="myModal">
-									<div class="modal-dialog">
-										<div class="modal-content">
-										<form enctype="multipart/form-data" action="avatar" method="POST">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-													<h4 class="modal-title">Upload a image</h4>
-												</div>
-
-												<div class="modal-body">
-													<div class=" modal-choose">
-                                                    <input type="file" class="col-md-12" name='avatar'>
-													<span class="choose-image"><i class="fa fa-plus"></i> Select a image</span>
-													</div>
-													<input type="hidden" name="_token" value="{{ csrf_token() }}">
-												</div>
-
-												<div class="modal-footer model-mdown">
-													<button type="submit" class="btn btn-primary">Change avatar</button>
-													 
-												</div>
-										</form>		
-										</div><!-- /.modal-content -->
-									</div><!-- /.modal-dialog -->
-								</div><!-- /.modal -->
-							</div><!-- /.example-modal -->
-						<!--  Modal za izmenu avatara -->	
-
+					<span class="user-header"><img src="{{ URL::asset($user['profile']['image']['name']) }}" alt="User Image" height="160" width="160"></span>
 					</div>
-					<form enctype="multipart/form-data" action="avatar" method="POST">
-					<a href="#"><label for="form-file"><h3> <i class="fa fa-plus"></i> Select a new avatar </h3></label> </a>
-					<input type="file" name="avatar" id="form-file" class="hidden" />
+
+			<form enctype="multipart/form-data" action="avatar" method="POST" id="cng-avatar">
+				<a href="#">
+					<label for="avatar"><h4> <i class="fa fa-plus"></i> Select a new avatar </h4></label> </a>
+					<input type="file" name="avatar" id="avatar" class="hidden new-avatar" />
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<br>					
-					<button type="submit" class="btn btn-primary">Upload avatar</button>									 									
+					<br>
+					<span id="selected_name"> </span>
+					<br>
+					<div id="loadingmessage" style="display: none;" >
+       					<img src="{{ URL::asset('images/ajax-loader.gif') }}"/>
+					</div>
+						<div class="pull-right" style="display: none;" id="buttonSaveAvatar">
+						<input id="SaveAvatar" class="btn btn-primary btn-primary" type="submit" value="Save Avatar">
+						</div>	
 			</form>	
 
 				</div>
@@ -130,7 +137,7 @@
 		<!-- /.tab-pane -->
 
 			<div class="tab-pane edit-box margin-top" id="user-details"> 
-				<h2 class="h2-tabs">User Details</h2>
+			<h2 class="h2-tabs">User Details</h2>
 
 						<form method="POST" action="user/edit" accept-charset="UTF-8" id="mainFormEdit">
                             <input name="_token" type="hidden" value="LSoFI4hQLii3O5perBoyDdGQZReepW9mUEm4eI7r">
@@ -270,14 +277,18 @@
 									
 								</select>
 							</div>
+							<hr />	
+						<div class="pull-right">
+							<input class="btn btn-primary btn-primary" id="idSubmitEditProfile" type="submit" value="Saves profile">
+						</div>
+
 						</div><!-- /.tab-pane -->
 
-						<div class="tab-pane edit-box margin-top" id="user-type"> <h2 class="h2-tabs">User Type</h2>
+				<div class="tab-pane edit-box margin-top" id="user-type"> 
+				<h2 class="h2-tabs">User Type</h2>
 							<p class="h2-subhead">Type of person</p>
 							<div class="form-group">
-                                                           
-                                                            
-                                                            
+                                                                                      
 								<input name="dic_user_type_id" type="radio"<?php if($user['profile']['dic_user_type_id']==1) echo 'checked="checked"' ?> value="1">
 								Home User <br />
 								<input  name="dic_user_type_id" type="radio" value="2" <?php if($user['profile']['dic_user_type_id']==2) echo 'checked="checked"' ?> >
@@ -287,13 +298,14 @@
 								<input  name="dic_user_type_id" type="radio" value="4" <?php if($user['profile']['dic_user_type_id']==4) echo 'checked="checked"' ?> >
 								Armed Forces/Uniformed Services User <br />
 							</div>
-						</div> <!-- /.tab-pane -->
+				</div> <!-- /.tab-pane -->
 
-						<div class="tab-pane edit-box margin-top" id="notifi"> <h2 class="h2-tabs">Notifications</h2>
+				<div class="tab-pane edit-box margin-top" id="notifi"> 
+				<h2 class="h2-tabs">Notifications</h2>
 							<p class="h2-subhead">Update your notifications</p>
 							<div class="form-group">
 								<select class="form-control select2" style="width: 100%;" name="notify_me_on_comment">
-									<option value="3" <?php if($user['profile']['notify_me_on_comment']==3) echo 'selected="selected"' ?> >-------</option>
+								
 									<option value="1" <?php if($user['profile']['notify_me_on_comment']==1) echo 'selected="selected"' ?>>Yes</option>
 									<option value="0" <?php if($user['profile']['notify_me_on_comment']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
@@ -303,14 +315,20 @@
 							<p class="instructions">Email me a summary when I upload a session</p>
 							<div class="form-group">
 								<select class="form-control select2" style="width: 100%;" name="send_session_summary">
-									<option value="3" <?php if($user['profile']['send_session_summary']==3) echo 'selected="selected"' ?>>-------</option>
 									<option value="1" <?php if($user['profile']['send_session_summary']==1) echo 'selected="selected"' ?>>Yes</option>
 									<option value="0" <?php if($user['profile']['send_session_summary']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
-							<hr />
-						</div><!-- /.tab-pane -->
-						<div class="tab-pane edit-box margin-top" id="account-priv"> <h2 class="h2-tabs">Account privacy</h2>
+							<hr />	
+						<div class="pull-right">
+							<input class="btn btn-primary btn-primary" id="idSubmitEditProfile" type="submit" value="Saves profile">
+						</div>
+					</form>	
+				</div><!-- /.tab-pane -->
+
+				
+				<div class="tab-pane edit-box margin-top" id="account-priv"> 
+				<h2 class="h2-tabs">Account privacy</h2>
 							<p class="h2-subhead">Update your account privacy</p>
 							<p class="instructions">If selected your account will not be publicly viewable.</p>
 							<div class="form-group">
@@ -319,22 +337,38 @@
 									<option value="0" <?php if($user['profile']['privacy']==0) echo 'selected="selected"' ?>>No</option>
 								</select>
 							</div>
-						</div><!-- /.tab-pane -->
-						<div class="tab-pane edit-box margin-top" id="change-pass"> <h2 class="h2-tabs">Change Password</h2>
+				</div><!-- /.tab-pane -->
+
+
+				<div class="tab-pane edit-box margin-top" id="change-pass"> 
+				<h2 class="h2-tabs">Change Password</h2>
 							<p class="h2-subhead">Leave blank to keep your current password</p>
+				<form method="POST" action="user/change-password" accept-charset="UTF-8">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group">
 								<div class="form-group">
-									<label for="password" class="password">Password</label>
+									<label for="password" class="password">Current Password</label>
+									<br />
+									<input class="form-control input-sm" name="old_password" type="password" value="" id="password">
+								</div>
+
+								<div class="form-group">
+									<label for="password" class="password">New Password</label>
 									<br />
 									<input class="form-control input-sm" name="password" type="password" value="" id="password">
 								</div>
 								<div class="form-group">
-									<label for="Confirm password" class="password">Confirm Password</label>
+									<label for="Confirm password" class="password">Confirm New Password</label>
 									<br />
-									<input class="form-control input-sm" name="password_confirm" type="password" value="">
+									<input class="form-control input-sm" name="password_confirmation" type="password" value="">
 								</div>
 							</div>
-						</div>
+
+					<div class="pull-right">
+						<input class="btn btn-primary btn-primary" type="submit" value="Change Password">
+					</div>
+				</form>				
+				</div>
 						<!-- /.tab-pane -->
 
 						<!-- tab-pane -->
@@ -356,11 +390,9 @@
 						<!-- /.tab-content -->
 
 						<br> 
-						<div class="pull-right">
-							<input class="btn btn-primary btn-primary" id="idSubmitEditProfile" type="submit" value="Saves profile">
-						</div>
+						
 						<br> 
-				</form>
+				
 			</div>
 		</div>
 		<!-- /.tab-content -->
@@ -369,5 +401,39 @@
 	</div>
 </section>	
 	<!-- /.row -->
+<script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+<script>
+	$(function() { 
+    // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        // save the latest tab; use cookies if you like 'em better:
+        localStorage.setItem('lastTab', $(this).attr('href'));
+    });
 
+    // go to the latest tab, if it exists:
+    var lastTab = localStorage.getItem('lastTab');
+    if (lastTab) {
+        $('[href="' + lastTab + '"]').tab('show');
+    }
+	});
+
+	if($('.alert').is(':visible')) {
+		$('.alert').delay(5000).slideUp();
+	}
+
+	// ZA UPLOAD AVATARA
+	var $f1 = $("#cng-avatar .new-avatar");
+	function FChange() {
+    	var prikazi = document.getElementById("selected_name");
+		prikazi.innerHTML = "<b> You chose:</b> "+this.value+" <br> If you want to change your avatar , press Save Avatar ";
+		$('#buttonSaveAvatar').show();
+	}
+
+	$f1.change(FChange);
+	// Prikazati ajax loading gif
+	$(document).on("click", "#SaveAvatar", function(){
+				$('#loadingmessage').show();
+	});
+	// ZA UPLOAD AVATARA KRAJ
+</script>
 @endsection
