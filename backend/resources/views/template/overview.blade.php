@@ -271,16 +271,40 @@
 
                                     <a href="javascript:;" class="btn btn-link" id="week_history"
                                        onclick="
-                                    if(piktoBiorowerGraph.startDate==''){
-                piktoBiorowerGraph.startDate=moment().subtract(1, 'week');
-
-
-            }
-
-            if(piktoBiorowerGraph.sadasnjost!=null){
-                  piktoBiorowerGraph.startDate=moment().subtract(1, 'week');
-
-            }
+                                            if(piktoBiorowerGraph.startDate==''){
+                                         piktoBiorowerGraph.startDate=moment().subtract(1,'week'); 
+                                     }     
+                                            if(moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType).add(1,'day')>moment()){
+                   piktoBiorowerGraph.startDate=moment().subtract(1,'week');
+                  
+                   
+                               
+                                   
+                                   
+                           }
+                           
+                           
+                                  if(moment(piktoBiorowerGraph.startDate).add(1,'week').add(1,'day')>moment()){
+                   piktoBiorowerGraph.startDate=moment().subtract(1,'week');
+                  
+                   
+                               
+                                   
+                                   
+                           }    
+                           
+                                if(moment(piktoBiorowerGraph.startDate)< piktoBiorowerGraph.start){
+                   piktoBiorowerGraph.startDate=moment(piktoBiorowerGraph.start).subtract(2,'day');
+                  
+                   
+                               
+                                   
+                                   
+                           }           
+                                           
+                                           
+                                           
+            
 
     piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',piktoBiorowerGraph.startDate);
 
@@ -329,16 +353,41 @@
                                             >Week</a>
                                     <a href="javascript:;" class="btn btn-link" id="month_history"
                                        onclick="
+                         if(piktoBiorowerGraph.startDate==''){
+                                         piktoBiorowerGraph.startDate=moment().subtract(1,'month'); 
+                                     }                     
+                                         
+                     if(moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType).add(1,'day')>moment()){
+                   piktoBiorowerGraph.startDate=moment().subtract(1,'month');
+                  
+                 
+                               
+                                   
+                                   
+                           }
+                           
+                           
+                                  if(moment(piktoBiorowerGraph.startDate).add(1,'month').add(1,'day')>moment()){
+                   piktoBiorowerGraph.startDate=moment().subtract(1,'month');
+                  
+                   
+                               
+                                   
+                                   
+                           }
+                             if(moment(piktoBiorowerGraph.startDate)< piktoBiorowerGraph.start){
+                   piktoBiorowerGraph.startDate=moment(piktoBiorowerGraph.start).subtract(15,'day');
+                  
+                   
+                               
+                                   
+                                   
+                           }
+                    
+                    
+                                
+                                           
 
-            if(piktoBiorowerGraph.startDate==''){
-                piktoBiorowerGraph.startDate=moment().subtract(1, 'month');
-
-            }
-
-             if(piktoBiorowerGraph.sadasnjost!=null){
-                piktoBiorowerGraph.startDate=moment().subtract(1, 'month');
-
-            }
 
 
 
@@ -391,17 +440,37 @@
                                             >Month</a>
                                     <a href="javascript:;" class="btn btn-link" id="year_history"
                                        onclick="
-                                            if(piktoBiorowerGraph.startDate==''){
-                piktoBiorowerGraph.startDate=moment().subtract(1, 'year');;
-
-            }
-
-             if(piktoBiorowerGraph.sadasnjost!=null){
-                  piktoBiorowerGraph.startDate=moment().subtract(1, 'year');;
-
-            }
-
-
+                                     if(piktoBiorowerGraph.startDate==''){
+                                         piktoBiorowerGraph.startDate=moment().subtract(1,'year'); 
+                                     }           
+                           
+                           
+                         
+                               if(moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType).add(1,'day')>moment()){
+                   piktoBiorowerGraph.startDate=moment().subtract(1,'year');
+                  
+                   
+                               
+                                   
+                                   
+                           }   
+                           
+                                            if(moment(piktoBiorowerGraph.startDate).add(1,'year').add(1,'day')>moment()){
+                   piktoBiorowerGraph.startDate=moment().subtract(1,'year');
+                  
+                   
+                               
+                                   
+                                   
+                           }  
+                            if(moment(piktoBiorowerGraph.startDate)< piktoBiorowerGraph.start){
+                   piktoBiorowerGraph.startDate=moment(piktoBiorowerGraph.start).subtract(1,'month');
+                  
+                   
+                               
+                                   
+                                   
+                           }   
     piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph.startDate);
                                     var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
@@ -1179,7 +1248,6 @@
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="
-<<<<<<< HEAD
                                piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;
                          var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
@@ -1226,7 +1294,9 @@
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
                                    onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
-                               
+                                            
+                                           
+                                           
                                    var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1267,12 +1337,6 @@
 
 
              });         
-=======
-                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;"
-                                        ><i class="fa fa-chevron-left"></i></a>
-                                <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
-                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
->>>>>>> origin/biorower_tomke
 ;"
                                         ><i class="fa fa-chevron-right"></i></a>
                             </div>
@@ -1293,16 +1357,37 @@
 
                     <a href="javascript:;" class="btn btn-link" id="year_progress"
                                            onclick="
-                                                    if(piktoBiorowerGraph2.startDate==''){
-<<<<<<< HEAD
-                piktoBiorowerGraph2.startDate=moment().subtract(1, 'year');
-
-            }
-
-             if(piktoBiorowerGraph2.sadasnjost!=null){
-                  piktoBiorowerGraph2.startDate=moment().subtract(1, 'year');
-
-            }
+                                                 if(piktoBiorowerGraph2.startDate==''){
+                                         piktoBiorowerGraph2.startDate=moment().subtract(1,'year'); 
+                                     }           
+                           
+                           
+                         
+                               if(moment(piktoBiorowerGraph2.startDate).add(1,piktoBiorowerGraph2.rangeType).add(1,'day')>moment()){
+                   piktoBiorowerGraph2.startDate=moment().subtract(1,'year');
+                  
+                   
+                               
+                                   
+                                   
+                           }   
+                           
+                                            if(moment(piktoBiorowerGraph2.startDate).add(1,'year').add(1,'day')>moment()){
+                   piktoBiorowerGraph2.startDate=moment().subtract(1,'year');
+                  
+                   
+                               
+                                   
+                                   
+                           }  
+                            if(moment(piktoBiorowerGraph2.startDate)< piktoBiorowerGraph2.start){
+                   piktoBiorowerGraph2.startDate=moment(piktoBiorowerGraph2.start).subtract(1,'month');
+                  
+                   
+                               
+                                   
+                                   
+                           }   
 
 
     piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
@@ -1391,24 +1476,6 @@
 
 
              });         "
-=======
-                piktoBiorowerGraph2.startDate=moment().startOf('year');
-                  
-            } 
-            
-             if(piktoBiorowerGraph2.sadasnjost!=null){
-                  piktoBiorowerGraph2.startDate=moment().startOf('year');
-                 
-            }
-           
-    
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);"
-                                                >Year</a>
-                                        <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
-                                           onclick="
-                                     
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','',piktoBiorowerGraph2.groupType);"
->>>>>>> origin/biorower_tomke
                                                 >All</a>
 
                                 </div>
@@ -1425,22 +1492,10 @@
                                 <div class="graphic-footer" >
                                         <a href="javascript:;" class="pull-right btn-param" style=" margin-right: 10px;" id="skaliranje2"
                                                 >X1</a>
-<<<<<<< HEAD
                                     <a href="javascript:;" style="margin-right: 10px" class="pull-right btn-param" id="izbor1"  
                                         >Group by Month</a>
                           
 
-=======
-                                                 <a href="javascript:;" class="pull-right btn-param" id="izbor1"  onclick="
-                                         
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month')"
-                                        >Month</a>
-                                <a href="javascript:;" class="pull-right btn-param" id="izbor2"  onclick="
-                               
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week')"
-                                        >Week</a>
-                                    
->>>>>>> origin/biorower_tomke
                                  <a class="pull-left btn-param" href="#" data-toggle="modal" data-target="#myParam" id="link2"><i class="fa fa-cog"></i></a>
 
 
@@ -1494,7 +1549,6 @@
 
     <script>
         $(document).ready(function () {
-<<<<<<< HEAD
 
            var end= moment();
         var s=new Date("October 10, 2016 11:13:00");
@@ -1608,67 +1662,7 @@
     }
  
 
-
-      
-
-
-           var dr2=moment.range(s, s2);
-      
-        var range2=moment.range(piktoBiorowerGraph.start, end);
-=======
-            
-         
-  
-            
-            
-         
-     $('.parameters').on('ifClicked', function(event){
-            
-             if ($('.parameters').filter(':checked').length == 3) {
-              var s=$('.parameters').filter(':checked')[2].id;
-             
-      $('#'+s).iCheck('uncheck');
-      
-    }
-           
-           
-          
-        });
-        
-        
-          $('.parameters2').on('ifClicked', function(event){
-            
-             if ($('.parameters2').filter(':checked').length == 3) {
-              var s=$('.parameters2').filter(':checked')[2].id;
-             
-      $('#'+s).iCheck('uncheck');
-      
-    }
-           
-           
-          
-        });
-     
-        
->>>>>>> origin/biorower_tomke
-     
-
-
-        if(range2<dr2){
-
-
-              $("#year_history").css("text-decoration","underline");
-
-            $("#all_history").hide();
-
-        }
-        else{
-
-
-              $("#all_progress").css("background-color","#286090");
-
-        }
-       
+   
 
         if(rangeType=="all"){
 
@@ -1695,26 +1689,7 @@
                        
                        
                        
-                          var range3=moment.range(piktoBiorowerGraph2.start, end);
-                          
-                          
-        if(range3<dr2){
-           
-            $("#all_progress").hide();
-            $("#year_progress").css("text-decoration","underline");
-
-
-
-
-
-        }
-        else{
-              
-              $("#all_progress").css("background-color","#286090");
-
-
-        }
-        
+                   
           if(rangeType2=="all"){
         
 
@@ -1771,6 +1746,7 @@
                niz2.push(parameter32);
           }
           piktoBiorowerGraph2.parameters=niz2;
+       
           
           
           

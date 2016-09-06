@@ -96,6 +96,13 @@ Route::post('/profile/edit/user/user-upload-temp-image', 'User\UserController@po
 Route::post('/profile/edit/user/user-change-profile-image', 'User\UserController@postUserChangeProfileImage');
 Route::get('/profile/logout', 'WelcomeController@getLogout');
 
+Route::post('profile/user/edit','update@update');
+Route::post('profile/user/change-password', 'update@ChangePassword');
+
+/*
+Route::get('/auth/twitter', 'WelcomeController@redirectToProvider');
+Route::get('/auth/twitter/callback', 'WelcomeController@handleProviderCallback');
+*/
 Route::get('/sessions/calendar', 'SessionController@calendar');
 Route::post('/sessions/comment', 'SessionController@comment');
 
@@ -108,12 +115,6 @@ Route::get('session/ajaxData2', 'SessionController@ajaxData2');
 
 Route::get('/profile/edit', 'User\UserController@getEdit');
 Route::post('profile/user/edit','update@update');
-Route::post('profile/user/change-password', 'update@ChangePassword');
-
-/*
-Route::get('/auth/twitter', 'WelcomeController@redirectToProvider');
-Route::get('/auth/twitter/callback', 'WelcomeController@handleProviderCallback');
-*/
 
 Route::controllers([
 	'template' => 'Template\TemplateController',
