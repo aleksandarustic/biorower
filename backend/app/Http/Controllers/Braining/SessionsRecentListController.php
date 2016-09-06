@@ -105,6 +105,7 @@ class SessionsRecentListController extends Controller {
 				   	// Ukoliko se api koristi preko weba, posalji vec uredjene parametre
 				   	if( Input::get("web") == 1){
 						$tmp['time']		=	gmdate(config('parameters.time.format'), $value->sessionSummary["time"]);
+						$tmp['srate']		=   round($value->sessionSummary["stroke_rate_average"], config('parameters.sdist_avg.format')); 
 						$tmp['dist']		=	round($value->sessionSummary["distance"], config('parameters.dist.format'));
 						$tmp['pwr_avg']		=	round($value->sessionSummary["power_average"], config('parameters.pwr_avg.format'));
 						$tmp['hr_avg']		=	round($value->sessionSummary["heart_rate_average"], config('parameters.hr_avg.format'));
