@@ -39,7 +39,7 @@ $(function () {
             success: function (response) {
                 var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
                 // PRIKAZ PODATAKA POSLEDNJE SESIJE
-              
+                
                 if (response.sessionsRecentList.length !== 0) {
                     $('.time3').append(json[0].time);
                     $('.distance').append(json[0].dist);
@@ -109,7 +109,7 @@ $(function () {
 
 
     $.post('api/v1/sessions_history', data, function (response) {
-    piktoBiorowerGraph.broj=response.historydata.date.length;
+             piktoBiorowerGraph.broj=response.historydata.date.length;
    
 
 
@@ -202,50 +202,12 @@ $(function () {
     
     
     
-                        function showTooltip(x, y, contents) {
-                            $('<div id="tooltip">' + contents + '</div>').css({
-                                position: 'absolute',
-                                display: 'none',
-                                top: y - 5,
-                                left: x + 20,
-                                border: '2px solid #fff',
-                                padding: '5px',
-                                'box-shadow': '0px 0px 2px 0px rgba(0, 0, 0, 0.196)',
-                                size: '10',
-                                'background-color': '#fff',
-                                opacity: 0.80
-                            }).appendTo("body").fadeIn(200);
-                        }
-
-                        $.fn.UseTooltip = function () {
-                            var previousPoint = null;
-
-                            $(this).bind("plothover", function (event, pos, item) {
-                                if (item) {
-                                    if (previousPoint != item.dataIndex) {
-                                        previousPoint = item.dataIndex;
-
-                                        $("#tooltip").remove();
-
-                                        var x = item.datapoint[0];
-                                        var y = item.datapoint[1];
-                                        
-                                        
-
-                                        showTooltip(item.pageX, item.pageY,
-                                            "<span class='x-asis'>" + days[x - 1] + "</span>" + "<br/>" + "<br/>" + "<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
-                                    }
-                                } else {
-                                    $("#tooltip").remove();
-                                    previousPoint = null;
-                                }
-                            });
-                        };
-
+                        
 
                         
 
-
+                        
+                        
 
 
 
@@ -256,14 +218,57 @@ $(function () {
                                     if (item) {
                                         if (previousPoint != item.dataIndex) {
                                             previousPoint = item.dataIndex;
-
-                                            $("#tooltip").remove();
-
+                                            var label=item.series.label;
+                                            var datapoint = item.datapoint[1];
                                             var x = item.datapoint[0];
-                                            var y = item.datapoint[1];
-
+                                            $("#tooltip").remove();
+                                              if(label == "Distance"){
+                                                  var y = (datapoint*1000).toFixed(0)+" m "; 
+                                              }
+                                              if(label.indexOf("Stroke Rate")!= -1){
+                                                  var y = datapoint.toFixed(0)+" spm "; 
+                                              }
+                                               if(label.indexOf("Power")!= -1){
+                                                  var y = datapoint.toFixed(0)+" W "; 
+                                              }
+                                               if(label.indexOf("Angle")!= -1){
+                                                  var y = datapoint.toFixed(0)+" ° "; 
+                                              }
+                                              if(label == "Stroke Count"){
+                                                  var y = datapoint.toFixed(0); 
+                                              }
+                                              if(label == "Stroke Distance"){
+                                                  var y = (datapoint*1000).toFixed(0)+" m "; 
+                                              }
+                                              if(label.indexOf("Speed")!= -1){
+                                                  var y = datapoint.toFixed(0)+" m/s "; 
+                                              }
+                                              if(label.indexOf( "Pace") != -1 ){
+                                                  var y = parseInt( datapoint / 60 ) % 60  +" min "; 
+                                              }
+                                              if(label.indexOf("HR")!= -1){
+                                                  var y = datapoint.toFixed(0)+" bpm "; 
+                                              }
+                                              if(label == "Calories"){
+                                                  var y = datapoint.toFixed(0)+" kCal "; 
+                                              }
+                                              if(label == "Time"){
+                                                  var y = parseInt( datapoint / 60 ) % 60 +" min "; 
+                                              }
+                                              if(label == "Stroke Dist. Max"){
+                                                  var y = (datapoint*1000).toFixed(0)+" m "; 
+                                              }
+                                              if(label.indexOf( "MML") != -1 ){
+                                                  var y = parseInt( datapoint / 60 ) % 60  +" min "; 
+                                              }
+                                            var x = item.datapoint[0];
+                                        
+                                          
                                             showTooltip(item.pageX, item.pageY,
-                                                "<span class='x-asis'>" + x + "</span>" + "<br/>" + "<p>" + y + "W" + "</p>" + "<i>" + item.series.label + "") + "</i>";
+                                                "<strong>"+item.series.label+": " + y + "</strong>" + "<br/>" + "<strong>Date: " + moment(x).format('Do MMM YYYY') + "</strong><br />"
+                                                + "<strong>Time: " + moment(x).format('hh:mm:ss') + "</strong>" 
+                                                 
+                                                );
                                         }
                                     } else {
                                         $("#tooltip").remove();
@@ -277,17 +282,19 @@ $(function () {
                                     position: 'absolute',
                                     display: 'none',
                                     top: y + 5,
-                                    left: x + 20,
+                                    left: x - 180,
                                     border: '2px solid #ccc',
                                     padding: '5px',
                                     size: '10',
+                                    color:'black',
                                     'background-color': '#fff',
-                                    opacity: 0.80
+                                    opacity: 0.80,
+                                    width:180,
                                 }).appendTo("body").fadeIn(200);
                             }
 
 
-
+                            
                          
 
                             $("#progress").UseTooltip();
@@ -567,6 +574,8 @@ var piktoBiorowerGraph = {
        
 
         $.post('api/v1/sessions_history', data, function (response) {
+            
+
              piktoBiorowerGraph.historyData = response.historydata;
             var newHistoryData = piktoBiorowerGraph.getHistoryData(piktoBiorowerGraph.parameters);
             
