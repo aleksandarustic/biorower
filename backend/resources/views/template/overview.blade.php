@@ -440,6 +440,14 @@
                                             >Month</a>
                                     <a href="javascript:;" class="btn btn-link" id="year_history"
                                        onclick="
+                                             if(moment(piktoBiorowerGraph.startDate)< piktoBiorowerGraph.start){
+                   piktoBiorowerGraph.startDate=moment(piktoBiorowerGraph.start).subtract(1,'month');
+                  
+                   
+                               
+                                   
+                                   
+                           }   
                                      if(piktoBiorowerGraph.startDate==''){
                                          piktoBiorowerGraph.startDate=moment().subtract(1,'year'); 
                                      }           
@@ -455,7 +463,8 @@
                                    
                            }   
                            
-                                            if(moment(piktoBiorowerGraph.startDate).add(1,'year').add(1,'day')>moment()){
+                                            if(moment(piktoBiorowerGraph.startDate).add(1,'year').add(10,'day')>moment()){
+                                            
                    piktoBiorowerGraph.startDate=moment().subtract(1,'year');
                   
                    
@@ -463,14 +472,8 @@
                                    
                                    
                            }  
-                            if(moment(piktoBiorowerGraph.startDate)< piktoBiorowerGraph.start){
-                   piktoBiorowerGraph.startDate=moment(piktoBiorowerGraph.start).subtract(1,'month');
-                  
-                   
-                               
-                                   
-                                   
-                           }   
+                         
+                           
     piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph.startDate);
                                     var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
@@ -1060,6 +1063,7 @@
                        if(duzina==1){
 
                             opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
+                            
 
                        }
                         if(duzina==2){
@@ -1155,6 +1159,8 @@
                        if(duzina==1){
 
                             opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
+                              opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].color='green';
+
 
                        }
                         if(duzina==2){
@@ -1357,7 +1363,16 @@
 
                     <a href="javascript:;" class="btn btn-link" id="year_progress"
                                            onclick="
-                                                 if(piktoBiorowerGraph2.startDate==''){
+                                       
+                                         if(moment(piktoBiorowerGraph2.startDate)< piktoBiorowerGraph2.start){
+                   piktoBiorowerGraph2.startDate=moment(piktoBiorowerGraph2.start).subtract(1,'month');
+                  
+                   
+                               
+                                   
+                                   
+                           }   
+                                     if(piktoBiorowerGraph2.startDate==''){
                                          piktoBiorowerGraph2.startDate=moment().subtract(1,'year'); 
                                      }           
                            
@@ -1372,7 +1387,8 @@
                                    
                            }   
                            
-                                            if(moment(piktoBiorowerGraph2.startDate).add(1,'year').add(1,'day')>moment()){
+                                            if(moment(piktoBiorowerGraph2.startDate).add(1,'year').add(10,'day')>moment()){
+                                            
                    piktoBiorowerGraph2.startDate=moment().subtract(1,'year');
                   
                    
@@ -1380,15 +1396,9 @@
                                    
                                    
                            }  
-                            if(moment(piktoBiorowerGraph2.startDate)< piktoBiorowerGraph2.start){
-                   piktoBiorowerGraph2.startDate=moment(piktoBiorowerGraph2.start).subtract(1,'month');
-                  
-                   
-                               
-                                   
-                                   
-                           }   
-
+                                       
+                                       
+               
 
     piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
                                                var s=[];
@@ -1545,10 +1555,13 @@
 @section('page-scripts')
   <script src="{{ URL::asset('js/moment-range.js') }}"></script>
     <script src="{{ URL::asset('dist/js/graphs.js') }}"></script>
+  
 
 
     <script>
         $(document).ready(function () {
+            
+       
 
            var end= moment();
         var s=new Date("October 10, 2016 11:13:00");

@@ -185,7 +185,8 @@ $(function () {
 
         }
         else{
-               $("#year_progress").hide();
+               $("#year_progress").show();
+                 $("#all_progress").show();
               $("#all_progress").css("background-color","#286090");
 
 
@@ -198,6 +199,57 @@ $(function () {
 
 
     })
+    
+    $("#history").bind("plotpan plotzoom", function (event, plot) {
+      var axes = piktoBiorowerGraph.historyPlot.getAxes();
+      piktoBiorowerGraph.startDate=moment(axes.xaxis.options.min);
+      
+      
+      var end= moment();
+                                             
+                           if(moment(piktoBiorowerGraph.startDate).add(2,piktoBiorowerGraph.rangeType).add(1,'day')>end){
+                               $("#next1").hide();
+                                                            
+                           }
+                          
+                            else{
+                                 $("#next1").show();
+                            }
+                            if(moment(piktoBiorowerGraph.startDate).subtract(1,piktoBiorowerGraph.rangeType)<piktoBiorowerGraph.start){
+                                $("#next2").hide();
+                            }
+                             else{
+                                 $("#next2").show();
+                            }
+               
+                 $('#tekst').html("History"+'&nbsp;&nbsp;&nbsp;&nbsp'+" "+moment(axes.xaxis.options.min).format('MMMM Do YYYY')+" - "
+            +moment(axes.xaxis.options.max).format('MMMM Do YYYY'));
+    });
+     $("#progress").bind("plotpan plotzoom", function (event, plot) {
+      var axes = piktoBiorowerGraph2.progressPlot.getAxes();
+      piktoBiorowerGraph2.startDate=moment(axes.xaxis.options.min);
+      
+      
+      var end= moment();
+                                             
+                           if(moment(piktoBiorowerGraph2.startDate).add(2,piktoBiorowerGraph2.rangeType).add(1,'day')>end){
+                               $("#next4").hide();
+                                                            
+                           }
+                          
+                            else{
+                                 $("#next4").show();
+                            }
+                            if(moment(piktoBiorowerGraph2.startDate).subtract(1,piktoBiorowerGraph2.rangeType)<piktoBiorowerGraph2.start){
+                                $("#next3").hide();
+                            }
+                             else{
+                                 $("#next3").show();
+                            }
+               
+                 $('#tekst2').html("Progress"+'&nbsp;&nbsp;&nbsp;&nbsp'+" "+moment(axes.xaxis.options.min).format('MMMM Do YYYY')+" - "
+            +moment(axes.xaxis.options.max).format('MMMM Do YYYY'));
+    });
     
     
     
@@ -551,7 +603,8 @@ var piktoBiorowerGraph = {
          
                         var end= moment();
                                              
-                           if(moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType).add(1,'day')>end){
+                                                
+                           if(moment(piktoBiorowerGraph.startDate).add(2,piktoBiorowerGraph.rangeType).add(1,'day')>end){
                                $("#next1").hide();
                                                             
                            }
@@ -559,13 +612,12 @@ var piktoBiorowerGraph = {
                             else{
                                  $("#next1").show();
                             }
-                            if(moment(piktoBiorowerGraph.startDate)<piktoBiorowerGraph.start){
+                            if(moment(piktoBiorowerGraph.startDate).subtract(1,piktoBiorowerGraph.rangeType)<piktoBiorowerGraph.start){
                                 $("#next2").hide();
                             }
                              else{
                                  $("#next2").show();
                             }
-                          
                         
         
         
@@ -616,6 +668,7 @@ var series={ lines: { show: true }, points: { show: false } };
                 piktoBiorowerGraph.historyPlot = $.plot($("#history"),
                                 newHistoryData, {
                                     grid: {
+                                        
                                         hoverable: true,
                                         clickable: true,
                                         mouseActiveRadius: 30,
@@ -624,10 +677,16 @@ var series={ lines: { show: true }, points: { show: false } };
                                         borderWidth: 1,
                                         tickColor: "#f3f3f3",
                                     },
+                                     pan: {
+            interactive: true
+        },
+            
                                      series: series,
+                                     
                                     legend: {
                                         noColumns: 3,
-                                        position:"nw"
+                                        position:"nw",
+                                        
                                         
                                     },
                                     colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
@@ -636,54 +695,106 @@ var series={ lines: { show: true }, points: { show: false } };
                                         "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
                                         "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
                                     yaxes:[ {
+                                             axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Count",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
+                                         
+   
 
                                         labelWidth: 30,
-
+                                  
                                         min:0,
 
                                     },{
+                                        
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Distance",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
+                                         
+                                        
 
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                     {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Speed Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
+                                         
 
                                         labelWidth: 30,
                                         max:10,
                                         tickSize: 2 ,min:0,
                                     },
                                       {
+                                            axisLabelUseCanvas:true,
+                                           axisLabel: "Pace 2km",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
+                                         
 
                                         labelWidth: 30,
                                         max:1200,
                                        tickFormatter: formatter ,min:0,
                                     },
                                      {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "HR max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:250,
                                          tickSize: 50 ,min:0,
                                     },
                                     {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Calories",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:2000,
                                          tickSize: 400 ,min:0,
                                     },
                                     {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Time",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                        tickFormatter: formatter ,
                                          max:9000,min:0,
                                     },
                                     {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Dist.Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                       {
+                                            axisLabelUseCanvas:true,
+                                           axisLabel: "Pace  500m",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         tickFormatter: formatter ,
@@ -691,108 +802,198 @@ var series={ lines: { show: true }, points: { show: false } };
                                         min:0
                                     },
                                      {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Pace 2km Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                          tickFormatter: formatter ,
                                          max:1200,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Rate",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:50,
                                          tickSize: 10 ,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Power L",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:750,
                                          tickSize: 150 ,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Distance",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Speed",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:20,
                                         tickSize: 4 ,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Pace 500m Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                           tickFormatter: formatter ,
                                          max:300,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "HR",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:250,
                                         tickSize: 50 ,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Rate Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:50,
                                         tickSize: 10 ,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Power Average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Power Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Power L Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Power right average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Power right max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Power Balance",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Power Balance max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle left average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle left max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle right average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
@@ -801,30 +1002,55 @@ var series={ lines: { show: true }, points: { show: false } };
 
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle right max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "MML 2 Level",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "MML 4 Level",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:100,
@@ -836,22 +1062,29 @@ var series={ lines: { show: true }, points: { show: false } };
 
                                 ],
                                     xaxis: {
+                                        
                                         show: true,
                                         labelHeight: 30,
                                         mode: 'time',
+                                        
 
                                         timeformat:"%b",
                                         tickSize:[1,"month"],
+                                        panRange: [piktoBiorowerGraph.start, new Date()],
 
 
                                     }
                                 }
                             );
                     
+                     
+       
+           
+
+   
+                    
                     
             
-
-
 
 
 
@@ -1426,6 +1659,9 @@ var series={ lines: { show: true }, points: { show: false } };
                                         borderWidth: 1,
                                         tickColor: "#f3f3f3",
                                     },
+                                        pan: {
+            interactive: true
+        },
                                     series: series,
                                     legend: {
                                         noColumns: 3,
@@ -1436,55 +1672,106 @@ var series={ lines: { show: true }, points: { show: false } };
                                         "#FFFFFFFF","#FFFF8000","#FF804000","#FFFFFF60","#FF606060","#FF606060","#FFFFFF60","#FF008000",
                                         "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
                                         "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
-                                    yaxes:[ {
+                                     yaxes:[ {
+                                             axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Count",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
+                                         
+   
 
                                         labelWidth: 30,
-
+                                  
                                         min:0,
 
                                     },{
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Distance",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
+                                         
+                                        
 
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                     {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Speed Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
+                                         
 
                                         labelWidth: 30,
                                         max:10,
                                         tickSize: 2 ,min:0,
                                     },
                                       {
+                                            axisLabelUseCanvas:true,
+                                           axisLabel: "Pace 2km",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
+                                         
 
                                         labelWidth: 30,
                                         max:1200,
                                        tickFormatter: formatter ,min:0,
                                     },
                                      {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "HR max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:250,
                                          tickSize: 50 ,min:0,
                                     },
                                     {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Calories",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:2000,
                                          tickSize: 400 ,min:0,
                                     },
                                     {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Time",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                        tickFormatter: formatter ,
                                          max:9000,min:0,
                                     },
                                     {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Dist.Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                       {
+                                            axisLabelUseCanvas:true,
+                                           axisLabel: "Pace  500m",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         tickFormatter: formatter ,
@@ -1492,108 +1779,198 @@ var series={ lines: { show: true }, points: { show: false } };
                                         min:0
                                     },
                                      {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Pace 2km Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                          tickFormatter: formatter ,
                                          max:1200,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Rate",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:50,
                                          tickSize: 10 ,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Power L",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:750,
                                          tickSize: 150 ,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Distance",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Speed",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:20,
                                         tickSize: 4 ,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Pace 500m Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                           tickFormatter: formatter ,
                                          max:300,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "HR",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:250,
                                         tickSize: 50 ,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Stroke Rate Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:50,
                                         tickSize: 10 ,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Power Average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Power Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Power L Max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Power right average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "Power right max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Power Balance",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                      {
+                                         axisLabelUseCanvas:true,
+                                           axisLabel: "Power Balance max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle left average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle left max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle right average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
@@ -1602,30 +1979,55 @@ var series={ lines: { show: true }, points: { show: false } };
 
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle right max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle average",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                        {
+                                           axisLabelUseCanvas:true,
+                                           axisLabel: "Angle max",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "MML 2 Level",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
                                     },
                                       {
+                                          axisLabelUseCanvas:true,
+                                           axisLabel: "MML 4 Level",  
+                                            axisLabelFontSizePixels: 12,
+                                            axisLabelFontFamily: 'Verdana, Arial',
+                                            axisLabelPadding: 3,
 
                                         labelWidth: 30,
                                         max:100,
@@ -1643,6 +2045,7 @@ var series={ lines: { show: true }, points: { show: false } };
 
                                         timeformat:"%b",
                                         tickSize:[1,"month"],
+                                           panRange: [piktoBiorowerGraph2.start, new Date()],
 
 
                                     }
