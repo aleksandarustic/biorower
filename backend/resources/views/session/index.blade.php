@@ -746,7 +746,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         },
         shadowSize: 0,
         legend: {
-          noColumns: 5,
+          noColumns: 1,
         },
       },
       yaxes: [  {zoomRange: [0.1, 10],

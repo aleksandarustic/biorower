@@ -206,21 +206,24 @@ $(function () {
       
       
       var end= moment();
-                                             
-                           if(moment(piktoBiorowerGraph.startDate).add(2,piktoBiorowerGraph.rangeType).add(1,'day')>end){
+                                    if(moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType).add(1,'day')<end){
+                               $("#next1").show();
+                           }
+                          if(moment(piktoBiorowerGraph.startDate).add(2,piktoBiorowerGraph.rangeType).add(1,'day')>end){
                                $("#next1").hide();
                                                             
                            }
-                          
-                            else{
-                                 $("#next1").show();
+                            if(moment(piktoBiorowerGraph.startDate)>piktoBiorowerGraph.start){
+                                $("#next2").show();
                             }
-                            if(moment(piktoBiorowerGraph.startDate).subtract(1,piktoBiorowerGraph.rangeType)<piktoBiorowerGraph.start){
+                          
+                           if(moment(piktoBiorowerGraph.startDate).subtract(1,piktoBiorowerGraph.rangeType).subtract(1,'day')<piktoBiorowerGraph.start){
                                 $("#next2").hide();
                             }
-                             else{
-                                 $("#next2").show();
-                            }
+  
+                           
+                            
+                          
                
                  $('#tekst').html("History"+'&nbsp;&nbsp;&nbsp;&nbsp'+" "+moment(axes.xaxis.options.min).format('MMMM Do YYYY')+" - "
             +moment(axes.xaxis.options.max).format('MMMM Do YYYY'));
@@ -230,23 +233,21 @@ $(function () {
       piktoBiorowerGraph2.startDate=moment(axes.xaxis.options.min);
       
       
-      var end= moment();
-                                             
-                           if(moment(piktoBiorowerGraph2.startDate).add(2,piktoBiorowerGraph2.rangeType).add(1,'day')>end){
+     var end= moment();
+                                    if(moment(piktoBiorowerGraph2.startDate).add(1,piktoBiorowerGraph2.rangeType).add(1,'day')<end){
+                               $("#next4").show();
+                           }
+                          if(moment(piktoBiorowerGraph2.startDate).add(2,piktoBiorowerGraph2.rangeType).add(1,'day')>end){
                                $("#next4").hide();
                                                             
                            }
-                          
-                            else{
-                                 $("#next4").show();
+                            if(moment(piktoBiorowerGraph2.startDate)>piktoBiorowerGraph2.start){
+                                $("#next3").show();
                             }
-                            if(moment(piktoBiorowerGraph2.startDate).subtract(1,piktoBiorowerGraph2.rangeType)<piktoBiorowerGraph2.start){
+                          
+                          if(moment(piktoBiorowerGraph2.startDate).subtract(1,piktoBiorowerGraph2.rangeType).subtract(1,'day')<piktoBiorowerGraph2.start){
                                 $("#next3").hide();
                             }
-                             else{
-                                 $("#next3").show();
-                            }
-               
                  $('#tekst2').html("Progress"+'&nbsp;&nbsp;&nbsp;&nbsp'+" "+moment(axes.xaxis.options.min).format('MMMM Do YYYY')+" - "
             +moment(axes.xaxis.options.max).format('MMMM Do YYYY'));
     });
@@ -602,23 +603,27 @@ var piktoBiorowerGraph = {
         
          
                         var end= moment();
-                                             
-                                                
-                           if(moment(piktoBiorowerGraph.startDate).add(2,piktoBiorowerGraph.rangeType).add(1,'day')>end){
-                               $("#next1").hide();
-                                                            
+                                         
+                                  if(moment(piktoBiorowerGraph.startDate)<end.subtract(1,piktoBiorowerGraph.rangeType)){
+                               $("#next1").show();
                            }
+                        
                           
-                            else{
-                                 $("#next1").show();
+                            if(moment(piktoBiorowerGraph.startDate)> moment(piktoBiorowerGraph.start)){
+                                $("#next2").show();
                             }
-                            if(moment(piktoBiorowerGraph.startDate).subtract(1,piktoBiorowerGraph.rangeType)<piktoBiorowerGraph.start){
+                          
+                          if(moment(piktoBiorowerGraph.startDate)< moment(piktoBiorowerGraph.start)){
+                              
+                               
+                               
                                 $("#next2").hide();
                             }
-                             else{
-                                 $("#next2").show();
-                            }
-                        
+                              if(moment(piktoBiorowerGraph.startDate)>end.subtract(1,piktoBiorowerGraph.rangeType)){
+                               piktoBiorowerGraph.startDate=moment().subtract(1,piktoBiorowerGraph.rangeType);
+                                          $("#next1").hide();                  
+                           }
+                       
         
         
        
@@ -700,7 +705,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-                                         
+                                         panRange: false,
    
 
                                         labelWidth: 30,
@@ -714,7 +719,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-                                         
+                                         panRange: false,
                                         
 
                                         labelWidth: 30,
@@ -727,7 +732,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-                                         
+                                         panRange: false,
 
                                         labelWidth: 30,
                                         max:10,
@@ -739,7 +744,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-                                         
+                                         panRange: false,
 
                                         labelWidth: 30,
                                         max:1200,
@@ -751,7 +756,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:250,
                                          tickSize: 50 ,min:0,
@@ -762,7 +767,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:2000,
                                          tickSize: 400 ,min:0,
@@ -773,7 +778,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                        tickFormatter: formatter ,
                                          max:9000,min:0,
@@ -784,7 +789,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
@@ -795,7 +800,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         tickFormatter: formatter ,
                                         max:300,
@@ -807,7 +812,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                        panRange: false,    
                                         labelWidth: 30,
                                          tickFormatter: formatter ,
                                          max:1200,min:0,
@@ -818,7 +823,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:50,
                                          tickSize: 10 ,min:0,
@@ -829,7 +834,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:750,
                                          tickSize: 150 ,min:0,
@@ -840,7 +845,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
@@ -851,7 +856,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:20,
                                         tickSize: 4 ,min:0,
@@ -862,7 +867,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                           tickFormatter: formatter ,
                                          max:300,min:0,
@@ -873,7 +878,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:250,
                                         tickSize: 50 ,min:0,
@@ -884,7 +889,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:50,
                                         tickSize: 10 ,min:0,
@@ -895,7 +900,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
@@ -906,7 +911,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
@@ -917,7 +922,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
@@ -928,7 +933,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
@@ -939,7 +944,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
@@ -950,7 +955,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
@@ -961,7 +966,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
@@ -972,7 +977,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -983,7 +988,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -994,7 +999,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -1007,7 +1012,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -1018,7 +1023,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -1029,7 +1034,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -1040,7 +1045,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
@@ -1051,7 +1056,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
@@ -1678,7 +1683,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-                                         
+                                         panRange: false,
    
 
                                         labelWidth: 30,
@@ -1686,12 +1691,13 @@ var series={ lines: { show: true }, points: { show: false } };
                                         min:0,
 
                                     },{
+                                        
                                           axisLabelUseCanvas:true,
                                            axisLabel: "Stroke Distance",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-                                         
+                                         panRange: false,
                                         
 
                                         labelWidth: 30,
@@ -1704,7 +1710,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-                                         
+                                         panRange: false,
 
                                         labelWidth: 30,
                                         max:10,
@@ -1716,7 +1722,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-                                         
+                                         panRange: false,
 
                                         labelWidth: 30,
                                         max:1200,
@@ -1728,7 +1734,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:250,
                                          tickSize: 50 ,min:0,
@@ -1739,7 +1745,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:2000,
                                          tickSize: 400 ,min:0,
@@ -1750,7 +1756,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                        tickFormatter: formatter ,
                                          max:9000,min:0,
@@ -1761,7 +1767,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
@@ -1772,7 +1778,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         tickFormatter: formatter ,
                                         max:300,
@@ -1784,7 +1790,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                        panRange: false,    
                                         labelWidth: 30,
                                          tickFormatter: formatter ,
                                          max:1200,min:0,
@@ -1795,7 +1801,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:50,
                                          tickSize: 10 ,min:0,
@@ -1806,7 +1812,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:750,
                                          tickSize: 150 ,min:0,
@@ -1817,7 +1823,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:20,
                                          tickSize: 4 ,min:0,
@@ -1828,7 +1834,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:20,
                                         tickSize: 4 ,min:0,
@@ -1839,7 +1845,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                           tickFormatter: formatter ,
                                          max:300,min:0,
@@ -1850,7 +1856,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:250,
                                         tickSize: 50 ,min:0,
@@ -1861,7 +1867,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:50,
                                         tickSize: 10 ,min:0,
@@ -1872,7 +1878,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
@@ -1883,7 +1889,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:1500,
                                         tickSize: 300,min:0,
@@ -1894,7 +1900,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
@@ -1905,7 +1911,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
@@ -1916,7 +1922,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:750,
                                         tickSize: 150,min:0,
@@ -1927,7 +1933,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
@@ -1938,7 +1944,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
@@ -1949,7 +1955,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -1960,7 +1966,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -1971,7 +1977,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -1984,7 +1990,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -1995,7 +2001,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -2006,7 +2012,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:150,
                                         tickSize: 30,min:0,
@@ -2017,7 +2023,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
@@ -2028,7 +2034,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
-
+                                            panRange: false,
                                         labelWidth: 30,
                                         max:100,
                                         tickSize: 20,min:0,
@@ -2341,19 +2347,23 @@ var series={ lines: { show: true }, points: { show: false } };
         
 
 
-   if(moment(piktoBiorowerGraph2.startDate).add(1,piktoBiorowerGraph2.rangeType).add(1,'day')>end){
+   
+
+    var end= moment();
+                                             
+                                  if(moment(piktoBiorowerGraph2.startDate)<end.subtract(1,piktoBiorowerGraph2.rangeType)){
+                               $("#next4").show();
+                           }
+                          if(moment(piktoBiorowerGraph2.startDate)>end.subtract(1,piktoBiorowerGraph2.rangeType)){
                                $("#next4").hide();
-                              
                                                             
                            }
-                            else{
-                                 $("#next4").show();
+                            if(moment(piktoBiorowerGraph2.startDate)>moment(piktoBiorowerGraph2.start).add(1,piktoBiorowerGraph2.rangeType)){
+                                $("#next3").show();
                             }
-                            if(moment(piktoBiorowerGraph2.startDate)< piktoBiorowerGraph2.start){
+                          
+                          if(moment(piktoBiorowerGraph2.startDate)< moment(piktoBiorowerGraph2.start).add(1,piktoBiorowerGraph2.rangeType)){
                                 $("#next3").hide();
-                            }
-                             else{
-                                 $("#next3").show();
                             }
                              $('#izbor1').text("Group by "+piktoBiorowerGraph2.groupType);
 
