@@ -269,47 +269,49 @@ $(function () {
 
                                 $(this).bind("plothover", function (event, pos, item) {
                                     if (item) {
-                                        if (previousPoint != item.dataIndex) {
-                                            previousPoint = item.dataIndex;
+                                        if (previousPoint != pos.pageY) {
+                                            previousPoint = pos.pageY;
                                             var label=item.series.label;
                                             var datapoint = item.datapoint[1];
                                             var x = item.datapoint[0];
+                                      
+
                                             $("#tooltip").remove();
                                               if(label == "Distance"){
-                                                  var y = (datapoint*1000).toFixed(0)+" m "; 
+                                                  var y = (datapoint*1000).toFixed(2)+" m "; 
                                               }
                                               if(label.indexOf("Stroke Rate")!= -1){
-                                                  var y = datapoint.toFixed(0)+" spm "; 
+                                                  var y = datapoint.toFixed(2)+" spm "; 
                                               }
                                                if(label.indexOf("Power")!= -1){
-                                                  var y = datapoint.toFixed(0)+" W "; 
+                                                  var y = datapoint.toFixed(2)+" W "; 
                                               }
                                                if(label.indexOf("Angle")!= -1){
-                                                  var y = datapoint.toFixed(0)+" ° "; 
+                                                  var y = datapoint.toFixed(2)+" ° "; 
                                               }
                                               if(label == "Stroke Count"){
-                                                  var y = datapoint.toFixed(0); 
+                                                  var y = datapoint.toFixed(2); 
                                               }
                                               if(label == "Stroke Distance"){
                                                   var y = (datapoint*1000).toFixed(0)+" m "; 
                                               }
                                               if(label.indexOf("Speed")!= -1){
-                                                  var y = datapoint.toFixed(0)+" m/s "; 
+                                                  var y = datapoint.toFixed(2)+" m/s "; 
                                               }
                                               if(label.indexOf( "Pace") != -1 ){
                                                   var y = parseInt( datapoint / 60 ) % 60  +" min "; 
                                               }
                                               if(label.indexOf("HR")!= -1){
-                                                  var y = datapoint.toFixed(0)+" bpm "; 
+                                                  var y = datapoint.toFixed(2)+" bpm "; 
                                               }
                                               if(label == "Calories"){
-                                                  var y = datapoint.toFixed(0)+" kCal "; 
+                                                  var y = datapoint.toFixed(2)+" kCal "; 
                                               }
                                               if(label == "Time"){
                                                   var y = parseInt( datapoint / 60 ) % 60 +" min "; 
                                               }
                                               if(label == "Stroke Dist. Max"){
-                                                  var y = (datapoint*1000).toFixed(0)+" m "; 
+                                                  var y = (datapoint*1000).toFixed(2)+" m "; 
                                               }
                                               if(label.indexOf( "MML") != -1 ){
                                                   var y = parseInt( datapoint / 60 ) % 60  +" min "; 
@@ -664,7 +666,7 @@ for(var i=0;i< piktoBiorowerGraph.historyData.date.length; i++){
                    
     return minutes+":00" ; 
 }
-var series={ lines: { show: true }, points: { show: false } };
+var series={ lines: { show: true }, points: { show: true } };
   if(piktoBiorowerGraph.broj==1){
       series={ lines: { show: false }, points: { show: true } };
   } 
@@ -715,7 +717,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },{
                                         
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Stroke Distance",  
+                                           axisLabel: "Stroke Distance [km]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -728,7 +730,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                     {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Speed Max",  
+                                           axisLabel: "Speed Max [m/s]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -740,7 +742,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                             axisLabelUseCanvas:true,
-                                           axisLabel: "Pace 2km",  
+                                           axisLabel: "Pace 2km [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -752,7 +754,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "HR max",  
+                                           axisLabel: "HR max [bmp]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -763,7 +765,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                     {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Calories",  
+                                           axisLabel: "Calories [kCal]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -774,7 +776,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                     {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Time",  
+                                           axisLabel: "Time [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -785,7 +787,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                     {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Stroke Dist.Max",  
+                                           axisLabel: "Stroke Dist.Max [km]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -796,7 +798,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                             axisLabelUseCanvas:true,
-                                           axisLabel: "Pace  500m",  
+                                           axisLabel: "Pace 500m [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -808,7 +810,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Pace 2km Max",  
+                                           axisLabel: "Pace 2km Max [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -819,7 +821,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Stroke Rate",  
+                                           axisLabel: "Stroke Rate [spm]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -830,7 +832,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Power L",  
+                                           axisLabel: "Power L [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -841,7 +843,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Distance",  
+                                           axisLabel: "Distance [km]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -852,7 +854,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Speed",  
+                                           axisLabel: "Speed [m/s]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -863,7 +865,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Pace 500m Max",  
+                                           axisLabel: "Pace 500m Max [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -874,7 +876,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "HR",  
+                                           axisLabel: "HR [bmp]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -885,7 +887,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Stroke Rate Max",  
+                                           axisLabel: "Stroke Rate Max [spm]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -896,7 +898,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Power Average",  
+                                           axisLabel: "Power Average [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -907,7 +909,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Power Max",  
+                                           axisLabel: "Power Max [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -918,7 +920,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Power L Max",  
+                                           axisLabel: "Power L Max [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -929,7 +931,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Power right average",  
+                                           axisLabel: "Power right average [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -940,7 +942,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Power right max",  
+                                           axisLabel: "Power right max [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -951,7 +953,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Power Balance",  
+                                           axisLabel: "Power Balance [%]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -962,7 +964,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Power Balance max",  
+                                           axisLabel: "Power Balance max [%]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -973,7 +975,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle left average",  
+                                           axisLabel: "Angle left average [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -984,7 +986,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle left max",  
+                                           axisLabel: "Angle left max [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -995,7 +997,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle right average",  
+                                           axisLabel: "Angle right average [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1008,7 +1010,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle right max",  
+                                           axisLabel: "Angle right max [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1019,7 +1021,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle average",  
+                                           axisLabel: "Angle average [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1030,7 +1032,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle max",  
+                                           axisLabel: "Angle max [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1041,7 +1043,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "MML 2 Level",  
+                                           axisLabel: "MML 2 Level [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1052,7 +1054,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "MML 4 Level",  
+                                           axisLabel: "MML 4 Level [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1646,7 +1648,7 @@ for(var i=0;i< piktoBiorowerGraph2.historyData.date.length; i++){
 }
 
 
-var series={ lines: { show: true }, points: { show: false } };
+var series={ lines: { show: true }, points: { show: true } };
      if(piktoBiorowerGraph2.broj==1){
       series={ lines: { show: false }, points: { show: true } };
   }  
@@ -1677,7 +1679,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                         "#FFFFFFFF","#FFFF8000","#FF804000","#FFFFFF60","#FF606060","#FF606060","#FFFFFF60","#FF008000",
                                         "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
                                         "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
-                                     yaxes:[ {
+                                         yaxes:[ {
                                              axisLabelUseCanvas:true,
                                            axisLabel: "Stroke Count",  
                                             axisLabelFontSizePixels: 12,
@@ -1693,7 +1695,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },{
                                         
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Stroke Distance",  
+                                           axisLabel: "Stroke Distance [km]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1706,7 +1708,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                     {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Speed Max",  
+                                           axisLabel: "Speed Max [m/s]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1718,7 +1720,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                             axisLabelUseCanvas:true,
-                                           axisLabel: "Pace 2km",  
+                                           axisLabel: "Pace 2km [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1730,7 +1732,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "HR max",  
+                                           axisLabel: "HR max [bmp]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1741,7 +1743,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                     {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Calories",  
+                                           axisLabel: "Calories [kCal]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1752,7 +1754,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                     {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Time",  
+                                           axisLabel: "Time [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1763,7 +1765,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                     {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Stroke Dist.Max",  
+                                           axisLabel: "Stroke Dist.Max [km]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1774,7 +1776,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                             axisLabelUseCanvas:true,
-                                           axisLabel: "Pace  500m",  
+                                           axisLabel: "Pace 500m [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1786,7 +1788,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Pace 2km Max",  
+                                           axisLabel: "Pace 2km Max [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1797,7 +1799,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Stroke Rate",  
+                                           axisLabel: "Stroke Rate [spm]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1808,7 +1810,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Power L",  
+                                           axisLabel: "Power L [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1819,7 +1821,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Distance",  
+                                           axisLabel: "Distance [km]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1830,7 +1832,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Speed",  
+                                           axisLabel: "Speed [m/s]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1841,7 +1843,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Pace 500m Max",  
+                                           axisLabel: "Pace 500m Max [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1852,7 +1854,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "HR",  
+                                           axisLabel: "HR [bmp]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1863,7 +1865,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Stroke Rate Max",  
+                                           axisLabel: "Stroke Rate Max [spm]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1874,7 +1876,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Power Average",  
+                                           axisLabel: "Power Average [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1885,7 +1887,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Power Max",  
+                                           axisLabel: "Power Max [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1896,7 +1898,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Power L Max",  
+                                           axisLabel: "Power L Max [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1907,7 +1909,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Power right average",  
+                                           axisLabel: "Power right average [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1918,7 +1920,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "Power right max",  
+                                           axisLabel: "Power right max [W]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1929,7 +1931,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Power Balance",  
+                                           axisLabel: "Power Balance [%]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1940,7 +1942,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                      {
                                          axisLabelUseCanvas:true,
-                                           axisLabel: "Power Balance max",  
+                                           axisLabel: "Power Balance max [%]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1951,7 +1953,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle left average",  
+                                           axisLabel: "Angle left average [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1962,7 +1964,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle left max",  
+                                           axisLabel: "Angle left max [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1973,7 +1975,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle right average",  
+                                           axisLabel: "Angle right average [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1986,7 +1988,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle right max",  
+                                           axisLabel: "Angle right max [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -1997,7 +1999,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle average",  
+                                           axisLabel: "Angle average [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -2008,7 +2010,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                        {
                                            axisLabelUseCanvas:true,
-                                           axisLabel: "Angle max",  
+                                           axisLabel: "Angle max [°]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -2019,7 +2021,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "MML 2 Level",  
+                                           axisLabel: "MML 2 Level [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
@@ -2030,7 +2032,7 @@ var series={ lines: { show: true }, points: { show: false } };
                                     },
                                       {
                                           axisLabelUseCanvas:true,
-                                           axisLabel: "MML 4 Level",  
+                                           axisLabel: "MML 4 Level [hh:mm:ss]",  
                                             axisLabelFontSizePixels: 12,
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,

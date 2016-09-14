@@ -292,7 +292,7 @@
 		        	  	  
 					        d[i].action="<span> <a href='#' class='update'  id="+d[i].id+" data-toggle='modal' data-target='#edit-session'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id="+d[i].id+" href='#'' class='mailedit-box-attachment-name' data-toggle='modal' data-target='#delete-session'><i class='fa fa-trash-o inline btn btn-sm btn-primary'></i></a </span>";
 					      
-					          if (ime === undefined || ime == null) {
+					          if (ime === undefined || ime == null || ime=="") {
 					          	   var datum=new Date(d[i].Date);
 					          	   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 									var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
