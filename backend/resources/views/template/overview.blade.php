@@ -1076,8 +1076,8 @@
 
 
                             opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
-                            opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
-                            opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='left';
+                            opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='left';
+                            opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='right';
                        }
 
 
@@ -1173,8 +1173,8 @@
 
 
                             opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
-                            opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
-                            opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis-1].position='left';
+                            opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='left';
+                            opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis-1].position='right';
                        }
 
 

@@ -138,6 +138,7 @@ $(function () {
         }
         else{
 
+        
 
               $("#all_history").css("background-color","#286090");
 
@@ -185,6 +186,7 @@ $(function () {
 
         }
         else{
+          
                $("#year_progress").show();
                  $("#all_progress").show();
               $("#all_progress").css("background-color","#286090");
@@ -712,7 +714,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
                                         labelWidth: 30,
                                   
-                                        min:0,
+                                        min:0.01,
 
                                     },{
                                         
@@ -726,7 +728,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
                                         labelWidth: 30,
                                         max:20,
-                                         tickSize: 4 ,min:0,
+                                         tickSize: 4 ,min:0.01,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -738,7 +740,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
                                         labelWidth: 30,
                                         max:10,
-                                        tickSize: 2 ,min:0,
+                                        tickSize: 2 ,min:0.01,
                                     },
                                       {
                                             axisLabelUseCanvas:true,
@@ -750,7 +752,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
                                         labelWidth: 30,
                                         max:1200,
-                                       tickFormatter: formatter ,min:0,
+                                       tickFormatter: formatter ,min:0.01,
                                     },
                                      {
                                            axisLabelUseCanvas:true,
@@ -761,7 +763,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:250,
-                                         tickSize: 50 ,min:0,
+                                         tickSize: 50 ,min:0.01,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -772,7 +774,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:2000,
-                                         tickSize: 400 ,min:0,
+                                         tickSize: 400 ,min:0.01,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -783,7 +785,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                        tickFormatter: formatter ,
-                                         max:9000,min:0,
+                                         max:9000,min:0.01,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -794,7 +796,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:20,
-                                         tickSize: 4 ,min:0,
+                                         tickSize: 4 ,min:0.01,
                                     },
                                       {
                                             axisLabelUseCanvas:true,
@@ -806,7 +808,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         labelWidth: 30,
                                         tickFormatter: formatter ,
                                         max:300,
-                                        min:0
+                                        min:0.01,
                                     },
                                      {
                                            axisLabelUseCanvas:true,
@@ -817,7 +819,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         panRange: false,    
                                         labelWidth: 30,
                                          tickFormatter: formatter ,
-                                         max:1200,min:0,
+                                         max:1200,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -828,7 +830,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:50,
-                                         tickSize: 10 ,min:0,
+                                         tickSize: 10 ,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -839,7 +841,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:750,
-                                         tickSize: 150 ,min:0,
+                                         tickSize: 150 ,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -850,7 +852,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:20,
-                                         tickSize: 4 ,min:0,
+                                         tickSize: 4 ,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -861,7 +863,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:20,
-                                        tickSize: 4 ,min:0,
+                                        tickSize: 4 ,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -872,7 +874,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                           tickFormatter: formatter ,
-                                         max:300,min:0,
+                                         max:300,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -883,7 +885,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:250,
-                                        tickSize: 50 ,min:0,
+                                        tickSize: 50 ,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -894,7 +896,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:50,
-                                        tickSize: 10 ,min:0,
+                                        tickSize: 10 ,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -905,7 +907,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:1500,
-                                        tickSize: 300,min:0,
+                                        tickSize: 300,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -916,7 +918,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:1500,
-                                        tickSize: 300,min:0,
+                                        tickSize: 300,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -927,7 +929,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:750,
-                                        tickSize: 150,min:0,
+                                        tickSize: 150,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -938,7 +940,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:750,
-                                        tickSize: 150,min:0,
+                                        tickSize: 150,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -949,7 +951,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:750,
-                                        tickSize: 150,min:0,
+                                        tickSize: 150,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -960,7 +962,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:100,
-                                        tickSize: 20,min:0,
+                                        tickSize: 20,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -971,7 +973,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:100,
-                                        tickSize: 20,min:0,
+                                        tickSize: 20,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -982,7 +984,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -993,7 +995,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -1004,7 +1006,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
 
 
                                     },
@@ -1017,7 +1019,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -1028,7 +1030,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -1039,7 +1041,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -1050,7 +1052,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:100,
-                                        tickSize: 20,min:0,
+                                        tickSize: 20,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -1061,7 +1063,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:100,
-                                        tickSize: 20,min:0,
+                                        tickSize: 20,min:0.01,
                                     },
 
 
@@ -1126,134 +1128,134 @@ var series={ lines: { show: true }, points: { show: true } };
             }
 
             if(dist2>niz[8] && dist2<=niz[9]){
-                dist2=niz[10];
-            }
-            if(dist2>niz[7] && dist2<=niz[8]){
                 dist2=niz[9];
             }
-            if(dist2>niz[6] && dist2<=niz[7]){
+            if(dist2>niz[7] && dist2<=niz[8]){
                 dist2=niz[8];
             }
-            if(dist2>niz[5] && dist2<=niz[6]){
+            if(dist2>niz[6] && dist2<=niz[7]){
                 dist2=niz[7];
             }
-            if(dist2>niz[4] && dist2<=niz[5]){
+            if(dist2>niz[5] && dist2<=niz[6]){
                 dist2=niz[6];
             }
-            if(dist2>niz[3] && dist2<=niz[4]){
+            if(dist2>niz[4] && dist2<=niz[5]){
                 dist2=niz[5];
             }
-            if(dist2>niz[2] && dist2<=niz[3]){
+            if(dist2>niz[3] && dist2<=niz[4]){
                 dist2=niz[4];
+            }
+            if(dist2>niz[2] && dist2<=niz[3]){
+                dist2=niz[3];
             }
             if(dist2>niz[1] && dist2<=niz[2]){
-                dist2=niz[4];
+                dist2=niz[2];
             }
             if(dist2>niz[0] && dist2<=niz[1]){
-                dist2=niz[3];
+                dist2=niz[1];
             }
             if(dist2<=niz[0]){
 
-                dist2=niz[2];
+                dist2=niz[1];
             }
 
             if(time2>niz[8] && time2<=niz[9]){
-                time2=niz[10];
-            }
-            if(time2>niz[7] && time2<=niz[8]){
                 time2=niz[9];
             }
-            if(time2>niz[6] && time2<=niz[7]){
+            if(time2>niz[7] && time2<=niz[8]){
                 time2=niz[8];
             }
-            if(time2>niz[5] && time2<=niz[6]){
+            if(time2>niz[6] && time2<=niz[7]){
                 time2=niz[7];
             }
-            if(time2>niz[4] && time2<=niz[5]){
+            if(time2>niz[5] && time2<=niz[6]){
                 time2=niz[6];
             }
-            if(time2>niz[3] && time2<=niz[4]){
+            if(time2>niz[4] && time2<=niz[5]){
                 time2=niz[5];
             }
-            if(time2>niz[2] && time2<=niz[3]){
+            if(time2>niz[3] && time2<=niz[4]){
                 time2=niz[4];
+            }
+            if(time2>niz[2] && time2<=niz[3]){
+                time2=niz[3];
             }
             if(time2>niz[1] && time2<=niz[2]){
-                time2=niz[4];
+                time2=niz[2];
             }
             if(time2>niz[0] && time2<=niz[1]){
-                time2=niz[3];
+                time2=niz[1];
             }
             if(time2<=niz[0]){
 
-                time2=niz[2];
+                time2=niz[1];
             }
 
 
             if(cal2>niz[8] && cal2<=niz[9]){
-                cal2=niz[10];
-            }
-            if(cal2>niz[7] && cal2<=niz[8]){
                 cal2=niz[9];
             }
-            if(cal2>niz[6] && cal2<=niz[7]){
+            if(cal2>niz[7] && cal2<=niz[8]){
                 cal2=niz[8];
             }
-            if(cal2>niz[5] && cal2<=niz[6]){
+            if(cal2>niz[6] && cal2<=niz[7]){
                 cal2=niz[7];
             }
-            if(cal2>niz[4] && cal2<=niz[5]){
+            if(cal2>niz[5] && cal2<=niz[6]){
                 cal2=niz[6];
             }
-            if(cal2>niz[3] && cal2<=niz[4]){
+            if(cal2>niz[4] && cal2<=niz[5]){
                 cal2=niz[5];
             }
-            if(cal2>niz[2] && cal2<=niz[3]){
+            if(cal2>niz[3] && cal2<=niz[4]){
                 cal2=niz[4];
+            }
+            if(cal2>niz[2] && cal2<=niz[3]){
+                cal2=niz[3];
             }
             if(cal2>niz[1] && cal2<=niz[2]){
-                cal2=niz[4];
+                cal2=niz[2];
             }
             if(cal2>niz[0] && cal2<=niz[1]){
-                cal2=niz[3];
+                cal2=niz[1];
             }
             if(cal2<=niz[0]){
 
-                cal2=niz[2];
+                cal2=niz[1];
             }
 
 
 
             if(scnt2>niz[8] && scnt2<=niz[9]){
-                scnt2=niz[10];
-            }
-            if(scnt2>niz[7] && scnt2<=niz[8]){
                 scnt2=niz[9];
             }
-            if(scnt2>niz[6] && scnt2<=niz[7]){
+            if(scnt2>niz[7] && scnt2<=niz[8]){
                 scnt2=niz[8];
             }
-            if(scnt2>niz[5] && scnt2<=niz[6]){
+            if(scnt2>niz[6] && scnt2<=niz[7]){
                 scnt2=niz[7];
             }
-            if(scnt2>niz[4] && scnt2<=niz[5]){
+            if(scnt2>niz[5] && scnt2<=niz[6]){
                 scnt2=niz[6];
             }
-            if(scnt2>niz[3] && scnt2<=niz[4]){
+            if(scnt2>niz[4] && scnt2<=niz[5]){
                 scnt2=niz[5];
             }
-            if(scnt2>niz[2] && scnt2<=niz[3]){
+            if(scnt2>niz[3] && scnt2<=niz[4]){
                 scnt2=niz[4];
+            }
+            if(scnt2>niz[2] && scnt2<=niz[3]){
+                scnt2=niz[3];
             }
             if(scnt2>niz[1] && scnt2<=niz[2]){
-                scnt2=niz[4];
+                scnt2=niz[2];
             }
             if(scnt2>niz[0] && scnt2<=niz[1]){
-                scnt2=niz[3];
+                scnt2=niz[1];
             }
             if(scnt2<=niz[0]){
 
-                scnt2=niz[2];
+                scnt2=niz[1];
             }
 
               opts.yaxes[0].max = scnt2;
@@ -1285,8 +1287,8 @@ var series={ lines: { show: true }, points: { show: true } };
 
 
                 opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
-                opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
-                opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='left';
+                opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='left';
+                opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='right';
             }
 
 
@@ -1304,6 +1306,33 @@ var series={ lines: { show: true }, points: { show: true } };
             
             
             if(piktoBiorowerGraph.rangeType=='all'){
+                
+                      var end= moment();
+        var s=new Date("October 10, 2017 11:13:00");
+        var s2=new Date("October 11, 2018 11:13:00");
+      
+
+
+           var dr2=moment.range(s, s2);
+      
+         
+                var range3=moment.range(moment(piktoBiorowerGraph2.start), end);
+                         
+                          
+                          
+        if(range3>dr2){
+           
+            var axes = piktoBiorowerGraph.historyPlot.getAxes();
+            axes.xaxis.options.timeformat="%m";
+
+
+
+
+        }
+        else{
+              axes.xaxis.options.timeformat="%b";
+        }
+                 
                 $('#strelice').hide();
                   $("#year_history").css("text-decoration","none");
                  $("#week_history").css("text-decoration","none");
@@ -1318,7 +1347,7 @@ var series={ lines: { show: true }, points: { show: true } };
                 axes.xaxis.options.min = undefined;
                 axes.xaxis.options.max = undefined;
                
-            axes.xaxis.options.timeformat="%b";
+          
             axes.xaxis.options.tickSize=[1,"month"];
                 
 
@@ -1690,7 +1719,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
                                         labelWidth: 30,
                                   
-                                        min:0,
+                                        min:0.01,
 
                                     },{
                                         
@@ -1704,7 +1733,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
                                         labelWidth: 30,
                                         max:20,
-                                         tickSize: 4 ,min:0,
+                                         tickSize: 4 ,min:0.01,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -1716,7 +1745,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
                                         labelWidth: 30,
                                         max:10,
-                                        tickSize: 2 ,min:0,
+                                        tickSize: 2 ,min:0.01,
                                     },
                                       {
                                             axisLabelUseCanvas:true,
@@ -1728,7 +1757,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
                                         labelWidth: 30,
                                         max:1200,
-                                       tickFormatter: formatter ,min:0,
+                                       tickFormatter: formatter ,min:0.01,
                                     },
                                      {
                                            axisLabelUseCanvas:true,
@@ -1739,7 +1768,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:250,
-                                         tickSize: 50 ,min:0,
+                                         tickSize: 50 ,min:0.01,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -1750,7 +1779,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:2000,
-                                         tickSize: 400 ,min:0,
+                                         tickSize: 400 ,min:0.01,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -1761,7 +1790,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                        tickFormatter: formatter ,
-                                         max:9000,min:0,
+                                         max:9000,min:0.01,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -1772,7 +1801,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:20,
-                                         tickSize: 4 ,min:0,
+                                         tickSize: 4 ,min:0.01,
                                     },
                                       {
                                             axisLabelUseCanvas:true,
@@ -1784,7 +1813,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         labelWidth: 30,
                                         tickFormatter: formatter ,
                                         max:300,
-                                        min:0
+                                        min:0.01,
                                     },
                                      {
                                            axisLabelUseCanvas:true,
@@ -1795,7 +1824,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         panRange: false,    
                                         labelWidth: 30,
                                          tickFormatter: formatter ,
-                                         max:1200,min:0,
+                                         max:1200,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1806,7 +1835,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:50,
-                                         tickSize: 10 ,min:0,
+                                         tickSize: 10 ,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1817,7 +1846,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:750,
-                                         tickSize: 150 ,min:0,
+                                         tickSize: 150 ,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1828,7 +1857,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:20,
-                                         tickSize: 4 ,min:0,
+                                         tickSize: 4 ,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -1839,7 +1868,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:20,
-                                        tickSize: 4 ,min:0,
+                                        tickSize: 4 ,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1850,7 +1879,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                           tickFormatter: formatter ,
-                                         max:300,min:0,
+                                         max:300,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1861,7 +1890,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:250,
-                                        tickSize: 50 ,min:0,
+                                        tickSize: 50 ,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1872,7 +1901,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:50,
-                                        tickSize: 10 ,min:0,
+                                        tickSize: 10 ,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -1883,7 +1912,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:1500,
-                                        tickSize: 300,min:0,
+                                        tickSize: 300,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -1894,7 +1923,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:1500,
-                                        tickSize: 300,min:0,
+                                        tickSize: 300,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -1905,7 +1934,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:750,
-                                        tickSize: 150,min:0,
+                                        tickSize: 150,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -1916,7 +1945,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:750,
-                                        tickSize: 150,min:0,
+                                        tickSize: 150,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -1927,7 +1956,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:750,
-                                        tickSize: 150,min:0,
+                                        tickSize: 150,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1938,7 +1967,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:100,
-                                        tickSize: 20,min:0,
+                                        tickSize: 20,min:0.01,
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1949,7 +1978,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:100,
-                                        tickSize: 20,min:0,
+                                        tickSize: 20,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -1960,7 +1989,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -1971,7 +2000,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -1982,7 +2011,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
 
 
                                     },
@@ -1995,7 +2024,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -2006,7 +2035,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                        {
                                            axisLabelUseCanvas:true,
@@ -2017,7 +2046,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:150,
-                                        tickSize: 30,min:0,
+                                        tickSize: 30,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -2028,7 +2057,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:100,
-                                        tickSize: 20,min:0,
+                                        tickSize: 20,min:0.01,
                                     },
                                       {
                                           axisLabelUseCanvas:true,
@@ -2039,7 +2068,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         max:100,
-                                        tickSize: 20,min:0,
+                                        tickSize: 20,min:0.01,
                                     },
 
 
@@ -2160,139 +2189,135 @@ var series={ lines: { show: true }, points: { show: true } };
             if(dist){
                 dist2 = Math.max.apply(Math, dist);
             }
-
-
-
-
-            if(dist2>niz[8] && dist2<=niz[9]){
-                dist2=niz[10];
-            }
-            if(dist2>niz[7] && dist2<=niz[8]){
+if(dist2>niz[8] && dist2<=niz[9]){
                 dist2=niz[9];
             }
-            if(dist2>niz[6] && dist2<=niz[7]){
+            if(dist2>niz[7] && dist2<=niz[8]){
                 dist2=niz[8];
             }
-            if(dist2>niz[5] && dist2<=niz[6]){
+            if(dist2>niz[6] && dist2<=niz[7]){
                 dist2=niz[7];
             }
-            if(dist2>niz[4] && dist2<=niz[5]){
+            if(dist2>niz[5] && dist2<=niz[6]){
                 dist2=niz[6];
             }
-            if(dist2>niz[3] && dist2<=niz[4]){
+            if(dist2>niz[4] && dist2<=niz[5]){
                 dist2=niz[5];
             }
-            if(dist2>niz[2] && dist2<=niz[3]){
+            if(dist2>niz[3] && dist2<=niz[4]){
                 dist2=niz[4];
+            }
+            if(dist2>niz[2] && dist2<=niz[3]){
+                dist2=niz[3];
             }
             if(dist2>niz[1] && dist2<=niz[2]){
-                dist2=niz[4];
+                dist2=niz[2];
             }
             if(dist2>niz[0] && dist2<=niz[1]){
-                dist2=niz[3];
+                dist2=niz[1];
             }
             if(dist2<=niz[0]){
 
-                dist2=niz[2];
+                dist2=niz[1];
             }
 
             if(time2>niz[8] && time2<=niz[9]){
-                time2=niz[10];
-            }
-            if(time2>niz[7] && time2<=niz[8]){
                 time2=niz[9];
             }
-            if(time2>niz[6] && time2<=niz[7]){
+            if(time2>niz[7] && time2<=niz[8]){
                 time2=niz[8];
             }
-            if(time2>niz[5] && time2<=niz[6]){
+            if(time2>niz[6] && time2<=niz[7]){
                 time2=niz[7];
             }
-            if(time2>niz[4] && time2<=niz[5]){
+            if(time2>niz[5] && time2<=niz[6]){
                 time2=niz[6];
             }
-            if(time2>niz[3] && time2<=niz[4]){
+            if(time2>niz[4] && time2<=niz[5]){
                 time2=niz[5];
             }
-            if(time2>niz[2] && time2<=niz[3]){
+            if(time2>niz[3] && time2<=niz[4]){
                 time2=niz[4];
+            }
+            if(time2>niz[2] && time2<=niz[3]){
+                time2=niz[3];
             }
             if(time2>niz[1] && time2<=niz[2]){
-                time2=niz[4];
+                time2=niz[2];
             }
             if(time2>niz[0] && time2<=niz[1]){
-                time2=niz[3];
+                time2=niz[1];
             }
             if(time2<=niz[0]){
 
-                time2=niz[2];
+                time2=niz[1];
             }
 
 
             if(cal2>niz[8] && cal2<=niz[9]){
-                cal2=niz[10];
-            }
-            if(cal2>niz[7] && cal2<=niz[8]){
                 cal2=niz[9];
             }
-            if(cal2>niz[6] && cal2<=niz[7]){
+            if(cal2>niz[7] && cal2<=niz[8]){
                 cal2=niz[8];
             }
-            if(cal2>niz[5] && cal2<=niz[6]){
+            if(cal2>niz[6] && cal2<=niz[7]){
                 cal2=niz[7];
             }
-            if(cal2>niz[4] && cal2<=niz[5]){
+            if(cal2>niz[5] && cal2<=niz[6]){
                 cal2=niz[6];
             }
-            if(cal2>niz[3] && cal2<=niz[4]){
+            if(cal2>niz[4] && cal2<=niz[5]){
                 cal2=niz[5];
             }
-            if(cal2>niz[2] && cal2<=niz[3]){
+            if(cal2>niz[3] && cal2<=niz[4]){
                 cal2=niz[4];
+            }
+            if(cal2>niz[2] && cal2<=niz[3]){
+                cal2=niz[3];
             }
             if(cal2>niz[1] && cal2<=niz[2]){
-                cal2=niz[4];
+                cal2=niz[2];
             }
             if(cal2>niz[0] && cal2<=niz[1]){
-                cal2=niz[3];
+                cal2=niz[1];
             }
             if(cal2<=niz[0]){
 
-                cal2=niz[2];
+                cal2=niz[1];
             }
 
 
 
             if(scnt2>niz[8] && scnt2<=niz[9]){
-                scnt2=niz[10];
-            }
-            if(scnt2>niz[7] && scnt2<=niz[8]){
                 scnt2=niz[9];
             }
-            if(scnt2>niz[6] && scnt2<=niz[7]){
+            if(scnt2>niz[7] && scnt2<=niz[8]){
                 scnt2=niz[8];
             }
-            if(scnt2>niz[5] && scnt2<=niz[6]){
+            if(scnt2>niz[6] && scnt2<=niz[7]){
                 scnt2=niz[7];
             }
-            if(scnt2>niz[4] && scnt2<=niz[5]){
+            if(scnt2>niz[5] && scnt2<=niz[6]){
                 scnt2=niz[6];
             }
-            if(scnt2>niz[3] && scnt2<=niz[4]){
+            if(scnt2>niz[4] && scnt2<=niz[5]){
                 scnt2=niz[5];
             }
-            if(scnt2>niz[2] && scnt2<=niz[3]){
+            if(scnt2>niz[3] && scnt2<=niz[4]){
                 scnt2=niz[4];
+            }
+            if(scnt2>niz[2] && scnt2<=niz[3]){
+                scnt2=niz[3];
             }
             if(scnt2>niz[1] && scnt2<=niz[2]){
-                scnt2=niz[4];
+                scnt2=niz[2];
             }
             if(scnt2>niz[0] && scnt2<=niz[1]){
-                scnt2=niz[3];
+                scnt2=niz[1];
             }
             if(scnt2<=niz[0]){
 
-                scnt2=niz[2];
+                scnt2=niz[1];
             }
 
 
@@ -2338,8 +2363,8 @@ var series={ lines: { show: true }, points: { show: true } };
 
 
                 opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis-1].position='left';
-                opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='right';
-                opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis-1].position='left';
+                opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis-1].position='left';
+                opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis-1].position='right';
             }
             
             
