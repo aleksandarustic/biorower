@@ -109,12 +109,20 @@ $(function () {
 
 
     $.post('api/v1/sessions_history', data, function (response) {
+        
+
+       if(response.historydata.date.length > 0){ 
+           
+    
+ piktoBiorowerGraph.start=moment( response.historydata.date[0]);
+        
              piktoBiorowerGraph.broj=response.historydata.date.length;
    
+   
 
-
-        piktoBiorowerGraph.start=moment( response.historydata.date[0]);
         
+        
+      
         var end= moment();
         var s=new Date("October 10, 2017 11:13:00");
         var s2=new Date("October 11, 2018 11:13:00");
@@ -136,6 +144,7 @@ $(function () {
             $("#all_history").hide();
 
         }
+      
         else{
 
         
@@ -152,11 +161,15 @@ $(function () {
 
 
 
-
+}
+  if(response.historydata.date.length < 1){   
+     $("#all_history").hide();
+}
 
     });
 
     $.post('api/v1/sessions_history', data2, function (response) {
+         if(response.historydata.date.length > 0){   
         piktoBiorowerGraph2.start=moment( response.historydata.date[0]);
          piktoBiorowerGraph2.groupType="week";
           piktoBiorowerGraph2.broj=response.historydata.date.length;
@@ -199,7 +212,11 @@ $(function () {
       
 
 
-
+         }
+         if(response.historydata.date.length < 1){ 
+               $("#all_progress").hide();
+            $("#year_progress").hide(); 
+         }
     })
     
     $("#history").bind("plotpan plotzoom", function (event, plot) {
@@ -405,7 +422,7 @@ var piktoBiorowerGraph = {
     historyData: null,
     startDate: null,
     rangeType: 'all',
-    parameters: [{slug:'scnt',label:'Stroke Count',yaxis:1}],
+    parameters: [{slug:'scnt',label:'Stroke Count',yaxis:1,color:'#FF440064'}],
     start:null,
     sadasnjost:null,
     transormData: function (historyData, parameter) {
@@ -425,7 +442,11 @@ var piktoBiorowerGraph = {
           
         
         var rv = [];
-        
+        var colors=['#440064','#007eff','#00afc8','#005764','#804000','#ae00ff',
+                                        '#660096','#0063c8','#ff0000','#640000','#004a96','#ff8a00','#8800c8',
+                                        '#00deff','#bf0000','#008396','#003163','#06ff00','#05c800','#c86c00','#965100',
+                                        '#643600','#049600','#026400','#00ff96','#00c876',
+                                        '#009658','#00643b','#fffc00','#c8c600','#969400','#646300'];
 
         
         for(var i in params) {
@@ -438,132 +459,165 @@ var piktoBiorowerGraph = {
                     case "Stroke Count":
                         rv[i]['yaxis'] = 1; 
                          params[i]['yaxis']=1;
+                         params[i]['color']=colors[0];
+                         
                         
                         break;
                     case "Stroke Distance":
                         rv[i]['yaxis'] = 2;
                           params[i]['yaxis']=2;
+                           params[i]['color']=colors[1];
                       
                         break;
                     case "Speed Max":
                         rv[i]['yaxis'] = 3; 
                           params[i]['yaxis']=3;
+                           params[i]['color']=colors[2];
                         break;
                     case "Pace 2km":
                         rv[i]['yaxis'] = 4; 
                             params[i]['yaxis']=4;
+                             params[i]['color']=colors[3];
                         break;
                     case "HR Max":
                         rv[i]['yaxis'] = 5; 
                            params[i]['yaxis']=5;
+                            params[i]['color']=colors[4];
                         break;
                     case "Calories":
                         rv[i]['yaxis'] = 6; 
                             params[i]['yaxis']=6;
+                             params[i]['color']=colors[5];
                         break;
                      case "Time":
                         rv[i]['yaxis'] = 7; 
                            params[i]['yaxis']=7;
+                            params[i]['color']=colors[6];
                         break; 
                      case "Stroke Dist. Max":
                         rv[i]['yaxis'] = 8; 
                           params[i]['yaxis']=8;
+                           params[i]['color']=colors[7];
                         break;    
                     case "Pace 500m":
                         rv[i]['yaxis'] = 9; 
                     params[i]['yaxis']=9;
+                     params[i]['color']=colors[8];
                         break; 
                       case "Pace 2km Max":
                         rv[i]['yaxis'] = 10; 
                             params[i]['yaxis']=10;
+                             params[i]['color']=colors[9];
                          break; 
                      case "Stroke Rate":
                         rv[i]['yaxis'] = 11; 
                             params[i]['yaxis']=11;
+                             params[i]['color']=colors[10];
                         break;      
                      case "Power L":
                         rv[i]['yaxis'] = 12; 
                             params[i]['yaxis']=12;
+                             params[i]['color']=colors[11];
                         break;    
                      case "Distance":
                         rv[i]['yaxis'] = 13; 
                             params[i]['yaxis']=13;
+                             params[i]['color']=colors[12];
                         break; 
                        case "Speed":
                         rv[i]['yaxis'] = 14; 
                           params[i]['yaxis']=14;
+                           params[i]['color']=colors[13];
                         break;    
                     case "Pace 500m Max":
                         rv[i]['yaxis'] = 15; 
                          params[i]['yaxis']=15;
+                          params[i]['color']=colors[14];
                         break; 
                       case "HR":
                         rv[i]['yaxis'] = 16; 
                             params[i]['yaxis']=16;
+                             params[i]['color']=colors[15];
                          break; 
                      case "Stroke Rate Max":
                         rv[i]['yaxis'] = 17; 
                           params[i]['yaxis']=17;
+                           params[i]['color']=colors[16];
                         break;      
                      case "Power average":
                         rv[i]['yaxis'] = 18;
                             params[i]['yaxis']=18;
+                             params[i]['color']=colors[17];
                         break;    
                      case "Power max":
                         rv[i]['yaxis'] = 19;
                       params[i]['yaxis']=19;
+                       params[i]['color']=colors[18];
                         break; 
                       case "Power L Max":
                         rv[i]['yaxis'] = 20; 
                             params[i]['yaxis']=20;
+                             params[i]['color']=colors[19];
                         break;    
                      case "Power right average":
                         rv[i]['yaxis'] = 21; 
                           params[i]['yaxis']=21;
+                           params[i]['color']=colors[20];
                         break; 
                        case "Power right max":
                         rv[i]['yaxis'] = 22; 
                           params[i]['yaxis']=22;
+                           params[i]['color']=colors[21];
                         break;    
                     case "Power balance":
                         rv[i]['yaxis'] = 23; 
                         params[i]['yaxis']=23;
+                         params[i]['color']=colors[22];
                         break; 
                       case "Power balance max":
                         rv[i]['yaxis'] = 24; 
                             params[i]['yaxis']=24;
+                             params[i]['color']=colors[23];
                          break; 
                      case "Angle left average":
                         rv[i]['yaxis'] = 25; 
                           params[i]['yaxis']=25;
+                           params[i]['color']=colors[24];
                         break;      
                      case "Angle left Max":
                         rv[i]['yaxis'] = 26; 
                           params[i]['yaxis']=26;
+                           params[i]['color']=colors[25];
                         break;    
                      case "Angle right average":
                         rv[i]['yaxis'] = 27; 
                            params[i]['yaxis']=27;
+                            params[i]['color']=colors[26];
                         break;    
                      case "Angle right max":
                         rv[i]['yaxis'] = 28; 
                           params[i]['yaxis']=28;
+                           params[i]['color']=colors[27];
                         break;  
                      case "Angle average":
                         rv[i]['yaxis'] = 29; 
                            params[i]['yaxis']=29;
+                            params[i]['color']=colors[28];
                         break;  
                        case "Angle max":
                         rv[i]['yaxis'] = 30; 
                       params[i]['yaxis']=30;
+                       params[i]['color']=colors[29];
                         break; 
                      case "MML 2 Level":
                         rv[i]['yaxis'] = 31; 
                            params[i]['yaxis']=31;
+                            params[i]['color']=colors[30];
                         break;  
                        case "MML 4 Level":
                         rv[i]['yaxis'] = 32; 
                            params[i]['yaxis']=32;
+                            params[i]['color']=colors[31];
                         break;    
                 }
              
@@ -641,6 +695,7 @@ var piktoBiorowerGraph = {
             var newHistoryData = piktoBiorowerGraph.getHistoryData(piktoBiorowerGraph.parameters);
             
             
+            
             var dr2=moment.range(moment(piktoBiorowerGraph.startDate),moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType));
 
 var broj=0;
@@ -653,6 +708,19 @@ for(var i=0;i< piktoBiorowerGraph.historyData.date.length; i++){
     }
    
 }
+ var r= piktoBiorowerGraph.parameters;
+                  var duzina=r.length;
+              
+              var colors=[];
+             for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
+                  colors.push(piktoBiorowerGraph.parameters[i].color);
+             }
+             
+
+                    
+
+
+                       
 
 
 
@@ -698,11 +766,9 @@ var series={ lines: { show: true }, points: { show: true } };
                                         
                                         
                                     },
-                                    colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
-                                        "#FF0000FF","#FF00FF00","#FFFF0000","#FFFF8000","#FFFFFF60","#FFFFFF60","#FF0000FF",
-                                        "#FFFFFFFF","#FFFF8000","#FF804000","#FFFFFF60","#FF606060","#FF606060","#FFFFFF60","#FF008000",
-                                        "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
-                                        "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
+                                    colors:colors,
+                                    
+                                    
                                     yaxes:[ {
                                              axisLabelUseCanvas:true,
                                            axisLabel: "Stroke Count",  
@@ -753,6 +819,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         labelWidth: 30,
                                         max:1200,
                                        tickFormatter: formatter ,min:0.01,
+                                       tickSize:240,
                                     },
                                      {
                                            axisLabelUseCanvas:true,
@@ -786,6 +853,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         labelWidth: 30,
                                        tickFormatter: formatter ,
                                          max:9000,min:0.01,
+                                         tickSize:1800,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -807,6 +875,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         tickFormatter: formatter ,
+                                        tickSize:60,
                                         max:300,
                                         min:0.01,
                                     },
@@ -817,9 +886,13 @@ var series={ lines: { show: true }, points: { show: true } };
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
                                         panRange: false,    
-                                        labelWidth: 30,
+                                        labelWidth: 30,   tickSize:240,
+
+
                                          tickFormatter: formatter ,
                                          max:1200,min:0.01,
+                                         
+                                         
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -875,6 +948,8 @@ var series={ lines: { show: true }, points: { show: true } };
                                         labelWidth: 30,
                                           tickFormatter: formatter ,
                                          max:300,min:0.01,
+                                        tickSize:60,
+
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1271,7 +1346,7 @@ var series={ lines: { show: true }, points: { show: true } };
             var duzina=r.length;
 
 
-
+            
             if(duzina==1){
 
                 opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
@@ -1289,11 +1364,11 @@ var series={ lines: { show: true }, points: { show: true } };
                 opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
                 opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='left';
                 opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='right';
+       
             }
 
 
-
-
+ 
 
 
 
@@ -1316,9 +1391,9 @@ var series={ lines: { show: true }, points: { show: true } };
            var dr2=moment.range(s, s2);
       
          
-                var range3=moment.range(moment(piktoBiorowerGraph2.start), end);
+                var range3=moment.range(moment(response.historydata.date[0]), end);
                          
-                          
+                           
                           
         if(range3>dr2){
            
@@ -1329,7 +1404,7 @@ var series={ lines: { show: true }, points: { show: true } };
 
 
         }
-        else{
+        if(range3<dr2){
               axes.xaxis.options.timeformat="%b";
         }
                  
@@ -1480,153 +1555,204 @@ var piktoBiorowerGraph2 = {
         var rv = [];
         rv['label'] = parameter.label;
         rv['data'] = [];
+       
         for (var i in historyData.date) {
             rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
         }
         return rv;
+    
     },
     getHistoryData: function (params) {
-        piktoBiorowerGraph2.parameters = params;
+         
         var rv = [];
+         var colors=['#440064','#007eff','#00afc8','#005764','#804000','#ae00ff',
+                                        '#660096','#0063c8','#ff0000','#640000','#004a96','#ff8a00','#8800c8',
+                                        '#00deff','#bf0000','#008396','#003163','#06ff00','#05c800','#c86c00','#965100',
+                                        '#643600','#049600','#026400','#00ff96','#00c876',
+                                        '#009658','#00643b','#fffc00','#c8c600','#969400','#646300'];
+
+        
         for(var i in params) {
+            
+            
+            
+            
             rv.push(this.transormData(this.historyData, params[i]));
              switch (rv[i]['label']) {
                     case "Stroke Count":
                         rv[i]['yaxis'] = 1; 
                          params[i]['yaxis']=1;
+                         params[i]['color']=colors[0];
+                         
                         
                         break;
                     case "Stroke Distance":
                         rv[i]['yaxis'] = 2;
                           params[i]['yaxis']=2;
+                           params[i]['color']=colors[1];
                       
                         break;
                     case "Speed Max":
                         rv[i]['yaxis'] = 3; 
                           params[i]['yaxis']=3;
+                           params[i]['color']=colors[2];
                         break;
                     case "Pace 2km":
                         rv[i]['yaxis'] = 4; 
                             params[i]['yaxis']=4;
+                             params[i]['color']=colors[3];
                         break;
                     case "HR Max":
                         rv[i]['yaxis'] = 5; 
                            params[i]['yaxis']=5;
+                            params[i]['color']=colors[4];
                         break;
                     case "Calories":
                         rv[i]['yaxis'] = 6; 
                             params[i]['yaxis']=6;
+                             params[i]['color']=colors[5];
                         break;
                      case "Time":
                         rv[i]['yaxis'] = 7; 
                            params[i]['yaxis']=7;
+                            params[i]['color']=colors[6];
                         break; 
                      case "Stroke Dist. Max":
                         rv[i]['yaxis'] = 8; 
                           params[i]['yaxis']=8;
+                           params[i]['color']=colors[7];
                         break;    
                     case "Pace 500m":
                         rv[i]['yaxis'] = 9; 
                     params[i]['yaxis']=9;
+                     params[i]['color']=colors[8];
                         break; 
                       case "Pace 2km Max":
                         rv[i]['yaxis'] = 10; 
                             params[i]['yaxis']=10;
+                             params[i]['color']=colors[9];
                          break; 
                      case "Stroke Rate":
                         rv[i]['yaxis'] = 11; 
                             params[i]['yaxis']=11;
+                             params[i]['color']=colors[10];
                         break;      
                      case "Power L":
                         rv[i]['yaxis'] = 12; 
                             params[i]['yaxis']=12;
+                             params[i]['color']=colors[11];
                         break;    
                      case "Distance":
                         rv[i]['yaxis'] = 13; 
                             params[i]['yaxis']=13;
+                             params[i]['color']=colors[12];
                         break; 
                        case "Speed":
                         rv[i]['yaxis'] = 14; 
                           params[i]['yaxis']=14;
+                           params[i]['color']=colors[13];
                         break;    
                     case "Pace 500m Max":
                         rv[i]['yaxis'] = 15; 
                          params[i]['yaxis']=15;
+                          params[i]['color']=colors[14];
                         break; 
                       case "HR":
                         rv[i]['yaxis'] = 16; 
                             params[i]['yaxis']=16;
+                             params[i]['color']=colors[15];
                          break; 
                      case "Stroke Rate Max":
                         rv[i]['yaxis'] = 17; 
                           params[i]['yaxis']=17;
+                           params[i]['color']=colors[16];
                         break;      
                      case "Power average":
                         rv[i]['yaxis'] = 18;
                             params[i]['yaxis']=18;
+                             params[i]['color']=colors[17];
                         break;    
                      case "Power max":
                         rv[i]['yaxis'] = 19;
                       params[i]['yaxis']=19;
+                       params[i]['color']=colors[18];
                         break; 
                       case "Power L Max":
                         rv[i]['yaxis'] = 20; 
                             params[i]['yaxis']=20;
+                             params[i]['color']=colors[19];
                         break;    
                      case "Power right average":
                         rv[i]['yaxis'] = 21; 
                           params[i]['yaxis']=21;
+                           params[i]['color']=colors[20];
                         break; 
                        case "Power right max":
                         rv[i]['yaxis'] = 22; 
                           params[i]['yaxis']=22;
+                           params[i]['color']=colors[21];
                         break;    
                     case "Power balance":
                         rv[i]['yaxis'] = 23; 
                         params[i]['yaxis']=23;
+                         params[i]['color']=colors[22];
                         break; 
                       case "Power balance max":
                         rv[i]['yaxis'] = 24; 
                             params[i]['yaxis']=24;
+                             params[i]['color']=colors[23];
                          break; 
                      case "Angle left average":
                         rv[i]['yaxis'] = 25; 
                           params[i]['yaxis']=25;
+                           params[i]['color']=colors[24];
                         break;      
                      case "Angle left Max":
                         rv[i]['yaxis'] = 26; 
                           params[i]['yaxis']=26;
+                           params[i]['color']=colors[25];
                         break;    
                      case "Angle right average":
                         rv[i]['yaxis'] = 27; 
                            params[i]['yaxis']=27;
+                            params[i]['color']=colors[26];
                         break;    
                      case "Angle right max":
                         rv[i]['yaxis'] = 28; 
                           params[i]['yaxis']=28;
+                           params[i]['color']=colors[27];
                         break;  
                      case "Angle average":
                         rv[i]['yaxis'] = 29; 
                            params[i]['yaxis']=29;
+                            params[i]['color']=colors[28];
                         break;  
                        case "Angle max":
                         rv[i]['yaxis'] = 30; 
                       params[i]['yaxis']=30;
+                       params[i]['color']=colors[29];
                         break; 
                      case "MML 2 Level":
                         rv[i]['yaxis'] = 31; 
                            params[i]['yaxis']=31;
+                            params[i]['color']=colors[30];
                         break;  
                        case "MML 4 Level":
                         rv[i]['yaxis'] = 32; 
                            params[i]['yaxis']=32;
+                            params[i]['color']=colors[31];
                         break;    
                 }
-                
+             
         }
-        
-         piktoBiorowerGraph2.parameters = params;
+        piktoBiorowerGraph2.parameters = params;
+       
+  
+  
+       
+      
         return rv;
+        
     },
     loadHistoryData: function (account, rangeType, startDate, groupType) {
         var data = {
@@ -1677,6 +1803,12 @@ for(var i=0;i< piktoBiorowerGraph2.historyData.date.length; i++){
 }
 
 
+     var colors=[];
+             for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
+                  colors.push(piktoBiorowerGraph2.parameters[i].color);
+             }
+             
+
 var series={ lines: { show: true }, points: { show: true } };
      if(piktoBiorowerGraph2.broj==1){
       series={ lines: { show: false }, points: { show: true } };
@@ -1703,11 +1835,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         noColumns: 3,
                                         position:"nw",
                                     },
-                                    colors:["#FF0000FF","#FF000080","#FFFF0000","#FFFF8000","#FF804000","#FFFFFF60",
-                                        "#FF0000FF","#FF00FF00","#FFFF0000","#FFFF8000","#FFFFFF60","#FFFFFF60","#FF0000FF",
-                                        "#FFFFFFFF","#FFFF8000","#FF804000","#FFFFFF60","#FF606060","#FF606060","#FFFFFF60","#FF008000",
-                                        "#FF008000","#FF606060","#FF606060","#FF606060","#FF606060",
-                                        "#FF606060","#FF606060","#FF606060","#FF606060","#FF606060","#FF606060"],
+                                    colors:colors,
                                          yaxes:[ {
                                              axisLabelUseCanvas:true,
                                            axisLabel: "Stroke Count",  
@@ -1758,6 +1886,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         labelWidth: 30,
                                         max:1200,
                                        tickFormatter: formatter ,min:0.01,
+                                       tickSize:240,
                                     },
                                      {
                                            axisLabelUseCanvas:true,
@@ -1791,6 +1920,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                         labelWidth: 30,
                                        tickFormatter: formatter ,
                                          max:9000,min:0.01,
+                                         tickSize:1800,
                                     },
                                     {
                                           axisLabelUseCanvas:true,
@@ -1812,6 +1942,7 @@ var series={ lines: { show: true }, points: { show: true } };
                                             panRange: false,
                                         labelWidth: 30,
                                         tickFormatter: formatter ,
+                                        tickSize:60,
                                         max:300,
                                         min:0.01,
                                     },
@@ -1822,9 +1953,13 @@ var series={ lines: { show: true }, points: { show: true } };
                                             axisLabelFontFamily: 'Verdana, Arial',
                                             axisLabelPadding: 3,
                                         panRange: false,    
-                                        labelWidth: 30,
+                                        labelWidth: 30,   tickSize:240,
+
+
                                          tickFormatter: formatter ,
                                          max:1200,min:0.01,
+                                         
+                                         
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -1880,6 +2015,8 @@ var series={ lines: { show: true }, points: { show: true } };
                                         labelWidth: 30,
                                           tickFormatter: formatter ,
                                          max:300,min:0.01,
+                                        tickSize:60,
+
                                     },
                                      {
                                          axisLabelUseCanvas:true,
@@ -2132,13 +2269,41 @@ var series={ lines: { show: true }, points: { show: true } };
                                 
                                   piktoBiorowerGraph2.sadasnjost=null;
                            }
+                           
+                           
+                           
+                                             var end= moment();
+        var s=new Date("October 10, 2017 11:13:00");
+        var s2=new Date("October 11, 2018 11:13:00");
+      
+
+
+           var dr2=moment.range(s, s2);
+      
+         
+                var range3=moment.range(moment(response.historydata.date[0]), end);
+                         
+                           
+                          
+        if(range3>dr2){
+           
+            var axes = piktoBiorowerGraph2.progressPlot.getAxes();
+            axes.xaxis.options.timeformat="%m";
+
+
+
+
+        }
+        if(range3<dr2){
+              axes.xaxis.options.timeformat="%b";
+        }
                 
                 
                 
                 axes.xaxis.options.min = undefined;
                 axes.xaxis.options.max = undefined;
                
-            axes.xaxis.options.timeformat="%b";
+            
             axes.xaxis.options.tickSize=[1,"month"];
                 
 

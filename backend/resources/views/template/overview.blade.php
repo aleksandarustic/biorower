@@ -1057,33 +1057,27 @@
                                                                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
                   var r= piktoBiorowerGraph.parameters;
                   var duzina=r.length;
+              
+              
+              
+             
+            
+            
+             
+                
 
 
-
-                       if(duzina==1){
-
-                            opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
-                            
-
-                       }
-                        if(duzina==2){
-                              opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
+                    
 
 
-                            opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='right';
-                       }
-                        if(duzina==3){
+                    
+                       
 
-
-                            opts.yaxes[piktoBiorowerGraph.parameters[0].yaxis-1].position='left';
-                            opts.yaxes[piktoBiorowerGraph.parameters[1].yaxis-1].position='left';
-                            opts.yaxes[piktoBiorowerGraph.parameters[2].yaxis-1].position='right';
-                       }
-
-
-
+ 
                    piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
+                                  piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate);
+
                     
                     
                      
@@ -1181,7 +1175,8 @@
                    piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
                     
-                    
+                                                      piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
+
                     
                        var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
