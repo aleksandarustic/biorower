@@ -367,7 +367,7 @@
                            }
                            
                            
-                                  if(moment(piktoBiorowerGraph.startDate).add(1,'month').add(1,'day')>moment()){
+                                  if(moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType).add(1,'day')>moment()){
                    piktoBiorowerGraph.startDate=moment().subtract(1,'month');
                   
                    
@@ -1358,6 +1358,31 @@
 
                     <a href="javascript:;" class="btn btn-link" id="year_progress"
                                            onclick="
+                                   
+                                   
+                           
+                         
+                               if(moment(piktoBiorowerGraph.startDate).add(1,piktoBiorowerGraph.rangeType).add(1,'day')>moment()){
+                   piktoBiorowerGraph.startDate=moment().subtract(1,'year');
+                  
+                   
+                               
+                                   
+                                   
+                           }   
+                           
+                                            if(moment(piktoBiorowerGraph.startDate).add(1,'year').add(10,'day')>moment()){
+                                            
+                   piktoBiorowerGraph.startDate=moment().subtract(1,'year');
+                  
+                   
+                               
+                                   
+                                   
+                           }  
+                                       
+                                       
+                                       
                                        
                                          if(moment(piktoBiorowerGraph2.startDate)< piktoBiorowerGraph2.start){
                    piktoBiorowerGraph2.startDate=moment(piktoBiorowerGraph2.start).subtract(1,'month');
