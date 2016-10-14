@@ -10,8 +10,955 @@
      
      var email2="biorower:"+email1;
      var idsesije="<?php echo $decodedID ?>"; 
-     var niz =[];
-     niz.push(idsesije);
+     
+
+
+ 
+
+
+
+
+     $.ajax({ 
+            type: 'POST', 
+            dataType: 'json',
+            url : urlBase + '/api/v1/graph',
+            data: {account: email2 ,
+                sesija:idsesije,
+                graf:1,
+          
+
+        }, 
+            success: function (data9) {
+                    
+
+            $.plot($("#left-hand"),
+                    data9['left'], {
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            mouseActiveRadius: 30,
+                            backgroundColor: false,
+                            borderColor: "#f3f3f3",
+                            borderWidth: 1,
+                            tickColor: "#f3f3f3",
+                        },
+                        pan: {
+                            interactive: true
+                        },
+                 
+                        legend: {
+                            noColumns: 3,
+                            position: "nw",
+                        },
+                          yaxis: {
+                             axisLabelUseCanvas: true,
+                                axisLabel:'Force L[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 10,
+                                 show: true,
+                                 max:250,
+                               },
+                        xaxis:{
+                             axisLabelUseCanvas: true,
+                                axisLabel:'Angle L[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 20,
+                            
+                        show:true,
+                        max:60,
+                        min:-90,
+                        }  
+                    }
+            );
+    
+    
+    
+    
+    
+    
+    
+       $.plot($("#right-hand"),
+                    data9['right'], {
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            mouseActiveRadius: 30,
+                            backgroundColor: false,
+                            borderColor: "#f3f3f3",
+                            borderWidth: 1,
+                            tickColor: "#f3f3f3",
+                        },
+                        pan: {
+                            interactive: true
+                        },
+                        color:"blue",
+                            
+                        
+                 
+                        legend: {
+                            noColumns: 3,
+                            position: "nw",
+                        },
+                        yaxis: {
+                             axisLabelUseCanvas: true,
+                                axisLabel:'Force R[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 10,
+                                 labelWidth: 30,
+                                 show: true,
+                                 max:250,
+                               },
+                        xaxis:{
+                             axisLabelUseCanvas: true,
+                                axisLabel:'Angle R[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 20,
+                                 labelWidth: 30,
+                            
+                        show:true,
+                        max:60,
+                        min:-90,
+                        }     
+                    }
+            );
+
+              
+
+            }
+          });
+          
+          var piktoBiorowerGraph = {
+    historyPlot: null,
+    historyData: null,
+    transormData: function (historyData, parameter) {
+        var rv = [];
+        rv['label'] = parameter.label;
+        rv['data'] = [];
+
+        for (var i in historyData.date) {
+            rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
+        }
+        return rv;
+    },
+    getHistoryData: function (params) {
+        var rv = [];
+        var colors = ['#440064', '#007eff', '#00afc8', '#005764'];
+
+        for (var i in params) {
+
+            rv.push(this.transormData(this.historyData, params[i]));
+            switch (rv[i]['label']) {
+                case "Stroke Count":
+                    rv[i]['yaxis'] = 1;
+                    params[i]['yaxis'] = 1;
+                    params[i]['color'] = colors[0];
+                    break;
+                case "Stroke Distance":
+                    rv[i]['yaxis'] = 2;
+                    params[i]['yaxis'] = 2;
+                    params[i]['color'] = colors[1];
+                    break;
+                case "Speed Max":
+                    rv[i]['yaxis'] = 3;
+                    params[i]['yaxis'] = 3;
+                    params[i]['color'] = colors[2];
+                    break;
+                case "Pace 2km":
+                    rv[i]['yaxis'] = 4;
+                    params[i]['yaxis'] = 4;
+                    params[i]['color'] = colors[3];
+                    break;              
+            }
+
+        }
+        piktoBiorowerGraph.parameters = params;
+
+        return rv;
+
+    },
+    loadHistoryData: function (start) {
+        var data = {
+            account: email2,
+            sesija:idsesije,
+             graf:2,
+             start:start,
+             
+        };
+
+
+             
+        $.post(urlBase +'/api/v1/graph', data, function (response) {
+
+            piktoBiorowerGraph.historyData = [{data:response['frc_l'],yaxis:1,label:'Force L[N]'},{data:response['frc_r'],yaxis:1,label:'Force R[N]'},{data:response['ang_l'],yaxis:2,label:'Angle l[°]'},{data:response['ang_r'],yaxis:2,label:'Angle R[°]'}]
+          
+           
+            var series = {lines: {show: true}, points: {show: true}};
+            if (piktoBiorowerGraph.broj == 1) {
+                series = {lines: {show: false}, points: {show: true}};
+            }
+            function formatter(val, axis) {
+                var minutes = Math.floor(val / 60);
+                var seconds = val - minutes * 60;
+                if(val<60){
+                     return seconds+"s" ;
+                }
+                else{
+                    return minutes+"min"+ seconds+"s" ;
+                }
+
+                
+            }
+            piktoBiorowerGraph.historyPlot = $.plot($("#signals-graph"),
+            piktoBiorowerGraph.historyData , {
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            mouseActiveRadius: 30,
+                            backgroundColor: false,
+                            borderColor: "#f3f3f3",
+                            borderWidth: 1,
+                            tickColor: "#f3f3f3",
+                        },
+                        pan: {
+                            interactive: true
+                        },
+                   
+                        legend: {
+                            noColumns: 3,
+                            position: "nw",
+                        },
+                       
+                        yaxes: [{
+                              axisLabelUseCanvas: true,
+                                axisLabel: "Force[N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                labelWidth: 30,
+                                  max:250,
+                                   min:0,
+                                    panRange: false,
+                                    position:'left',
+                            }, {
+                              axisLabelUseCanvas: true,
+                                axisLabel:'Angle[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                labelWidth: 30,
+                                max: 60,
+                                 min: -90,
+                                  panRange: false,
+                                   position:'right',
+                            }                        
+                        ],
+                        xaxis: {
+                            show: true,
+                            labelHeight: 30,
+                           
+                          tickFormatter: formatter,
+                            
+                            
+                        
+
+                          
+            }
+                    }
+            );
+
+            var opts = piktoBiorowerGraph.historyPlot.getOptions();
+            var axes = piktoBiorowerGraph.historyPlot.getAxes();
+          
+
+
+            piktoBiorowerGraph.historyPlot.setupGrid();
+            piktoBiorowerGraph.historyPlot.draw();
+        });
+
+    }
+};
+          
+          
+          
+                 
+                   
+                   
+      $("#signals-graph").bind("plotpan plotzoom", function (event, plot) {
+        var axes = piktoBiorowerGraph.historyPlot.getAxes();
+        var start = axes.xaxis.options.min;
+     
+         piktoBiorowerGraph.loadHistoryData(parseInt(start));
+    
+      
+    }); 
+          
+          
+  
+  
+  var piktoBiorowerGraph2 = {
+    progressPlot: null,
+    historyData: null,
+    startDate: null,
+    sadasnjost: null,
+    rangeType: 'all',
+    parameters: [{slug: 'scnt', label: 'Stroke Count', yaxis: 1}],
+    start: null,
+    groupType: 'week',
+    transormData: function (historyData, parameter) {
+        var rv = [];
+        rv['label'] = parameter.label;
+        rv['data'] = [];
+
+        for (var i in historyData.date) {
+            rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
+        }
+        return rv;
+
+    },
+    getHistoryData: function (params) {
+
+        var rv = [];
+        var colors = ['#440064', '#007eff', '#00afc8', '#005764', '#804000', '#ae00ff',
+            '#660096', '#0063c8', '#ff0000', '#640000', '#004a96', '#ff8a00', '#8800c8',
+            '#00deff', '#bf0000', '#008396', '#003163', '#06ff00', '#05c800', '#c86c00', '#965100',
+            '#643600', '#049600', '#026400', '#00ff96', '#00c876',
+            '#009658', '#00643b', '#fffc00', '#c8c600', '#969400', '#646300'];
+
+        for (var i in params) {
+
+            rv.push(this.transormData(this.historyData, params[i]));
+            switch (rv[i]['label']) {
+                case "Stroke Count":
+                    rv[i]['yaxis'] = 1;
+                    params[i]['yaxis'] = 1;
+                    params[i]['color'] = colors[0];
+                    break;
+                case "Stroke Distance":
+                    rv[i]['yaxis'] = 2;
+                    params[i]['yaxis'] = 2;
+                    params[i]['color'] = colors[1];
+
+                    break;
+                case "Speed Max":
+                    rv[i]['yaxis'] = 3;
+                    params[i]['yaxis'] = 3;
+                    params[i]['color'] = colors[2];
+                    break;
+                case "Pace 2km":
+                    rv[i]['yaxis'] = 4;
+                    params[i]['yaxis'] = 4;
+                    params[i]['color'] = colors[3];
+                    break;
+                case "HR Max":
+                    rv[i]['yaxis'] = 5;
+                    params[i]['yaxis'] = 5;
+                    params[i]['color'] = colors[4];
+                    break;
+                case "Calories":
+                    rv[i]['yaxis'] = 6;
+                    params[i]['yaxis'] = 6;
+                    params[i]['color'] = colors[5];
+                    break;
+                case "Time":
+                    rv[i]['yaxis'] = 7;
+                    params[i]['yaxis'] = 7;
+                    params[i]['color'] = colors[6];
+                    break;
+                case "Stroke Dist. Max":
+                    rv[i]['yaxis'] = 8;
+                    params[i]['yaxis'] = 8;
+                    params[i]['color'] = colors[7];
+                    break;
+                case "Pace 500m":
+                    rv[i]['yaxis'] = 9;
+                    params[i]['yaxis'] = 9;
+                    params[i]['color'] = colors[8];
+                    break;
+                case "Pace 2km Max":
+                    rv[i]['yaxis'] = 10;
+                    params[i]['yaxis'] = 10;
+                    params[i]['color'] = colors[9];
+                    break;
+                case "Stroke Rate":
+                    rv[i]['yaxis'] = 11;
+                    params[i]['yaxis'] = 11;
+                    params[i]['color'] = colors[10];
+                    break;
+                case "Power L":
+                    rv[i]['yaxis'] = 12;
+                    params[i]['yaxis'] = 12;
+                    params[i]['color'] = colors[11];
+                    break;
+                case "Distance":
+                    rv[i]['yaxis'] = 13;
+                    params[i]['yaxis'] = 13;
+                    params[i]['color'] = colors[12];
+                    break;
+                case "Speed":
+                    rv[i]['yaxis'] = 14;
+                    params[i]['yaxis'] = 14;
+                    params[i]['color'] = colors[13];
+                    break;
+                case "Pace 500m Max":
+                    rv[i]['yaxis'] = 15;
+                    params[i]['yaxis'] = 15;
+                    params[i]['color'] = colors[14];
+                    break;
+                case "HR":
+                    rv[i]['yaxis'] = 16;
+                    params[i]['yaxis'] = 16;
+                    params[i]['color'] = colors[15];
+                    break;
+                case "Stroke Rate Max":
+                    rv[i]['yaxis'] = 17;
+                    params[i]['yaxis'] = 17;
+                    params[i]['color'] = colors[16];
+                    break;
+                case "Power average":
+                    rv[i]['yaxis'] = 18;
+                    params[i]['yaxis'] = 18;
+                    params[i]['color'] = colors[17];
+                    break;
+                case "Power max":
+                    rv[i]['yaxis'] = 19;
+                    params[i]['yaxis'] = 19;
+                    params[i]['color'] = colors[18];
+                    break;
+                case "Power L Max":
+                    rv[i]['yaxis'] = 20;
+                    params[i]['yaxis'] = 20;
+                    params[i]['color'] = colors[19];
+                    break;
+                case "Power right average":
+                    rv[i]['yaxis'] = 21;
+                    params[i]['yaxis'] = 21;
+                    params[i]['color'] = colors[20];
+                    break;
+                case "Power right max":
+                    rv[i]['yaxis'] = 22;
+                    params[i]['yaxis'] = 22;
+                    params[i]['color'] = colors[21];
+                    break;
+                case "Power balance":
+                    rv[i]['yaxis'] = 23;
+                    params[i]['yaxis'] = 23;
+                    params[i]['color'] = colors[22];
+                    break;
+                case "Power balance max":
+                    rv[i]['yaxis'] = 24;
+                    params[i]['yaxis'] = 24;
+                    params[i]['color'] = colors[23];
+                    break;
+                case "Angle left average":
+                    rv[i]['yaxis'] = 25;
+                    params[i]['yaxis'] = 25;
+                    params[i]['color'] = colors[24];
+                    break;
+                case "Angle left Max":
+                    rv[i]['yaxis'] = 26;
+                    params[i]['yaxis'] = 26;
+                    params[i]['color'] = colors[25];
+                    break;
+                case "Angle right average":
+                    rv[i]['yaxis'] = 27;
+                    params[i]['yaxis'] = 27;
+                    params[i]['color'] = colors[26];
+                    break;
+                case "Angle right max":
+                    rv[i]['yaxis'] = 28;
+                    params[i]['yaxis'] = 28;
+                    params[i]['color'] = colors[27];
+                    break;
+                case "Angle average":
+                    rv[i]['yaxis'] = 29;
+                    params[i]['yaxis'] = 29;
+                    params[i]['color'] = colors[28];
+                    break;
+                case "Angle max":
+                    rv[i]['yaxis'] = 30;
+                    params[i]['yaxis'] = 30;
+                    params[i]['color'] = colors[29];
+                    break;
+                case "MML 2 Level":
+                    rv[i]['yaxis'] = 31;
+                    params[i]['yaxis'] = 31;
+                    params[i]['color'] = colors[30];
+                    break;
+                case "MML 4 Level":
+                    rv[i]['yaxis'] = 32;
+                    params[i]['yaxis'] = 32;
+                    params[i]['color'] = colors[31];
+                    break;
+            }
+
+        }
+        piktoBiorowerGraph2.parameters = params;
+        return rv;
+
+    },
+    loadHistoryData: function () {
+          var data = {
+            account: email2,
+            sesija:idsesije,
+             graf:3,
+             parametar:'dist'
+        };
+
+
+             
+        $.post(urlBase +'/api/v1/graph', data, function (response) {
+
+          alert(JSON.stringify(response));
+
+
+            var c = [];
+            
+
+            var newHistoryData = piktoBiorowerGraph2.getHistoryData(piktoBiorowerGraph2.parameters);
+            var broj = 0;
+            piktoBiorowerGraph2.historyData = response.historydata;
+
+            function formatter(val, axis) {
+                var minutes = parseInt(val / 60) % 60;
+                return minutes + ":00";
+            }
+
+            var colors = [];
+            for (var i = 0; i < piktoBiorowerGraph2.parameters.length; i++) {
+                colors.push(piktoBiorowerGraph2.parameters[i].color);
+            }
+
+            var series = {lines: {show: true}, points: {show: true}};
+          
+
+
+            piktoBiorowerGraph2.progressPlot = $.plot($("#Strokes"),
+                    newHistoryData, {
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            mouseActiveRadius: 30,
+                            backgroundColor: false,
+                            borderColor: "#f3f3f3",
+                            borderWidth: 1,
+                            tickColor: "#f3f3f3",
+                        },
+                        pan: {
+                            interactive: true
+                        },
+                        series: series,
+                        legend: {
+                            noColumns: 3,
+                            position: "nw",
+                        },
+                        colors: colors,
+                        yaxes: [{
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Stroke Count",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                min: 0.00000001,
+                            }, {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Stroke Distance [km]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 20,
+                                tickSize: 4, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Speed Max [m/s]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 10,
+                                tickSize: 2, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Pace 2km [hh:mm:ss]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 1200,
+                                tickFormatter: formatter, min: 0.00000001,
+                                tickSize: 240,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "HR max [bmp]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 250,
+                                tickSize: 50, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Calories [kCal]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 2000,
+                                tickSize: 400, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Time [hh:mm:ss]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                tickFormatter: formatter,
+                                max: 9000, min: 0.00000001,
+                                tickSize: 1800,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Stroke Dist.Max [km]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 20,
+                                tickSize: 4, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Pace 500m [hh:mm:ss]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                tickFormatter: formatter,
+                                tickSize: 60,
+                                max: 300,
+                                min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Pace 2km Max [hh:mm:ss]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30, tickSize: 240,
+                                tickFormatter: formatter,
+                                max: 1200, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Stroke Rate [spm]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 50,
+                                tickSize: 10, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Power L [W]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Distance [km]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 20,
+                                tickSize: 4, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Speed [m/s]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 10,
+                                tickSize: 2, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Pace 500m Max [hh:mm:ss]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                tickFormatter: formatter,
+                                max: 300, min: 0.00000001,
+                                tickSize: 60,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "HR [bmp]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 250,
+                                tickSize: 50, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Stroke Rate Max [spm]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 50,
+                                tickSize: 10, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Power Average [W]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 1500,
+                                tickSize: 300, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Power Max [W]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 1500,
+                                tickSize: 300, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Power L Max [W]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Power right average [W]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Power right max [W]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Power Balance [%]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Power Balance max [%]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Angle left average [°]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 150,
+                                tickSize: 30, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Angle left max [°]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 150,
+                                tickSize: 30, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Angle right average [°]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 150,
+                                tickSize: 30, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Angle right max [°]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 150,
+                                tickSize: 30, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Angle average [°]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 150,
+                                tickSize: 30, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Angle max [°]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 150,
+                                tickSize: 30, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "MML 2 Level [hh:mm:ss]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.00000001,
+                            },
+                            {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "MML 4 Level [hh:mm:ss]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.00000001,
+                            },
+                        ],
+                        xaxis: {
+                            show: true,
+                            labelHeight: 30,
+                        
+                            tickSize: 1,
+                  
+                        }
+                    }
+            );
+
+
+            var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+            var axes = piktoBiorowerGraph2.progressPlot.getAxes();
+            
+
+            var r = piktoBiorowerGraph2.parameters;
+            var duzina = r.length;
+            
+
+            if (duzina == 1) {
+                opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis - 1].position = 'left';
+            }
+            if (duzina == 2) {
+                opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis - 1].position = 'left';
+                opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis - 1].position = 'right';
+            }
+            if (duzina == 3) {
+                opts.yaxes[piktoBiorowerGraph2.parameters[0].yaxis - 1].position = 'left';
+                opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis - 1].position = 'right';
+                opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis - 1].position = 'right';
+            }
+           
+
+          
+            piktoBiorowerGraph2.progressPlot.setupGrid();
+            piktoBiorowerGraph2.progressPlot.draw();
+        });
+    }
+};
+  
+  
+  
+  piktoBiorowerGraph.loadHistoryData(0);         
+piktoBiorowerGraph2.loadHistoryData();
+
+/*
+
 
           $.ajax({ 
             type: 'POST', 
@@ -82,14 +1029,10 @@
 
         }, 
             success: function (data) {
-                
-        
+                      
               var dat=data.sessions;
               var sesija2;
-              var split;
-          
-             
-
+              var split;                 
                 for(var i=0;i< dat.length; i++){
                   
                  
@@ -408,6 +1351,7 @@
             };
  var data2 = [ d5,];
 
+alert(JSON.stringify(data2));
 
  var plot2 =$.plot($("#Strokes"),
        data2,{            
@@ -616,38 +1560,8 @@
           
 
 
- 
-    $.plot($("#left-hand"),
-        [{
-              data: forceL1,
-        color: "#536A7F",
-        lines: { show: true, color: "#536A7F", fillColor: "#536A7F" },
-        points: { show: false, fill:true }
-            },
-        ],{            
-            grid: {
-                hoverable: false, 
-                clickable: false, 
-                backgroundColor: false,
-         borderColor: "#f3f3f3",
-            borderWidth: 1,
-            tickColor: "#f3f3f3" 
-            },
-      shadowSize: 0,
-      legend: {
-          noColumns: 1,
-        },
-      yaxis: {
-            show: true,
-            max:1000,
-          },
-            xaxis:{
-            show:true,
-            max:60,
-            min:-90,
-            }     
-        }
-    );
+  
+   
    var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Angle(°)").appendTo($('#left-hand'));
 
 var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Forse(N)").appendTo($('#left-hand'));
@@ -801,6 +1715,7 @@ $("<div class='button' id='icon-zoomIn' style='right:44px; top:22px;'></div>")
 
 var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#signals-graph'));
 yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
+*/
   });
 
 
@@ -818,6 +1733,7 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
 <!-- Main content -->
 
 <section class="content">
+
   <div class="row"><!-- /.col -->
   <div class="col-md-8 col-left">
   <div class="col-md-12 no-padding">

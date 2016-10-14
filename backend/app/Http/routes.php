@@ -54,6 +54,8 @@ Route::group(array('prefix' => 'api'), function()
 
 	Route::resource('v1/sessions_history', 'Braining\HistorystatisticsController',
 					['only' => ['store']]);	
+        Route::resource('v1/graph', 'Braining\GraphController',
+					['only' => ['store']]);	
 
 	Route::resource('v1/get_user_settings', 'Braining\GetusersettingsController',
 					['only' => ['store']]);		

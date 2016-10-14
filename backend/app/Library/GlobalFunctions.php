@@ -12,7 +12,43 @@ use Carbon;
 
 		public static function test(){
 			return "aaa";
-		}    	
+		}  
+                public static function UInt($var, $i) {
+                        return (ord($var[$i]) & 0xFF) |
+                                ((ord($var[$i + 1]) & 0xFF) << 8) |
+                                ((ord($var[$i + 2]) & 0xFF) << 16) |
+                                ((ord($var[$i + 3]) & 0xFF) << 24);
+                    }
+
+                public static function intBitsToFloat($bits) {
+
+                        $s = (($bits >> 31) == 0) ? 1 : -1;
+                        $e = (($bits >> 23) & 0xff);
+                        $m = ($e == 0) ?
+                                ($bits & 0x7fffff) << 1 :
+                                ($bits & 0x7fffff) | 0x800000;
+
+                        $d = $s * $m * pow(2, $e - 150);
+
+                        return $d;
+                    }
+
+                public static function Float($var, $i) {
+                        return GlobalFunctions::intBitsToFloat(GlobalFunctions::UInt($var, $i));
+                    }
+
+                public static function UShort($var, $i) {
+                        return
+                                ((ord($var[$i]) & 0xFF)) |
+                                ((ord($var[$i + 1]) & 0xFF) << 8);
+                    }
+
+                public static function complement2($num) {
+                        if (0x8000 & $num) {
+                            $num = - (0x010000 - $num);
+                        }
+                        return $num;
+                    }
 
 		// stara verzija 000/000/000/23
 		// 000/000/000/
