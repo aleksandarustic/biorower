@@ -194,7 +194,7 @@
         $.post(urlBase +'/api/v1/graph', data, function (response) {
 
             piktoBiorowerGraph.historyData = [{data:response['frc_l'],yaxis:1,label:'Force L[N]'},{data:response['frc_r'],yaxis:1,label:'Force R[N]'},{data:response['ang_l'],yaxis:2,label:'Angle l[°]'},{data:response['ang_r'],yaxis:2,label:'Angle R[°]'}]
-          
+                    
            
             var series = {lines: {show: true}, points: {show: true}};
             if (piktoBiorowerGraph.broj == 1) {
@@ -239,7 +239,6 @@
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
                                 labelWidth: 30,
-                                  max:250,
                                    min:0,
                                     panRange: false,
                                     position:'left',
@@ -259,8 +258,8 @@
                         xaxis: {
                             show: true,
                             labelHeight: 30,
-                           
-                          tickFormatter: formatter,
+                            panRange: [0, 9000000],
+                              tickFormatter: formatter,
                             
                             
                         
@@ -284,7 +283,8 @@
           
           
           
-                 
+          piktoBiorowerGraph.loadHistoryData(0);         
+         
                    
                    
       $("#signals-graph").bind("plotpan plotzoom", function (event, plot) {
@@ -512,7 +512,7 @@
              
         $.post(urlBase +'/api/v1/graph', data, function (response) {
 
-          alert(JSON.stringify(response));
+         
 
 
             var c = [];
@@ -954,7 +954,6 @@
   
   
   
-  piktoBiorowerGraph.loadHistoryData(0);         
 piktoBiorowerGraph2.loadHistoryData();
 
 /*

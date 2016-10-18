@@ -43,8 +43,9 @@ class GraphController extends Controller {
             } else {
                 $graf = Input::get("graf");
                 if ($graf == 1) {
+                    
 
-                    $results = DB::select(DB::raw("SELECT  data->'$[*][*].signal.ang_l' as ang_l,data->'$[*][*].signal.ang_r' as ang_r,data->'$[*][*].signal.frc_l' as frc_l,data->'$[*][*].signal.frc_r' as frc_r  FROM `sessions` WHERE id=" . $id . ""));
+                    $results = DB::select(DB::raw("SELECT  data->>'$[*][*].signal.ang_l' as ang_l,data->>'$[*][*].signal.ang_r' as ang_r,data->>'$[*][*].signal.frc_l' as frc_l,data->>'$[*][*].signal.frc_r' as frc_r  FROM `sessions` WHERE id=" . $id . ""));
                     $results2 = GlobalFunctions::PrepareArrayParametersStatistics($results);
                     $ang_l = json_decode($results2['ang_l'][0]);
                     $frc_l = json_decode($results2['frc_l'][0]);
@@ -78,6 +79,11 @@ class GraphController extends Controller {
                     for ($i = 0; $i < count($d1); $i = $i + 1) {
 
                         array_push($rv, [$d1[$i],$d3[$i]]);
+                     
+                    }
+                     for ($i = 0; $i < count($d2); $i = $i + 1) {
+
+                       
                         array_push($rv2, [$d2[$i],$d4[$i]]);
                     }
 
@@ -88,17 +94,15 @@ class GraphController extends Controller {
                     ];
                 } elseif ($graf == 2) {
                      $start = Input::get("start");
-                    $results = DB::select(DB::raw("SELECT data->'$[*][*].signal.ang_l' as ang_l,data->'$[*][*].signal.ang_r' as ang_r,data->'$[*][*].signal.frc_l' as frc_l,data->'$[*][*].signal.frc_r' as frc_r  FROM `sessions` WHERE id=" . $id . ""));
+                    $results = DB::select(DB::raw("SELECT data->'$[*][*].signal.ang_l'   as ang_l ,data->'$[*][*].signal.ang_r' as ang_r,data->'$[*][*].signal.frc_l' as frc_l,data->'$[*][*].signal.frc_r' as frc_r  FROM `sessions` WHERE id=" . $id . ""));
+                   
                     $results2 = GlobalFunctions::PrepareArrayParametersStatistics($results);
                     $ang_l = json_decode($results2['ang_l'][0]);
                     $frc_l = json_decode($results2['frc_l'][0]);
                     $ang_r = json_decode($results2['ang_r'][0]);
                     $frc_r = json_decode($results2['frc_r'][0]);
-                    $kolicina=count($ang_l);
-                    if($kolicina>60){
-                        $kolicina=60;
-                    }
-                      for ($i = $start; $i < $start+$kolicina; $i = $i + 1) {
+                    
+                      for ($i = 0; $i < count($ang_l); $i = $i + 1) {
                         $var1 = base64_decode($ang_l[$i]);
                         $var2 = base64_decode($ang_r[$i]);
                         $var3 = base64_decode($frc_l[$i]);
@@ -126,8 +130,38 @@ class GraphController extends Controller {
                     $rv2 = array();
                     $rv3 = array();
                     $rv4 = array();
-                    $broj = $start;
-                    for ($i = 0; $i < count($d1); $i = $i + 1) {
+                    
+                  
+                    
+                  
+                       $broj=$start;
+                    if(count($d1)>6000)   {
+                    if($broj >( count($d1)/100)-60){
+                        $broj=( count($d1)/100)-60;
+                    }
+                    
+                        
+                    if($start>1){
+                        $start=$start*600;
+                    }
+                    if($start+6000>count($d1)){
+                        $start=count($d1)-6001;
+                        
+                    }
+                    $end=$start+6000;
+                    if($start+6000>count($d1)){
+                        $end=count($d1);
+                    }
+                    }
+                    else{
+                        $broj=1;
+                        $start=0;
+                        $end=count($d3);
+                        $end2=count($d2);
+                        $end3=count($d3);
+                    }
+                   
+                    for ($i = $start; $i < $end; $i = $i + 1) {
 
                         array_push($rv, [$broj,  $d3[$i]]);
                         array_push($rv2, [$broj, $d4[$i]]);

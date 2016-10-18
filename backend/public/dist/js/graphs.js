@@ -163,7 +163,9 @@ $(function () {
        $.fn.UseTooltip = function () {
         var previousPoint = null;
 
-        $(this).bind("plothover", function (event, pos, item) {
+        $("#history").bind("plothover", function (event, pos, item) {
+            
+
             if (item) {
                 if (previousPoint != pos.pageY) {
                     previousPoint = pos.pageY;
@@ -199,7 +201,7 @@ $(function () {
                         var y = datapoint.toFixed(2) + " bpm ";
                     }
                     if (label == "Calories") {
-                        var y = datapoint.toFixed(2) + " kCal ";
+                        var y = datapoint.toFixed(1) + " kCal ";
                     }
                     if (label == "Time") {
                         var y = parseInt(datapoint / 60) % 60 + " min ";
@@ -224,6 +226,81 @@ $(function () {
                 previousPoint = null;
             }
         });
+        $("#tooltip").css("width",'300px');
+        $("#progress").bind("plothover", function (event, pos, item) {
+            
+
+            if (item) {
+                if (previousPoint != pos.pageY) {
+                    previousPoint = pos.pageY;
+                    var label = item.series.label;
+                    var datapoint = item.datapoint[1];
+                    var x = item.datapoint[0];
+                    $("#tooltip").remove();
+                    if (label == "Distance") {
+                        var y = (datapoint * 1000).toFixed(2) + " m ";
+                    }
+                    if (label.indexOf("Stroke Rate") != -1) {
+                        var y = datapoint.toFixed(2) + " spm ";
+                    }
+                    if (label.indexOf("Power") != -1) {
+                        var y = datapoint.toFixed(2) + " W ";
+                    }
+                    if (label.indexOf("Angle") != -1) {
+                        var y = datapoint.toFixed(2) + " ° ";
+                    }
+                    if (label == "Stroke Count") {
+                        var y = datapoint;
+                    }
+                    if (label == "Stroke Distance") {
+                        var y = (datapoint * 1000).toFixed(0) + " m ";
+                    }
+                    if (label.indexOf("Speed") != -1) {
+                        var y = datapoint.toFixed(2) + " m/s ";
+                    }
+                    if (label.indexOf("Pace") != -1) {
+                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                    }
+                    if (label.indexOf("HR") != -1) {
+                        var y = datapoint.toFixed(2) + " bpm ";
+                    }
+                    if (label == "Calories") {
+                        var y = datapoint.toFixed(1) + " kCal ";
+                    }
+                    if (label == "Time") {
+                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                    }
+                    if (label == "Stroke Dist. Max") {
+                        var y = (datapoint * 1000).toFixed(2) + " m ";
+                    }
+                    if (label.indexOf("MML") != -1) {
+                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                    }
+                    var x = item.datapoint[0];
+                    if(piktoBiorowerGraph2.groupType=='month'){
+                         showTooltip(item.pageX, item.pageY,
+                            "<strong>" + item.series.label + ": " + y + "</strong>"+ "<br/>" + "<strong>Date: " + moment(x).format(' MMM YYYY') +"</strong><br />" 
+                            
+
+                            );
+                    }
+                    else{
+                             
+                           showTooltip(item.pageX, item.pageY,
+                            "<strong>" + item.series.label + ": " + y + "</strong>" + "<br/>" + "<strong>Date: " + moment(x).format('Do MMM YYYY') + "-"+moment(x).add(7,'day').format('Do MMM YYYY')+"</strong><br />"
+                            
+
+                            );
+                    }
+
+
+                   
+                }
+            } else {
+                $("#tooltip").remove();
+                previousPoint = null;
+            }
+        });
     };
 
     function showTooltip(x, y, contents) {
@@ -238,18 +315,14 @@ $(function () {
             color: 'black',
             'background-color': '#fff',
             opacity: 0.80,
-            width: 180,
+            width: 250
         }).appendTo("body").fadeIn(200);
     }
 
     
     $("#progress").UseTooltip();
 
-    var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>").text("Time(sec)").appendTo($('#progress'));
-
-    var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>").text("Power(W)").appendTo($('#progress'));
-    yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
-
+  
     $("#history").UseTooltip();
 
 
@@ -259,15 +332,7 @@ $(function () {
 /* Custom Label formatter
  * ----------------------
  */
-function labelFormatter(label, series) {
-    return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
-        + label
-        + "<br>"
-        + Math.round(series.percent) + "%</div>";
-}
-function selectTab() {
-    $('[role="tab"]').has("a[href='#" + history + "']").first().trigger("click");
-}
+
 
 var piktoBiorowerGraph = {
     historyPlot: null,
@@ -716,8 +781,8 @@ var piktoBiorowerGraph = {
                                 axisLabelPadding: 3,
                                 panRange: false,
                                 labelWidth: 30,
-                                max: 20,
-                                tickSize: 4, min: 0.01,
+                                max: 10,
+                                tickSize: 2, min: 0.01,
                             },
                             {
                                 axisLabelUseCanvas: true,
@@ -1423,7 +1488,7 @@ var piktoBiorowerGraph2 = {
                     response.historydata.date[i] = moment(response.historydata.date[i]).startOf('month').add(14, 'day');
                 }
                 if (piktoBiorowerGraph2.groupType == 'week') {
-                    response.historydata.date[i] = moment(response.historydata.date[i]).startOf('week').add(3, 'day');
+                    response.historydata.date[i] = moment(response.historydata.date[i]).startOf('week');
                 }
 
                 if (dr2.contains(moment(response.historydata.date[i])) == true) {
@@ -1484,7 +1549,7 @@ var piktoBiorowerGraph2 = {
             if (piktoBiorowerGraph2.groupType == 'week') {
 
                 d.by('week', function (moment2) {
-                    c.push(moment(moment2).startOf('week').add(3, 'day'));
+                    c.push(moment(moment2).startOf('week'));
                 });
 
                 for (var i = 0; i < c.length; i++) {
@@ -1725,8 +1790,8 @@ var piktoBiorowerGraph2 = {
                                 axisLabelPadding: 3,
                                 panRange: false,
                                 labelWidth: 30,
-                                max: 20,
-                                tickSize: 4, min: 0.00000001,
+                                max: 10,
+                                tickSize: 2, min: 0.00000001,
                             },
                             {
                                 axisLabelUseCanvas: true,
