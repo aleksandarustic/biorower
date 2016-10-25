@@ -59,9 +59,12 @@ $(function () {
     };
 
     $.post('api/v1/sessions_history', data, function (response) {
-
+ if(!response.historydata.date){
+           $("#all_history").hide();
+                
+        }
         if (response.historydata.date.length > 0) {
-
+       
             piktoBiorowerGraph.start = moment(response.historydata.date[0]);
             piktoBiorowerGraph.broj = response.historydata.date.length;
             var s = new Date("October 10, 2017 11:13:00");
@@ -84,6 +87,11 @@ $(function () {
     });
 
     $.post('api/v1/sessions_history', data2, function (response) {
+        if(!response.historydata.date){
+           $("#all_progress").hide();
+                $("#year_progress").hide(); 
+        }
+        
         if (response.historydata.date.length > 0) {
             piktoBiorowerGraph2.start = moment(response.historydata.date[0]);
             piktoBiorowerGraph2.groupType = "week";
@@ -241,6 +249,7 @@ $(function () {
                         var y = (datapoint * 1000).toFixed(2) + " m ";
                     }
                     if (label.indexOf("Stroke Rate") != -1) {
+                        
                         var y = datapoint.toFixed(2) + " spm ";
                     }
                     if (label.indexOf("Power") != -1) {
@@ -250,7 +259,7 @@ $(function () {
                         var y = datapoint.toFixed(2) + " ° ";
                     }
                     if (label == "Stroke Count") {
-                        var y = datapoint;
+                        var y = datapoint.toFixed(0);
                     }
                     if (label == "Stroke Distance") {
                         var y = (datapoint * 1000).toFixed(0) + " m ";
@@ -287,7 +296,7 @@ $(function () {
                     else{
                              
                            showTooltip(item.pageX, item.pageY,
-                            "<strong>" + item.series.label + ": " + y + "</strong>" + "<br/>" + "<strong>Date: " + moment(x).format('Do MMM YYYY') + "-"+moment(x).add(7,'day').format('Do MMM YYYY')+"</strong><br />"
+                            "<strong>" + item.series.label + ": " + y + "</strong>" + "<br/>" + "<strong>Date: " + moment(x).format('Do MMM YYYY') + "-"+moment(x).add(6,'day').format('Do MMM YYYY')+"</strong><br />"
                             
 
                             );

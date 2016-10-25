@@ -1,322 +1,34 @@
 @extends('layouts.main')
 @section('page-scripts')
 <script type="text/javascript">
-
-  $(function() {
-
-      var urlBase = "<?php echo Request::root() ?>";
+    
+     var urlBase = "<?php echo Request::root() ?>";
      var email1="<?php echo Auth::user()->email ?>"; 
      var display_name= "<?php echo Auth::user()->display_name ?>"; 
-     
      var email2="biorower:"+email1;
      var idsesije="<?php echo $decodedID ?>"; 
      
-
-
- 
-
-
-
-
-     $.ajax({ 
-            type: 'POST', 
-            dataType: 'json',
-            url : urlBase + '/api/v1/graph',
-            data: {account: email2 ,
-                sesija:idsesije,
-                graf:1,
-          
-
-        }, 
-            success: function (data9) {
-                    
-
-            $.plot($("#left-hand"),
-                    data9['left'], {
-                        grid: {
-                            hoverable: true,
-                            clickable: true,
-                            mouseActiveRadius: 30,
-                            backgroundColor: false,
-                            borderColor: "#f3f3f3",
-                            borderWidth: 1,
-                            tickColor: "#f3f3f3",
-                        },
-                        pan: {
-                            interactive: true
-                        },
-                 
-                        legend: {
-                            noColumns: 3,
-                            position: "nw",
-                        },
-                          yaxis: {
-                             axisLabelUseCanvas: true,
-                                axisLabel:'Force L[°]',
-                                axisLabelFontSizePixels: 12,
-                                axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 10,
-                                 show: true,
-                                 max:250,
-                               },
-                        xaxis:{
-                             axisLabelUseCanvas: true,
-                                axisLabel:'Angle L[°]',
-                                axisLabelFontSizePixels: 12,
-                                axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 20,
-                            
-                        show:true,
-                        max:60,
-                        min:-90,
-                        }  
-                    }
-            );
-    
-    
-    
-    
-    
-    
-    
-       $.plot($("#right-hand"),
-                    data9['right'], {
-                        grid: {
-                            hoverable: true,
-                            clickable: true,
-                            mouseActiveRadius: 30,
-                            backgroundColor: false,
-                            borderColor: "#f3f3f3",
-                            borderWidth: 1,
-                            tickColor: "#f3f3f3",
-                        },
-                        pan: {
-                            interactive: true
-                        },
-                        color:"blue",
-                            
-                        
-                 
-                        legend: {
-                            noColumns: 3,
-                            position: "nw",
-                        },
-                        yaxis: {
-                             axisLabelUseCanvas: true,
-                                axisLabel:'Force R[°]',
-                                axisLabelFontSizePixels: 12,
-                                axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 10,
-                                 labelWidth: 30,
-                                 show: true,
-                                 max:250,
-                               },
-                        xaxis:{
-                             axisLabelUseCanvas: true,
-                                axisLabel:'Angle R[°]',
-                                axisLabelFontSizePixels: 12,
-                                axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 20,
-                                 labelWidth: 30,
-                            
-                        show:true,
-                        max:60,
-                        min:-90,
-                        }     
-                    }
-            );
-
-              
-
-            }
-          });
-          
-          var piktoBiorowerGraph = {
-    historyPlot: null,
-    historyData: null,
-    transormData: function (historyData, parameter) {
-        var rv = [];
-        rv['label'] = parameter.label;
-        rv['data'] = [];
-
-        for (var i in historyData.date) {
-            rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
-        }
-        return rv;
-    },
-    getHistoryData: function (params) {
-        var rv = [];
-        var colors = ['#440064', '#007eff', '#00afc8', '#005764'];
-
-        for (var i in params) {
-
-            rv.push(this.transormData(this.historyData, params[i]));
-            switch (rv[i]['label']) {
-                case "Stroke Count":
-                    rv[i]['yaxis'] = 1;
-                    params[i]['yaxis'] = 1;
-                    params[i]['color'] = colors[0];
-                    break;
-                case "Stroke Distance":
-                    rv[i]['yaxis'] = 2;
-                    params[i]['yaxis'] = 2;
-                    params[i]['color'] = colors[1];
-                    break;
-                case "Speed Max":
-                    rv[i]['yaxis'] = 3;
-                    params[i]['yaxis'] = 3;
-                    params[i]['color'] = colors[2];
-                    break;
-                case "Pace 2km":
-                    rv[i]['yaxis'] = 4;
-                    params[i]['yaxis'] = 4;
-                    params[i]['color'] = colors[3];
-                    break;              
-            }
-
-        }
-        piktoBiorowerGraph.parameters = params;
-
-        return rv;
-
-    },
-    loadHistoryData: function (start) {
-        var data = {
-            account: email2,
-            sesija:idsesije,
-             graf:2,
-             start:start,
-             
-        };
-
-
-             
-        $.post(urlBase +'/api/v1/graph', data, function (response) {
-
-            piktoBiorowerGraph.historyData = [{data:response['frc_l'],yaxis:1,label:'Force L[N]'},{data:response['frc_r'],yaxis:1,label:'Force R[N]'},{data:response['ang_l'],yaxis:2,label:'Angle l[°]'},{data:response['ang_r'],yaxis:2,label:'Angle R[°]'}]
-                    
-           
-            var series = {lines: {show: true}, points: {show: true}};
-            if (piktoBiorowerGraph.broj == 1) {
-                series = {lines: {show: false}, points: {show: true}};
-            }
-            function formatter(val, axis) {
-                var minutes = Math.floor(val / 60);
-                var seconds = val - minutes * 60;
-                if(val<60){
-                     return seconds+"s" ;
-                }
-                else{
-                    return minutes+"min"+ seconds+"s" ;
-                }
-
-                
-            }
-            piktoBiorowerGraph.historyPlot = $.plot($("#signals-graph"),
-            piktoBiorowerGraph.historyData , {
-                        grid: {
-                            hoverable: true,
-                            clickable: true,
-                            mouseActiveRadius: 30,
-                            backgroundColor: false,
-                            borderColor: "#f3f3f3",
-                            borderWidth: 1,
-                            tickColor: "#f3f3f3",
-                        },
-                        pan: {
-                            interactive: true
-                        },
-                   
-                        legend: {
-                            noColumns: 3,
-                            position: "nw",
-                        },
-                       
-                        yaxes: [{
-                              axisLabelUseCanvas: true,
-                                axisLabel: "Force[N]",
-                                axisLabelFontSizePixels: 12,
-                                axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
-                                labelWidth: 30,
-                                   min:0,
-                                    panRange: false,
-                                    position:'left',
-                            }, {
-                              axisLabelUseCanvas: true,
-                                axisLabel:'Angle[°]',
-                                axisLabelFontSizePixels: 12,
-                                axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
-                                labelWidth: 30,
-                                max: 60,
-                                 min: -90,
-                                  panRange: false,
-                                   position:'right',
-                            }                        
-                        ],
-                        xaxis: {
-                            show: true,
-                            labelHeight: 30,
-                            panRange: [0, 9000000],
-                              tickFormatter: formatter,
-                            
-                            
-                        
-
-                          
-            }
-                    }
-            );
-
-            var opts = piktoBiorowerGraph.historyPlot.getOptions();
-            var axes = piktoBiorowerGraph.historyPlot.getAxes();
-          
-
-
-            piktoBiorowerGraph.historyPlot.setupGrid();
-            piktoBiorowerGraph.historyPlot.draw();
-        });
-
-    }
-};
-          
-          
-          
-          piktoBiorowerGraph.loadHistoryData(0);         
-         
-                   
-                   
-      $("#signals-graph").bind("plotpan plotzoom", function (event, plot) {
-        var axes = piktoBiorowerGraph.historyPlot.getAxes();
-        var start = axes.xaxis.options.min;
-     
-         piktoBiorowerGraph.loadHistoryData(parseInt(start));
-    
-      
-    }); 
-          
-          
-  
-  
-  var piktoBiorowerGraph2 = {
+var piktoBiorowerGraph2 = {
     progressPlot: null,
     historyData: null,
     startDate: null,
     sadasnjost: null,
     rangeType: 'all',
-    parameters: [{slug: 'scnt', label: 'Stroke Count', yaxis: 1}],
+    parameters: [{slug:'spd', label: 'Speed', yaxis: 14},{slug:'dist', label: 'Distance', yaxis: 13}],
     start: null,
     groupType: 'week',
     transormData: function (historyData, parameter) {
+
+       
         var rv = [];
         rv['label'] = parameter.label;
         rv['data'] = [];
 
-        for (var i in historyData.date) {
-            rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
+        for (var i in historyData.stroke_count) {
+            rv['data'].push([historyData.stroke_count[i], historyData[parameter.slug][i]]);
         }
         return rv;
+        
 
     },
     getHistoryData: function (params) {
@@ -500,27 +212,27 @@
         return rv;
 
     },
-    loadHistoryData: function () {
-          var data = {
+    loadHistoryData: function (data2) {
+
+         var data = {
             account: email2,
             sesija:idsesije,
              graf:3,
-             parametar:'dist'
+             parametar:data2
         };
 
 
-             
-        $.post(urlBase +'/api/v1/graph', data, function (response) {
+         $.post(urlBase +'/api/v1/graph', data, function (response) {
 
-         
-
-
-            var c = [];
             
 
-            var newHistoryData = piktoBiorowerGraph2.getHistoryData(piktoBiorowerGraph2.parameters);
-            var broj = 0;
             piktoBiorowerGraph2.historyData = response.historydata;
+            
+              var newHistoryData = piktoBiorowerGraph2.getHistoryData(data2);
+            
+            
+            
+            var broj = 0;
 
             function formatter(val, axis) {
                 var minutes = parseInt(val / 60) % 60;
@@ -532,9 +244,10 @@
                 colors.push(piktoBiorowerGraph2.parameters[i].color);
             }
 
-            var series = {lines: {show: true}, points: {show: true}};
-          
-
+            var series = {lines: {show: true}, points: {show: false}};
+            if (piktoBiorowerGraph2.broj == 1) {
+                series = {lines: {show: false}, points: {show: true}};
+            }
 
             piktoBiorowerGraph2.progressPlot = $.plot($("#Strokes"),
                     newHistoryData, {
@@ -915,9 +628,10 @@
                         xaxis: {
                             show: true,
                             labelHeight: 30,
-                        
-                            tickSize: 1,
-                  
+                           
+                         
+         
+                         
                         }
                     }
             );
@@ -925,7 +639,7 @@
 
             var opts = piktoBiorowerGraph2.progressPlot.getOptions();
             var axes = piktoBiorowerGraph2.progressPlot.getAxes();
-            
+         
 
             var r = piktoBiorowerGraph2.parameters;
             var duzina = r.length;
@@ -943,18 +657,412 @@
                 opts.yaxes[piktoBiorowerGraph2.parameters[1].yaxis - 1].position = 'right';
                 opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis - 1].position = 'right';
             }
-           
+         
 
-          
+        
+
             piktoBiorowerGraph2.progressPlot.setupGrid();
             piktoBiorowerGraph2.progressPlot.draw();
         });
     }
+};  
+  $(function() {
+   $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '10%' // optional
+    });
+     var r = piktoBiorowerGraph2.parameters;
+            var duzina = r.length;
+    
+         for(var i=0;i<document.getElementsByClassName("parameters2").length; i++){
+             for(var i2=0;i2<duzina;i2++){
+                   if(document.getElementsByClassName("parameters2")[i].value==piktoBiorowerGraph2.parameters[i2].slug){
+            
+                 var id2=document.getElementsByClassName("parameters2")[i].id;
+     
+                $('#'+id2).iCheck('check');
+      
+             }
+             }
+ 
+    }
+       $('.parameters2').on('ifClicked', function(event){
+
+                if(this.checked==true){
+
+
+
+             }
+             else{
+
+
+             if ($('.parameters2').filter(':checked').length == 3) {
+              var s=$('.parameters2').filter(':checked')[2].id;
+
+      $('#'+s).iCheck('uncheck');
+
+    }
+    }
+
+
+
+        });
+          var skaliranje2=500;
+         
+          $('#skaliranje2').click(function(){
+                
+                     skaliranje2=skaliranje2+500;
+                if(skaliranje2==500){
+                     var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                    for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+
+
+                    }
+
+                      piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+
+
+
+
+
+                    $('#skaliranje2').text("X1");
+
+                }
+                if(skaliranje2==1000){
+                    $('#skaliranje2').text("X2");
+                                        var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                      for(var i=0;i<opts.yaxes.length; i++){
+
+                                              opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                                               opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+                    }
+
+                    piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+                }
+                if(skaliranje2==1500){
+                    $('#skaliranje2').text("1/2X");
+                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                        for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =   opts.yaxes[i].max*4;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
+
+
+                    }
+
+                    piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+                    skaliranje2=0;
+                }
+
+
+            });
+
+     $.ajax({ 
+            type: 'POST', 
+            dataType: 'json',
+            url : urlBase + '/api/v1/graph',
+            data: {account: email2 ,
+                sesija:idsesije,
+                graf:1,
+        }, 
+            success: function (data9) {
+                    
+
+            $.plot($("#left-hand"),
+                    data9['left'], {
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            mouseActiveRadius: 30,
+                            backgroundColor: false,
+                            borderColor: "#f3f3f3",
+                            borderWidth: 1,
+                            tickColor: "#f3f3f3",
+                        },
+                        pan: {
+                            interactive: true
+                        },
+                 
+                        legend: {
+                            noColumns: 3,
+                            position: "nw",
+                        },
+                          yaxis: {
+                             axisLabelUseCanvas: true,
+                                axisLabel:'Force L[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 10,
+                                 show: true,
+                                 max:250,
+                               },
+                        xaxis:{
+                             axisLabelUseCanvas: true,
+                                axisLabel:'Angle L[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 20,
+                            
+                        show:true,
+                        max:60,
+                        min:-90,
+                        }  
+                    }
+            );
+    
+    
+    
+            }
+          });
+          
+          
+           $.ajax({ 
+            type: 'POST', 
+            dataType: 'json',
+            url : urlBase + '/api/v1/graph',
+            data: {account: email2 ,
+                sesija:idsesije,
+                graf:4,
+          
+
+        }, 
+            success: function (data9) {
+                   
+          $.plot($("#right-hand"),
+                    data9['right'], {
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            mouseActiveRadius: 30,
+                            backgroundColor: false,
+                            borderColor: "#f3f3f3",
+                            borderWidth: 1,
+                            tickColor: "#f3f3f3",
+                        },
+                        pan: {
+                            interactive: true
+                        },
+                        color:"blue",
+                            
+                        
+                 
+                        legend: {
+                            noColumns: 3,
+                            position: "nw",
+                        },
+                        yaxis: {
+                             axisLabelUseCanvas: true,
+                                axisLabel:'Force R[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 10,
+                                 labelWidth: 30,
+                                 show: true,
+                                 max:250,
+                               },
+                        xaxis:{
+                             axisLabelUseCanvas: true,
+                                axisLabel:'Angle R[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 20,
+                                 labelWidth: 30,
+                            
+                        show:true,
+                        max:60,
+                        min:-90,
+                        }     
+                    }
+            );
+          
+          
+          
+            }
+        });
+          
+          
+       
+          
+          var piktoBiorowerGraph = {
+    historyPlot: null,
+    historyData: null,
+    transormData: function (historyData, parameter) {
+        var rv = [];
+        rv['label'] = parameter.label;
+        rv['data'] = [];
+
+        for (var i in historyData.date) {
+            rv['data'].push([new Date(historyData.date[i]).getTime(), historyData[parameter.slug][i]]);
+        }
+        return rv;
+    },
+    getHistoryData: function (params) {
+        var rv = [];
+        var colors = ['#440064', '#007eff', '#00afc8', '#005764'];
+
+        for (var i in params) {
+
+            rv.push(this.transormData(this.historyData, params[i]));
+            switch (rv[i]['label']) {
+                case "Stroke Count":
+                    rv[i]['yaxis'] = 1;
+                    params[i]['yaxis'] = 1;
+                    params[i]['color'] = colors[0];
+                    break;
+                case "Stroke Distance":
+                    rv[i]['yaxis'] = 2;
+                    params[i]['yaxis'] = 2;
+                    params[i]['color'] = colors[1];
+                    break;
+                case "Speed Max":
+                    rv[i]['yaxis'] = 3;
+                    params[i]['yaxis'] = 3;
+                    params[i]['color'] = colors[2];
+                    break;
+                case "Pace 2km":
+                    rv[i]['yaxis'] = 4;
+                    params[i]['yaxis'] = 4;
+                    params[i]['color'] = colors[3];
+                    break;              
+            }
+
+        }
+        piktoBiorowerGraph.parameters = params;
+
+        return rv;
+
+    },
+    loadHistoryData: function (start) {
+        var data = {
+            account: email2,
+            sesija:idsesije,
+             graf:2,
+             start:start,
+             
+        };
+
+
+             
+        $.post(urlBase +'/api/v1/graph', data, function (response) {
+
+            piktoBiorowerGraph.historyData = [{data:response['frc_l'],yaxis:1,label:'Force L[N]'},{data:response['frc_r'],yaxis:1,label:'Force R[N]'},{data:response['ang_l'],yaxis:2,label:'Angle l[°]'},{data:response['ang_r'],yaxis:2,label:'Angle R[°]'}]
+                    
+           
+            var series = {lines: {show: true}, points: {show: true}};
+            if (piktoBiorowerGraph.broj == 1) {
+                series = {lines: {show: false}, points: {show: true}};
+            }
+            function formatter(val, axis) {
+                var minutes = Math.floor(val / 60);
+                var seconds = val - minutes * 60;
+                if(val<60){
+                     return seconds+"s" ;
+                }
+                else{
+                    return minutes+"min"+ seconds+"s" ;
+                }
+
+                
+            }
+            piktoBiorowerGraph.historyPlot = $.plot($("#signals-graph"),
+            piktoBiorowerGraph.historyData , {
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            mouseActiveRadius: 30,
+                            backgroundColor: false,
+                            borderColor: "#f3f3f3",
+                            borderWidth: 1,
+                            tickColor: "#f3f3f3",
+                        },
+                        pan: {
+                            interactive: true
+                        },
+                   
+                        legend: {
+                            noColumns: 3,
+                            position: "nw",
+                        },
+                       
+                        yaxes: [{
+                              axisLabelUseCanvas: true,
+                                axisLabel: "Force[N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                labelWidth: 30,
+                                   min:0,
+                                    panRange: false,
+                                    position:'left',
+                            }, {
+                              axisLabelUseCanvas: true,
+                                axisLabel:'Angle[°]',
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                labelWidth: 30,
+                                max: 60,
+                                 min: -90,
+                                  panRange: false,
+                                   position:'right',
+                            }                        
+                        ],
+                        xaxis: {
+                            show: true,
+                            labelHeight: 30,
+                            panRange: [0, 9000000],
+                              tickFormatter: formatter,
+                            
+                            
+                        
+
+                          
+            }
+                    }
+            );
+
+            var opts = piktoBiorowerGraph.historyPlot.getOptions();
+            var axes = piktoBiorowerGraph.historyPlot.getAxes();
+          
+
+
+            piktoBiorowerGraph.historyPlot.setupGrid();
+            piktoBiorowerGraph.historyPlot.draw();
+        });
+
+    }
 };
+          
+          
+          
+          piktoBiorowerGraph.loadHistoryData(0);         
+         
+                   
+                   
+      $("#signals-graph").bind("plotpan plotzoom", function (event, plot) {
+        var axes = piktoBiorowerGraph.historyPlot.getAxes();
+        var start = axes.xaxis.options.min;
+     
+         piktoBiorowerGraph.loadHistoryData(parseInt(start));
+    
+      
+    }); 
+          
+          
   
   
+
   
-piktoBiorowerGraph2.loadHistoryData();
+
+  
+piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{slug: 'dist', label: 'Distance', yaxis: 13}]);
 
 /*
 
@@ -1790,152 +1898,181 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         <div class="graphic-footer row">
                 
                             <div class="graphic-footer row">
-                                <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam"><i class="fa fa-cog"></i></a>
+                                <a class="pull-right btn-param" href="#" data-toggle="modal" data-target="#myParam" id='link2'><i class="fa fa-cog"></i></a>
+                                     <a href="javascript:;" class="pull-right btn-param" style=" margin-right: 10px;" id="skaliranje2"
+                                                >X1</a>
                             </div>
 
 
-                            <div class="example-modal">
-                                <div class="modal" id="myParam">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header no-border">
-
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-                                            </div>
-
-                                <div class="modal-body">
-                                    <div class="modal-param">
-                                                    <h2>Choose parametars</h2>
-                                                    <p>Choose three parametars from the list</p>
-                                     </div>
-                                    
-                            <!-- List of Parametars -->
-                            <div id="history-graph-params" class="param-box">
-                                    <ul class="checkbox icheck modalParm-list">
-                                                     
-                                      <li>
-                                          <label for="time2">
-                                          <input type="checkbox" name="parameters" id="time2" value="time2">
-                                                 {{ config('parameters.time.title') }}
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-
-                                      <li>
-                                          <label for="distance2">
-                                          <input type="checkbox" name="parameters" id="distance2" value="distance2">
-                                                  {{ config('parameters.dist.title') }}
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-
-                                      <li>
-                                          <label for="speed2">
-                                          <input type="checkbox" name="parameters" id="speed2" value="speed_average">
-                                                     Speed
-                                          </label>
-                                      </li><!-- End Parametar Item -->
+                              <div class="example-modal">
+                                    <div class="modal" id="myParam">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
 
 
-                                      <li>
-                                          <label for="pace500m">
-                                          <input type="checkbox" name="parameters" id="pace500m" >
-                                                Pace 500m
-                                          </label>
-                                      </li><!-- End Parametar Item -->
+                                                <div class="modal-header no-border">
 
-                                      <li>
-                                          <label for="pace2km">
-                                          <input type="checkbox" name="parameters" id="pace2km" >
-                                              Pace 2km
-                                          </label>
-                                      </li><!-- End Parametar Item -->
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-                                      <li>
-                                          <label for="hr2">
-                                          <input type="checkbox" name="parameters" id="hr2" >
-                                                HR
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-
-                                      <li>
-                                          <label for="strokeRate">
-                                          <input type="checkbox" name="parameters" id="strokeRate" value="stroke_rate_average">
-                                                Stroke Rate
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-                                                     
-                                      <li>
-                                          <label for="calories2">
-                                          <input type="checkbox" name="parameters" id="calories2" > 
-                                                Calories
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-                                                        
-                                      <li>
-                                          <label for="powerBalance">
-                                          <input type="checkbox" name="parameters" id="powerBalance" value="power_left_average">
-                                                  Power Balance
-                                          </label>
-                                      </li><!-- End Parametar Item -->               
-                                                      
-                                      <li>
-                                          <label for="power5">
-                                          <input type="checkbox" name="parameters" id="power5" value="power" checked>
-                                                  Power
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-                                                       
-                                      <li>
-                                          <label for="powerL">
-                                          <input type="checkbox" name="parameters" id="powerL" value="power_left_average">
-                                                  Power L
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-
-                                      <li>
-                                          <label for="powerR">
-                                          <input type="checkbox" name="parameters" id="powerR" value="power_right_average">
-                                                  Power R
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-                                                                       
-                                      <li>
-                                          <label for="angle5">
-                                           <input type="checkbox" name="parameters" id="angle5" >
-                                                  Angle 
-                                          </label>
-                                      </li><!-- End Parametar Item -->
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="modal-param">
+                                                        <h2>Choose parametars</h2>
+                                                        <p>Choose three parametars from the list</p>
+                                                    </div>
+                                                 
+                                                     <div id="progress-graph-params" class="param-box">
+                                                          <ul class="checkbox icheck modalParm-list" >
+                                                           
+                                                           
+                                                  
+                                                            <li>
+                                                                <label for="pace2km2">
+                                                                    <input type="checkbox" class="parameters2" id="pace2km2" value="pace2k">
+                                                                    <span class="pace2k2">Pace 2km</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
+                                                           
+                                                            <li>
+                                                                <label for="calories2">
+                                                                    <input type="checkbox" class="parameters2" id="calories2" value="cal">
+                                                                    <span class="cal2">Calories</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
+                                                            <li>
+                                                                <label for="time22">
+                                                                    <input type="checkbox" class="parameters2" id="time22" value="time">
+                                                                    <span class="time2">Time</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
+                                                          
+                                                            <li>
+                                                                <label for="pace500m2">
+                                                                    <input type="checkbox" class="parameters2" id="pace500m2" value="pace500">
+                                                                    <span class="pace5002">Pace 500m</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
+                                                           
+                                                            <li>
+                                                                <label for="strokeRate2">
+                                                                    <input type="checkbox" class="parameters2" id="strokeRate2" value="srate">
+                                                                    <span class="srate2">Stroke Rate</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
+                                                            <li>
+                                                                <label for="powerL2">
+                                                                    <input type="checkbox" class="parameters2" id="powerL2" value="pwr_l">
+                                                                    <span class="pwr_l2">Power L</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
+                                                            <li>
+                                                                <label for="distance22">
+                                                                    <input type="checkbox" class="parameters2" id="distance22" value="dist">
+                                                                    <span class="dist2">Distance</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
+                                                            <li>
+                                                                <label for="speed2">
+                                                                    <input type="checkbox" class="parameters2" id="speed2" value="spd">
+                                                                    <span class="spd2">Speed</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
                                                          
-                                      <li>
-                                          <label for="angle5l">
-                                          <input type="checkbox" name="parameters" id="angle5l" >
-                                                  Angle L
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-                                                         
-                                      <li>
-                                          <label for="angle5R">
-                                          <input type="checkbox" name="parameters" id="angle5R" >
-                                                  Angle R
-                                          </label>
-                                      </li><!-- End Parametar Item -->
-                                                   
-                                                      
-                                    </ul><!-- /.contatcts-list -->
-                            </div><!-- /.List of Parametars -->
-                                            </div>
+                                                            <li>
+                                                                <label for="hr2">
+                                                                    <input type="checkbox" class="parameters2" id="hr2" value="hr">
+                                                                    <span class="hr2">HR</span>
+                                                                </label>
+                                                            </li><!-- End Parametar Item -->
+                                                           
 
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
-                                                <button type="button" id="promenaParametra" class="btn btn-primary margin-r-5" data-dismiss="modal" >
-                                                    Save changes
-                                                </button>
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
-                            </div><!-- /.example-modal -->
+                                                            <li>
+                                                                <label for="power2">
+                                                                    <input type="checkbox" class="parameters2" id="power2" value="pwr">
+                                                                    <span class="pwr2">Power average</span>
+                                                                </label>
+                                                            </li>
+                                                            
 
+
+                                                            <li>
+                                                                <label for="powerR2">
+                                                                    <input type="checkbox" class="parameters2" id="powerR2" value="pwr_r">
+                                                                    <span class="pwr_r2">Power right average</span>
+                                                                </label>
+                                                            </li>
+                                                           
+                                                            <li>
+                                                                <label for="powerBalance2">
+                                                                    <input type="checkbox" class="parameters2" id="powerBalance2" value="pwr_bal">
+                                                                    <span class="pwr_bal2">Power balance</span>
+                                                                </label>
+                                                            </li>
+                                                            
+                                                            <li>
+                                                                <label for="angleLeftAvg2">
+                                                                    <input type="checkbox" class="parameters2" id="angleLeftAvg2" value="ang_l">
+                                                                    <span class="ang_l2">Angle left average</span>
+                                                                </label>
+                                                            </li>
+                                                           
+                                                            <li>
+                                                                <label for="angleRightAvg2">
+                                                                    <input type="checkbox" class="parameters2" id="angleRightAvg2" value="ang_r">
+                                                                    <span class="ang_r2">Angle right average</span>
+                                                                </label>
+                                                            </li>
+                                                           
+                                                            <li>
+                                                                <label for="angle2">
+                                                                    <input type="checkbox" class="parameters2" id="angle2" value="ang">
+                                                                    <span class="ang2">Angle average</span>
+                                                                </label>
+                                                            </li>
+                                                           
+                                                           
+
+                                                            <!-- End Parametar Item -->
+                                                        </ul><!-- /.contatcts-list -->
+
+
+
+
+                                                    </div>
+
+
+
+
+
+
+
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                                                    
+
+                                                    <button type="button" class="btn btn-primary margin-r-5" id="dugme2"
+                                                            onclick="var newHistoryParams = $('#progress-graph-params input:checked').map(function(){
+                                                                    var value = $(this).val();
+                                                                    var parameter = {
+                                                                        slug: value,
+                                                                        label: $('.'+value+'2').text(),
+                                                                    }
+                                                                    return parameter;
+                                                                 }).get();
+                                                                 
+                                                       piktoBiorowerGraph2.loadHistoryData(newHistoryParams);           
+
+                                                                 $('#myParam').modal('hide');">
+                                                        Save changes
+                                                    </button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </div><!-- /.example-modal -->
                           </div>
         </div>
         </div>
@@ -1996,14 +2133,14 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
       <br><br><br>
         <div class="col-sm-6 col-xs-12">
           <div class="description-block border-right">
-            <h5 class="description-header diff" id="time"></h5>
-            <span class="description-text">Time</span> {{ config('parameters.time.unit') }} </div>
+            <h5 class="description-header diff" id="time">{{  gmdate(config('parameters.time.format'), $sessionUser['sessionSummary']->time) }}</h5>
+            <span class="description-text">Time</span> {{  config('parameters.time.unit') }} </div>
           <!-- /.description-block --> 
         </div>
         <!-- /.col -->
         <div class="col-sm-6 col-xs-12">
           <div class="description-block border-right">
-            <h5 class="description-header diff" id="stroke_count"></h5>
+            <h5 class="description-header diff" id="stroke_count">{{$sessionUser['sessionSummary']->stroke_count}}</h5>
             <span class="description-text">Stroke Count</span> </div>
           <!-- /.description-block --> 
         </div>
@@ -2011,70 +2148,70 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
         
         <div class="col-sm-6 col-xs-12">
           <div class="description-block border-right">
-            <h5 class="description-header diff" id="distance"> <span class="description-percentage">km</span></h5>
+            <h5 class="description-header diff" id="distance"> <span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->distance, config('parameters.dist.format'))}}</h5>
             <span class="description-text">Distance </span> {{ config('parameters.dist.unit') }} </div>
           <!-- /.description-block --> 
         </div>
         <!-- /.col -->
         <div class="col-sm-6 col-xs-12">
           <div class="description-block">
-            <h5 class="description-header" id="stroke_rate"><span class="description-percentage">spm</span></h5>
+            <h5 class="description-header" id="stroke_rate"><span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->stroke_rate_average, config('parameters.srate_avg.format'))}}</h5>
             <span class="description-text">Stroke rate Average</span> {{ config('parameters.srate_avg.unit') }} </div>
           <!-- /.description-block --> 
         </div>
       </div>
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
-          <h5 class="description-header diff" id="stroke_rate_max"> <span class="description-percentage">spm</span></h5>
+          <h5 class="description-header diff" id="stroke_rate_max"> <span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->stroke_rate_max, config('parameters.srate_max.format'))}}</h5>
           <span class="description-text">Stroke rate MAX</span> {{ config('parameters.srate_max.unit') }} </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
-          <h5 class="description-header diff" id="hr"> <span class="description-percentage">bpm</span></h5>
+          <h5 class="description-header diff" id="hr"> <span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->heart_rate_average, config('parameters.hr_avg.format'))}}</h5>
           <span class="description-text">Heart Rate Average</span> {{ config('parameters.hr_avg.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
-          <h5 class="description-header diff" id="hr_max"><span class="description-percentage">bpm</span></h5>
+          <h5 class="description-header diff" id="hr_max"><span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->heart_rate_max, config('parameters.hr_nax.format'))}}</h5>
           <span class="description-text">Heart Rate MAX</span> {{ config('parameters.hr_max.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
-          <h5 class="description-header diff" id="pace"></h5>
+          <h5 class="description-header diff" id="pace">{{gmdate(config('parameters.pace500_avg.format'), round($sessionUser['sessionSummary']->pace_average))}}</h5>
           <span class="description-text">Pace 500m</span> {{ config('parameters.pace500_avg.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
-          <h5 class="description-header diff" id="speed"> <span class="description-percentage">km/h</span></h5>
+          <h5 class="description-header diff" id="speed"> <span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->speed_average, config('parameters.spd_avg.format'))}}</h5>
           <span class="description-text">Speed Average</span> {{ config('parameters.spd_avg.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
-          <h5 class="description-header diff" id="power"> <span class="description-percentage">W</span></h5>
+          <h5 class="description-header diff" id="power"> <span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->power_average, config('parameters.pwr_avg.format'))}}</h5>
           <span class="description-text">Power Average</span> {{ config('parameters.pwr_avg.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
-          <h5 class="description-header diff" id="power_max"> <span class="description-percentage">W</span></h5>
+          <h5 class="description-header diff" id="power_max"> <span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->power_max, config('parameters.pwr_max.format'))}}</h5>
           <span class="description-text">Power MAX</span> {{ config('parameters.pwr_max.unit') }}  </div>
         <!-- /.description-block --> 
       </div>
       <!-- /.col -->
       <div class="col-sm-6 col-xs-12">
         <div class="description-block border-right">
-          <h5 class="description-header diff-h2" id="power_balance"></h5>
+          <h5 class="description-header diff-h2" id="power_balance">{{round($sessionUser['sessionSummary']->power_balance, config('parameters.pwr_bal_avg.format'))}}</h5>
           <span class="description-text">Power Balance</span> {{ config('parameters.pwr_bal_avg.unit') }} </div>
         <!-- /.description-block --> 
       </div>
@@ -2083,14 +2220,14 @@ yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);
       <div class="row">
         <div class="col-sm-6 col-xs-12">
           <div class="description-block border-right">
-            <h5 class="description-header diff" id="angle"></h5>
+            <h5 class="description-header diff" id="angle">{{round($sessionUser['sessionSummary']->angle_average, config('parameters.ang_avg.format'))}}</h5>
             <span class="description-text">Angle</span> {{ config('parameters.ang_avg.unit') }} </div>
           <!-- /.description-block -->
         </div> 
         <!-- /.col -->
         <div class="col-sm-6 col-xs-12">
           <div class="description-block">
-            <h5 class="description-header diff" id="calories"><span class="description-percentage"></span></h5>
+            <h5 class="description-header diff" id="calories"><span class="description-percentage"></span>{{round($sessionUser['sessionSummary']->calories, config('parameters.cal.format'))}}</h5>
             <span class="description-text">Calories</span> {{ config('parameters.cal.unit') }} </div>
           <!-- /.description-block --> 
         </div>
