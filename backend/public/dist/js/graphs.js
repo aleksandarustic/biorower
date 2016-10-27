@@ -616,7 +616,7 @@ var piktoBiorowerGraph = {
                       var seconds = val - (hours * 3600) - (minutes * 60);
                       seconds = Math.round(seconds * 100) / 100;
                        var result = (hours < 1 ? '' : hours + ":");
-                       result += (minutes < 10 ? "0" + minutes : minutes);
+                      result += (minutes < 10 ? "0" + minutes : minutes);
                        result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
                        return result;
                 }
@@ -1637,7 +1637,7 @@ var piktoBiorowerGraph2 = {
                       var seconds = val - (hours * 3600) - (minutes * 60);
                       seconds = Math.round(seconds * 100) / 100;
                        var result = (hours < 1 ? '' : hours + ":");
-                       result += (minutes < 10 ? "0" + minutes : minutes);
+                      result += (minutes < 10 ? "0" + minutes : minutes);
                        result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
                        return result;
                 }
