@@ -197,7 +197,7 @@ $(function () {
                         var y = datapoint;
                     }
                     if (label == "Stroke Distance") {
-                        var y = (datapoint * 1000).toFixed(0) + " m ";
+                        var y = (datapoint).toFixed(2) + " m ";
                     }
                     if (label.indexOf("Speed") != -1) {
                         var y = datapoint.toFixed(2) + " m/s ";
@@ -215,10 +215,10 @@ $(function () {
                         var y = parseInt(datapoint / 60) % 60 + " min ";
                     }
                     if (label == "Stroke Dist. Max") {
-                        var y = (datapoint * 1000).toFixed(2) + " m ";
+                        var y = (datapoint).toFixed(2) + " m ";
                     }
                     if (label.indexOf("MML") != -1) {
-                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                        var y = datapoint.toFixed(2) + " mmol/l";
                     }
                     var x = item.datapoint[0];
 
@@ -262,7 +262,7 @@ $(function () {
                         var y = datapoint.toFixed(0);
                     }
                     if (label == "Stroke Distance") {
-                        var y = (datapoint * 1000).toFixed(0) + " m ";
+                        var y = (datapoint).toFixed(2) + " m ";
                     }
                     if (label.indexOf("Speed") != -1) {
                         var y = datapoint.toFixed(2) + " m/s ";
@@ -280,10 +280,10 @@ $(function () {
                         var y = parseInt(datapoint / 60) % 60 + " min ";
                     }
                     if (label == "Stroke Dist. Max") {
-                        var y = (datapoint * 1000).toFixed(2) + " m ";
+                        var y = (datapoint).toFixed(2) + " m ";
                     }
                     if (label.indexOf("MML") != -1) {
-                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                        var y = datapoint + " mmol/l ";
                     }
                     var x = item.datapoint[0];
                     if(piktoBiorowerGraph2.groupType=='month'){
@@ -363,7 +363,7 @@ var piktoBiorowerGraph = {
     },
     getHistoryData: function (params) {
         var rv = [];
-        var colors = ['#440064', '#007eff', '#00afc8', '#005764', '#804000', '#ae00ff',
+        var colors = ['#440064', '#007eff', '#00afc8', '#960000', '#005764', '#ae00ff',
             '#660096', '#0063c8', '#ff0000', '#640000', '#004a96', '#ff8a00', '#8800c8',
             '#00deff', '#bf0000', '#008396', '#003163', '#06ff00', '#05c800', '#c86c00', '#965100',
             '#643600', '#049600', '#026400', '#00ff96', '#00c876',
@@ -609,8 +609,27 @@ var piktoBiorowerGraph = {
             }
 
             function formatter(val, axis) {
-                var minutes = parseInt(val / 60) % 60;
-                return minutes + ":00";
+               
+                if(axis.options.axisLabel=='Time [hh:mm:ss:t]'){
+                      var hours   = Math.floor(val / 3600);
+                      var minutes = Math.floor((val - (hours * 3600)) / 60);
+                      var seconds = val - (hours * 3600) - (minutes * 60);
+                      seconds = Math.round(seconds * 100) / 100;
+                       var result = (hours < 1 ? '' : hours + ":");
+                       result += (minutes < 10 ? "0" + minutes : minutes);
+                       result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                       return result;
+                }
+                else{
+                 var minutes = Math.floor(val / 60);
+                var seconds = val - minutes * 60;
+                
+                var result="";
+                result +=  (minutes < 10 ? "0" + minutes : minutes);
+                result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                return result; 
+                }
+              
             }
             var series = {lines: {show: true}, points: {show: true}};
             if (piktoBiorowerGraph.broj == 1) {
@@ -648,7 +667,7 @@ var piktoBiorowerGraph = {
                                 min: 0.01,
                             }, {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Stroke Distance [km]",
+                                axisLabel: "Stroke Distance [m]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -670,7 +689,7 @@ var piktoBiorowerGraph = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Pace 2km [hh:mm:ss]",
+                                axisLabel: "Pace 2km [mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -704,7 +723,7 @@ var piktoBiorowerGraph = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Time [hh:mm:ss]",
+                                axisLabel: "Time [hh:mm:ss:t]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -716,7 +735,7 @@ var piktoBiorowerGraph = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Stroke Dist.Max [km]",
+                                axisLabel: "Stroke Dist.Max [m]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -727,7 +746,7 @@ var piktoBiorowerGraph = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Pace 500m [hh:mm:ss]",
+                                axisLabel: "Pace 500m [mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -740,7 +759,7 @@ var piktoBiorowerGraph = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Pace 2km Max [hh:mm:ss]",
+                                axisLabel: "Pace 2km Max [mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -795,7 +814,7 @@ var piktoBiorowerGraph = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Pace 500m Max [hh:mm:ss]",
+                                axisLabel: "Pace 500m Max [mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -972,7 +991,7 @@ var piktoBiorowerGraph = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "MML 2 Level [hh:mm:ss]",
+                                axisLabel: "MML 2 Level [mmol/l]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -983,7 +1002,7 @@ var piktoBiorowerGraph = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "MML 4 Level [hh:mm:ss]",
+                                axisLabel: "MML 4 Level [mmol/l]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1296,7 +1315,7 @@ var piktoBiorowerGraph2 = {
     getHistoryData: function (params) {
 
         var rv = [];
-        var colors = ['#440064', '#007eff', '#00afc8', '#005764', '#804000', '#ae00ff',
+        var colors = ['#440064', '#007eff', '#00afc8', '#960000', '#005764', '#ae00ff',
             '#660096', '#0063c8', '#ff0000', '#640000', '#004a96', '#ff8a00', '#8800c8',
             '#00deff', '#bf0000', '#008396', '#003163', '#06ff00', '#05c800', '#c86c00', '#965100',
             '#643600', '#049600', '#026400', '#00ff96', '#00c876',
@@ -1610,9 +1629,28 @@ var piktoBiorowerGraph2 = {
             var broj = 0;
             piktoBiorowerGraph2.historyData = response.historydata;
 
-            function formatter(val, axis) {
-                var minutes = parseInt(val / 60) % 60;
-                return minutes + ":00";
+              function formatter(val, axis) {
+               
+                if(axis.options.axisLabel=='Time [hh:mm:ss:t]'){
+                      var hours   = Math.floor(val / 3600);
+                      var minutes = Math.floor((val - (hours * 3600)) / 60);
+                      var seconds = val - (hours * 3600) - (minutes * 60);
+                      seconds = Math.round(seconds * 100) / 100;
+                       var result = (hours < 1 ? '' : hours + ":");
+                       result += (minutes < 10 ? "0" + minutes : minutes);
+                       result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                       return result;
+                }
+                else{
+                 var minutes = Math.floor(val / 60);
+                var seconds = val - minutes * 60;
+                
+                var result="";
+                result +=  (minutes < 10 ? "0" + minutes : minutes);
+                result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                return result; 
+                }
+              
             }
 
             var colors = [];
@@ -1657,7 +1695,7 @@ var piktoBiorowerGraph2 = {
                                 min: 0.00000001,
                             }, {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Stroke Distance [km]",
+                                axisLabel: "Stroke Distance [m]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1679,7 +1717,7 @@ var piktoBiorowerGraph2 = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Pace 2km [hh:mm:ss]",
+                                axisLabel: "Pace 2km [mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1713,7 +1751,7 @@ var piktoBiorowerGraph2 = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Time [hh:mm:ss]",
+                                axisLabel: "Time [hh:mm:ss:t]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1725,7 +1763,7 @@ var piktoBiorowerGraph2 = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Stroke Dist.Max [km]",
+                                axisLabel: "Stroke Dist.Max [m]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1736,7 +1774,7 @@ var piktoBiorowerGraph2 = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Pace 500m [hh:mm:ss]",
+                                axisLabel: "Pace 500m [mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1749,7 +1787,7 @@ var piktoBiorowerGraph2 = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Pace 2km Max [hh:mm:ss]",
+                                axisLabel: "Pace 2km Max [mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1804,7 +1842,7 @@ var piktoBiorowerGraph2 = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "Pace 500m Max [hh:mm:ss]",
+                                axisLabel: "Pace 500m Max [mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1981,7 +2019,7 @@ var piktoBiorowerGraph2 = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "MML 2 Level [hh:mm:ss]",
+                                axisLabel: "MML 2 Level [mmol/l]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
@@ -1992,7 +2030,7 @@ var piktoBiorowerGraph2 = {
                             },
                             {
                                 axisLabelUseCanvas: true,
-                                axisLabel: "MML 4 Level [hh:mm:ss]",
+                                axisLabel: "MML 4 Level [mmol/l]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 3,
