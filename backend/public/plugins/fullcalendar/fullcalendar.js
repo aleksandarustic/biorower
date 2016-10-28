@@ -17,7 +17,6 @@
  
 (function($, undefined) {
 
-
 var defaults = {
 
 	// display
@@ -2110,6 +2109,8 @@ function BasicYearView(element, calendar, viewName) {
 		var contentClass = tm + "-widget-content";
 		var i, j;
 		var dayStr;
+		var dayStr1;
+		var dayStr2;
 		var di = cloneDate(t.start);
 		
 		var localWeekNames =['S','M','T','W','T','F','S'];
@@ -2136,10 +2137,14 @@ function BasicYearView(element, calendar, viewName) {
 			for (j=0; j<colCnt; j++) {
 				if(di.getMonth()== mi){
 					dayStr=formatDate(di, '-yyyy-MM-dd');
+					dayStr1 = formatDate(di, 'MM'); 
+					dayStr2 = formatDate(di, 'yyyy'); 
 				}else{
 					dayStr="";
+					dayStr1 = formatDate(di, 'MM');
+					dayStr2 = formatDate(di, 'yyyy');
 				}
-				s +="<td class='fc- " + contentClass + " fc-day" + dayStr + "'>" + // need fc- for setDayID
+				s +="<td class='fc- " + contentClass + " fc-day" + dayStr + "' month='"+dayStr1+"' year='"+dayStr2+"'>" + // need fc- for setDayID
 					"<div>" +
 					(showNumbers ?
 						"<div class='fc-day-number'/>" :

@@ -12,6 +12,7 @@ use Carbon;
 use App\Message;
 use App\Library\GlobalFunctions;
 use App\Watching;
+use App\Http\Controllers\NotificationsController;
 use Auth;
 use Exception;
 use App\User;
@@ -19,6 +20,7 @@ use Input;
 use App\Parameter;
 use DB;
 use App\DataBiorowerSession;
+use App\Timeline;
 
 class SessionsController extends Controller {
 
@@ -146,20 +148,21 @@ class SessionsController extends Controller {
 							$sessionData->mml_2_level 				= $valInput["summary"]["mml2"];
 							$sessionData->mml_4_level 				= $valInput["summary"]["mml4"];
 							
-								// "temperature":0,
-								// "altitude":0,
-								// "boatPosition":1,
-								// "weight":90,
-								// "maxHeartRate":100,
-								// "maxMinutePower":0
-							
 
 						$sessionData->save();
 
-						$session->data_biorower_sessions_id = $sessionData->id;
+						$session->data_biorower_sessions_id = $sessionData->id;					
 					}
 
 					$session->save();
+					$tl 			= new Timeline();
+					$tl->object_id 	= $session->id;
+					$tl->user_id 	= $userFirst->id;
+					$tl->type 		= 1;
+					$tl->image 		= 2;
+					$tl->status 	= 1;
+					$tl->save();
+					$addNotif  = NotificationsController::addNotifications(2, $session->id, $userFirst->id); 
 					$brOfSessions++;
 
 					DB::commit();

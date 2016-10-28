@@ -44,7 +44,7 @@ return [
 		[
 			'title' 		=> 'Stroke Count',
 			'tag'			=> 'scnt',
-			'format'		=> '',
+			'format'		=> '0',
 			'color'			=> 'FF0000FF',
 		],
 	//----- TIME - Trajanje jedne sesije ili ukupno vreme svih sesija /TOTAL TRAINING TIME/ 

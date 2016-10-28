@@ -110,6 +110,7 @@
 				</div><!-- /.login-logo -->
 				<p>Enter the email address associated with your account.</p>
 				<form action="{{ url('password-reset') }}" method="post">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group has-feedback">
 						<input type="email" name="email" placeholder="Email">
 						<span class="glyphicon glyphicon-envelope form-control-feedback"></span>

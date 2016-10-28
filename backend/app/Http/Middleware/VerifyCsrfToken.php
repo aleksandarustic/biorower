@@ -2,8 +2,15 @@
 
 use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Http\Request;
 
 class VerifyCsrfToken extends BaseVerifier {
+
+
+	protected $except = [
+        'api/*',
+    ];
 
 	/**
 	 * Handle an incoming request.
@@ -14,7 +21,12 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
-		return parent::handle($request, $next);
+		foreach( $this->except as $route )
+        {
+            if( $request->is( $route ) ) return $next($request);
+        }
+
+        return parent::handle($request, $next);
 	}
 
 }

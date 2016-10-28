@@ -38,18 +38,6 @@ class TemplateController extends Controller {
 
 	public function overview()
 	{
-//		$field = 'last_name';
-//		$order = 'desc';
-//
-//		if ($request->has('sort')){
-//			$field = $request['sort'];
-//			$order = $request['order'];
-//		}
-
-//		$allUsers = User::orderBy($field, $order)->with('sessions')->paginate(2);
-
-		//return $allUsers;
-
 		$isMyProfile = false;
 		$user = null;
 
@@ -73,34 +61,6 @@ class TemplateController extends Controller {
 
 			$encodedID = $hashids->encode($userid);
 
-			$allWatching = array();
-			$allWatched = array();
-			$myWatching = array();
-
-			$isApproved = false;
-			$requestToFollowUserAlreadySent = false;
-			$notSentRequest = false;
-
-			$existInDatabase = Watching::where('user1_id', Auth::user()->id)
-										  ->where('user2_id', $userid)
-										  ->with('user2','user2.profile')
-										  ->get();
-
-			if (!$existInDatabase->isEmpty()){
-				$founded = $existInDatabase->first();
-				if ($founded->approved == 1){
-			    	$isApproved = true;
-				}
-			    else if ($user->profile->privacy == 1){
-			    	$requestToFollowUserAlreadySent = true;
-			    }
-			}
-			else{
-  			    if ($user->profile->privacy == 1){
-					$notSentRequest = true;
-				}
-			}
-
 			$sessionsHistory = GlobalFunctions::GetHistoryStatistics("", "week", $monday, $userid);
 
 	    	$firstDayOfYearTemp = Carbon\Carbon::createFromDate(date("Y"), 1, 1);
@@ -115,18 +75,7 @@ class TemplateController extends Controller {
 
 			$arrayHeatMap = str_replace('"', "\"", json_encode($arrayHeatMap, JSON_HEX_APOS));
 
-			if ($user->profile->privacy != 1 || $isApproved){
-				$allWatching = Watching::where('user1_id', $userid)
-										->where('website_id', config('app.website'))
-										->with('user2','user2.profile','user2.profile.image')->get();
-				$allWatched = Watching::where('user2_id', $userid)
-										->where('website_id', config('app.website'))
-										->with('user1','user1.profile','user1.profile.image')->get();
-
-				$myWatching = Watching::where('user1_id', Auth::user()->id)->with('user2','user2.profile','user2.profile.image')->get();
-			}
-		}
-		else{
+		}else{
 
 			$imageid = Auth::user()->profile->image_id;
 			$imageid = isset($imageid) ? $imageid : null;
@@ -134,12 +83,6 @@ class TemplateController extends Controller {
 			$userLinkname = Auth::user()->linkname;
 
 			$encodedID = $hashids->encode($userid);
-
-			/* ne igra ulogu */
-			$isApproved = true;
-			$requestToFollowUserAlreadySent = true;
-			$notSentRequest = true;
-			/*****************/
 
 			//$sessionsHistory = GlobalFunctions::GetHistoryStatistics("", "week", $monday, Auth::user()->id);
 
@@ -163,14 +106,6 @@ class TemplateController extends Controller {
 
 			$arrayHeatMap = str_replace('"', "\"", json_encode($arrayHeatMap, JSON_HEX_APOS));
 
-			$allWatching = Watching::where('user1_id', Auth::user()->id)
-									->where('website_id', config('app.website'))
-									->with('user2','user2.profile','user2.profile.image')->get();
-			$allWatched = Watching::where('user2_id', Auth::user()->id)
-									->where('website_id', config('app.website'))
-									->with('user1','user1.profile','user1.profile.image')->get();
-
-			$myWatching = $allWatching;
 		}
 
 		if ($userid == Auth::user()->id){
@@ -212,7 +147,7 @@ class TemplateController extends Controller {
 		$totalStatisticsParameters = GlobalFunctions::PrepareArrayParametersStatistics($totalStatisticsParameters);
 		//$totalStatisticsParameters = GlobalFunctions::GetHistoryStatistics("", "all", $firstDay, $userid, true);
 
-    	return view('/template/overview', compact('imageid', 'isMyProfile', 'userid', 'allWatching', 'allWatched', 'myWatching', 'user', 'userLinkname', 'allSessions', 'isApproved', 'requestToFollowUserAlreadySent', 'notSentRequest', 'arrayHeatMap', 'encodedID', 'jsonChart', 'monday', 'sunday', 'firstDayOfYear', 'lastDayOfYear', 'sessionsHistory', 'parametersProgress', 'emptyChartsBoolHistory', 'emptyChartsDataHistory', 'emptyChartsBoolProgress', 'totalStatisticsParameters'));
+    	return view('/template/overview', compact('imageid', 'isMyProfile', 'userid', 'user', 'userLinkname', 'allSessions', 'arrayHeatMap', 'encodedID', 'jsonChart', 'monday', 'sunday', 'firstDayOfYear', 'lastDayOfYear', 'sessionsHistory', 'parametersProgress', 'emptyChartsBoolHistory', 'emptyChartsDataHistory', 'emptyChartsBoolProgress', 'totalStatisticsParameters'));
         //}
 	}
 

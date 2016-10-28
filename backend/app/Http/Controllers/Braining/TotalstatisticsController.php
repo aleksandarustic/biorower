@@ -29,23 +29,45 @@ class TotalstatisticsController extends Controller {
 
 	        $email = explode(":", Input::get("account"));
 
-			$user = User::where('email', $email[1])->get();
-			$userFirst = $user->first();
+			 if ($email[0] == "twitter"){
 
-			if ($user->isEmpty()){
-				$statusCode = 403;
+	        	$user = User::where('twitter_id', $email[1])->get();
+
+				if ($user->isEmpty()){
+					$userFirst = GlobalFunctions::addUserViaSocialConn(Input::get("password"), "twitter", $email[1]);
+				}
+				else{
+					$userFirst = $user->first();	
+				}
+
+	        }else if ($email[0] == "facebook"){
+	        	$user = User::where('facebook_id', $email[1])->get();
+
+				if ($user->isEmpty()){
+					$userFirst = GlobalFunctions::addUserViaSocialConn(Input::get("password"), "facebook", $email[1]);
+				}
+				else{
+					$userFirst = $user->first();	
+				}
+
+	        } else{
+				$user = User::where('email', $email[1])->get();
+				$userFirst = $user->first();
+
+				if ($user->isEmpty()){
+					$statusCode = 403;
+				}
 			}
-			else
-			{
+
+			if($statusCode != 403){
 				$results = GlobalFunctions::GetTotalStatistics($userFirst->id);
 
 		        $response = [
 		          'account' => Input::get("account"),
 		          'totaldata'  => $results,
 		        ];
-
-	    	}
-
+		    }
+	    	
 	 	}
 	 	catch (Exception $e)
 	    {

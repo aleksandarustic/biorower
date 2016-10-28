@@ -3,6 +3,7 @@
 use Image;
 use App\User;
 use App\Profile;
+use App\Session;
 
 use DB;
 use Carbon;
@@ -307,11 +308,11 @@ use Carbon;
 					        break;
 					    case ("week"):
 					    	$positionDate = "WEEKOFYEAR(date) as position_in_date,";
-					        $groupBy = "GROUP BY WEEK(date)";
+					        $groupBy = "GROUP BY YEAR(date), WEEK(date)";
 					        break;					        
 					    case ("month"):
 					    	$positionDate = "MONTH(date) as position_in_date,";
-					        $groupBy = "GROUP BY MONTH(date)";
+					        $groupBy = "GROUP BY YEAR(date), MONTH(date)";
 					        break;
 					    case ("year"):
 					    	$positionDate = "0 as position_in_date,";
@@ -501,4 +502,3 @@ use Carbon;
 		}	
 
 }
-

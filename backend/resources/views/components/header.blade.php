@@ -15,68 +15,67 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                
-                <!-- Messages: style can be found in dropdown.less-->
-                <!-- <li class="dropdown messages-menu"> <a href="#"  data-toggle="control-sidebar"> <i class="fa fa-comment-o"></i> <span class="label label-success">4</span> </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
+
+                <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="friend-requests"> <i class="fa fa-users"></i> <span class="label label-warning" id="num-new-req"></span> </a>
+                    <ul class="dropdown-menu menu-requests" style="width: 400px;">
+                        <li class="header">Friend Requests</li>
                         <li>
-                            <ul class="menu">
-                                <li><
-                                    <a href="#">
-                                        <div class="pull-left"> <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> </div>
-                                        <h4> Support Team <small><i class="fa fa-clock-o"></i> 5 mins</small> </h4>
-                                        <p class="h2-subhead">Why not buy a new awesome theme?</p>
-                                    </a> </li>
-                                <li> <a href="#">
-                                        <div class="pull-left"> <img src="" class="img-circle" alt="User Image"> </div>
-                                        <h4> AdminLTE Design Team <small><i class="fa fa-clock-o"></i> 2 hours</small> </h4>
-                                        <p class="h2-subhead">Why not buy a new awesome theme?</p>
-                                    </a> </li>
-                                <li> <a href="#">
-                                        <div class="pull-left"> <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image"> </div>
-                                        <h4> Developers <small><i class="fa fa-clock-o"></i> Today</small> </h4>
-                                        <p class="h2-subhead">Why not buy a new awesome theme?</p>
-                                    </a> </li>
-                                <li> <a href="#">
-                                        <div class="pull-left"> <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image"> </div>
-                                        <h4> Sales Department <small><i class="fa fa-clock-o"></i> Yesterday</small> </h4>
-                                        <p class="h2-subhead">Why not buy a new awesome theme?</p>
-                                    </a> </li>
-                                <li> <a href="#">
-                                        <div class="pull-left"> <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image"> </div>
-                                        <h4> Reviewers <small><i class="fa fa-clock-o"></i> 2 days</small> </h4>
-                                        <p class="h2-subhead">Why not buy a new awesome theme?</p>
-                                    </a> </li>
+                            <ul class="menu" id="received-req">
+                                <li class="text-center"><br><img src="{{ URL::asset('images/ajax-loader.gif') }}"/></li>
                             </ul>
                         </li>
-                        <li class="footer"><a href="messages.html">See All Messages</a></li>
+                        <li class="footer"><a href="{{url('/profile/friends/requests')}}">View all</a></li>
                     </ul>
                 </li>
-                -->
-                <!-- Notifications: style can be found in dropdown.less -->
-            <!--    <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-bell-o"></i> <span class="label label-warning">10</span> </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
-                        <li>
-                            <ul class="menu">
-                                <li> <a href="#"> <i class="fa fa-users text-aqua"></i> 5 new members joined today </a> </li>
-                                <li> <a href="#"> <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems </a> </li>
-                                <li> <a href="#"> <i class="fa fa-users text-red"></i> 5 new members joined </a> </li>
-                                <li> <a href="#"> <i class="fa fa-shopping-cart text-green"></i> 25 sales made </a> </li>
-                                <li> <a href="#"> <i class="fa fa-user text-red"></i> You changed your username </a> </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">View all</a></li>
-                    </ul>
-                </li> -->
+                
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu"> <a href="#"  data-toggle="control-sidebar" id="chat-view"> <i class="fa fa-comment-o"></i> 
+                <span class="label label-success" id="num-new-msg"></span>
+                 </a>
+              
+                </li>
+             
+    <!-- Notifications: style can be found in dropdown.less -->
+    <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notifications-view"> <i class="fa fa-bell-o"></i><span class="label label-success" id="num-new-notif">@if($numnewnotifications) {{$numnewnotifications}} @endif</span> </a>
+
+        <ul class="dropdown-menu" style="width: 400px;">
+            <li class="header">Notifications</li>
+            <li class="infinite-notif">
+                <ul class="menu" id="notifications-box"> 
+                @foreach($listnotifications as $not)
+                    @if($not->type == 1)   <!-- Friend request notif -->
+                            @if($not->isRead == 1)  
+                                <li id="notif-item"> <a href="{{asset('/'.$not->display_name)}}"> <i class='fa fa-user-plus text-aqua'></i> {{$not->first_name}} {{$not->last_name}} accepted your friend request. {{$not->time_ago}}</a>  </li>
+                            @else
+                                <li class='label-warning' id="notif-item"> <a href='{{asset("/".$not->display_name)}}'> <i class='fa fa-user-plus text-aqua'></i> {{$not->first_name}} {{$not->last_name}} accepted your friend request. {{$not->time_ago}}</a>  </li>
+                            @endif                         
+                    @elseif($not->type == 2)  <!-- New session notif -->
+                            @if($not->isRead == 1)
+                                <li id="notif-item"> <a href='{{asset("/profile/".$not->display_name."/session/".$not->object)}}'> <i class='fa fa-info-circle text-aqua'></i>{{$not->first_name}} {{$not->last_name}} did a new training. {{$not->time_ago}}</a></li>
+                            @else
+                                <li class='label-warning' id="notif-item"> <a href='{{asset("/profile/".$not->display_name."/session/".$not->object)}}'> <i class='fa fa-info-circle text-aqua'></i>{{$not->first_name}} {{$not->last_name}} did a new training. {{$not->time_ago}} </a></li>
+                            @endif
+                    @elseif($not->type == 3)
+                            @if($not->isRead == 1)
+                                <li class='notif-item'> <a href='{{asset("/profile/".$not->display_name."/session/".$not->object)}}'> <i class='fa fa-commenting text-aqua'></i>{{$not->first_name}} {{$not->last_name}} commented on your training. {{$not->time_ago}}</a></li>
+                            @else
+                                <li class='label-warning'> <a href='{{asset("/profile/".$not->display_name."/session/".$not->object)}}'> <i class='fa fa-commenting text-aqua'></i>{{$not->first_name}} {{$not->last_name}} commented on your training. {{$not->time_ago}}</a></li>
+                            @endif
+                    @endif                               
+                @endforeach
+                </ul>
+            </li>
+            <li class="footer"><a href="#">View all</a></li>
+        </ul>
+    </li>  <!-- Notifications END: dropdown menu -->
+
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
                         <img src="{{ URL::asset(Auth::user()->profile->image->name) }}" class="user-image" alt="User Image">
-
+                     
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs">{{ Auth::user()->first_name.' '.Auth::user()->last_name }}</span> 
                     </a>
@@ -90,8 +89,6 @@
                             </a>
 
                             <p class="h2-subhead"> {{ Auth::user()->first_name.' '.Auth::user()->last_name }} <small>Member since {{ date('M Y', strtotime(Auth::user()->created_at)) }}</small> </p>
-
-
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
@@ -103,19 +100,292 @@
             </ul>
         </div>
 
-
         <!-- search form -->
-        <!-- Trenutno ne treba da se prikazuje 
         <div class="nav-search pull-right">
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group search-onTop col-md-12">
-                    <label for="front-search" ><i class="fa fa-search"></i></label>
-                    <input type="text" name="q" id="front-search" class="form-control col-md-12" placeholder="Search...">
+            <div class="sidebar-form">
+                <div class="col-md-8">
+                        <select class="form-control col-md-12 search-users"> 
+                            <option value="3620194" selected="selected">Search users...</option>
+                        </select>
                 </div>
-            </form>
+            </div>
         </div>
-        -->
         <!-- /.search form -->
 
     </nav>
 </header>
+<script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>  
+<script src="{{ URL::asset('dist/js/select2.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+        var span = document.getElementById('num-new-req');
+        var span1 = document.getElementById('num-new-msg');
+        var span2 = document.getElementById('num-new-notif');
+
+        var user = 'private-<?php echo Auth::user()->id;?>';
+        var asset = '{{ asset('') }}';
+        $.ajax({
+                url: '{{ asset('/new-requests') }}',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    if (data > 0) {
+                            span.innerHTML = data;
+                    }
+                }
+        });
+
+        $.post( "{{ asset('/num-new-messages') }}", function( data ) {
+                    if(data.length > 0){ span1.innerHTML = data.length; }               
+        }); 
+
+        var channel = pusher.subscribe('requests');
+            channel.bind( user, function(data) {
+                    $.ajax({
+                        url: '{{ asset('/new-requests') }}',
+                        type: 'POST'
+,                       dataType: 'json',
+                        success: function (data) {
+                            if (data > 0) {
+                                    span.innerHTML = data;
+                            }
+                        }
+                    });
+            });
+   
+        function addNotification(data) {
+                $.post( "{{ asset('/num-new-notifications') }}", function( data ) {
+                    if(data > 0){ span2.innerHTML = data; }               
+                }); 
+                var boxNotifications = $('#notifications-box');
+                boxNotifications.prepend(data);
+        }
+
+        channelNotif.bind('notifuser-{{Auth::id()}}', addNotification);   
+
+        // Show number of new messages from each friend
+        function showNotif{{Auth::user()->id}}(data) {
+            var span1           = document.getElementById('num-new-msg');
+                span1.innerHTML = data.length;
+
+            $.each(data, function(index, v) {
+                    $( '#new-msg-'+v.sender_user_id ).empty();
+                    $( '#new-msg-'+v.sender_user_id ).append(v.nummsg); 
+            });
+        }
+
+    channelChat.bind('chat-notif-{{Auth::user()->id}}', showNotif{{Auth::user()->id}});
+
+$(document).on("click", "#notifications-view", function(event){
+    event.stopPropagation();
+    $.post('{{asset("/read-new-notifications")}}');
+    $(this).attr('id', 'notifications-close');
+    span2.innerHTML = '';
+});
+
+$(document).on("click", "#notifications-close", function(){
+    $(this).attr('id', 'notifications-view');
+});
+
+
+ $(document).on("click", "#friend-requests", function(event){
+        event.stopPropagation();
+        var viewreq = '{{ asset('/view-newreq') }}';
+
+        $.ajax({
+                url: '{{ asset('/friends/received-req') }}',
+                type: 'GET',
+                headers: {  _token: $('meta[name="csrf-token"]').attr('content') },
+                dataType: 'json',
+                success: function (data) {
+                        $("#received-req li").empty();
+                    if(data == 0){
+                        $("#received-req").append('<li> <b> No friend requests. </b></li>');        
+                    }else{
+                        $.each(data, function(index, v) {
+                             $("#received-req").append('<li> <a href="#"><img class="img-square" width="50" src="'+asset+''+v.name+'" alt="User Picture">  <b> '+v.first_name+' '+v.last_name+' </b> <div style="float: right;" class="text-center" id="box'+v.id+'"><span class="btn btn-primary btn-sm" id="confirm-friend" data="'+v.id+'">Confirm</span> <span class="btn btn-default btn-sm" id="unfriend"  data="'+v.id+'"> Delete </span></div></li></a>');
+                        });
+                    }
+                $.post(viewreq);
+                span.innerHTML = '';
+                } // end success ajax data
+        }); // end ajax
+}); // end click on FRIEND RECEIVED REQUESTS
+
+
+$(document).on("click", "#chat-view", function(event){
+    event.preventDefault();
+    $(this).attr('id', 'close-sidebar-box');
+
+        $.ajax({
+                url: '{{ asset('/friend-chat-list') }}',
+                type: 'POST',
+                dataType: 'json',
+                headers: {  _token: $('meta[name="csrf-token"]').attr('content') },
+                success: function (data) {
+                        $("#friend-chat-list").empty();
+                    if(data == 0){
+                        $("#friend-chat-list").append('<li> <b> No friends. </b></li>');        
+                    }else{
+                        $.each(data, function(index, v) {
+                        var rezultat = '<li class="row-chat"><a href="#chat-'+v.id_chat+'" data-toggle="collapse" id="view-box-msg" data="'+v.id+'" class="'+v.id_chat+'"><div class="pull-left chat-user-image"><img src="'+asset+''+v.name+'" class="img-circle" alt="User Image"></div>             <div class="menu-info>   <h4 class="control-sidebar-subheading chat-search-class"> '+v.first_name+' '+v.last_name+' <span class="label label-warning" id="new-msg-'+v.id+'"></span></h4>';
+                        if( v.online == 1){
+                            rezultat += ' <p class="user-state"> <i class="fa fa-circle text-success"></i> Online</p>';
+                        }
+                            rezultat += '</div></a></li>';
+                            $("#friend-chat-list").append(rezultat);  
+                        });
+                                             
+                        $.post( "{{ asset('/chat-box') }}", function( data ) {
+                                $( '#chat-boxes' ).empty();
+                                $( "#chat-boxes" ).html( data );
+                        });  
+                        $.post( "{{ asset('/num-new-messages') }}", function( data ) {
+                                $.each(data, function(index, v) {
+                                    $( '#new-msg-'+v.sender_user_id ).empty();
+                                    $( '#new-msg-'+v.sender_user_id ).append(v.nummsg);
+                                });
+                        });        
+                    }
+             } // end success ajax data
+        }); // end ajax
+}); // end click on VIEW CHAT BAR
+
+
+}); // end document.ready
+// Received Requests Tab -- Confirm friend request
+$(document).on("click", "#confirm-friend", function(event){
+    event.stopPropagation();
+    var id    = $(this).attr("data"); // get user id
+    var button = document.getElementById('box'+id);
+
+    $.ajax({
+                  url: '{{ asset('/friend-confirm') }}',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {id2: id},
+                  success: function (data) {
+                      if (data == 200) {
+                          button.innerHTML = '<div class="btn-group"><button data="'+id+'" type="button" class="btn btn-default btn-flat ff-btn unfriend" id="unfriend"> <span class="follow-txt"><i class="fa fa-check margin-r-5" aria-hidden="true"></i>Friends</span></button></div>';   
+                      }
+                      $('.menu-requests').addClass('open'); // Opens the dropdown
+
+                  }
+              });   
+});
+
+// Received Requests Tab -- Unfriend && Delete Request
+$(document).on("click", "#unfriend", function(){
+        var id    = $(this).attr("data"); // get user id
+        var button = document.getElementById('user'+id);
+
+            $.ajax({
+                  url: '{{ asset('/unfriend') }}',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {id2: id},
+                  success: function (data) {
+                      if (data == 200) {
+                            button.innerHTML = '';
+                      }
+                  }
+              });   
+});
+// Sent Requests tab - send friend request
+$(document).on("click", "#send-request", function(){
+        var id    = $(this).attr("data"); // get user id
+        var button = document.getElementById(id);
+          $.ajax({
+                  url: '{{ asset('/friend-request') }}',
+                  type: 'POST',
+                  dataType: 'json',
+                  data: {id2: id},
+                  success: function (data) {
+                      if (data == 200) {
+                          button.innerHTML = '<a class="btn btn-default btn-sm" id="cancel-friend-request" data="'+id+'">Cancel Request</a>';   
+                      }
+                  }
+              });   
+  });
+// Sent Requests tab - cancel sent requests
+$(document).on("click", "#cancel-friend-request", function(){
+        var id    = $(this).attr("data"); // get user id 
+        var button = document.getElementById(id);
+            $.ajax({
+                    url: '{{ asset('/unfriend') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {id2: id},
+                    success: function (data) {
+                      if (data == 200) {
+                          button.innerHTML = '<a class="btn btn-default btn-sm" id="send-request" data="'+id+'"><b><i class="fa fa-user-plus"></i> Add Friend</b></a>'; 
+                      }
+                  }
+              });  
+  });
+// Sent Requests tab - cancel sent requests /END
+
+
+/*******  SEARCH USERS - BEGIN  *******/
+function formatRepo (repo) {
+      if (repo.loading) return repo.text;
+
+      var markup = "<a href='{{asset('')}}"+repo.username+"'><div class='select2-result-repository clearfix'>" +
+        "<div class='select2-result-repository__avatar'><img src='{{ asset('') }}"+repo.avatar+"' /></div>" +
+        "<div class='select2-result-repository__meta'>" +
+          "<div class='select2-result-repository__title'>" + repo.text + "</div>";
+
+        markup += "<div class='select2-result-repository__description'>@" + repo.username + "</div></div> </div> </a>";
+      
+
+      /*markup += "<div class='select2-result-repository__statistics'>" +
+        "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> 23 Forks</div>" +
+        "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> 33  Stars</div>" +
+        "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> 44 Watchers</div>" +
+      "</div>" +
+      "</div></div>";*/
+
+      return markup;
+    }
+
+function formatRepoSelection (repo) {
+      return repo.full_name || repo.text;
+}
+
+$(".search-users").select2({
+    minimumInputLength: 2,
+        ajax: {
+            url: "{{asset('search')}}",
+            dataType: 'json',
+            type: 'POST',
+            delay: 250,
+            headers: {  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: function (params) {
+                return {
+                        search_name: params.term, // search term
+                };
+        },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                                    text:       item.first_name+' '+item.last_name,
+                                    username:   item.display_name,
+                                    avatar:     item.name,
+                                    id:         item.id
+                                }
+                    })
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) { return markup; },
+        templateResult: formatRepo, 
+        templateSelection: formatRepoSelection 
+});
+// 
+$('.search-users').on('select2:select', function (evt) {
+        window.location.href =  '{{asset('')}}'+evt.params.data.username;
+});
+/*******  SEARCH USERS - END  *******/
+</script>

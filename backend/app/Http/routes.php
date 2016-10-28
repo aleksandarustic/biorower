@@ -66,61 +66,93 @@ Route::group(array('prefix' => 'api'), function()
 					['only' => ['store']]);		
 });
 
-Route::get('/', 'WelcomeController@getLogin');
-Route::get('/login', 'WelcomeController@getLogin');
-Route::post('/login', 'WelcomeController@postLogin');
-Route::get('/register', 'WelcomeController@getRegister');
-Route::post('/register', 'WelcomeController@postRegister');
-Route::post('/password-reset', 'WelcomeController@passwordReset');
-Route::get('/password/reset/{token}', 'WelcomeController@resetPassword');
-
-Route::post('/update-password', 'WelcomeController@updatePassword');
-
-//Route::get('socket', 'SocketController@socket');
-Route::post('sendmessage', 'SocketController@sendMessage');
-Route::get('writemessage', 'SocketController@writemessage');
-
-Route::get('/approve/user/{userId}', 'WelcomeController@approveRegister');
+/** Login/Register/Reset PW  */
+Route::get('/', 						'WelcomeController@getLogin');
+Route::get('/login', 					'WelcomeController@getLogin');
+Route::post('/login', 					'WelcomeController@postLogin');
+Route::get('/register', 				'WelcomeController@getRegister');
+Route::post('/register', 				'WelcomeController@postRegister');
+Route::post('/password-reset', 			'WelcomeController@passwordReset');
+Route::get('/password/reset/{token}', 	'WelcomeController@resetPassword');
+Route::post('/update-password', 		'WelcomeController@updatePassword');
+/** Login/Register/Reset PW  */
 
 Route::get('/checkEmail', function(){
 	return view('emails.profile_activated');
 });
+Route::get('/approve/user/{userId}', 	'WelcomeController@approveRegister');
 
-Route::get('/profile', 'Template\TemplateController@overview');
-Route::get('/profile/sessions', 'SessionController@sessions');
-Route::get('/profile/friends', 'User\UserController@friends');
-Route::get('/profile/{username}/session/{session}', 'SessionController@index');
-Route::get('/profile/{username}/sessions/{date1}/{date2}', 'SessionController@sessionsRangeSearch');
+// Only for logged-in users
+Route::group(['middleware' => 'auth'], function()
+{
+Route::get('/profile/logout', 			'WelcomeController@getLogout');
 
-Route::post('/profile/edit', 'User\UserController@postEdit');
-Route::post('/profile/avatar', 'User\UserController@UpdateUserAvatar');
-Route::post('/profile/edit/user/user-upload-temp-image', 'User\UserController@postUserUploadTempImage');
-Route::post('/profile/edit/user/user-change-profile-image', 'User\UserController@postUserChangeProfileImage');
-Route::get('/profile/logout', 'WelcomeController@getLogout');
+//Route::get('socket', 'SocketController@socket');
+Route::post('sendmessage',				'SocketController@sendMessage');
+Route::get('writemessage', 				'SocketController@writemessage');
 
-Route::post('profile/user/edit','update@update');
-Route::post('profile/user/change-password', 'update@ChangePassword');
+Route::get('/profile', 										'Template\TemplateController@overview');
+Route::get('/profile/sessions', 							'SessionController@sessions');
+Route::get('/{username}', 									'User\ProfileController@index');
+Route::get('/profile/{username}/session/{session}', 		'SessionController@index');
+Route::get('/profile/{username}/sessions/{date1}/{date2}', 	'SessionController@sessionsRangeSearch');
+Route::post('/profile/avatar', 								'User\UserController@UpdateUserAvatar');
+Route::post('/search', 										'User\UserController@postSearchUsersAjax');
+Route::get('/profile/edit', 								'User\UserController@getEdit');
+Route::post('profile/user/edit',							'update@update');
+Route::post('profile/user/change-password', 				'update@ChangePassword');
+Route::get('{username}/graphs', 							'User\ProfileController@graphs');
+Route::get('{username}/scalendar', 							'User\ProfileController@calendar');
 
-/*
-Route::get('/auth/twitter', 'WelcomeController@redirectToProvider');
+/* User Friends */
+Route::post('/friend-request', 			'User\FriendsController@create');
+Route::post('/unfriend', 				'User\FriendsController@destroy');
+Route::post('/friend-confirm', 			'User\FriendsController@ConfirmFriend');
+Route::get('/profile/friends/requests', 'User\FriendsController@ViewRequests');
+Route::post('/new-requests', 			'User\FriendsController@NumNewRequests');
+Route::post('/view-newreq', 			'User\FriendsController@ViewNewRequests');
+Route::get('/friends/received-req', 	'User\FriendsController@GetReceivedRequest');
+Route::get('/{username}/friends', 		'User\ProfileController@FriendsList');
+Route::post('/friend-search', 			'User\ProfileController@FriendSearch');
+Route::get('/profile/myfriends', 		'User\ProfileController@MyFriendsList');
+/* User Friends */
+/* CHAT - message */
+Route::post('/chat-box', 				'ChatController@show');
+Route::post('/chat-messages', 			'ChatController@getMsg');
+Route::post('/num-new-messages', 		'ChatController@NumNewMsg');
+Route::post('/user-msg-notif', 			'ChatController@NewMsgNotif');
+Route::post('/friend-chat-list', 		'ChatController@index');
+Route::post('/chat-send-msg', 			'ChatController@create');
+Route::post('/view-newmsg', 			'ChatController@ViewNewMessages');
+Route::post('/load-old-msg', 			'ChatController@getOldMsg');
+/* NOTIFICATIONS */
+Route::post('/show-notifications',		'NotificationsController@index');
+Route::post('/get-notifications', 		'User\FollowController@create');
+Route::post('/unget-notifications',		'User\FollowController@destroy');
+Route::post('/num-new-notifications', 	'NotificationsController@NumNewNotifications');
+Route::post('/read-new-notifications',  'NotificationsController@ReadNewNotifications');
+/* SESSION COMMENTS*/
+Route::post('/getLatestComment', 		'CommentController@index');
+Route::post('/addComment', 				'CommentController@create');
+Route::post('/deleteComment', 			'CommentController@destroy');
+
+/* Route::get('/auth/twitter', 'WelcomeController@redirectToProvider');
 Route::get('/auth/twitter/callback', 'WelcomeController@handleProviderCallback');
 */
-Route::get('/sessions/calendar', 'SessionController@calendar');
-Route::post('/sessions/comment', 'SessionController@comment');
+Route::get('/sessions/calendar', 		'SessionController@calendar');
+Route::post('/sessions/comment', 		'SessionController@comment');
 
-Route::get('session/delete-comment', 'SessionController@deleteComment');
-Route::get('session/delete-session', 'SessionController@deleteSession');
-Route::get('session/client1', 'SessionController@client1');
-Route::get('session/client2', 'SessionController@client2');
-Route::get('session/ajaxData1', 'SessionController@ajaxData1');
-Route::get('session/ajaxData2', 'SessionController@ajaxData2');
+Route::get('session/delete-comment', 	'SessionController@deleteComment');
+Route::get('session/delete-session', 	'SessionController@deleteSession');
+Route::get('session/client1', 			'SessionController@client1');
+Route::get('session/client2', 			'SessionController@client2');
+Route::get('session/ajaxData1', 		'SessionController@ajaxData1');
+Route::get('session/ajaxData2', 		'SessionController@ajaxData2');
 
-Route::get('/profile/edit', 'User\UserController@getEdit');
-Route::post('profile/user/edit','update@update');
+}); // Only for logged-in users
 
 Route::controllers([
 	'template' => 'Template\TemplateController',
 ]);
-
 
 

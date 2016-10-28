@@ -94,13 +94,17 @@
 	</div>
 
 	<div>
-		@if ($errors->first('password') or $errors->first('email') or $errors->first('avatar') )
+		@if (!$errors->isEmpty())
 			<div class="alert alert-danger">
 				<strong>Whoops!</strong> There were some problems with your input.<br><br>
 				<ul>
 					<?php echo $errors->first('email', '<li>:message</li>'); ?>
-					<?php echo $errors->first('password', '<li>:message</li>'); ?>
-					<?php echo $errors->first('avatar', '<li>:message</li>'); ?>		
+					<?php echo $errors->first('first_name', '<li>:message</li>'); ?>
+					<?php echo $errors->first('last_name', '<li>:message</li>'); ?>
+					<?php echo $errors->first('display_name', '<li>:message</li>'); ?>	
+					<?php echo $errors->first('month', '<li>:message</li>'); ?>
+					<?php echo $errors->first('day', '<li>:message</li>'); ?>
+					<?php echo $errors->first('year', '<li>:message</li>'); ?>		
 				</ul>
 			</div>
 		@endif
@@ -140,7 +144,8 @@
 			<h2 class="h2-tabs">User Details</h2>
 
 						<form method="POST" action="user/edit" accept-charset="UTF-8" id="mainFormEdit">
-                            <input name="_token" type="hidden" value="LSoFI4hQLii3O5perBoyDdGQZReepW9mUEm4eI7r">
+                           <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+
 
 							<p class="h2-subhead">Update your personal info</p>
 							<div class="form-group">
@@ -193,7 +198,24 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-                                                                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{$user['profile']['date_of_birth']}}" >
+									<select name="month" class="form-control select2" style="width: 9%;">
+										<option value="13"> Month </option> 
+										@for($m=1; $m < 13; $m++)	
+											<option value="{{$m}}" {{$m == $user['profile']['month_birthday'] ? "selected" :""}}>{{$m}}</option>
+										@endfor								
+									</select>								
+									<select name="day" class="form-control select2" style="width: 9%;">
+										<option value="32"> Day </option> 
+										@for($d=1; $d< 32; $d++)
+											<option value="{{$d}}" {{$d == $user['profile']['day_birthday'] ? "selected" :""}}>{{$d}}</option>
+										@endfor						
+									</select>
+									<select name="year" class="form-control select2" style="width: 11%;"> 
+										<option value="2020"> Year </option> 
+										@for($y=1930; $y< 2011; $y++)
+											<option value="{{$y}}" {{$y == $user['profile']['year_birthday'] ? "selected" :""}} >{{$y}}</option>
+										@endfor		
+									</select>
 								</div>
 							</div>
                                                         

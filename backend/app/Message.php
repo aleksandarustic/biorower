@@ -29,7 +29,7 @@ class Message extends Model {
 
     public function receiver()
     {
-        return $this->belongsTo('App\User', "reveiver_user_id", "id");
+        return $this->belongsTo('App\User', "receiver_user_id", "id");
     }
 
     public function sender()

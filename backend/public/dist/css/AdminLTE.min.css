@@ -592,7 +592,7 @@ color:#ccc
 	overflow: visible
 }
 .sidebar-form, .sidebar-menu>li.header {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	text-overflow: clip
 }
 .sidebar-menu li>a {
@@ -5233,8 +5233,8 @@ aside.chat-open-right { position: fixed;
 .chat-boxes { bottom: 0px;
 margin-right: 240px;
     direction: ltr;
-/*    height: 340px;
-*/    left: 0;
+    /*height: 340px;*/
+   left: 0;
     position: fixed;
     right: 0;
     z-index: 300; }
@@ -5521,4 +5521,10 @@ ul.friend-tabs>li {
 }
 ul.friend-tabs>li>a>span { display: none; }
 
+}
+/* Unfriend Button */
+.unfriend:hover span {display:none;}
+.unfriend:hover:before {
+  font-family: FontAwesome;
+  content:"\f00d   Unfriend";
 }

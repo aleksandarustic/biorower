@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Comment extends Model {
 
@@ -18,7 +19,7 @@ class Comment extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['text','user_id','session_id'];
+	protected $fillable = ['text','user_id','session_id', 'status'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -26,7 +27,9 @@ class Comment extends Model {
 	 * @var array
 	 */
 	protected $hidden = [];
-	
+
+	protected $appends	= array('time_ago');
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -36,6 +39,12 @@ class Comment extends Model {
     {
         return $this->belongsTo('App\Session');
     }
+
+    public function getTimeAgoAttribute()
+	{
+        return Carbon::parse($this->attributes['date'])->diffForHumans();
+    }
+
 
 
 }

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests\UserEditPostRequest;
 use Hash;
 
 class update extends Controller {
@@ -71,23 +73,26 @@ class update extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request)
+	public function update(UserEditPostRequest $request)
 	{
 		if (Auth::check())
 		{
 
-         $id = Auth::id();
-         $korisnik=Auth::User();
-         $profile_id=$korisnik->profile_id;
-         $profile= Profile::where('id',$profile_id)->first();
+        $id 			= 	Auth::id();
+        $korisnik		=	Auth::User();
+        $profile_id		=	$korisnik->profile_id;
+        $profile 		= 	Profile::where('id',$profile_id)->first();
+         
 
-
-         $displayname=$request->input('display_name');
+		 $displayname=$request->input('display_name');
 		 $firstname=$request->input('first_name');
 		 $lastname=$request->input('last_name');
 		 $aboutme=$request->input('about_me');
 		 $languages=$request->input('dic_languages_id');
-		 $dateofbirth=$request->input('date_of_birth');
+		 $dateofbirth= $request->input('year').'-'.$request->input('month').'-'.$request->input('day');
+		 if($request->input('month') > 12 and $request->input('day') > 31 or $request->input('year') > 2014){
+		 	$dateofbirth = null;
+		 }
 		 $gender=$request->input('gender');
 		 $phone=$request->input('phone');
 		 $mobile=$request->input('mobile');
@@ -106,8 +111,9 @@ class update extends Controller {
 		 $email_summary_alternative=$request->input('email_summary_alternative');
 		 $send_session_summary_alternate=$request->input('send_session_summary_alternate');
 		 $privacy=$request->input('privacy');
-	
-                 $niz=array('first_name'=>$firstname,
+
+
+		  $niz=array('first_name'=>$firstname,
                      'last_name'=>$lastname,
                      'display_name'=>$displayname,
                      'email'=>$email);
@@ -131,7 +137,7 @@ class update extends Controller {
                      'send_session_summary'=>$send_session_summary,
                      'email_summary_alternative'=>$email_summary_alternative,
                      'send_session_summary_alternate'=>$send_session_summary_alternate,
-                     'privacy'=>$privacy);
+                     'privacy'=>$privacy);     
 
             $potvrda  	= User::where("id", $id)->update($niz);
 		 	$potvrda2 	= Profile::where("id", $profile_id)->update($niz2);

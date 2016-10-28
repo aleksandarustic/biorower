@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Session extends Model {
 
@@ -27,9 +28,11 @@ class Session extends Model {
 	 */
 	protected $hidden = [];
 
+	protected $appends	= array('session_name');
+
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany('App\Comment', 'session_id', 'id');
     }    
 
     public function user()
@@ -41,5 +44,16 @@ class Session extends Model {
     {
         return $this->belongsTo('App\DataBiorowerSession', "data_biorower_sessions_id", "id");
     }    
+
+	public function getSessionNameAttribute()
+    {
+    	if($this->attributes['name'] == ''){
+    		$date = Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['date'])->format('D, d.M Y');
+    		$name = "Session: ".$date;
+    		return $name;
+    	}else{
+    		return $this->attributes['name'];
+    	}
+    }
 
 }

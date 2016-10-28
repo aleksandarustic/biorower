@@ -23,13 +23,14 @@
 						<tr>
 							<th class="nosort">#</th>
 							<th class="hiden" style="display:none;">id</th>
-						    <th class="nosort">Session</th>
-							<th class="nosort">Description</th>
+						    <th class="nosort" width="20%">Session</th>
 							<th class="nosort">Date/Time</th>
+							<th class="nosort" width="9%">Lasting {{ config('parameters.time.unit') }}</th>
 							<th class="nosort">Power {{ config('parameters.pwr_avg.unit') }}</th>
 							<th class="nosort">Distance {{ config('parameters.dist.unit') }}</th>
 							<th class="nosort">HR {{ config('parameters.hr_avg.unit') }}</th>
-							<th class="nosort">Time {{ config('parameters.time.unit') }}</th>
+							<th class="nosort" width="15%">Description</th>
+
 							
 							
 							<th class="hiden" style="display:none;">Speed</th>
@@ -231,17 +232,6 @@
 {   
 	$(".hiden").hide();
 
-  
-
-
-
-
-
-
-
-
-
-
      var urlBase = "<?php echo Request::root() ?>";
      var email1="<?php echo Auth::user()->email ?>"; 
      var display_name= "<?php echo Auth::user()->display_name ?>"; 
@@ -294,12 +284,12 @@
 					      
 					          if (ime === undefined || ime == null || ime=="") {
 					          	   var datum=new Date(d[i].Date);
-					          	   var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-									var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+					          	   var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+									var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 									var day = days[ datum.getDay() ];
 									var month = months[ datum.getMonth() ];
-								   d[i].Session="<a href='"+urlBase+"/profile/"+display_name+"/session/"+d[i].id+"'>Session:"+day+","+datum.getDate()+"."+month+" "+datum.getFullYear()+"</a>";
+								   d[i].Session="<a href='"+urlBase+"/profile/"+display_name+"/session/"+d[i].id+"'>Session:"+day+", "+datum.getDate()+". "+month+" "+datum.getFullYear()+"</a>";
 								}
 							if(ime !=null){
 								for (var i2 = 0; i2 < ime.length; i2++) {
@@ -331,12 +321,12 @@
 		  	     	{ 'data'  : 'x' },
 		  	     	{ 'data' : 'id' },
 		  	     	{ 'data' : 'Session' },
-		  	     	{ 'data' : 'Description' },
 		  	     	{ 'data' : 'Date' },
+		  	     	{ 'data' : 'Time' },
 		  	     	{ 'data' : 'Power' },
 		  	     	{ 'data' : 'Distance' },
 		  	     	{ 'data' : 'HR' },
-		  	     	{ 'data' : 'Time' },
+		  	     	{ 'data' : 'Description' },
 		  	     	{ 'data' : 'Speed' },
 		  	     	{ 'data' : 'Angle' },
 		  	     	{ 'data' : 'Pace' },

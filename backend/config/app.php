@@ -136,6 +136,7 @@ return [
 		'Illuminate\Redis\RedisServiceProvider',
 		'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
 		'Illuminate\Session\SessionServiceProvider',
+		'Rairlie\LockingSession\LockingSessionServiceProvider',
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
@@ -154,6 +155,9 @@ return [
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Laravel\Socialite\SocialiteServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Vinkla\Pusher\PusherServiceProvider',
+		'App\Providers\ComposerServiceProvider',
+
 
 	],
 

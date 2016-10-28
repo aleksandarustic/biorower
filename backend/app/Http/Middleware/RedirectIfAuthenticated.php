@@ -36,7 +36,7 @@ class RedirectIfAuthenticated {
 	{
 		if ($this->auth->check())
 		{
-			return new RedirectResponse(url('/'.Auth::user()->linkname));
+			return new RedirectResponse(url('/'.Auth::user()->display_name));
 		}
 
 		return $next($request);

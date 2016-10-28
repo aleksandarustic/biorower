@@ -7,6 +7,9 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Validator;
 use Auth;
+use App\Http\Middleware\LogLastUserActivity;
+use DB;
+use Carbon\Carbon;
 
 use Hashids\Hashids;
 
@@ -39,28 +42,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 						   'last_name',
 						   'display_name'
 						   ];
-
-	/*
-	   'id',
-	   'about_me',
-	   'first_name',
-	   'last_name',
-	   'dic_languages_id',
-	   'date_of_birth',
-	   'gender',
-	   'phone',
-	   'mobile',
-	   'line1',
-	   'line2',
-	   'city',
-	   'zip',
-	   'website',
-	   'dic_country_id',
-	   'dic_user_type_id',
-	   'authToken',
-	   'created_at'
-	*/	
-
 	
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -75,20 +56,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     	return $this->hasOne('Language', 'id', 'dic_languages_id');
     }
     */	
-
-    /*
-     public function save()
-     {
-
-   	  $this->password = bcrypt('secret');
-      // before save code 
-      parent::save();
-      // after save code
-     };
-    */
-
-    private $rules;
-
     /*
 	protected $defaults = array(
 		   'name' => null,
@@ -112,55 +79,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	);
 	*/
 
-	public function __construct(array $attributes = array())
+	/*public function __construct(array $attributes = array())
 	{
-	    $this->rules = array(
-	    	/*
-	        'name' => 'required|min:4',
-	        'email'  => 'email',
-	        */
-	        // .. more rules here ..
-
-			/*'name' => 'required|alpha_num|max:255',*/
-			
+	    $this->rules = array(	
 			'first_name' => 'required|max:255',
 			'last_name' => 'required|max:255',
 			'email' => 'required|email|max:255|unique:users,email,'.Auth::id(),
 			'display_name' => 'required',
-			/*
-
-			*/
 	    );
-
-	    /*
-		foreach ($this->attributes as $name => $value) {
-			if (empty($value)) {
-				$this->attributes[$name] = null;
-			}	
-		}
-		*/
-
-		//$this->setRawAttributes($this->defaults, true);
-		//parent::__construct($this->attributes);
-	}
-
-
-    public function validateModel($data)
-    {
-        // make a new validator object
-        $v = Validator::make($data, $this->rules);
-
-        // check for failure
-        if ($v->fails())
-        {
-            // set errors and return false
-            $this->errors = $v->errors();
-            return false;
-        }
-
-        // validation pass
-        return true;
-    }
+	}*/
 
     public function errors()
     {
@@ -208,20 +135,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function messagesCount()
 	{
-	    return $this->hasOne('App\Message', 'receiver_user_id')
-	              ->selectRaw('receiver_user_id, count(*) as count')
-	              ->where('read', '=', 0)
-    			  ->groupBy('receiver_user_id');
-	  			  /*
-    			  ->selectRaw('user_id, count(*) as count')
-    			  ->groupBy('user_id');
-    			  */
+		return 	$this->hasOne('App\Message', 'receiver_user_id')
+	              ->select(DB::raw('count(sender_user_id) as nummsg, sender_user_id'))
+	              ->where('status', 1)
+			      ->where('read', 0)
+    			  ->groupBy('sender_user_id');
 	}
 
 
 
-	/*
-	public function getMessagesCountAttribute()
+
+	
+	/*public function getMessagesCountAttribute()
 	{
 		return $this->messagesCount->count;
 	}

@@ -72,7 +72,17 @@ class SessionscalendardataController extends Controller {
 
 				$arrayIds = array();
 				foreach ($sessions as $key => $value) {
-					$tmp = array("sessionID" => $value["id"], "DateTime" => $value["date"],"Name"=>$value["name"],"Description"=>$value["description"],"duration"=>$value->sessionSummary->time,"distance"=>$value->sessionSummary->distance,"power"=>$value->sessionSummary->power_average,"hr"=>$value->sessionSummary->heart_rate_average);
+					$tmp = array(
+						"sessionID"  => $value["id"], 
+						"DateTime"   => $value["date"],
+						"Name"		 =>	$value["name"],
+						"Description"=>	$value["description"],
+						"duration"	 =>	gmdate(config('parameters.time.format'), $value->sessionSummary->time),
+						"distance"	 =>	round($value->sessionSummary->distance, config('parameters.dist.format')),
+						"power"		 =>	round($value->sessionSummary->power_average, config('parameters.pwr_avg.format')),
+						"srate"		 => round($value->sessionSummary->stroke_rate_average, config('parameters.srate_avg.format')),
+						"hr"		 =>	round($value->sessionSummary->heart_rate_average, config('parameters.hr_avg.format'))
+						);
 					array_push($arrayIds, $tmp);
 				}
 

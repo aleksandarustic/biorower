@@ -16,7 +16,7 @@ return [
 	*/
 
 	//'driver' => env('MAIL_DRIVER', 'smtp'), mailgun
-	'driver' => env('MAIL_DRIVER', 'smtp'), //log
+	'driver' => env('MAIL_DRIVER'), //log
 
 	/*
 	|--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
 	|
 	*/
 
-	'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+	'host' => env('MAIL_HOST'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
 	|
 	*/
 
-	'port' => env('MAIL_PORT', 465),
+	'port' => env('MAIL_PORT'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
 	|
 	*/
 
-	'username' => env('MAIL_USERNAME', 'biorower.braining@gmail.com'),
+	'username' => env('MAIL_USERNAME'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
 	|
 	*/
 
-	'password' => env('MAIL_PASSWORD', 'Silja4231.'),
+	'password' => env('MAIL_PASSWORD'),
 
 	/*
 	|--------------------------------------------------------------------------

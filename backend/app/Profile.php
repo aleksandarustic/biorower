@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Validator;
+use Carbon\Carbon;
 
 class Profile extends Model {
 
@@ -88,6 +89,28 @@ class Profile extends Model {
 	 */
 	protected $hidden = [];
 
+	protected $appends	= array('month_birthday', 'day_birthday', 'year_birthday');
+
+	public function getMonthBirthdayAttribute()
+	{	
+		if($this->attributes['date_of_birth']){
+        	return Carbon::createFromFormat('Y-m-d', $this->attributes['date_of_birth'])->format('m');
+   		}
+    }
+
+    public function getDayBirthdayAttribute()
+    {
+    	if($this->attributes['date_of_birth']){
+        	return Carbon::createFromFormat('Y-m-d', $this->attributes['date_of_birth'])->format('d');
+    	}
+    }
+
+    public function getYearBirthdayAttribute()
+    {
+    	if($this->attributes['date_of_birth']){
+			return Carbon::createFromFormat('Y-m-d', $this->attributes['date_of_birth'])->format('Y');
+    	}
+    }    
 
     public function errors()
     {
