@@ -51,9 +51,7 @@ class DeletesessionController extends Controller {
 								   ->where('id', $id)
 						    	   ->delete();
 
-		        $response = [
-		          'response' => 'ok',
-		        ];
+		        $statusCode = 200;
 	    	}
 	    
 	 	}
@@ -62,7 +60,7 @@ class DeletesessionController extends Controller {
     		$statusCode = 400;
         }
 
-		return Response::json($response, $statusCode);
+		return Response::json($statusCode);
 	}
 
 }

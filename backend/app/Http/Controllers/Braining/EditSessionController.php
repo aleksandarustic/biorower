@@ -38,31 +38,19 @@ class EditSessionController extends Controller {
 			    throw new Exception;
 			}
 
-	        $id = Input::get("id");
-	        $name=Input::get("name");
-	        $description=Input::get("description");
-			$userFirst = $user->first();
+	        $id 			= Input::get("id");
+	        $name 			= Input::get("name");
+	        $description	= Input::get("description");
+			$userFirst 		= $user->first();
 
 			if ($user->isEmpty()){
 				$statusCode = 403;
-			}
-			else
-			{
-
-
-
-				       Session::where('user_id', $userFirst->id)
-								   ->where('id', $id)
-						    	   ->update(array('name' => $name,'description'=> $description));
+			} else {
+				Session::where('user_id', $userFirst->id)
+						->where('id', $id)
+						->update(array('name' => $name,'description'=> $description));
 		
-		
-
-
-
-
-		        $response = [
-		          'response' => 'ok',
-		        ];
+				$statusCode = 200;
 	    	}
 	    
 	 	}
@@ -71,7 +59,7 @@ class EditSessionController extends Controller {
     		$statusCode = 400;
         }
 
-		return Response::json($response, $statusCode);
+		return Response::json($statusCode);
 	}
 
 }
