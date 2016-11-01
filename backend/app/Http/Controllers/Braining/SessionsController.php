@@ -28,21 +28,29 @@ class SessionsController extends Controller {
 	// sa only resource setujemo
 	// users, auths, sessions, status, reset, firmware
 
-	public function store()
+	public function store(req $request)
 	{
 		
         $statusCode = 200;
 
         DB::beginTransaction();
 
-		try
-		{
 	         $response = [
 	          'sessionId'  => '',
 	          'packetsReceived'  => '',
 	        ];
 
-	        $email = explode(":", Input::get("account"));
+	        if(!empty(Request::header('Content-Encoding')) || strpos(Request::header('Content-Encoding'), 'gzip') === true)
+        	{
+        		$test 			= gzinflate( substr($request->getContent(),10,-8) ) . PHP_EOL  . PHP_EOL;
+	        	$jObj 			= json_decode($test, true);
+
+	        	$email 			= explode(":", $jObj['account']);
+	        	$datasessions 	= $jObj['sessions'];
+        	}else{
+				$email 			= explode(":", Input::get("account"));
+				$datasessions 	= Input::get("sessions");
+	    	}
 
 	        if ($email[0] == "twitter"){
 
@@ -74,6 +82,7 @@ class SessionsController extends Controller {
 				}
 			}
 
+
 			if ($statusCode != 403)
 			{
 
@@ -82,7 +91,7 @@ class SessionsController extends Controller {
 				$arrayIds = array();
 				//$allParameters = Parameter->get();
 
-				foreach (Input::get("sessions") as $valInput) {
+				foreach ($datasessions as $valInput) {
 					$session = new Session();
 					$session->user_id = $userFirst->id;
 					$session->name = $valInput["name"];
@@ -214,16 +223,17 @@ class SessionsController extends Controller {
 		        ];
 
 	        }
+
 	        
 
-	 	}
+	 	/*}
 	 	catch (Exception $e)
 	 	{
 	    	DB::rollBack();
 	    	if ($statusCode != 403){
 	    		$statusCode = 402;
 	    	}
-        }
+        }*/
         
 
 		return Response::json($response, $statusCode);
