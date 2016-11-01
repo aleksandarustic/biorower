@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Socialize;
 
 class WelcomeController extends Controller {
 
@@ -154,7 +155,7 @@ class WelcomeController extends Controller {
 		$user = $this->user->where('email', $request->email)->first();
 
 		if(!$user){
-			return Redirect::to(URL::previous() . "#forgot-pass")->with('status', 'There is no user with that email address');;
+			return Redirect::to(URL::previous() . "#forgot-pass")->with('status', 'There is no user with that email address');
 		}else{
 				Mail::send('emails.password', ['user' => $user], function ($m) use ($user) {
 				$m->from('admin@biorower', 'Biorower');
@@ -217,5 +218,58 @@ class WelcomeController extends Controller {
 
 		return redirect('/');
 	}
+
+
+
+
+
+	 public function redirectToProvider()
+    {
+        return Socialize::driver('twitter')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Twitter.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback()
+    {
+        try {
+            $user = Socialize::driver('twitter')->user();
+        } catch (Exception $e) {
+            return redirect('auth/twitter');
+        }
+
+        $authUser = $this->findOrCreateUser($user);
+
+        Auth::login($authUser, true);
+
+        return redirect()->route('/profile');
+    }
+
+    /**
+     * Return user if exists; create and return if doesn't
+     *
+     * @param $twitterUser
+     * @return User
+     */
+    private function findOrCreateUser($twitterUser)
+    {
+        $authUser = User::where('twitter_id', $twitterUser->id)->first();
+
+        if ($authUser){
+            return $authUser;
+        }
+
+        /*return User::create([
+            'first_name' => $twitterUser->name,
+            'display_name' => $twitterUser->nickname,
+            'twitter_id' => $twitterUser->id,
+            //'avatar' => $twitterUser->avatar_original
+        ]);*/
+        return redirect()->route('/login');
+ 
+    }
 
 }

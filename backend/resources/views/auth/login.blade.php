@@ -145,10 +145,10 @@
     });
 
     // go to the latest tab, if it exists:
-    var lastTab = localStorage.getItem('lastTab');
+    /*var lastTab = localStorage.getItem('lastTab');
     if (lastTab) {
         $('[href="' + lastTab + '"]').tab('show');
-    }
+    }*/
 });
 </script>
 <script>
