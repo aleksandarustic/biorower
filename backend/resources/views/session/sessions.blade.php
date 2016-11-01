@@ -105,7 +105,7 @@ function OnloadFunction ()
             			"orderable": false,
            				 "targets": 0 }
 		            ],
-		            "order": [[ 1, 'asc' ]],
+		            "order": [[ 2, 'desc' ]],
 
 				responsive: true
     	});
