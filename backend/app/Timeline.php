@@ -3,6 +3,9 @@
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Http\Controllers\CommentController;
+use Auth;
+use Cookie;
+use App\Http\Controllers\TimezoneController;
 
 class Timeline extends Model {
 
@@ -29,13 +32,21 @@ class Timeline extends Model {
 	 */
 	protected $hidden = [];
 
-	protected $dates = ['time'];
+	//protected $dates = ['time'];
 
-	protected $appends	= array('time_ago', 'scnt', 'total_time', 'dist', 'session_name');
+	protected $appends	= array('time_ago', 'scnt', 'total_time', 'dist', 'session_name', 'date_zone');
 
 	public function getTimeAgoAttribute()
 	{
-        return Carbon::parse($this->attributes['time'])->diffForHumans();
+        $datetime = Carbon::createFromTimeStamp($this->attributes['utc'])->toDateTimeString();
+        return Carbon::parse($datetime)->diffForHumans();
+    }
+
+    public function getDateZoneAttribute()
+    {
+        $timezone = TimezoneController::index();
+
+        return Carbon::createFromTimeStamp($this->attributes['utc'], $timezone)->toDateTimeString();
     }
 
     public function getScntAttribute() 
@@ -55,8 +66,11 @@ class Timeline extends Model {
 
     public function getSessionNameAttribute()
     {
+        $timezone = TimezoneController::index();
+
     	if($this->attributes['name'] == ''){
-    		$date = Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['time'])->format('D, d.M Y');
+            $datetime = Carbon::createFromTimeStamp($this->attributes['utc'], $timezone)->toDateTimeString();
+    		$date = Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->format('D, d.M Y');
     		$name = "Session: ".$date;
     		return $name;
     	}else{

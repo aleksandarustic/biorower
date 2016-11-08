@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Auth;
+use App\Http\Controllers\TimezoneController;
+
 
 class Notification extends Model {
 
@@ -28,11 +31,19 @@ class Notification extends Model {
 	 */
 	protected $hidden = [];
 
-	protected $appends	= array('time_ago');
+	protected $appends	= array('time_ago', 'date_format');
 
 	public function getTimeAgoAttribute()
 	{
-        return Carbon::parse($this->attributes['time'])->diffForHumans();
+		$datetime = Carbon::createFromTimeStamp($this->attributes['utc'])->toDateTimeString();
+        return Carbon::parse($datetime)->diffForHumans();
+    }
+
+    public function getDateFormatAttribute()
+    {
+    	$timezone = TimezoneController::index();
+
+    	return Carbon::createFromTimeStamp($this->attributes['utc'], $timezone)->toDateTimeString();
     }
 
     public function user_action()

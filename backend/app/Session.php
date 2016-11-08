@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Auth;
+use App\Http\Controllers\TimezoneController;
+
 
 class Session extends Model {
 
@@ -19,7 +22,7 @@ class Session extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['data'];
+	protected $fillable = ['data', 'date'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -28,12 +31,14 @@ class Session extends Model {
 	 */
 	protected $hidden = [];
 
-	protected $appends	= array('session_name');
+	//protected $dates = ['date'];
+
+	protected $appends	= array('session_name', 'date_zone');
 
     public function comments()
     {
         return $this->hasMany('App\Comment', 'session_id', 'id');
-    }    
+    }
 
     public function user()
     {
@@ -47,8 +52,11 @@ class Session extends Model {
 
 	public function getSessionNameAttribute()
     {
+    	$timezone = TimezoneController::index();
+
     	if($this->attributes['name'] == ''){
-    		$date = Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['date'])->format('D, d.M Y');
+    		$datetime = Carbon::createFromTimeStamp($this->attributes['utc'], $timezone)->toDateTimeString();
+    		$date = Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->format('D, d.M Y');
     		$name = "Session: ".$date;
     		return $name;
     	}else{
@@ -56,4 +64,10 @@ class Session extends Model {
     	}
     }
 
+    public function getDateZoneAttribute()
+    {
+    	$timezone = TimezoneController::index();
+
+        return Carbon::createFromTimeStamp($this->attributes['utc'], $timezone)->toDateTimeString();
+    }
 }

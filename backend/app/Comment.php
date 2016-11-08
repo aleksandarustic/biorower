@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Auth;
+use App\Http\Controllers\TimezoneController;
 
 class Comment extends Model {
 
@@ -28,7 +30,7 @@ class Comment extends Model {
 	 */
 	protected $hidden = [];
 
-	protected $appends	= array('time_ago');
+	protected $appends	= array('time_ago', 'date_format');
 
     public function user()
     {
@@ -40,9 +42,17 @@ class Comment extends Model {
         return $this->belongsTo('App\Session');
     }
 
+    public function getDateFormatAttribute()
+    {
+    	$timezone = TimezoneController::index();
+
+     	return Carbon::createFromTimeStamp($this->attributes['utc'], $timezone)->toDateTimeString();
+    }
+
     public function getTimeAgoAttribute()
 	{
-        return Carbon::parse($this->attributes['date'])->diffForHumans();
+		$datetime = Carbon::createFromTimeStamp($this->attributes['utc'])->toDateTimeString();
+        return Carbon::parse($datetime)->diffForHumans();
     }
 
 

@@ -40,7 +40,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 						   'profile_id',
 						   'first_name',
 						   'last_name',
-						   'display_name'
+						   'display_name',
+						   'timezone'
 						   ];
 	
 	/**
@@ -141,9 +142,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			      ->where('read', 0)
     			  ->groupBy('sender_user_id');
 	}
-
-
-
 
 	
 	/*public function getMessagesCountAttribute()
