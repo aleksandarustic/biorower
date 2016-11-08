@@ -155,4 +155,6 @@ Route::controllers([
 	'template' => 'Template\TemplateController',
 ]);
 
+Route::post('/set-cookie', 				'TimezoneController@create');
+
 

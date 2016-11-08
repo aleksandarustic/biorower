@@ -303,12 +303,12 @@ use Carbon;
 					        $groupBy = "";
 					        break;
 					    case ("day"):
-					    	$positionDate = "WEEKDAY(date) as position_in_date,";
+					    	$positionDate = "date as position_in_date,";
 					        $groupBy = "GROUP BY date";
 					        break;
 					    case ("week"):
 					    	$positionDate = "WEEKOFYEAR(date) as position_in_date,";
-					        $groupBy = "GROUP BY YEAR(date), WEEK(date)";
+					        $groupBy = "GROUP BY YEAR(date), WEEK(date,1)";
 					        break;					        
 					    case ("month"):
 					    	$positionDate = "MONTH(date) as position_in_date,";
@@ -353,7 +353,7 @@ use Carbon;
 							 	  INNER JOIN sessions
 							 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
 							 WHERE sessions.user_id = ".$userId.
-							 " AND deleted=0 ORDER BY date ASC" ));
+							 " AND deleted=0 ORDER BY utc ASC" ));
 					}else{
 						$results = DB::select(DB::raw(
 							"SELECT ".GlobalFunctions::GetParametersValuesBySessionsQuery($positionDate).
@@ -362,7 +362,7 @@ use Carbon;
 							 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
 							 WHERE sessions.user_id = ".$userId.
 							 " AND deleted=0 AND date>=\"".$firstDay."\" AND date<=\"".$lastDay."\"".
-							 " ORDER BY date ASC"
+							 " ORDER BY utc ASC"
 							 ));
 					}
 
@@ -477,7 +477,7 @@ use Carbon;
 				MAX(pace_max) as pace500_max,
 				(SUM(time*pace2km_average)/SUM(time)) as pace2k_avg,
 				MAX(pace2km_max) as pace2k_max,
-				(SUM(time*heart_rate_average)/SUM(time)) as hr_avg,
+				IFNULL(SUM(time*heart_rate_average)/SUM(CASE WHEN heart_rate_average = 0 THEN 0 ELSE time END),0) as hr_avg,
 				MAX(heart_rate_max) as hr_max,
 				(SUM(time*stroke_rate_average)/SUM(time)) as srate_avg,
 				MAX(stroke_rate_max) as srate_max,
