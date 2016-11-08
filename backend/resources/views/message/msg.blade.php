@@ -12,7 +12,7 @@
                             <div class="direct-chat-msg">
                                 <div class="direct-chat-info clearfix">
                                     <span class="direct-chat-name pull-left">{{ $res->first_name.' '.$res->last_name}}</span>
-                                    <span class="direct-chat-timestamp pull-right">{{$res->date}}</span>
+                                    <span class="direct-chat-timestamp pull-right">{{$res->date_format}}</span>
                                 </div><!-- /.direct-chat-info -->
                                 <img class="direct-chat-img" src="{{asset($res->name)}}" alt="message user image"><!-- /.direct-chat-img -->
                                 <div class="direct-chat-text">
@@ -24,7 +24,7 @@
                             <div class="direct-chat-msg right">
                                 <div class="direct-chat-info clearfix">
                                     <span class="direct-chat-name pull-right"></span>
-                                    <span class="direct-chat-timestamp pull-left">{{$res->date}}</span>
+                                    <span class="direct-chat-timestamp pull-left">{{$res->date_format}}</span>
                                 </div><!-- /.direct-chat-info -->
                                 <img class="direct-chat-img" src="{{ URL::asset(Auth::user()->profile->image->name) }}" alt="message user image"><!-- /.direct-chat-img -->
                                 <div class="direct-chat-text msg-sent">
@@ -139,17 +139,16 @@
         // Create element from template and set values
         if(data.sender_user_id == {{Auth::user()->id}}){
             var el = createMessageEl{{$id_chat}}();
+            el.find('.timestamp').text(data.date);
         }else{
             var el = createMessageRc{{$id_chat}}();
             el.find('.chat-author').text(data.name);
+            el.find('.timestamp').text(data.date1);
         }
         el.find('.msg-sent').html(data.text);
         var avatar = "{{ asset('') }}" +data.avatar;
         el.find('.chat-avatar').attr('src', avatar);
-        
-        // Utility to build nicely formatted time
-        el.find('.timestamp').text(data.date);
-    
+            
         var messages = $('#id_chat-{{$id_chat}}');
 
         messages.append(el)

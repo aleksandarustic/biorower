@@ -67,6 +67,7 @@
 <script src="{{ URL::asset('dist/js/pusher.js') }}"></script>
 <!-- VEX - dialog -->
 <script src="{{ URL::asset('dist/js/vex.combined.min.js') }}"></script>
+<script src="{{ URL::asset('dist/js/jstz.min.js') }}"></script>
 <script type="text/javascript">        
 var pusher           = new Pusher('{{env("PUSHER_KEY")}}', 
     { cluster: 'eu', encrypted: true});

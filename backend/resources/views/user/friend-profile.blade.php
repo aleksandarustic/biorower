@@ -237,7 +237,7 @@ table tr td:first-child::before {
                   <div class="padding-b-5">
                     <span class="username timline-user"><a href="#">{{ $user->first_name }} {{$user->last_name}}</a></span>
                     <span class="description"><b>The new training saved.</b> - 
-                      <a href="javascript:void(0)" data-toggle="timetip" data-placement="right" title="{{$ps->time}}">{{$ps->time_ago}}</a>
+                      <a href="javascript:void(0)" data-toggle="timetip" data-placement="right" title="{{$ps->date_zone}}">{{$ps->time_ago}}</a>
                     </span>
                   </div><!-- /.user-block -->
                   <!-- /.box-tools -->
@@ -417,7 +417,7 @@ table tr td:first-child::before {
                         <tr id="session-item" data-href='{{ asset('profile/'.$user->display_name.'/session/'.$session['id'].'') }}'>
                             <td data-title="#"></td>
                             <td data-title="name"><a href="{{ asset('profile/'.$user->display_name.'/session/'.$session['id'].'') }}">{{ $session['session_name'] }}</a></td>
-                            <td data-title="Date/Time">{{ $session['date'] }}</td>
+                            <td data-title="Date/Time">{{ $session['date_zone'] }}</td>
                             <td data-title="Time">{{ gmdate(config('parameters.time.format'), $session["time"]) }}</td>
                             <td data-title="Power">{{ round($session["power_average"], config('parameters.pwr_avg.format')) }}</th>
                             <td data-title="Distance">{{ round($session["distance"], config('parameters.dist.format')) }}</td>
@@ -471,7 +471,7 @@ var email2 = 'biorower:' + $('#user-email').val();
                     $('.power-average').append(json[0].pwr_avg);
                     $('.heart-rate-avg').append(json[0].hr_avg);
                     $('.stroke-rate').append(json[0].srate);
-                    var latest_session = json[0].date;
+                    var latest_session = json[0].date_zone;
                     $('.latest-session').append(moment(latest_session).format('MMM Do YYYY h:mm a'));
                 }else{
                     $('.time').append('-');

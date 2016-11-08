@@ -86,7 +86,7 @@ function OnloadFunction ()
 		        "columns" : [
 				  	     	{ 'defaultContent'  : '' },
 				  	     	{ 'data' : 'linkname' },
-				  	     	{ 'data' : 'date' },
+				  	     	{ 'data' : 'date_zone' },
 				  	     	{ 'data' : 'time' },
 				  	     	{ 'data' : 'pwr_avg' },
 				  	     	{ 'data' : 'dist' },

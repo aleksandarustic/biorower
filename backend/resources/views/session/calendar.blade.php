@@ -13,25 +13,20 @@
 	<script>
     var j = jQuery.noConflict();
 
-
-	j(document).ready(function() {
-         j("#eventContent").hide();
+	 j(document).ready(function() {
+      j("#eventContent").hide();
     
-		var urlBase = "<?php echo Request::root() ?>";
-        var email1="<?php echo Auth::user()->email ?>";  
-        var display_name= "<?php echo Auth::user()->display_name ?>"; 
-   
-        var email2="biorower:"+email1;
+		    var urlBase       = "<?php echo Request::root() ?>";
+        var email1        = "<?php echo Auth::user()->email ?>";  
+        var display_name  = "<?php echo Auth::user()->display_name ?>"; 
+        var email2        = "biorower:"+email1;
 
-	
-		var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-		 var events = [];
+		    var date    = new Date();
+		    var d       = date.getDate();
+		    var m       = date.getMonth();
+		    var y       = date.getFullYear();
+		    var events  = [];
 
-
-	
 		j('#calendar').fullCalendar({
             header: {
                 left: 'today',
@@ -97,17 +92,17 @@
               
 
        				    for(var r=0;r<dd.length;r++){
-                      d = new Date(dd[r].DateTime);
+                      d = new Date(dd[r].DateFormat);
                       datum7 = j.fullCalendar.formatDate( d, "ddS MMM yyyy");
                       datumf.push(datum7); 
-                      vreme = new Date(dd[r].DateTime);
+                      vreme = new Date(dd[r].DateFormat);
                       vremef = j.fullCalendar.formatDate( vreme, "HH:mm:ss");
                       timef.push(vremef);
 
                             if(dd[r].Name!=null && dd[r].Name!=""){
                                 ime.push(dd[r].Name);
                             }else{ // ukoliko ne postoji ime za sesiju, dodaj novi naziv
-                                datum2  = dd[r].DateTime;
+                                datum2  = dd[r].DateFormat;
                                 dat     = new Date(datum2);
                                 novi    = j.fullCalendar.formatDate( dat, "ddd ddS MMM yyyy"); 
                                 ime.push("Session:"+novi);
@@ -115,7 +110,7 @@
                   events.push({
                                 id:dd[r].sessionID,
                                 title:ime[r],
-                                start: dd[r].DateTime,
+                                start: dd[r].DateFormat,
                                 datum: datumf[r],
                                 time: timef[r],
                                 description:dd[r].Description,

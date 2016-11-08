@@ -5,7 +5,7 @@
               <div class="comment-text">
                       <span class="username">{{$comm->first_name}} {{$comm->last_name}}
                         <span class="text-muted pull-right">
-                       	 <a href="javascript:void(0)" data-toggle="comm-timetip" data-placement="top" title="{{$comm->date}}">{{$comm->time_ago}}</a>
+                       	 <a href="javascript:void(0)" data-toggle="comm-timetip" data-placement="top" title="{{$comm->date_format}}">{{$comm->time_ago}}</a>
                        	 <br> 
                        	@if($comm->user_id == Auth::user()->id)
                        	 <i class="fa fa-trash-o margin-r-5 comm-delete" id="{{$comm->id}}"></i>
