@@ -66,6 +66,7 @@
 					<a href="{{ url('/') }}"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
 				</div><!-- /.login-logo -->
 				<form action="{{ url('/login') }}" method="post" id="login-form">
+					<input type="hidden" name="timezone" id="timezone" value="">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group has-feedback">
 						<input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
@@ -136,7 +137,12 @@
 <script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
 <script src="{{ URL::asset('plugins/iCheck/icheck.min.js') }}"></script>
+<script src="{{ URL::asset('dist/js/jstz.min.js') }}"></script>
 <script>
+	var tz = jstz.determine();
+	$('#timezone').val(tz.name());
+ 	$.post( "{{ asset('/set-cookie') }}", {tz: tz.name()}, function( data ) {});  
+
 	$(function() { 
     // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {

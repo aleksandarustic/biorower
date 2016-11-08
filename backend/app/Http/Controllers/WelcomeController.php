@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Socialize;
+use Cookie;
+use App\Http\Controllers\TimezoneController;
 
 class WelcomeController extends Controller {
 
@@ -51,8 +53,23 @@ class WelcomeController extends Controller {
 				'password' => $request->input('password'),
 			])){
 
+				$user 		= Auth::user();
+				$timezone 	= Cookie::get('tz');
+				$timezone1 	= $request->input('timezone'); 
+
 				if(Auth::user()->activated == 1){
-						return redirect('/profile');
+
+					if(!$timezone){
+        				Cookie::queue('tz', $timezone1);
+					}	
+						if($user->timezone == '' or $user->timezone != $timezone1){
+							$user->timezone = $timezone1;
+							$user->save();
+							return redirect('/profile');
+						}else{
+							return redirect('/profile');
+						}
+					
 				}else{
 						Auth::logout();
 						return redirect('/')->with('status', 'You profile is not activated yet. Come back soon.');
@@ -95,15 +112,16 @@ class WelcomeController extends Controller {
 			$profile = new Profile();
 			$profile->save();
 
-			$user->first_name = $request->input('first_name');
-			$user->last_name = $request->input('last_name');
-			$user->email = $request->input('email');
-			$user->reset_password_code = $random;
-			$user->password = bcrypt($request->input('password'));
-			$user->activated = 0;
-			$user->profile_id = $profile->id;
-			$user->display_name = preg_replace('/([^@]*).*/', '$1', $request->input('email'));
-			$user->linkname = preg_replace('/([^@]*).*/', '$1', $request->input('email'));
+			$user->first_name 			= $request->input('first_name');
+			$user->last_name 			= $request->input('last_name');
+			$user->email 			   	= $request->input('email');
+			$user->reset_password_code 	= $random;
+			$user->password 			= bcrypt($request->input('password'));
+			$user->activated 			= 0;
+			$user->profile_id 			= $profile->id;
+			$user->display_name 		= preg_replace('/([^@]*).*/', '$1', $request->input('email'));
+			$user->linkname 			= preg_replace('/([^@]*).*/', '$1', $request->input('email'));
+			$user->timezone 			= $request->input('timezone');
 
 			if($user->save())
 			{

@@ -44,6 +44,7 @@
 					<a href="{{ url('/') }}"><img src="{{ URL::asset('images/login/Logo.png') }}" alt="Biorower"/></a>
 				</div><!-- /.login-logo -->
 				<form action="{{ url('/register') }}" method="post">
+					<input type="hidden" name="timezone" id="timezone" value="">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<div class="form-group has-feedback">
 						<input type="text" name="first_name" placeholder="First name" value="{{ old('first_name') }}">
@@ -126,7 +127,11 @@
 <script src="js/bootstrap/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="js/icheck/icheck.min.js"></script>
+<script src="{{ URL::asset('dist/js/jstz.min.js') }}"></script>
 <script>
+	var tz = jstz.determine();
+	$('#timezone').val(tz.name());
+	
 	$(function () {
 		$('input').iCheck({
 			checkboxClass: 'icheckbox_square-blue',

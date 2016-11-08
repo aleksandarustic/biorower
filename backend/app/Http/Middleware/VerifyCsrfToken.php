@@ -10,6 +10,7 @@ class VerifyCsrfToken extends BaseVerifier {
 
 	protected $except = [
         'api/*',
+        'set-cookie'
     ];
 
 	/**
