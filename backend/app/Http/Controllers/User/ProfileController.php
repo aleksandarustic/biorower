@@ -53,8 +53,8 @@ class ProfileController extends Controller {
 					$sessions = Session::where('user_id', $user->id)
 								->where('deleted', 0)
 								->leftJoin('data_biorower_sessions', 'data_biorower_sessions_id', '=', 'data_biorower_sessions.id')
-								->orderBy('date', 'DESC')
-								->select('sessions.id', 'sessions.date', 'sessions.name', 'sessions.description', 'data_biorower_sessions.distance', 'data_biorower_sessions.power_average', 'data_biorower_sessions.heart_rate_average', 'data_biorower_sessions.time' )								   
+								->orderBy('utc', 'DESC')
+								->select('sessions.id', 'sessions.date', 'sessions.name', 'sessions.description', 'data_biorower_sessions.distance', 'data_biorower_sessions.power_average', 'data_biorower_sessions.heart_rate_average', 'data_biorower_sessions.time', 'sessions.utc')
 						    	->get();
 
 				if(Cache::has('user-is-online-'.$user->id)){ // whether the user is online

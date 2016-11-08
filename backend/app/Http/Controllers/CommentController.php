@@ -49,8 +49,8 @@ class CommentController extends Controller {
 						->join('profiles', 'users.profile_id', '=', 'profiles.id')
 						->join('images', 'profiles.image_id', '=', 'images.id')			
 						->select('comments.text', 'comments.date', 'comments.session_id', 'comments.id',
-							'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'comments.user_id')
-						->orderBy('date', 'desc')
+							'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'comments.user_id', 'comments.utc')
+						->orderBy('utc', 'desc')
 						->skip($position)
 						->take($item_per_page)
 					    ->get();
@@ -84,14 +84,15 @@ class CommentController extends Controller {
 					$com->user_id 		= $id;
 					$com->text 			= $request['text'];
 					$com->status 		= 1;
+					$com->utc 			= strtotime(Carbon::now());
+					$dt 				= Carbon::now(Auth::user()->timezone);
+					$com->date     		= $dt->format('Y-m-d H:i:s');
 					$com->save();
 
 					$user 				= User::findOrFail($id);
 					$com->avatar 		= $user->profile->image->name;
 					$com->name 	 		= $user->first_name.' '.$user->last_name;
-					$dt 				= Carbon::now();
-					$com->date     		= $dt->format('Y-m-d H:i:s');
-
+		
 					$this->pusher->trigger('comments', 'comments-'.$ids, $com);
 					$addNotif  = NotificationsController::addNotifications(3, $ids, $id2);
 					$statusCode 		= 200;

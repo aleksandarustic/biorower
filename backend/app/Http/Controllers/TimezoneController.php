@@ -5,36 +5,35 @@ use Illuminate\Http\Request as req;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 use Auth;
-use App\Timeline;
-use App\Session;
 use App\User;
-use App\Comment;
-use DB;
+use Cookie;
 
-
-class TimelineController extends Controller {
+class TimezoneController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public static function index($id2)
+	public static function index()
 	{
-		$posts = Timeline::where('timeline.user_id', $id2)
-						->where('timeline.status', 1)
-						->leftJoin('sessions', 'timeline.object_id', '=', 'sessions.id')
-						->join('data_biorower_sessions', 'sessions.data_biorower_sessions_id', '=', 'data_biorower_sessions.id')
-						->join('images', 'timeline.image', '=', 'images.id')
-						->select('timeline.time', 'timeline.object_id', 'timeline.type', 'sessions.description', 'sessions.name', 'data_biorower_sessions.distance', 'data_biorower_sessions.time as totaltime', 'data_biorower_sessions.stroke_count', 'images.name as image', 'timeline.coms', 'timeline.utc')
-						->orderBy('utc', 'desc')
-					    ->get();
+		$user = Auth::user();
 
-		if($posts){
-	    	return $posts;
-	    }else{
-	    	return false;
-	   	}
+    	if($user->timezone == ''){ // user has not set timezone in db
+    		if(!Cookie::get('tz')){ // Check if there is cookie with timezone
+    			$user->timezone = "Etc/GMT+0";
+    			$user->save();
+    			$timezone 		= "Etc/GMT+0";	
+    		}else{ 
+    			$timezone 		= Cookie::get('tz');
+    			$user->timezone = $timezone;
+    			$user->save();
+    		}
+    	}else{
+    		$timezone 	= $user->timezone;
+    	}
+
+    	return $timezone;
 	}
 
 	/**
@@ -42,9 +41,14 @@ class TimelineController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(req $request)
 	{
-		//
+		$timezone 	= Cookie::get('tz');
+		if(!$timezone or $timezone != $request['tz'] ){
+        	return response('ok')->withCookie(cookie('tz', $request['tz']));
+    	}else{
+    		return response('vec postoji');
+    	}
 	}
 
 	/**

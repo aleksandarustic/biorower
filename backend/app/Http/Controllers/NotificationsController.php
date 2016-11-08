@@ -30,8 +30,8 @@ class NotificationsController extends Controller {
 						->leftJoin('users', 'notifications.user_action', '=', 'users.id')
 						->join('profiles', 'users.profile_id', '=', 'profiles.id')
 						->join('images', 'profiles.image_id', '=', 'images.id')		
-						->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'notifications.type', 'notifications.object', 'notifications.isRead', 'notifications.time')
-						->orderBy('time', 'desc')
+						->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'notifications.type', 'notifications.object', 'notifications.isRead', 'notifications.time', 'notifications.utc')
+						->orderBy('utc', 'desc')
 					    ->get();
 
 		if($notifications){
@@ -70,12 +70,17 @@ class NotificationsController extends Controller {
 							$new1->user_get 		= $id2;
 							$new1->type 			= 1;
 							$new1->status 			= 1;
+							$new1->utc 				= strtotime(Carbon::now());
+							$dt 					= Carbon::now(Auth::user()->timezone);
+							$new1->time     		= $dt->format('Y-m-d H:i:s');
 							$new1->save(); // save new notification
 						}else{ 
 							$check->user_action		= $id;
 							$check->user_get		= $id2;
 							$check->isRead 			= 0;
-							$check->time 			= Carbon::now();
+							$check->utc 			= strtotime(Carbon::now());
+							$dt 					= Carbon::now(Auth::user()->timezone);
+							$check->time 			= $dt->format('Y-m-d H:i:s');
 							$check->save(); // change older notifcation
 						}
 
@@ -99,6 +104,9 @@ class NotificationsController extends Controller {
 							$new2->object 		= $object;
 							$new2->type 		= 2;
 							$new2->status 		= 1;
+							$new2->utc 			= strtotime(Carbon::now());
+							$dt 				= Carbon::now();
+							$new2->time 		= $dt->format('Y-m-d H:i:s');
 							$new2->save(); // save new notification
 
 							// Display a new notification to users via a pusher
@@ -116,6 +124,9 @@ class NotificationsController extends Controller {
 					$new2->user_get 	= $id2;
 					$new2->object 		= $object;
 					$new2->type 		= $type;
+					$new2->utc 			= strtotime(Carbon::now());
+					$dt 				= Carbon::now(Auth::user()->timezone);
+					$new2->time     	= $dt->format('Y-m-d H:i:s');
 					$new2->status 		= 1;
 					$new2->save(); // save new notification
 

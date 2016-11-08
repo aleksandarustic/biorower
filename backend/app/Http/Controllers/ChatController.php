@@ -85,20 +85,24 @@ class ChatController extends Controller {
 		$message->sender_user_id = $id;
 		$message->receiver_user_id = $id2;
 		$message->text 		= $request['text'];
+		$message->utc 		= strtotime(Carbon::now());
+		$dt 				= Carbon::now(Auth::user()->timezone);
+		$message->date     	= $dt->format('Y-m-d H:i:s');
 		$message->save();
 
 		$user 				= User::findOrFail($id);
+		$user2 				= User::findOrFail($id2);
 		$message->avatar 	= $user->profile->image->name;
 		$message->name 	 	= $user->first_name.' '.$user->last_name;
-		$dt 				= Carbon::now();
-		$message->date      = $dt->format('Y-m-d H:i:s');
+		$date 				= Carbon::now($user2->timezone);
+		$message->date1     = $date->format('Y-m-d H:i:s');
 		$id_chat1 			= FriendsController::CheckFriendStatus($id, $id2);
 		$message->id_chat 	= $id_chat1->id;
 
 		$newmsg 			= Message::where('receiver_user_id', $id2)
 						    ->where('status', 1)
 						    ->where('read', 0)
-						    ->select(DB::raw('count(sender_user_id) as nummsg, sender_user_id'))
+						    ->select(DB::raw('count(sender_user_id) as nummsg, sender_user_id') ,'utc')
 						    ->groupBy('sender_user_id')
 						    ->get();
 
@@ -165,8 +169,8 @@ class ChatController extends Controller {
 					                 	->where('messages.sender_user_id', '=', $id2)
 					                 	->where('messages.receiver_user_id', '=', $id); 
 					                 }) 									
-								->select('date')
-						  	    ->orderBy('date', 'ASC')
+								->select('date', 'utc')
+						  	    ->orderBy('utc', 'ASC')
 						  	    ->paginate(15);
 			
 			$position 		=	$msgs->total()-15;		
@@ -184,8 +188,8 @@ class ChatController extends Controller {
 					                 }) 
 								->join('profiles', 'users.profile_id', '=', 'profiles.id')
 								->join('images', 'profiles.image_id', '=', 'images.id')					
-								->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'messages.sender_user_id', 'messages.receiver_user_id', 'messages.text', 'messages.date')
-						  	    ->orderBy('date', 'ASC')
+								->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'messages.sender_user_id', 'messages.receiver_user_id', 'messages.text', 'messages.date', 'messages.utc')
+						  	    ->orderBy('utc', 'ASC')
 						  	    ->skip($position)
 								->take(15)
 							    ->get();		  	    
@@ -221,8 +225,8 @@ class ChatController extends Controller {
 					                 }) 
 								->join('profiles', 'users.profile_id', '=', 'profiles.id')
 								->join('images', 'profiles.image_id', '=', 'images.id')					
-								->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'messages.sender_user_id', 'messages.receiver_user_id', 'messages.text', 'messages.date')
-						  	    ->orderBy('date', 'ASC')
+								->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'messages.sender_user_id', 'messages.receiver_user_id', 'messages.text', 'messages.date', 'messages.utc')
+						  	    ->orderBy('utc', 'ASC')
 						  	    ->skip($position)
 								->take(15)
 							    ->get();
@@ -244,7 +248,7 @@ class ChatController extends Controller {
 		$result = Message::where('receiver_user_id', $id)
 		    ->where('status', 1)
 		    ->where('read', 0)
-		    ->select(DB::raw('count(sender_user_id) as nummsg, sender_user_id'))
+		    ->select(DB::raw('count(sender_user_id) as nummsg, sender_user_id'), 'utc')
 		    ->groupBy('sender_user_id')
 		    ->get();
 

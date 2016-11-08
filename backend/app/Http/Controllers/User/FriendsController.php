@@ -8,12 +8,14 @@ use Auth;
 use App\User;
 use App\Friend;
 use App\Profile;
+use App\Message;
 use Input;
 use Exception;
 use URL;
 use DB;
 use Vinkla\Pusher\PusherManager;
 use App\Http\Controllers\NotificationsController;
+use Carbon\Carbon;
 //use Vinkla\Pusher\Facades\Pusher;
 
 
@@ -44,17 +46,19 @@ class FriendsController extends Controller {
 	        try{  				
 	            if(!$check){ // no friend - create new request 			
 						$newRequest = new Friend();
-						$newRequest->user1 = $id;
-						$newRequest->user2 = $request['id2'];
-						$newRequest->status = 1;
-						$newRequest->user_action = $id;
-						$newRequest->view = 0;
+						$newRequest->user1 			= $id;
+						$newRequest->user2 			= $request['id2'];
+						$newRequest->status 		= 1;
+						$newRequest->user_action 	= $id;
+						$newRequest->view 			= 0;
+						$newRequest->utc_action 	= strtotime(Carbon::now());
 						$newRequest->save();
 				}else{
 					if($check['status'] != 2)
-						$check->status = 1;
-						$check->view = 0;
-						$check->user_action = $id;
+						$check->status 			= 1;
+						$check->view 			= 0;
+						$check->user_action 	= $id;
+						$check->utc_action	 	= strtotime(Carbon::now());
 						$check->save();	
 				}
 
@@ -90,6 +94,7 @@ class FriendsController extends Controller {
 	            if($res && $res->user_action != $id && $res->status == 1){		  
 	     			$res->status 		= 2;
 	     			$res->user_action 	= $id;
+	     			$res->utc_action 	= strtotime(Carbon::now());
 					$res->save();	  			  
 					$statusCode 		= 200;
 					//$res->name 			= Auth::user()->first_name.' '.Auth::user()->last_name;
@@ -159,13 +164,27 @@ class FriendsController extends Controller {
 
 		if (Request::ajax()){
 				$id 	= Auth::id();	
+				$id2 	= $request['id2'];
 			try{
-				$res = $this->CheckFriendStatus($id, $request['id2']);
+				$res = $this->CheckFriendStatus($id, $id2);
 	            	if($res){		  
-		     			$res->status = 0;
-		     			$res->user_action = $id;
+		     			$res->status 		= 0;
+		     			$res->user_action 	= $id;
+		     			$res->utc_action 	= strtotime(Carbon::now());
 						$res->save();	  			  
 						$statusCode = 200;	
+
+						$messages 	= Message::where('status', 1)
+									->where('read', 0)
+					              	->where(function($query) use ($id,$id2){
+									        $query->where('messages.sender_user_id', '=', $id)
+					                 			  ->where('messages.receiver_user_id', '=', $id2); 
+									    })
+									->orWhere(function($query) use ($id,$id2){
+									        $query->where('messages.sender_user_id', '=', $id2)
+					                 			  ->where('messages.receiver_user_id', '=', $id); 
+									    })
+					                ->update(['read' => '1']); 
 					}
 			}catch(Exception $e){
 				$error = "error";
@@ -198,7 +217,7 @@ class FriendsController extends Controller {
 		->join('profiles', 'users.profile_id', '=', 'profiles.id')
 		->join('images', 'profiles.image_id', '=', 'images.id')					
 		->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name')
-		->orderBy('date_action', 'desc')
+		->orderBy('utc_action', 'desc')
 	    ->get();
 
 	    return $result;
@@ -225,7 +244,7 @@ class FriendsController extends Controller {
 		->join('profiles', 'users.profile_id', '=', 'profiles.id')
 		->join('images', 'profiles.image_id', '=', 'images.id')					
 		->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name')
-		->orderBy('date_action', 'desc')
+		->orderBy('utc_action', 'desc')
 	    ->get();
 
 	    return $result;	
