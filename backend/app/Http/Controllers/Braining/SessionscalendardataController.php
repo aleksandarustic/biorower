@@ -77,6 +77,7 @@ class SessionscalendardataController extends Controller {
 						"DateTime"   => $value["date"],
 						"Name"		 =>	$value["name"],
 						"Description"=>	$value["description"],
+						"DateFormat" => $value['date_zone'],
 						"duration"	 =>	gmdate(config('parameters.time.format'), $value->sessionSummary->time),
 						"distance"	 =>	round($value->sessionSummary->distance, config('parameters.dist.format')),
 						"power"		 =>	round($value->sessionSummary->power_average, config('parameters.pwr_avg.format')),

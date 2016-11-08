@@ -72,11 +72,11 @@ class SessionsRecentListController extends Controller {
 		
 
 				$sessions = Session::where('user_id', $userFirst->id)
-								   ->orderBy('date', 'DESC')
+								   ->orderBy('utc', 'DESC')
 								   ->skip(Input::get("offset"))
 								   ->take(Input::get("pageSize"))
 								   ->with("sessionSummary")								   
-								   ->with('comments')
+								   ->with('comments')						
 						    	   ->get();
 
 				$sessionsRecentList = array();
@@ -91,6 +91,7 @@ class SessionsRecentListController extends Controller {
 				   		"ID" 				=> 	$value["id"], 
 						"date" 				=> 	$value["date"],
 						"UTC"				=>	$value["utc"],
+						"date_zone"			=> 	$value['date_zone'],
 						"name"				=>	$value["name"],
 						"description"		=>	$value["description"],
 						"session_name"		=> 	$value['session_name'],

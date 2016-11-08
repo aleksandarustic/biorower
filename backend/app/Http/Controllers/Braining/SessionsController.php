@@ -35,6 +35,7 @@ class SessionsController extends Controller {
 
         DB::beginTransaction();
 
+        try {
 	         $response = [
 	          'sessionId'  => '',
 	          'packetsReceived'  => '',
@@ -116,9 +117,10 @@ class SessionsController extends Controller {
 						$session->duration = $valInput["duration"];						
 					}
 
-					$session->utc = $valInput["UTC"];
-					$session->date = $valInput["date"];
-					$session->website_id = config('app.website');
+		
+					$session->utc 			= strtotime($valInput['date']);
+					$session->date 			= $valInput["date"];
+					$session->website_id 	= config('app.website');
 
 					// in case that it is a biorower 
 					if (config('app.website') == 1)
@@ -167,6 +169,8 @@ class SessionsController extends Controller {
 					$tl 			= new Timeline();
 					$tl->object_id 	= $session->id;
 					$tl->user_id 	= $userFirst->id;
+					$tl->time 		= $valInput["date"];
+					$tl->utc 		= strtotime($valInput['date']);
 					$tl->type 		= 1;
 					$tl->image 		= 2;
 					$tl->status 	= 1;
@@ -226,14 +230,14 @@ class SessionsController extends Controller {
 
 	        
 
-	 	/*}
+	 	}
 	 	catch (Exception $e)
 	 	{
 	    	DB::rollBack();
 	    	if ($statusCode != 403){
 	    		$statusCode = 402;
 	    	}
-        }*/
+        }
         
 
 		return Response::json($response, $statusCode);
