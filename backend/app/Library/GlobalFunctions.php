@@ -412,7 +412,8 @@ use Carbon;
 				 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
 				 WHERE sessions.user_id = ".$userId));
 
-			return $results;
+			//return $results;
+			return GlobalFunctions::PrepareArrayParametersStatistics($results);
 		}
 
 		public static function GetParametersValuesBySessionsQuery($positionDate){
