@@ -9,7 +9,7 @@
             <div class="col-md-3 col-left">
 
                 <!-- Profile Image -->
-                <div class="box box-primary">
+                <div class="box box-primary" style="margin-bottom: 16px;">
                     <div class="box-body box-profile">
                         <div class="img-circle-width">
                             <a href="{{ url('/profile/edit') }}"><span class="label-edit edit-img"></span>
@@ -75,10 +75,29 @@
                     <!-- /.box-body -->
                 </div><!-- /.box -->
 
-                <!--I am Following -->
-
-
-                <!-- Following me -->
+                <!--USER FRIENDS (show 8) -->
+                    <div class="box box-primary">
+                    <div class="box-header">
+                      <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i><a href="{{ asset($user->display_name.'/friends')}}"> Friends - {{count($friends)}} </a></h3>
+                      </div>
+                             <div class="box-body">
+                        <div class="box-body no-padding">
+                          <ul class="users-list clearfix">
+                        @foreach($friends as $friend)  
+                            <li>
+                            <a class="" href="{{ asset('/'.$friend->display_name)}}">
+                              <img src="{{asset($friend->name)}}" alt="{{ $friend->first_name.' '.$friend->last_name}}"><span class="users-list-name"> {{ $friend->first_name.' '.$friend->last_name}} </span>
+                              <span class="users-list-date">&#64;{{$friend->display_name}}</span> </a>
+                            </li>
+                        @endforeach
+                          </ul><!-- /.users-list -->
+                        </div><!-- /.box-body -->
+                        <div class="box-footer text-center padding-bottom-zero">
+                          <a href="{{ asset('profile/myfriends')}}" class="uppercase">View All Friends</a>
+                        </div><!-- /.box-footer -->
+                      </div><!--/.box -->
+                    </div>
+                <!--USER FRIENDS (show 8) -->
 
 
             </div><!-- /.col -->
@@ -612,7 +631,9 @@
                                                     </div>
                                                     <!-- List of Parametars -->
                                                     <div id="history-graph-params" class="param-box">
+                                                    <div class="row">
                                                           <ul class="checkbox icheck modalParm-list" id="lista1">
+                                                        <div class="col-md-6">  
                                                             <li>
                                                                 <label for="strokeCount">
                                                                     <input type="checkbox" class="parameters" id="strokeCount" value="scnt" >
@@ -709,6 +730,8 @@
                                                                     <span class="hr_avg">HR</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
+                                                        </div>
+                                                        <div class="col-md-6">    
                                                             <li>
                                                                 <label for="strokeRateMax">
                                                                     <input type="checkbox" class="parameters" id="strokeRateMax" value="srate_max">
@@ -810,16 +833,19 @@
                                                             </li>
 
 
-
+                                                        </div>
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
-
+                                                     </div> <!-- End ./row -->
 
 
 
                                                     </div><!-- /.List of Parametars -->
+
                                                      <div id="progress-graph-params" class="param-box">
+                                                        <div class="row">
                                                           <ul class="checkbox icheck modalParm-list" >
+                                                            <div class="col-md-6"> 
                                                             <li>
                                                                 <label for="strokeCount2">
                                                                     <input type="checkbox" class="parameters2" id="strokeCount2" value="scnt" >
@@ -916,6 +942,8 @@
                                                                     <span class="hr_avg2">HR</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
+                                                            </div>
+                                                        <div class="col-md-6"> 
                                                             <li>
                                                                 <label for="strokeRateMax2">
                                                                     <input type="checkbox" class="parameters2" id="strokeRateMax2" value="srate_max">
@@ -1016,10 +1044,11 @@
                                                                 </label>
                                                             </li>
 
-
+                                                        </div>
 
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
+                                                    </div> <!-- End ./row -->
 
 
 

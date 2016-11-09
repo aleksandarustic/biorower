@@ -13,7 +13,6 @@ table tr td:first-child::before {
 }
 </style>
  <section class="content">
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 
     <div class="row">
        	<div class="col-md-3 col-left">
@@ -55,7 +54,7 @@ table tr td:first-child::before {
                         <!-- Item 2 -->
                         <div class="col-sm-12 about-border-t">
                             <div class="col-sm-6 about-rowerIcon">
-                                <img src="dist/img/rower-icon.png">
+                                <img src="{{ asset('dist/img/rower-icon.png') }}">
                             </div>
                             <!-- Item 3.1 -->
                             <div class="col-sm-6 about-middle">
@@ -224,10 +223,10 @@ table tr td:first-child::before {
   <!-- row -->
   <div class="row no-padding">
       <div class="">
-      <ul class="timeline">
+      <ul class="scroll-timeline timeline">
 <!-- timeline item -->
 @foreach($posts as $ps)
-  <li>
+  <li id="timeline-item">
       <i class="timeline-thumb"><img class="img-circle" src="{{asset($user->name)}}" alt="user image"></i>
 <div class="timeline-item">
     <div class="">
@@ -270,7 +269,7 @@ table tr td:first-child::before {
               <a rel="nofollow" data-shared="sharing-twitter-650" href="http://blog.himpfen.com/social-sharing-buttons-bootstrap-font-awesome/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><i class="fa fa-twitter margin-r-5"></i> Twitter</a>
           </li>
           <li class="li-fb"> <!-- Facebook -->
-            <a rel="nofollow" data-shared="sharing-facebook-650" href="http://blog.himpfen.com/social-sharing-buttons-bootstrap-font-awesome/?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><i class="fa fa-facebook margin-r-5"></i> Facebook</a>
+            <a class="fb-xfbml-parse-ignore" rel="nofollow" data-shared="sharing-facebook-650" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F46.101.189.85%2Fprofile%2Fakvinskit%2Fsession%2F616&amp;src=sdkpreparse" target="_blank" title="Click to share on Facebook"><i class="fa fa-facebook margin-r-5"></i> Facebook</a>
           </li>
           <li class="li-goog"><!-- Google+ -->
             <a rel="nofollow" data-shared="sharing-google-650" href="http://blog.himpfen.com/social-sharing-buttons-bootstrap-font-awesome/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><i class="fa fa-google-plus margin-r-5"></i> Google+</a>
@@ -379,12 +378,18 @@ table tr td:first-child::before {
       <b> The user does not have any announcement. </b>
     @endif  
 </li>
-<li><i class=""></i></li>   
+<li><i class=""></i></li>  
+<li>
+  <div id="pagination" style="display: none; ">{!! $posts->render() !!}</div>
+</li> 
             </ul>
+            <br>
+
             </div><!-- /.col -->
           </div><!-- /.row -->
+
 </section>
-                     <!-- /.Timeline -->
+            <!-- /.Timeline -->
 </div><!-- /.tab-pane -->
                
     <!-- Tranings List Table -->             
@@ -460,7 +465,7 @@ var email2 = 'biorower:' + $('#user-email').val();
     $.ajax({
             type: 'POST',
             dataType: 'json',
-            url : 'api/v1/sessions_recent_list',
+            url : '{{ asset('api/v1/sessions_recent_list') }}',
             data: {account: email2 ,offset:0,pageSize:1, web: 1},
             success: function (response) {
                 var json = JSON.parse(JSON.stringify(response.sessionsRecentList));
@@ -528,37 +533,43 @@ $(document).on("click", "#close-comments", function(){
 // ***** COMMENTS 
 
 // INFINITE SCROLL / ucitavanje jos sesija prilikom skrolovanja
-/*(function(){
+(function(){
     var loading_options = {
-        finishedMsg: "No<br> more <br>results.",
+        finishedMsg: "No more results.",
         msgText: "Loading...",
         img: "{{ asset('images/ajax-loader.gif') }}",
     };
 
-    $('table.table tbody').infinitescroll({
+    $('ul.scroll-timeline').infinitescroll({
       loading : loading_options,
       navSelector : "#pagination .pagination",
       nextSelector : "#pagination .pagination li.active + li a",
-      itemSelector : "#session-item"
+      itemSelector : "#timeline-item"
     });
-})();*/
+})();
 
 // UNFRIEND - cancellation friendship
   $(document).on("click", "#unfriend-button", function(){
         var id    = "<?php echo $user->id; ?>";
         var name  = "<?php echo $user->display_name; ?>";
         var url = '{{ URL::asset('') }}';
-            $.ajax({
-                  url: '{{ asset('/unfriend') }}',
-                  type: 'POST',
-                  dataType: 'json',
-                  data: {id2: id},
-                  success: function (data) {
-                      if (data == 200) {
-                          window.location.href = url+name;
-                      }
-                  }
-            });   
+        vex.dialog.confirm({
+            message: 'Are you sure you want to remove a friend?',
+            callback: function (value) {
+              if(value == true){
+                  $.ajax({
+                        url: '{{ asset('/unfriend') }}',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {id2: id},
+                        success: function (data) {
+                            if (data == 200) {
+                                window.location.href = url+name;
+                            }
+                        }
+                  });
+              }
+        } });   
   });
 // UNFRIEND - cancellation friendship
 

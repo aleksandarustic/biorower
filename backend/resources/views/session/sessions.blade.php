@@ -72,8 +72,9 @@ function OnloadFunction ()
 
 		        	  	d[i].linkname    = "<a href='javascript:void(0)'><div id='nameSession"+d[i].ID+"'>"+d[i].session_name+"</div></a>";
 		        	  	d[i].sessiondesc = "<div id='descSession"+d[i].ID+"'> "+d[i].description+" </div>";
+		        	  	//d[i].sessiondesc   = '<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" title="Session description:" data-content="'+d[i].description+'">View description</button>';
 		       	}
-
+		       	
 		var table = $('#my-sessions').DataTable({
 		        "paging"  :   true,
 		        "ordering":   true,
@@ -118,9 +119,11 @@ function OnloadFunction ()
 
 			table.on('click', 'tr', function (e) {
 					var ids = table.row( this ).data();
+				if(ids){
 				    if(!$(e.target).is('i')){
 				        window.location.href = "{{asset('profile/')}}/"+display_name+"/session/"+ids.ID;
 				    }
+				}
    			});    
 			//******** CLICK ON DELETE ICON *******/
    			$('#my-sessions tbody').on( 'click', 'i.fa-trash-o', function () {
@@ -137,7 +140,8 @@ function OnloadFunction ()
 						        data: {account: email2 ,id: id}, 
 						        success: function (data3) {
 						        	if(data3 == 200){	
-						 				rows.remove().draw();
+						 				rows.remove().draw(false);
+						 				vex.dialog.alert('You have successfully deleted the session.');
 							    	}
 						        }// end success
 						    }) 				    	
@@ -180,6 +184,8 @@ vex.dialog.open({
 				        	if(data4 == 200){
 				      			ime.innerHTML  = data.InputNameSession;
 				      			opis.innerHTML = data.InputDescSession;	
+				      		}else{
+				      			vex.dialog.alert('An error occurred, try again.')
 				      		}		    
 				        } // success /
 			})// ajax end

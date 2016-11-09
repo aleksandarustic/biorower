@@ -143,8 +143,8 @@ $(document).ready(function() {
             channel.bind( user, function(data) {
                     $.ajax({
                         url: '{{ asset('/new-requests') }}',
-                        type: 'POST'
-,                       dataType: 'json',
+                        type: 'POST',
+                        dataType: 'json',
                         success: function (data) {
                             if (data > 0) {
                                     span.innerHTML = data;
@@ -278,18 +278,23 @@ $(document).on("click", "#confirm-friend", function(event){
 $(document).on("click", "#unfriend", function(){
         var id    = $(this).attr("data"); // get user id
         var button = document.getElementById('user'+id);
-
-            $.ajax({
-                  url: '{{ asset('/unfriend') }}',
-                  type: 'POST',
-                  dataType: 'json',
-                  data: {id2: id},
-                  success: function (data) {
-                      if (data == 200) {
-                            button.innerHTML = '';
-                      }
-                  }
-              });   
+        vex.dialog.confirm({
+            message: 'Are you sure you want to remove a friend?',
+            callback: function (value) {
+                if(value == true){
+                        $.ajax({
+                              url: '{{ asset('/unfriend') }}',
+                              type: 'POST',
+                              dataType: 'json',
+                              data: {id2: id},
+                              success: function (data) {
+                                  if (data == 200) {
+                                        button.innerHTML = '';
+                                  }
+                              }
+                          });
+                }        
+        } });           
 });
 // Sent Requests tab - send friend request
 $(document).on("click", "#send-request", function(){
