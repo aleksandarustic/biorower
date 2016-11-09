@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
 use App\Comment;
 use App\Session;
+use App\Notification;
 use Exception;
 use App\User;
 use Input;
@@ -46,7 +47,8 @@ class DeletesessionController extends Controller {
 			}
 			else
 			{
-					Comment::where('session_id', $id)->delete();	
+				Comment::where('session_id', $id)->update(array('status' => 0));
+				Notification::where('object', $id)->update(array('status' => 0));
 				$sessions = Session::where('user_id', $userFirst->id)
 								   ->where('id', $id)
 						    	   ->delete();

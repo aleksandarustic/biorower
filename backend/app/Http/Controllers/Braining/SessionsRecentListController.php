@@ -91,10 +91,8 @@ class SessionsRecentListController extends Controller {
 				   		"ID" 				=> 	$value["id"], 
 						"date" 				=> 	$value["date"],
 						"UTC"				=>	$value["utc"],
-						"date_zone"			=> 	$value['date_zone'],
 						"name"				=>	$value["name"],
 						"description"		=>	$value["description"],
-						"session_name"		=> 	$value['session_name'],
 						"speed"				=>	$value->sessionSummary["speed_average"],
 						"Angle"				=>	$value->sessionSummary["angle_average"],
 						"Pace"				=>	$value->sessionSummary["pace_average"],
@@ -111,6 +109,8 @@ class SessionsRecentListController extends Controller {
 						$tmp['dist']		=	round($value->sessionSummary["distance"], config('parameters.dist.format'));
 						$tmp['pwr_avg']		=	round($value->sessionSummary["power_average"], config('parameters.pwr_avg.format'));
 						$tmp['hr_avg']		=	round($value->sessionSummary["heart_rate_average"], config('parameters.hr_avg.format'));
+						$tmp['date_zone']   =   $value['date_zone'];
+						$tmp['session_name']=   $value['session_name'];
 					}else{ // ukoliko korisnik ide preko aplikacije
 						$tmp['time']		= 	$value->sessionSummary["time"];
 						$tmp['dist']		=	$value->sessionSummary["distance"];

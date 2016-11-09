@@ -28,7 +28,7 @@ class TimelineController extends Controller {
 						->join('images', 'timeline.image', '=', 'images.id')
 						->select('timeline.time', 'timeline.object_id', 'timeline.type', 'sessions.description', 'sessions.name', 'data_biorower_sessions.distance', 'data_biorower_sessions.time as totaltime', 'data_biorower_sessions.stroke_count', 'images.name as image', 'timeline.coms', 'timeline.utc')
 						->orderBy('utc', 'desc')
-					    ->get();
+					    ->paginate(15);
 
 		if($posts){
 	    	return $posts;

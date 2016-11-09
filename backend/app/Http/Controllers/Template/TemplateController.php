@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Library\GlobalFunctions;
+use App\Http\Controllers\User\ProfileController;
 use App\User;
 use View;
 
@@ -143,11 +144,11 @@ class TemplateController extends Controller {
 
 		$firstDay = Carbon\Carbon::createFromDate(1970, 1, 1);
 
-		$totalStatisticsParameters = GlobalFunctions::GetTotalStatistics($userid);
-		$totalStatisticsParameters = GlobalFunctions::PrepareArrayParametersStatistics($totalStatisticsParameters);
-		//$totalStatisticsParameters = GlobalFunctions::GetHistoryStatistics("", "all", $firstDay, $userid, true);
+		$friends  	= ProfileController::UserProfileFriends($userid);
 
-    	return view('/template/overview', compact('imageid', 'isMyProfile', 'userid', 'user', 'userLinkname', 'allSessions', 'arrayHeatMap', 'encodedID', 'jsonChart', 'monday', 'sunday', 'firstDayOfYear', 'lastDayOfYear', 'sessionsHistory', 'parametersProgress', 'emptyChartsBoolHistory', 'emptyChartsDataHistory', 'emptyChartsBoolProgress', 'totalStatisticsParameters'));
+		$totalStatisticsParameters = GlobalFunctions::GetTotalStatistics($userid);
+
+    	return view('/template/overview', compact('imageid', 'isMyProfile', 'userid', 'user', 'userLinkname', 'allSessions', 'arrayHeatMap', 'encodedID', 'jsonChart', 'monday', 'sunday', 'firstDayOfYear', 'lastDayOfYear', 'sessionsHistory', 'parametersProgress', 'emptyChartsBoolHistory', 'emptyChartsDataHistory', 'emptyChartsBoolProgress', 'totalStatisticsParameters', 'friends'));
         //}
 	}
 

@@ -9,6 +9,7 @@ use App\Session;
 use Exception;
 use App\User;
 use Input;
+use Validator;
 
 class EditSessionController extends Controller {
 
@@ -38,6 +39,15 @@ class EditSessionController extends Controller {
 			    throw new Exception;
 			}
 
+			$validator = Validator::make(Input::all(), [
+				    'name' => 'max:80',
+				    'description'    => 'max:550'
+			]);
+
+			if (!$validator->fails())
+			{
+			   
+			
 	        $id 			= Input::get("id");
 	        $name 			= Input::get("name");
 	        $description	= Input::get("description");
@@ -51,6 +61,10 @@ class EditSessionController extends Controller {
 						->update(array('name' => $name,'description'=> $description));
 		
 				$statusCode = 200;
+	    	}
+
+	    	}else{
+	    		$statusCode = 401;
 	    	}
 	    
 	 	}

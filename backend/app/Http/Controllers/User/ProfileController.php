@@ -46,7 +46,6 @@ class ProfileController extends Controller {
               			return view('user.profile', compact('user', 'status'));
               	}else{ // Friends 
 					$totalPar 	= GlobalFunctions::GetTotalStatistics($user->id);
-					$totalPar 	= GlobalFunctions::PrepareArrayParametersStatistics($totalPar);
 					$friends  	= $this->UserProfileFriends($user->id);
 					$getstatus 	= FollowController::CheckGetNotifications($user->id);
 
@@ -170,9 +169,8 @@ class ProfileController extends Controller {
 	 * @param  int  $id
 	 * @return Result(array)
 	 */
-	public function UserProfileFriends($id)
+	public static function UserProfileFriends($id)
 	{
-
 		$result = Friend::where('status', 2)
 						->join('users', function ($join) use ($id) {
 				            $join->on('friends.user2', '=', 'users.id')
