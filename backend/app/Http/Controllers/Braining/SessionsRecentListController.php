@@ -24,7 +24,7 @@ class SessionsRecentListController extends Controller {
 	{
 		 $statusCode = 200;
 
-		try{
+		//try{
 
 	        $response = [
 	          'account'  => '',
@@ -111,6 +111,7 @@ class SessionsRecentListController extends Controller {
 						$tmp['hr_avg']		=	round($value->sessionSummary["heart_rate_average"], config('parameters.hr_avg.format'));
 						$tmp['date_zone']   =   $value['date_zone'];
 						$tmp['session_name']=   $value['session_name'];
+						$tmp['short_desc']  =   $value['short_desc'];
 					}else{ // ukoliko korisnik ide preko aplikacije
 						$tmp['time']		= 	$value->sessionSummary["time"];
 						$tmp['dist']		=	$value->sessionSummary["distance"];
@@ -132,13 +133,13 @@ class SessionsRecentListController extends Controller {
 
 	    	}
 
-	 	}
+	 	/*}
 	 	catch (Exception $e)
 	    {
 	    	if ($statusCode != 403){
 	    		$statusCode = 400;
 	    	}
-        }
+        }*/
 
        
 		return Response::json($response, $statusCode);

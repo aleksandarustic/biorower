@@ -16,7 +16,7 @@
 					<!-- /.pull-right -->
 					<table id="my-sessions" class="table table-hover table-bordered table-striped">
 						<thead>
-							<tr>
+							<tr>						
 								<th class="nosort">#</th>
 							    <th class="nosort" width="20%">Session</th>
 								<th class="nosort">Date/Time</th>
@@ -71,8 +71,7 @@ function OnloadFunction ()
 		        	  	d[i].action ="<span> <a href='javascript:void(0)' class='update'  id="+d[i].ID+"  onclick='editSession("+d[i].ID+")' data='tester'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id='deleteSession' href='javascript:void(0)' class='mailedit-box-attachment-name'><i class='fa fa-trash-o inline btn btn-sm btn-primary' data="+d[i].ID+"></i></a </span>";
 
 		        	  	d[i].linkname    = "<a href='javascript:void(0)'><div id='nameSession"+d[i].ID+"'>"+d[i].session_name+"</div></a>";
-		        	  	d[i].sessiondesc = "<div id='descSession"+d[i].ID+"'> "+d[i].description+" </div>";
-		        	  	//d[i].sessiondesc   = '<button type="button" class="btn btn-sm btn-danger" data-toggle="popover" title="Session description:" data-content="'+d[i].description+'">View description</button>';
+		        	  	d[i].sessiondesc = "<div id='descSession"+d[i].ID+"'> "+d[i].short_desc+" </div>";
 		       	}
 		       	
 		var table = $('#my-sessions').DataTable({
@@ -196,6 +195,7 @@ vex.dialog.open({
 
 $(document).ready(function(){
 	OnloadFunction();
+	$('[data-toggle="longdesc"]').tooltip();
 });
 </script>
 @endsection

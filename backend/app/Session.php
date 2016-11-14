@@ -33,7 +33,7 @@ class Session extends Model {
 
 	//protected $dates = ['date'];
 
-	protected $appends	= array('session_name', 'date_zone');
+	protected $appends	= array('session_name', 'date_zone', 'short_desc');
 
     public function comments()
     {
@@ -69,5 +69,16 @@ class Session extends Model {
     	$timezone = TimezoneController::index();
 
         return Carbon::createFromTimeStamp($this->attributes['utc'], $timezone)->toDateTimeString();
+    }
+
+    public function getShortDescAttribute()
+    {
+        if(strlen($this->attributes['description']) > 25)
+        {
+            $out = substr($this->attributes['description'],0,25)."...";
+        }else{
+            $out = $this->attributes['description'];
+        }
+        return $out;
     }
 }
