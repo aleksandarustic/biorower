@@ -54,7 +54,6 @@ class NotificationsController extends Controller {
 
 	    try{  				
 	        if($type == 1){ //  Accept friend request
-	        			$auth_name	= Auth::user()->first_name." ".Auth::user()->last_name;
 	            		$check					= Notification::where('type', 1)
 	            									->where('status', 1)
 	            									->where(function($query) use ($id, $id2)
@@ -83,18 +82,10 @@ class NotificationsController extends Controller {
 							$check->time 			= $dt->format('Y-m-d H:i:s');
 							$check->save(); // change older notifcation
 						}
-
-							$element          		= "<li class='label-warning'> <a href='".asset('/'.Auth::user()->display_name)."'> <i class='fa fa-user-plus text-aqua'></i> ".$auth_name." accepted your friend request. Just now</a> </li>";
-							// Display a new notification to users via a pusher
-							Pusher::trigger('notifications', 'notifuser-'.$id2, $element);
+						Pusher::trigger('notifications', 'notifuser-'.$id2, 1);
 
 			}elseif($type == 2){ // User save a new session
 						$usersget 				= FollowController::GetAllUsersForNotification($id2);
-						$user 					= User::find($id2);
-						$link					= '/profile/'.$user->display_name.'/session/'.$object;
-
-						// create notification for navbar
-						$element   				= "<li class='label-warning'> <a href='".asset($link)."'> <i class='fa fa-info-circle text-aqua'></i>".$user->first_name." ".$user->last_name." did a new training. Just now</a></li>";
 
 						foreach($usersget as $user)
 						{
@@ -109,16 +100,10 @@ class NotificationsController extends Controller {
 							$new2->time 		= $dt->format('Y-m-d H:i:s');
 							$new2->save(); // save new notification
 
-							// Display a new notification to users via a pusher
-							Pusher::trigger('notifications', 'notifuser-'.$user->user1_id, $element);
+							Pusher::trigger('notifications', 'notifuser-'.$user->user1_id, 1);
 						}
 
 			}elseif($type == 3){
-					$auth_name			= Auth::user()->first_name." ".Auth::user()->last_name;
-					$link				= '/profile/'.Auth::user()->display_name.'/session/'.$object;
-
-					$element   			= "<li class='label-warning'> <a href='".asset($link)."'> <i class='fa fa-commenting text-aqua'></i>".$auth_name." commented on your training. Just now</a></li>";
-
 					$new2 				= new Notification();
 					$new2->user_action 	= $id;
 					$new2->user_get 	= $id2;
@@ -129,8 +114,7 @@ class NotificationsController extends Controller {
 					$new2->time     	= $dt->format('Y-m-d H:i:s');
 					$new2->status 		= 1;
 					$new2->save(); // save new notification
-
-					Pusher::trigger('notifications', 'notifuser-'.$id2, $element);	
+					Pusher::trigger('notifications', 'notifuser-'.$id2, 1);	
 			}
 
 		$statusCode = 200;	// all is ok
@@ -179,6 +163,53 @@ class NotificationsController extends Controller {
 			     	$statusCode = 200;	// all is ok
 		}
 	   return Response::json($statusCode);  
+	}
+
+	/**
+	 * Get new notifications - isRead = 0
+	 * @route /get-new-notifications
+	 * @return response($statuscode)
+	 */	
+	public function GetNewNotifications()
+	{
+		$id = Auth::id();	
+
+		$notifications = Notification::where('user_get', $id)
+						->where('status', 1)			
+						->leftJoin('users', 'notifications.user_action', '=', 'users.id')
+						->join('profiles', 'users.profile_id', '=', 'profiles.id')
+						->join('images', 'profiles.image_id', '=', 'images.id')		
+						->select('users.id', 'users.display_name', 'users.first_name', 'users.last_name', 'images.name', 'notifications.type', 'notifications.object', 'notifications.isRead', 'notifications.time', 'notifications.utc')
+						->orderBy('utc', 'desc')
+					    ->get();
+
+		$this->ReadNewNotifications();
+		$element 		= array();
+
+		foreach ($notifications as $key) {
+					
+					$name			= $key->first_name." ".$key->last_name;
+					$link			= '/profile/'.$key->display_name.'/session/'.$key->object;
+						if($key->isRead == 0){
+						 	$isread = 'label-warning'; 
+						}else{
+							$isread = '';
+						}
+
+					if($key->type == 1){
+					    	$element[]          		= "<li class='".$isread."'> <a href='".asset('/'.$key->display_name)."'> <i class='fa fa-user-plus text-aqua'></i> ".$name." accepted your friend request. ".$key->time_ago."</a> </li>";
+					}elseif ($key->type == 2) {
+							$element[]    			= "<li class='".$isread."'> <a href='".asset($link)."'> <i class='fa fa-info-circle text-aqua'></i>".$name." did a new training. ".$key->time_ago."</a></li>";
+					}elseif ($key->type == 3) {
+							$element[]   			= "<li class='".$isread."'> <a href='".asset($link)."'> <i class='fa fa-commenting text-aqua'></i>".$name." commented on your training. ".$key->time_ago."</a></li>";
+					}
+			}	// end foreach		    
+
+		if($notifications){
+	    	return $element;
+	    }else{
+	    	return false;
+	    }		
 	}
 
 }

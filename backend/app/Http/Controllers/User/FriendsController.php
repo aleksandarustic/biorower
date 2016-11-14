@@ -9,6 +9,7 @@ use App\User;
 use App\Friend;
 use App\Profile;
 use App\Message;
+use App\Notification;
 use Input;
 use Exception;
 use URL;
@@ -175,16 +176,28 @@ class FriendsController extends Controller {
 						$statusCode = 200;	
 
 						$messages 	= Message::where('status', 1)
-									->where('read', 0)
-					              	->where(function($query) use ($id,$id2){
-									        $query->where('messages.sender_user_id', '=', $id)
-					                 			  ->where('messages.receiver_user_id', '=', $id2); 
-									    })
-									->orWhere(function($query) use ($id,$id2){
-									        $query->where('messages.sender_user_id', '=', $id2)
-					                 			  ->where('messages.receiver_user_id', '=', $id); 
-									    })
-					                ->update(['read' => '1']); 
+												->where('read', 0)
+								              	->where(function($query) use ($id,$id2){
+												        $query->where('messages.sender_user_id', '=', $id)
+								                 			  ->where('messages.receiver_user_id', '=', $id2); 
+												    })
+												->orWhere(function($query) use ($id,$id2){
+												        $query->where('messages.sender_user_id', '=', $id2)
+								                 			  ->where('messages.receiver_user_id', '=', $id); 
+												    })
+								                ->update(['read' => '1']); 
+
+					    $not        = Notification::where('status', 1)
+					    							->where(function($query) use ($id,$id2){
+												        $query->where('user_action', '=', 	$id)
+								                 			  ->where('user_get', 	 '=', 	$id2); 
+												    })
+													->orWhere(function($query) use ($id,$id2){
+												        $query->where('user_action', '=', 	$id2)
+								                 			  ->where('user_get', 	 '=',	$id); 
+												    })
+					    							->update(['status' => '0']);
+
 					}
 			}catch(Exception $e){
 				$error = "error";

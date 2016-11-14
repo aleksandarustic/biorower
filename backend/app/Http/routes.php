@@ -131,6 +131,7 @@ Route::post('/get-notifications', 		'User\FollowController@create');
 Route::post('/unget-notifications',		'User\FollowController@destroy');
 Route::post('/num-new-notifications', 	'NotificationsController@NumNewNotifications');
 Route::post('/read-new-notifications',  'NotificationsController@ReadNewNotifications');
+Route::post('/get-new-notifications',   'NotificationsController@GetNewNotifications');
 /* SESSION COMMENTS*/
 Route::post('/getLatestComment', 		'CommentController@index');
 Route::post('/addComment', 				'CommentController@create');

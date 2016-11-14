@@ -36,33 +36,13 @@
                 </li>
              
     <!-- Notifications: style can be found in dropdown.less -->
-    <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notifications-view"> <i class="fa fa-bell-o"></i><span class="label label-success" id="num-new-notif">@if($numnewnotifications) {{$numnewnotifications}} @endif</span> </a>
+    <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notifications-new"> <i class="fa fa-bell-o"></i><span class="label label-success" id="num-new-notif">@if($numnewnotifications) {{$numnewnotifications}} @endif</span> </a>
 
         <ul class="dropdown-menu" style="width: 400px;">
             <li class="header">Notifications</li>
             <li class="infinite-notif">
                 <ul class="menu" id="notifications-box"> 
-                @foreach($listnotifications as $not)
-                    @if($not->type == 1)   <!-- Friend request notif -->
-                            @if($not->isRead == 1)  
-                                <li id="notif-item"> <a href="{{asset('/'.$not->display_name)}}"> <i class='fa fa-user-plus text-aqua'></i> {{$not->first_name}} {{$not->last_name}} accepted your friend request. {{$not->time_ago}}</a>  </li>
-                            @else
-                                <li class='label-warning' id="notif-item"> <a href='{{asset("/".$not->display_name)}}'> <i class='fa fa-user-plus text-aqua'></i> {{$not->first_name}} {{$not->last_name}} accepted your friend request. {{$not->time_ago}}</a>  </li>
-                            @endif                         
-                    @elseif($not->type == 2)  <!-- New session notif -->
-                            @if($not->isRead == 1)
-                                <li id="notif-item"> <a href='{{asset("/profile/".$not->display_name."/session/".$not->object)}}'> <i class='fa fa-info-circle text-aqua'></i>{{$not->first_name}} {{$not->last_name}} did a new training. {{$not->time_ago}}</a></li>
-                            @else
-                                <li class='label-warning' id="notif-item"> <a href='{{asset("/profile/".$not->display_name."/session/".$not->object)}}'> <i class='fa fa-info-circle text-aqua'></i>{{$not->first_name}} {{$not->last_name}} did a new training. {{$not->time_ago}} </a></li>
-                            @endif
-                    @elseif($not->type == 3)
-                            @if($not->isRead == 1)
-                                <li class='notif-item'> <a href='{{asset("/profile/".$not->display_name."/session/".$not->object)}}'> <i class='fa fa-commenting text-aqua'></i>{{$not->first_name}} {{$not->last_name}} commented on your training. {{$not->time_ago}}</a></li>
-                            @else
-                                <li class='label-warning'> <a href='{{asset("/profile/".$not->display_name."/session/".$not->object)}}'> <i class='fa fa-commenting text-aqua'></i>{{$not->first_name}} {{$not->last_name}} commented on your training. {{$not->time_ago}}</a></li>
-                            @endif
-                    @endif                               
-                @endforeach
+                        <li class="text-center"><br><img src="{{ URL::asset('images/ajax-loader.gif') }}"/></li>
                 </ul>
             </li>
             <li class="footer"><a href="#">View all</a></li>
@@ -155,10 +135,8 @@ $(document).ready(function() {
    
         function addNotification(data) {
                 $.post( "{{ asset('/num-new-notifications') }}", function( data ) {
-                    if(data > 0){ span2.innerHTML = data; }               
+                    if(data > 0){  span2.innerHTML = data;  }
                 }); 
-                var boxNotifications = $('#notifications-box');
-                boxNotifications.prepend(data);
         }
 
         channelNotif.bind('notifuser-{{Auth::id()}}', addNotification);   
@@ -174,17 +152,28 @@ $(document).ready(function() {
             });
         }
 
-    channelChat.bind('chat-notif-{{Auth::user()->id}}', showNotif{{Auth::user()->id}});
+        channelChat.bind('chat-notif-{{Auth::user()->id}}', showNotif{{Auth::user()->id}});
 
-$(document).on("click", "#notifications-view", function(event){
-    event.stopPropagation();
-    $.post('{{asset("/read-new-notifications")}}');
-    $(this).attr('id', 'notifications-close');
-    span2.innerHTML = '';
-});
+// CLICK ON ICON FOR NOTIFICATIONS:
+$(document).on("click", "#notifications-new", function(event){
+    $('#notifications-new').attr('id', 'notifications-close');
+    var boxNotifications = $('#notifications-box');
+
+    $.post('{{asset("/get-new-notifications")}}', function(data) {
+            if(data){-
+                    boxNotifications.empty();
+                    boxNotifications.html(data);
+                    span2.innerHTML = '';  
+            }
+    }); // end post
+    window.onclick = myFunction;
+    function myFunction() {
+        $('#notifications-close').attr('id', 'notifications-new');
+    }
+}); // end click NOTIFICATIONS ICON
 
 $(document).on("click", "#notifications-close", function(){
-    $(this).attr('id', 'notifications-view');
+    $(this).attr('id', 'notifications-new');
 });
 
 
