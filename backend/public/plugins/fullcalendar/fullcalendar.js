@@ -2145,14 +2145,14 @@ function BasicYearView(element, calendar, viewName) {
 					dayStr2 = formatDate(di, 'yyyy');
 				}
 				s +="<td class='fc- " + contentClass + " fc-day" + dayStr + "' month='"+dayStr1+"' year='"+dayStr2+"'>" + // need fc- for setDayID
-					"<div>" +
+					"<a href='javascript:void(0);'><div>" +
 					(showNumbers ?
 						"<div class='fc-day-number'/>" :
 						''
 						) +
 					"<div class='fc-day-content'>" +
 					"</div>" +
-					"</div>" +
+					"</div></a>" +
 					"</td>";
 				addDays(di, 1);	
 			}

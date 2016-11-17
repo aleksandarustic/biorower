@@ -65,7 +65,7 @@
                                          <div class="box-default pull-left" style="margin-top: -8px;margin-left: 10px;margin-right: 20px" id="strelice">
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous" id="next2"
-                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;
+                                   onclick="piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;
                                                   
             var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
@@ -92,7 +92,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -111,7 +111,7 @@
                                    "
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" id="next1" class="btn btn-box-tool" dat a-toggle="tooltip" title="" data-original-title="Next"
-                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));
+                                   onclick="piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));
                                       
             var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
@@ -138,7 +138,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -210,7 +210,7 @@
                                            
             
 
-    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',piktoBiorowerGraph.startDate);
+    piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}','week',piktoBiorowerGraph.startDate);
 
   var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
@@ -237,7 +237,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -295,7 +295,7 @@
 
 
 
-                piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',piktoBiorowerGraph.startDate);
+                piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}','month',piktoBiorowerGraph.startDate);
                 var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
                     s[i]=piktoBiorowerGraph.parameters[i].slug;
@@ -321,7 +321,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -378,7 +378,7 @@
                            }  
                          
                            
-    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph.startDate);
+    piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}','year',piktoBiorowerGraph.startDate);
                                     var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
                     s[i]=piktoBiorowerGraph.parameters[i].slug;
@@ -404,7 +404,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -423,9 +423,9 @@
                                        "
                                             >Year</a>
                                     <a href="javascript:;" class="btn btn-sm btn-primary" id="all_history"
-                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
+                                       onclick="piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}','all','');
                                             var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -457,7 +457,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -990,7 +990,7 @@
  
                    piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
-                                  piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate);
+                                  piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate);
 
                     
                     
@@ -1020,7 +1020,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -1089,7 +1089,7 @@
                    piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
                     
-                                                      piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
+                                                      piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
 
                     
                        var s=[];
@@ -1117,7 +1117,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1166,7 +1166,7 @@
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="
-                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;
+                               piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;
                          var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1192,7 +1192,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1211,7 +1211,7 @@
     ;"
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
-                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
+                                   onclick="piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
                                             
                                            
                                            
@@ -1240,7 +1240,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1337,7 +1337,7 @@
                                        
                
 
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
+    piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}','year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
                                                var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1363,7 +1363,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1382,7 +1382,7 @@
                                         <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
                                            onclick="
 
-    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','',piktoBiorowerGraph2.groupType);
+    piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}','all','',piktoBiorowerGraph2.groupType);
                                                var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1408,7 +1408,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1501,7 +1501,7 @@
         var dr2=moment.range(s, s2);
         
             var data4 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             cilj:1,
         };
              $.post('{{asset('api/v1/graph_setting')}}', data4, function (response4) {
@@ -1615,7 +1615,7 @@
 
 
 
-              piktoBiorowerGraph.loadHistoryData($('#user-email').val(),rangeType,'');
+              piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}',rangeType,'');
 
 
 
@@ -1626,7 +1626,7 @@
         }
         else{
            
-              piktoBiorowerGraph.loadHistoryData($('#user-email').val(),rangeType,moment(dateStart));
+              piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}',rangeType,moment(dateStart));
 
                   
         }
@@ -1642,7 +1642,7 @@
 
 
 
-              piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),rangeType2,'',groupType);
+              piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',rangeType2,'',groupType);
 
 
 
@@ -1654,7 +1654,7 @@
         else{
           
            
-              piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),rangeType2,moment(dateStart2),groupType);
+              piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',rangeType2,moment(dateStart2),groupType);
 
                   
         }
@@ -1774,7 +1774,7 @@
             $('#izbor1').click(function(){
                
                 if(piktoBiorowerGraph2.groupType=="month"){
-                     piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week');
+                     piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'week');
                       var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1800,7 +1800,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1818,7 +1818,7 @@
                     
                 }
                 else{
-                     piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month');
+                     piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,'month');
                       var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1844,7 +1844,7 @@
 
 
                      var data3 = {
-            account: 'biorower:' + $('#user-email').val(),
+            account: 'biorower:{{Auth::user()->email}}',
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,

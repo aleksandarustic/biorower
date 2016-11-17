@@ -419,15 +419,15 @@ table tr td:first-child::before {
                     </thead>
                   <tbody>
                       @foreach($sessions as $session)    
-                        <tr id="session-item" data-href='{{ asset('profile/'.$user->display_name.'/session/'.$session['id'].'') }}'>
+                        <tr id="session-item">
                             <td data-title="#"></td>
                             <td data-title="name"><a href="{{ asset('profile/'.$user->display_name.'/session/'.$session['id'].'') }}">{{ $session['session_name'] }}</a></td>
-                            <td data-title="Date/Time">{{ $session['date_zone'] }}</td>
+                            <td data-title="Date/Time"><a href="{{ asset('profile/'.$user->display_name.'/session/'.$session['id'].'') }}">{{ $session['date_zone'] }}</a></td>
                             <td data-title="Time">{{ gmdate(config('parameters.time.format'), $session["time"]) }}</td>
                             <td data-title="Power">{{ round($session["power_average"], config('parameters.pwr_avg.format')) }}</th>
                             <td data-title="Distance">{{ round($session["distance"], config('parameters.dist.format')) }}</td>
                             <td data-title="HR">{{ round($session["heart_rate_average"], config('parameters.hr_avg.format')) }}</td>
-                            <td data-title="Comments">{{ $session['desc'] }}</td>
+                            <td data-title="Comments">{{ $session['short_desc'] }}</td>
                         </tr> 
                       @endforeach 
                   </tbody>         
@@ -438,8 +438,6 @@ table tr td:first-child::before {
             </div><!-- /.col -->
           </div><!-- /.row -->
       </div><!-- /.tab-pane -->
-
-
 
                 </div><!-- /.tab-content -->
               </div><!-- nav-tabs-custom -->
@@ -505,9 +503,9 @@ $(document).ready(function() {
 // Time Tool tip!!
 });
 // TABEL TRANINGS: click on session
-$(document).on("click", "#session-item", function(){
+/*$(document).on("click", "#session-item", function(){
         window.document.location = $(this).data("href");
-});
+});*/
 
 // COMMENTS BOX SHOW LATEST TWO COMMENT - SHOW/HIDE 
 $(document).on("click", "#show-comments", function(){

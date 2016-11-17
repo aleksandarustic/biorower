@@ -70,8 +70,9 @@ function OnloadFunction ()
 		       	for(var i=0;i< d.length; i++){
 		        	  	d[i].action ="<span> <a href='javascript:void(0)' class='update'  id="+d[i].ID+"  onclick='editSession("+d[i].ID+")' data='tester'><i class='fa fa-edit inline btn btn-sm btn-default'></i></a><a class='brisi' id='deleteSession' href='javascript:void(0)' class='mailedit-box-attachment-name'><i class='fa fa-trash-o inline btn btn-sm btn-primary' data="+d[i].ID+"></i></a </span>";
 
-		        	  	d[i].linkname    = "<a href='javascript:void(0)'><div id='nameSession"+d[i].ID+"'>"+d[i].session_name+"</div></a>";
-		        	  	d[i].sessiondesc = "<div id='descSession"+d[i].ID+"'> "+d[i].short_desc+" </div>";
+		        	  	d[i].linkname  	 = "<a href='{{asset('profile/')}}/"+display_name+"/session/"+d[i].ID+"'><div id='nameSession"+d[i].ID+"'>"+d[i].session_name+"</div></a>";
+		        	  	d[i].sessiondesc = "<div id='descSession"+d[i].ID+"' data='"+d[i].description+"'> "+d[i].short_desc+" </div>";
+		        	  	d[i].datehref 	 =  "<a href='{{asset('profile/')}}/"+display_name+"/session/"+d[i].ID+"'>"+d[i].date_zone+"</a>";
 		       	}
 		       	
 		var table = $('#my-sessions').DataTable({
@@ -86,7 +87,7 @@ function OnloadFunction ()
 		        "columns" : [
 				  	     	{ 'defaultContent'  : '' },
 				  	     	{ 'data' : 'linkname' },
-				  	     	{ 'data' : 'date_zone' },
+				  	     	{ 'data' : 'datehref' },
 				  	     	{ 'data' : 'time' },
 				  	     	{ 'data' : 'pwr_avg' },
 				  	     	{ 'data' : 'dist' },
@@ -116,14 +117,14 @@ function OnloadFunction ()
 		        } );
 		    } ).draw();
 
-			table.on('click', 'tr', function (e) {
+			/*table.on('click', 'tr', function (e) {
 					var ids = table.row( this ).data();
 				if(ids){
 				    if(!$(e.target).is('i')){
 				        window.location.href = "{{asset('profile/')}}/"+display_name+"/session/"+ids.ID;
 				    }
 				}
-   			});    
+   			});  */  
 			//******** CLICK ON DELETE ICON *******/
    			$('#my-sessions tbody').on( 'click', 'i.fa-trash-o', function () {
    				var id    = $(this).attr("data"); // get user id
@@ -157,15 +158,17 @@ function OnloadFunction ()
 /**** CLICK ON EDIT ICON ***/
 function editSession(id)
 {
-	var ime  = document.getElementById('nameSession'+id);
-	var opis = document.getElementById('descSession'+id);
+	var ime   = document.getElementById('nameSession'+id);
+	var opis1 = document.getElementById('descSession'+id);
+	var opis  = $("#descSession"+id).attr("data"); // get user id
+
 
 vex.dialog.open({
     message: 'Session name:',
     input: [
         '<input name="InputNameSession" type="text" placeholder="Name of the session" value="'+ime.innerHTML+'"/>',
         '<label for="InputDescSession">Description: </label>',
-        '<textarea name="InputDescSession" rows="4" placeholder="Description session" class="oneLine-input" id="textsesije">'+opis.innerHTML+'</textarea>'
+        '<textarea name="InputDescSession" rows="4" placeholder="Description session" class="oneLine-input" id="textsesije">'+opis+'</textarea>'
     ].join(''),
     buttons: [
         $.extend({}, vex.dialog.buttons.YES, 	{ text: 'Save changes' }),
@@ -182,9 +185,9 @@ vex.dialog.open({
 				        success: function (data4) {
 				        	if(data4 == 200){
 				      			ime.innerHTML  = data.InputNameSession;
-				      			opis.innerHTML = data.InputDescSession;	
+				      			opis1.innerHTML = data.InputDescSession;	
 				      		}else{
-				      			vex.dialog.alert('An error occurred, try again.')
+				      			vex.dialog.alert('The description is too long or something is wrong, try again.')
 				      		}		    
 				        } // success /
 			})// ajax end
