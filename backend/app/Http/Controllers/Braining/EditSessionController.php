@@ -40,8 +40,8 @@ class EditSessionController extends Controller {
 			}
 
 			$validator = Validator::make(Input::all(), [
-				    'name' => 'max:80',
-				    'description'    => 'max:550'
+				    'name' 			=> 'max:180',
+				    'description'   => 'max:2048'
 			]);
 
 			if (!$validator->fails())

@@ -10,6 +10,7 @@ use App\Friend;
 use App\Profile;
 use App\Message;
 use App\Notification;
+use App\Watching;
 use Input;
 use Exception;
 use URL;
@@ -86,6 +87,7 @@ class FriendsController extends Controller {
 	public function ConfirmFriend(req $request)
 	{
 		$statusCode = 204;
+		DB::beginTransaction();
 
 		if (Request::ajax()){
 				$id 	= Auth::id();	
@@ -102,8 +104,15 @@ class FriendsController extends Controller {
 					//$res->username 		= Auth::user()->display_name;
 				}
 
-					$addNotif			= NotificationsController::addNotifications(1, '', $request['id2']); 
-		
+					$addNotif			= NotificationsController::addNotifications(1, '', $request['id2']);
+
+					DB::table('watching')->insert([
+					    ['user1_id' => $id, 'user2_id' => $request['id2'], 'status' => 1],
+					    ['user1_id' => $request['id2'], 'user2_id' => $id, 'status' => 1],
+					]);
+					DB::commit();
+
+
 			}catch(Exception $e){
 				$error = "error";
 				return $error;
@@ -197,6 +206,17 @@ class FriendsController extends Controller {
 								                 			  ->where('user_get', 	 '=',	$id); 
 												    })
 					    							->update(['status' => '0']);
+
+
+					     $del 		= Watching::where(function($query) use ($id,$id2){
+												        $query->where('user1_id', 	'=', 	$id)
+								                 			  ->where('user2_id', 	'=', 	$id2); 
+												})
+													->orWhere(function($query) use ($id,$id2){
+												        $query->where('user1_id', 	'=', 	$id2)
+								                 			  ->where('user2_id', 	'=',	$id); 
+												    })
+						    	   			->delete();													
 
 					}
 			}catch(Exception $e){

@@ -51,7 +51,7 @@ class DeletesessionController extends Controller {
 				Notification::where('object', $id)->update(array('status' => 0));
 				$sessions = Session::where('user_id', $userFirst->id)
 								   ->where('id', $id)
-						    	   ->delete();
+						    	   ->update(array('deleted' => 1));
 
 		        $statusCode = 200;
 	    	}
