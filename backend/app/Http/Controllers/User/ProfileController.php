@@ -224,9 +224,11 @@ class ProfileController extends Controller {
             // add status
            for($i=0; $i < count($friends); $i++){ 
             	$check = FriendsController::CheckFriendStatus(Auth::id(), $friends[$i]->id);
+            	$check2 = FollowController::CheckGetNotifications($friends[$i]->id);
 					if($check && $check['status'] > 0){ 
-						$friends[$i]['sfriend'] = $check['status'];
+						$friends[$i]['sfriend'] 	= $check['status'];
 					}
+						$friends[$i]['getstatus'] 	= $check2;
 			} 	
 			return view('user.friends-list', compact('friends', 'user'));
 

@@ -1817,53 +1817,46 @@
 
          });
 
-     $('.parameters').on('ifClicked', function(event){
-             if(this.checked==true){
 
+        $('.parameters').on('ifUnchecked', function(event){
+            if($('.parameters').filter(':checked').length == 0){              
+                 $("#dugme1").attr('disabled', true);
+            }
+        });
 
+        $('.parameters').on('ifClicked', function(event){
+              $("#dugme1").attr('disabled', false);
 
-             }
-             else{
+              if(this.checked==true){
 
-             if ($('.parameters').filter(':checked').length == 3) {
-              var s=$('.parameters').filter(':checked')[2].id;
-
-
-              $('#'+s).iCheck('uncheck');
-             }
-
-
-    }
-
-
-
+              }else{
+                      if ($('.parameters').filter(':checked').length == 3) {
+                          var s=$('.parameters').filter(':checked')[2].id;
+                          $('#'+s).iCheck('uncheck');
+                      }
+              }
         });
 
 
-          $('.parameters2').on('ifClicked', function(event){
-
-                if(this.checked==true){
-
-
-
-             }
-             else{
-
-
-             if ($('.parameters2').filter(':checked').length == 3) {
-              var s=$('.parameters2').filter(':checked')[2].id;
-
-      $('#'+s).iCheck('uncheck');
-
-    }
-    }
-
-
-
+        $('.parameters2').on('ifUnchecked', function(event){
+            if($('.parameters2').filter(':checked').length == 0){              
+                 $("#dugme2").attr('disabled', true);
+            }
         });
 
+        $('.parameters2').on('ifClicked', function (event) {
+                 $("#dugme2").attr('disabled', false);
 
+            if (this.checked == true) {
 
+            }else{
+                  if ($('.parameters2').filter(':checked').length == 3) {
+
+                         var s = $('.parameters2').filter(':checked')[2].id;
+                         $('#' + s).iCheck('uncheck');
+                  }
+            }
+        });
 
 
             var skaliranje=500;

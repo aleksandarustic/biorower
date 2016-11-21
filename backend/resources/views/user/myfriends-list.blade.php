@@ -4,7 +4,7 @@
     <!-- Main content -->
 <section class="content">
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-12">
   <div class="box box-primary">
     <div class="padding-all white-bg">
         <span class="pull-left act-h2"><i class="fa fa-users margin-right"></i>
@@ -33,7 +33,7 @@
 
   @foreach($friends as $friend)
     <li class="item pull-left full-width-item" id="user-item">
-        <div class="pull-left col-md-8">
+        <div class="pull-left col-md-11">
             <div class="product-img">
                 <a href="{{asset($friend->display_name)}}">
                   <img class="img-square" src="{{ asset( $friend->name )}}" alt="User Picture">
@@ -48,9 +48,26 @@
             </div>
         </div>
              
-                  <div class="buttons-followUn" id="user{{$friend->id}}">
-                    <div class="btn-group"><button data="{{$friend->id}}" type="button" class="btn btn-success btn-flat ff-btn unfriend" id="unfriend"> <span class="follow-txt"><i class="fa fa-check margin-r-5" aria-hidden="true"></i>Friends</span></button></div>
-                  </div>
+                   <div class="buttonfriend" id="user{{$friend->id}}" style="margin-top: 25px;">
+                 
+                  <div class="btn-group" style="position: absolute;">
+                      <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-check margin-r-5" aria-hidden="true"></i> <span class="follow-txt">Friends </span>
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        @if($friend->getstatus == 1)
+                            <li id="id-getnotif-{{$friend->id}}"><a id="ungetnotification" data="{{$friend->id}}"><i class="fa fa-check" aria-hidden="true"></i> Get Notifications</a></li>
+                        @else
+                            <li id="id-getnotif-{{$friend->id}}"><a id="getnotification" data="{{$friend->id}}">Get Notifications</a></li>
+                        @endif
+                            <li><a href="#">  Block</a></li>                   
+                            <li class="divider"></li>
+                            <li><a href="#" id="unfriend" data="{{$friend->id}}"> Unfriend</a></li>
+                      </ul>
+                    </div>
+                    </div>
                
     </li><!-- /.item -->
   @endforeach   
@@ -106,5 +123,47 @@ function SearchFriendsList() {
         }
     }
 }
+
+
+// SELECT GET NOTIFICATION
+  $(document).on("click", "#getnotification", function(event){
+     event.stopPropagation();
+      var id          = $(this).attr("data"); // get user id
+      var notifButton = document.getElementById("id-getnotif-"+id);
+
+          $.ajax({
+                  url: '{{ asset('/get-notifications') }}',
+                  type: 'POST',
+                  headers: {  _token: $('meta[name="csrf-token"]').attr('content') }, 
+                  dataType: 'json',
+                  data: {id2: id},
+                  success: function (data) {
+                      if (data == 200) {
+                          notifButton.innerHTML = '<a id="ungetnotification" data="'+id+'"><i class="fa fa-check" aria-hidden="true"></i> Get Notifications</a>';
+                      }
+                  }
+              });   
+  });
+// SELECT GET NOTIFICATION
+// UN GET NOTIFICATION
+  $(document).on("click", "#ungetnotification", function(event){
+      event.stopPropagation();
+      var id          = $(this).attr("data"); // get user id
+      var notifButton = document.getElementById("id-getnotif-"+id);
+
+          $.ajax({
+                  url: '{{ asset('/unget-notifications') }}',
+                  type: 'POST',
+                  headers: {  _token: $('meta[name="csrf-token"]').attr('content') }, 
+                  dataType: 'json',
+                  data: {id2: id},
+                  success: function (data) {
+                      if (data == 200) {
+                           notifButton.innerHTML = '<a id="getnotification" data="'+id+'">Get Notifications</a>';
+                      }
+                  }
+              });   
+  });
+// UN GET NOTIFICATION
 </script>
 @endsection

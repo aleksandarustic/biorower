@@ -1,17 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-<style> 
-table tr {
-    counter-increment: rowNumber;
-}
-
-table tr td:first-child::before {
-    content: counter(rowNumber);
-    min-width: 1em;
-    margin-right: 0.5em;
-}
-</style>
  <section class="content">
 
     <div class="row">
@@ -201,9 +190,9 @@ table tr td:first-child::before {
                         @else
                             <li id="id-getnotif"><a id="getnotification">Get Notifications</a></li>
                         @endif
-                        <li><a href="#">  Block</a></li>                   
-                        <li class="divider"></li>
-                        <li><a href="#" id="unfriend-button"> Unfriend</a></li>
+                            <li><a href="#">  Block</a></li>                   
+                            <li class="divider"></li>
+                            <li><a href="#" id="unfriend-button"> Unfriend</a></li>
                       </ul>
                     </div>
                   <button type="button" class="btn btn-default margin-r-5 fsm-btn"  data-toggle="control-sidebar" id="chat-view"><i class="fa fa-comments" aria-hidden="true"></i> <span class="msm-txt">Sent Message</span></button>  
@@ -498,6 +487,12 @@ $(document).ready(function() {
            searchPlaceholder: "Search user sessions..."
         }
     });
+
+    table.on( 'order.dt search.dt', function () {
+            table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+    } ).draw();
 // Time Tool tip!!
     $('[data-toggle="timetip"]').tooltip();
 // Time Tool tip!!
