@@ -12,12 +12,18 @@
      var skaliranje2=500;
      var min=0;
      var max=null;
+     var st3=0;
      var time4="<?php echo $sessionUser['sessionSummary']->time?>";
     var piktoBiorowerGraph = {
     historyPlot: null,
     historyData: null,
     duration:40,
     position:0,
+    number:0,
+    rv1:[[0,0]],
+    rv2:[],
+    rv3:[],
+    rv4:[],
     transormData: function (historyData, parameter) {
         var rv = [];
         rv['label'] = parameter.label;
@@ -70,10 +76,12 @@
             sesija:idsesije,
              graf:2,
              start:start,
-             duration:duration
+             duration:duration,
+             st:st3
         };
-        piktoBiorowerGraph.duration=duration;
         
+        piktoBiorowerGraph.duration=duration;
+       
             
         $.post(urlBase +'/api/v1/graph', data, function (response) {
                 var niz = [250,500,750,1000];
@@ -98,9 +106,25 @@
                 response['max'] = niz[0];
                 ticksize=50;
             }
-            piktoBiorowerGraph.historyData = [{data:response['frc_l'],yaxis:1,label:'Force L[N]'},{data:response['frc_r'],yaxis:1,label:'Force R[N]'},{data:response['ang_l'],yaxis:2,label:'Angle L[°]'},{data:response['ang_r'],yaxis:2,label:'Angle R[°]'}]
+            var niz=piktoBiorowerGraph.rv1;
+             for(var i=0;i<response['frc_l'].length; i++){
+                 if(niz[niz.length-1][0]<response['frc_l'][i][0]){
+                         piktoBiorowerGraph.rv1.push(response['frc_l'][i]);
+                         piktoBiorowerGraph.rv2.push(response['frc_r'][i]);
+                         piktoBiorowerGraph.rv3.push(response['ang_l'][i]);
+                         piktoBiorowerGraph.rv4.push(response['ang_r'][i]);
+                 
+                
+                 }
+               
+                
+
+             }
+            
+
+            piktoBiorowerGraph.historyData = [{data:piktoBiorowerGraph.rv1,yaxis:1,label:'Force L[N]'},{data:piktoBiorowerGraph.rv2,yaxis:1,label:'Force R[N]'},{data:piktoBiorowerGraph.rv3,yaxis:2,label:'Angle L[°]'},{data:piktoBiorowerGraph.rv4,yaxis:2,label:'Angle R[°]'}]
                     
-           
+           piktoBiorowerGraph.number=response['ang_l'][response['frc_l'].length - 1];
             var series = {lines: {show: true}, points: {show: true}};
             if (piktoBiorowerGraph.broj == 1) {
                 series = {lines: {show: false}, points: {show: true}};
@@ -150,6 +174,10 @@
                var tickSize=1;
 
             }
+            if(min3<0){min3=0;}
+            if(time4<5){
+                time4=6
+            }
             piktoBiorowerGraph.historyPlot = $.plot($("#signals-graph"),
             piktoBiorowerGraph.historyData , {
                         grid: {
@@ -176,8 +204,8 @@
                                 axisLabel: "Force[N]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
-                                labelWidth: 30,
+                                axisLabelPadding: 2,
+                                labelWidth: 20,
                                    min:0,
                                    tickSize:ticksize,
                                    max:response['max'],
@@ -188,8 +216,8 @@
                                 axisLabel:'Angle[°]',
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
-                                labelWidth: 30,
+                                axisLabelPadding: 2,
+                                labelWidth: 20,
                                 max: 60,
                                  min: -90,
                                  tickSize:30,
@@ -200,11 +228,11 @@
                         xaxis: {
                             show: true,
                             labelHeight: 30,
-                            panRange: [0, time4],
                            tickFormatter: formatter,
                             max:max3,
                             min:min3,
-                            tickSize:tickSize
+                             panRange: [0, time4-0.5],
+                            tickSize:tickSize,
                             
                         
 
@@ -220,11 +248,12 @@
 
             piktoBiorowerGraph.historyPlot.setupGrid();
             piktoBiorowerGraph.historyPlot.draw();
+                           st3=st3+300;
+
         });
 
     }
 };
-
 var piktoBiorowerGraph2 = {
     progressPlot: null,
     historyData: null,
@@ -234,6 +263,8 @@ var piktoBiorowerGraph2 = {
     parameters: [{slug:'spd', label: 'Speed', yaxis: 14},{slug:'dist', label: 'Distance', yaxis: 13}],
     start: null,
     groupType: 'week',
+    position:0,
+    maximum:0,
     transormData: function (historyData, parameter) {
 
        
@@ -251,7 +282,7 @@ var piktoBiorowerGraph2 = {
     getHistoryData: function (params) {
 
         var rv = [];
-        var colors = ['#440064', '#007eff', '#00afc8', '#005764', '#804000', '#ae00ff',
+        var colors = ['#440064', '#007eff', '#00afc8', '#005764', '#804000', '#960000',
             '#660096', '#0063c8', '#ff0000', '#640000', '#004a96', '#ff8a00', '#8800c8',
             '#00deff', '#bf0000', '#008396', '#003163', '#06ff00', '#05c800', '#c86c00', '#965100',
             '#643600', '#049600', '#026400', '#00ff96', '#00c876',
@@ -347,7 +378,7 @@ var piktoBiorowerGraph2 = {
                     params[i]['yaxis'] = 17;
                     params[i]['color'] = colors[16];
                     break;
-                case "Power average":
+                case "Power":
                     rv[i]['yaxis'] = 18;
                     params[i]['yaxis'] = 18;
                     params[i]['color'] = colors[17];
@@ -362,7 +393,7 @@ var piktoBiorowerGraph2 = {
                     params[i]['yaxis'] = 20;
                     params[i]['color'] = colors[19];
                     break;
-                case "Power right average":
+                case "Power R":
                     rv[i]['yaxis'] = 21;
                     params[i]['yaxis'] = 21;
                     params[i]['color'] = colors[20];
@@ -445,6 +476,7 @@ var piktoBiorowerGraph2 = {
 
             piktoBiorowerGraph2.historyData = response.historydata;
               var newHistoryData = piktoBiorowerGraph2.getHistoryData(data2);
+              piktoBiorowerGraph2.maximum = response.max;
             if (response.max < 1000 && response.max > 200) {
                $("#stroke_1k").hide();
             }
@@ -465,20 +497,35 @@ var piktoBiorowerGraph2 = {
             
             var broj = 0;
 
-            function formatter(val, axis) {
-                var minutes = parseInt(val / 60) % 60;
-                return minutes + ":00";
+             function formatter(val, axis) {
+              /*  var minutes = Math.floor(val / 60);
+                var seconds = val - minutes * 60;
+                if(val<60){
+                     return seconds+"s" ;
+                }
+                else{
+                    return minutes+"min"+ seconds+"s" ;
+                }  */
+        
+                      var hours   = Math.floor(val / 3600);
+                      var minutes = Math.floor((val - (hours * 3600)) / 60);
+                      var seconds = val - (hours * 3600) - (minutes * 60);
+                      seconds = Math.round(seconds * 100) / 100;
+                       var result = (hours < 1 ? '' : hours + ":");
+                      result += (minutes < 10 ? minutes : minutes);
+                       result += ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                       return result;
+
+                
             }
 
             var colors = [];
             for (var i = 0; i < piktoBiorowerGraph2.parameters.length; i++) {
                 colors.push(piktoBiorowerGraph2.parameters[i].color);
             }
-
-            var series = {lines: {show: true}, points: {show: false}};
-            if (piktoBiorowerGraph2.broj == 1) {
-                series = {lines: {show: false}, points: {show: true}};
-            }
+           
+           
+            
 
             piktoBiorowerGraph2.progressPlot = $.plot($("#Strokes"),
                     newHistoryData, {
@@ -494,7 +541,6 @@ var piktoBiorowerGraph2 = {
                         pan: {
                             interactive: true
                         },
-                        series: series,
                         legend: {
                             noColumns: 3,
                             position: "nw",
@@ -505,18 +551,18 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Stroke Count",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 min: 0.00000001,
                             }, {
                                 axisLabelUseCanvas: true,
                                 axisLabel: "Stroke Distance [km]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 20,
                                 tickSize: 4, min: 0.00000001,
                             },
@@ -525,9 +571,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Speed Max [m/s]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 10,
                                 tickSize: 2, min: 0.00000001,
                             },
@@ -536,9 +582,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Pace 2km [mm.ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 1200,
                                 tickFormatter: formatter, min: 0.00000001,
                                 tickSize: 240,
@@ -548,9 +594,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "HR max [bmp]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 250,
                                 tickSize: 50, min: 0.00000001,
                             },
@@ -559,9 +605,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Calories [kCal]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 2,
                                 tickSize:0.4,
                                 min: 0.00000001,
@@ -571,9 +617,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Time [ss.hh]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 tickSize:1,
                                 max: 5, min: 0.00000001,
                             },
@@ -582,9 +628,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Stroke Dist.Max [km]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 20,
                                 tickSize: 4, min: 0.00000001,
                             },
@@ -593,9 +639,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Pace 500m [mm.ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 tickFormatter: formatter,
                                 tickSize: 60,
                                 max: 300,
@@ -606,9 +652,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Pace 2km Max [hh:mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30, tickSize: 240,
+                                labelWidth: 20, tickSize: 240,
                                 tickFormatter: formatter,
                                 max: 1200, min: 0.00000001,
                             },
@@ -617,9 +663,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Stroke Rate [spm]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 50,
                                 tickSize: 10, min: 0.00000001,
                             },
@@ -628,9 +674,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Power L [W]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 750,
                                 tickSize: 150, min: 0.00000001,
                             },
@@ -639,9 +685,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Distance [m]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 20,
                                 tickSize: 4, min: 0.00000001,
                             },
@@ -650,9 +696,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Speed [m/s]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 10,
                                 tickSize: 2, min: 0.00000001,
                             },
@@ -661,9 +707,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Pace 500m Max [hh:mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 tickFormatter: formatter,
                                 max: 300, min: 0.00000001,
                                 tickSize: 60,
@@ -673,9 +719,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "HR [bmp]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 250,
                                 tickSize: 50, min: 0.00000001,
                             },
@@ -684,9 +730,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Stroke Rate Max [spm]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 50,
                                 tickSize: 10, min: 0.00000001,
                             },
@@ -695,9 +741,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Power Average [W]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 1500,
                                 tickSize: 300, min: 0.00000001,
                             },
@@ -706,9 +752,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Power Max [W]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 1500,
                                 tickSize: 300, min: 0.00000001,
                             },
@@ -717,9 +763,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Power L Max [W]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 750,
                                 tickSize: 150, min: 0.00000001,
                             },
@@ -728,9 +774,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Power right average [W]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 750,
                                 tickSize: 150, min: 0.00000001,
                             },
@@ -739,9 +785,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Power right max [W]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 750,
                                 tickSize: 150, min: 0.00000001,
                             },
@@ -750,9 +796,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Power Balance [%]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 100,
                                 tickSize: 20, min: 0.00000001,
                             },
@@ -761,9 +807,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Power Balance max [%]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 100,
                                 tickSize: 20, min: 0.00000001,
                             },
@@ -772,9 +818,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Angle left average [°]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 150,
                                 tickSize: 30, min: 0.00000001,
                             },
@@ -783,9 +829,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Angle left max [°]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 150,
                                 tickSize: 30, min: 0.00000001,
                             },
@@ -794,9 +840,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Angle right average [°]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 150,
                                 tickSize: 30, min: 0.00000001,
                             },
@@ -805,9 +851,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Angle right max [°]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 150,
                                 tickSize: 30, min: 0.00000001,
                             },
@@ -816,9 +862,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Angle average [°]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 150,
                                 tickSize: 30, min: 0.00000001,
                             },
@@ -827,9 +873,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "Angle max [°]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 150,
                                 tickSize: 30, min: 0.00000001,
                             },
@@ -838,9 +884,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "MML 2 Level [hh:mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 100,
                                 tickSize: 20, min: 0.00000001,
                             },
@@ -849,9 +895,9 @@ var piktoBiorowerGraph2 = {
                                 axisLabel: "MML 4 Level [hh:mm:ss]",
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 3,
+                                axisLabelPadding: 2,
                                 panRange: false,
-                                labelWidth: 30,
+                                labelWidth: 20,
                                 max: 100,
                                 tickSize: 20, min: 0.00000001,
                             },
@@ -875,7 +921,26 @@ var piktoBiorowerGraph2 = {
             var opts = piktoBiorowerGraph2.progressPlot.getOptions();
             var axes = piktoBiorowerGraph2.progressPlot.getAxes();
          
+         if(skaliranje2==1000){
 
+                    for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+
+
+                    }
+                }
+          if(skaliranje2==0){
+                 for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =   opts.yaxes[i].max*2;
+                          opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*2;
+
+
+                    }
+              
+          }
             var r = piktoBiorowerGraph2.parameters;
             var duzina = r.length;
             
@@ -893,8 +958,6 @@ var piktoBiorowerGraph2 = {
                 opts.yaxes[piktoBiorowerGraph2.parameters[2].yaxis - 1].position = 'right';
             }
          
-
-        
 
             piktoBiorowerGraph2.progressPlot.setupGrid();
             piktoBiorowerGraph2.progressPlot.draw();
@@ -993,10 +1056,8 @@ var piktoBiorowerGraph2 = {
     
     $("#Strokes").UseTooltip();
 
-        
-        $("#tooltip").css("width",'300px');
-    
-     var r = piktoBiorowerGraph2.parameters;
+        $("#link2").click(function(){
+           var r = piktoBiorowerGraph2.parameters;
             var duzina = r.length;
     
          for(var i=0;i<document.getElementsByClassName("parameters2").length; i++){
@@ -1011,7 +1072,8 @@ var piktoBiorowerGraph2 = {
              }
  
     }
-     $('.parameters2').on('ifUnchecked', function(event){
+    
+    $('.parameters2').on('ifUnchecked', function(event){
            if($('.parameters2').filter(':checked').length == 0){
                            
                      $("#dugme2").attr('disabled', true);
@@ -1021,6 +1083,12 @@ var piktoBiorowerGraph2 = {
 
 
              });
+    
+        });
+        $("#tooltip").css("width",'300px');
+    
+    
+     
 
              $('.parameters2').on('ifClicked', function (event) {
 
@@ -1065,31 +1133,67 @@ var piktoBiorowerGraph2 = {
             }
         
         $('#stroke_all').click(function(){
-
+min=0;
 max=null;
+piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.min = null; 
 piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = null; 
 piktoBiorowerGraph2.progressPlot.setupGrid();
 piktoBiorowerGraph2.progressPlot.draw();
             
         });
           $('#stroke_1k').click(function(){
-            
-            max=1000;
-piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = 1000; 
-piktoBiorowerGraph2.progressPlot.setupGrid();
-piktoBiorowerGraph2.progressPlot.draw();
+           
+            if(piktoBiorowerGraph2.position+1000>piktoBiorowerGraph2.maximum){
+                  min=piktoBiorowerGraph2.maximum-1000; 
+                  max=piktoBiorowerGraph2.maximum;
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.min = piktoBiorowerGraph2.maximum-1000;            
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = piktoBiorowerGraph2.maximum; 
+            }
+            else{
+                 min=piktoBiorowerGraph2.position; 
+                 max=piktoBiorowerGraph2.position+1000;
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.min = piktoBiorowerGraph2.position;            
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = piktoBiorowerGraph2.position+1000; 
+               
+            }
+             piktoBiorowerGraph2.progressPlot.setupGrid();
+             piktoBiorowerGraph2.progressPlot.draw();
+
         });
            $('#stroke_200').click(function(){
-            max=200;
-piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = 200; 
-piktoBiorowerGraph2.progressPlot.setupGrid();
-piktoBiorowerGraph2.progressPlot.draw();
+        
+         if(piktoBiorowerGraph2.position+200>piktoBiorowerGraph2.maximum){
+               min=piktoBiorowerGraph2.maximum-200; 
+               max=piktoBiorowerGraph2.maximum;
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.min = piktoBiorowerGraph2.maximum-200;            
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = piktoBiorowerGraph2.maximum;              
+            }
+            else{
+                 min=piktoBiorowerGraph2.position; 
+                 max=piktoBiorowerGraph2.position+200;
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.min = piktoBiorowerGraph2.position;            
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = piktoBiorowerGraph2.position+200;           
+            }
+              piktoBiorowerGraph2.progressPlot.setupGrid();
+              piktoBiorowerGraph2.progressPlot.draw();
+
         });
            $('#stroke_50').click(function(){
-            max=50;
-piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = 50; 
-piktoBiorowerGraph2.progressPlot.setupGrid();
-piktoBiorowerGraph2.progressPlot.draw();
+       
+if(piktoBiorowerGraph2.position+50>piktoBiorowerGraph2.maximum){
+                     min=piktoBiorowerGraph2.maximum-50; 
+                     max=piktoBiorowerGraph2.maximum;
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.min = piktoBiorowerGraph2.maximum-50;            
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = piktoBiorowerGraph2.maximum;              
+            }
+            else{
+                 min=piktoBiorowerGraph2.position; 
+                 max=piktoBiorowerGraph2.position+50;
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.min = piktoBiorowerGraph2.position;            
+                piktoBiorowerGraph2.progressPlot.getAxes().xaxis.options.max = piktoBiorowerGraph2.position+50;           
+            }
+              piktoBiorowerGraph2.progressPlot.setupGrid();
+              piktoBiorowerGraph2.progressPlot.draw();
         });
 
           $('#skaliranje2').click(function(){
@@ -1204,7 +1308,7 @@ piktoBiorowerGraph2.progressPlot.draw();
                                 axisLabel:'Force L[°]',
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 10,
+                                axisLabelPadding: 20,
                                  show: true,
                                  max:data9['max'],
                                  tickSize:ticksize
@@ -1247,8 +1351,8 @@ piktoBiorowerGraph2.progressPlot.draw();
                                 axisLabel:'Force R[°]',
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
-                                axisLabelPadding: 10,
-                                 labelWidth: 30,
+                                axisLabelPadding: 20,
+                                 labelWidth: 20,
                                  show: true,
                                  max: data9['max'],
                                  tickSize:ticksize,
@@ -1259,7 +1363,7 @@ piktoBiorowerGraph2.progressPlot.draw();
                                 axisLabelFontSizePixels: 12,
                                 axisLabelFontFamily: 'Verdana, Arial',
                                 axisLabelPadding: 20,
-                                 labelWidth: 30,
+                                 labelWidth: 20,
                           tickSize:30,  
                         show:true,
                         max:60,
@@ -1284,11 +1388,53 @@ piktoBiorowerGraph2.progressPlot.draw();
           $("#signals-graph").bind("plotpan", function (event, plot) {
         var axes = piktoBiorowerGraph.historyPlot.getAxes();
         var start = axes.xaxis.options.min;
-        piktoBiorowerGraph.position=axes.xaxis.options.min;
-        piktoBiorowerGraph.loadHistoryData(parseInt(start),piktoBiorowerGraph.duration);
+                      piktoBiorowerGraph.position=axes.xaxis.options.min;
+
+       
+      
     
       
-    });             
+    }); 
+    
+    
+    setInterval(function(){ 
+      var axes = piktoBiorowerGraph.historyPlot.getAxes();
+
+        
+
+     if(axes.xaxis.options.max>piktoBiorowerGraph.rv1[piktoBiorowerGraph.rv1.length-1][0]/2){
+           
+       
+                    if(piktoBiorowerGraph.rv1[piktoBiorowerGraph.rv1.length-1][0]<time4-5){
+                     
+                                    piktoBiorowerGraph.loadHistoryData(piktoBiorowerGraph.rv1[piktoBiorowerGraph.rv1.length-1][0],piktoBiorowerGraph.duration);
+
+                    }
+      
+        } 
+    
+    
+  
+
+    
+    
+    }, 2000);
+
+    
+    
+     
+       
+          $("#Strokes").bind("plotpan", function (event, plot) {
+        var axes = piktoBiorowerGraph2.progressPlot.getAxes();
+        var start = axes.xaxis.options.min;
+        piktoBiorowerGraph2.position=axes.xaxis.options.min;
+    
+      
+    }); 
+    
+    
+    
+    
          /*    $("#signals-graph").mouseup(function(){
                  setTimeout(function(){
                      
@@ -1344,20 +1490,79 @@ piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{s
         <h3 class="pull-left margin-top">Signals</h3>
         <div class="signals-bzns-right margin-bottom">
             <a href="javascript:;" class="pull-right btn-param" style="margin:0px; margin-bottom: 15px;margin-right: 40px" id="signal_1min" onclick="
-      
-  
+     if(piktoBiorowerGraph.position+60>time4) {
+         piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.min=time4-60;
+          piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.max=time4;
+     }
+     else{
+          piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.min = piktoBiorowerGraph.position;           
+                piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.max = piktoBiorowerGraph.position+60; 
+                 
+     }
+       piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.tickSize = 5;     
+           
+                piktoBiorowerGraph.duration=40;
+            
+             piktoBiorowerGraph.historyPlot.setupGrid();
+             piktoBiorowerGraph.historyPlot.draw(); 
      
-         piktoBiorowerGraph.loadHistoryData(piktoBiorowerGraph.position,40);">1min</a>
+                      ">1min</a>
             <a href="javascript:;" class="pull-right btn-param" style="margin:0px; margin-bottom: 15px;" id="signal_30s" onclick="    
-     
-         piktoBiorowerGraph.loadHistoryData(piktoBiorowerGraph.position,20);">30s</a>
+    
+       if(piktoBiorowerGraph.position+30>time4) {
+         piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.min=time4-30;
+          piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.max=time4;
+     }
+     else{
+          piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.min = piktoBiorowerGraph.position;           
+                piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.max = piktoBiorowerGraph.position+30; 
+                 
+     }
+ 
+                   piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.tickSize = 5;     
+           
+                piktoBiorowerGraph.duration=20;
+            
+             piktoBiorowerGraph.historyPlot.setupGrid();
+             piktoBiorowerGraph.historyPlot.draw(); 
+       ">30s</a>
             <a href="javascript:;" class="pull-right btn-param" style="margin:0px; margin-bottom: 15px;" id="signal_10s" onclick="
-      piktoBiorowerGraph.loadHistoryData(piktoBiorowerGraph.position,7);        
+       if(piktoBiorowerGraph.position+10>time4) {
+         piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.min=time4-10;
+          piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.max=time4;
+     }
+     else{
+          piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.min = piktoBiorowerGraph.position;           
+                piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.max = piktoBiorowerGraph.position+10; 
+                 
+     }
+    
+  
+                   piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.tickSize =1;     
+           
+                piktoBiorowerGraph.duration=7;
+            
+             piktoBiorowerGraph.historyPlot.setupGrid();
+             piktoBiorowerGraph.historyPlot.draw();         
   
        ">10s</a>
             <a href="javascript:;" class="pull-right btn-param" style="margin:0px; margin-bottom: 15px;" id="signal_5s" onclick="
-                                                                                                                                                            
-         piktoBiorowerGraph.loadHistoryData(piktoBiorowerGraph.position,4);">5s</a>          <form class="pull-right">
+               if(piktoBiorowerGraph.position+5>time4) {
+         piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.min=time4-5;
+          piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.max=time4;
+     }
+     else{
+          piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.min = piktoBiorowerGraph.position;           
+                piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.max = piktoBiorowerGraph.position+5; 
+                 
+     }
+                   piktoBiorowerGraph.historyPlot.getAxes().xaxis.options.tickSize = 1;     
+           
+                piktoBiorowerGraph.duration=4;
+            
+             piktoBiorowerGraph.historyPlot.setupGrid();
+             piktoBiorowerGraph.historyPlot.draw();                                                                                                                                               
+         ">5s</a>          <form class="pull-right">
           </form>
           </div> 
           <div class="clear"></div>
@@ -1387,7 +1592,9 @@ piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{s
     <!-- /Sensor Graph -->
     </div>
     <!-- Training History Graph -->
+
     <div class="col-md-12 row">
+        
     <div class="col-md-12 box box-primary no-padding">
       <div class="box-header margin-bottom graphic-box no-padding no-pad-top">
         <div class="traninig-graph">
@@ -1400,8 +1607,7 @@ piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{s
 
            
        
-            
-        <div id="Strokes" class="clear" style="height: 300px;"></div>
+        <div id="Strokes" class="clear" style="height: 300px;margin-left: 3%;margin-right: 1%"></div>
         
         <div class="graphic-footer row">
                 
@@ -1497,7 +1703,7 @@ piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{s
                                                             <li>
                                                                 <label for="power2">
                                                                     <input type="checkbox" class="parameters2" id="power2" value="pwr">
-                                                                    <span class="pwr2">Power average</span>
+                                                                    <span class="pwr2">Power</span>
                                                                 </label>
                                                             </li>
                                                             
@@ -1506,7 +1712,7 @@ piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{s
                                                             <li>
                                                                 <label for="powerR2">
                                                                     <input type="checkbox" class="parameters2" id="powerR2" value="pwr_r">
-                                                                    <span class="pwr_r2">Power right average</span>
+                                                                    <span class="pwr_r2">Power R</span>
                                                                 </label>
                                                             </li>
                                                            
@@ -1570,9 +1776,20 @@ piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{s
                                                                     }
                                                                     return parameter;
                                                                  }).get();
-                                                                  skaliranje2=0;
-                                                              $('#skaliranje2').click();
-                                                       piktoBiorowerGraph2.loadHistoryData(newHistoryParams);           
+                                                                piktoBiorowerGraph2.loadHistoryData(newHistoryParams);           
+
+                                                                  if(skaliranje2==500){
+
+                                                                  }
+                                                                  else if(skaliranje2==1000){
+
+                                                                  }
+                                                                  else if(skaliranje2==1500){
+                                                    
+
+
+                  
+                                                                  }
 
                                                                  $('#myParam').modal('hide');">
                                                         Save changes
@@ -1583,10 +1800,10 @@ piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{s
                                     </div><!-- /.modal -->
                                 </div><!-- /.example-modal -->
                           </div>
+         </div>
         </div>
         </div>
       </div>    <!-- /Training History Graph -->
-      </div>
      </div> 
       
       

@@ -45,7 +45,7 @@ class GraphController extends Controller {
             } else {
                 $graf = Input::get("graf");
                 if ($graf == 1 | $graf == 2) {
-                $sql = "SELECT data->'$[0][*].signal.ang_l' as ang_l ,data->'$[0][*].signal.ang_r' as ang_r,data->'$[0][*].signal.frc_l' as frc_l,data->'$[0][*].signal.frc_r' as frc_r  FROM `sessions` WHERE id=" . $id . "";
+                $sql = "SELECT  data->'$[0][*].signal.ang_l' as ang_l ,data->'$[0][*].signal.ang_r' as ang_r,data->'$[0][*].signal.frc_l' as frc_l,data->'$[0][*].signal.frc_r' as frc_r  FROM `sessions` WHERE id=" . $id . "";
                 $results = Cache::remember(md5($sql), 60, function() use ($sql) {
                             return DB::select($sql);
                         });
@@ -108,30 +108,18 @@ class GraphController extends Controller {
             elseif ($graf == 2) {
                     $start = Input::get("start");
                     $duration=Input::get("duration");
+                     $st=Input::get("st");
                     $broj=$start;       
-                    $start2=$start*0.33;
-                    $end=$start2+$duration;
-                    if($duration==20){
-                        $dur=30;
-                    }
-                     else if($duration==40){
-                        $dur=60;
-                    }
-                    else if($duration==7){
-                        $dur=10;
-                    }
-                    else if($duration==4){
-                        $dur=5;
-                    }
-                   if(count($ang_r)>$duration){
-                   if($start+$duration>count($ang_r)){
-                       $start2=count($ang_r)-$duration;
+                    $start2= $st;
+                    $end=$start2+300;
+                   
+                   if(count($ang_r)>300){
+                   if($st+300>count($ang_r)){
+                       $start2=$st;
                        $end=count($ang_r);
-                     
+                       
                    }
-                    if($broj >( count($ang_r)*150/100)-$dur){
-                        $broj=( count($ang_r)*150/100)-$dur;
-                    }
+                    
                     
                    }
                    else{
@@ -174,6 +162,7 @@ class GraphController extends Controller {
                     $rv2 = array();
                     $rv3 = array();
                     $rv4 = array();
+                    
                     $d2leng=count($d2);
                     for ($i = 0; $i < $d2leng; $i = $i + 1) {
                     $rv[] = [$broj, $d3[$i]];
@@ -198,7 +187,8 @@ class GraphController extends Controller {
                         'ang_l' => $rv3,
                         'ang_r' => $rv4,
                         'max'=>$max,
-                        'maxx'=>$d2leng
+                   
+                       
                     ];
                 } elseif ($graf == 3) {
                     $parametar = Input::get("parametar");

@@ -203,7 +203,15 @@ $(function () {
                         var y = datapoint.toFixed(2) + " m/s ";
                     }
                     if (label.indexOf("Pace") != -1) {
-                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                          var hours   = Math.floor(datapoint / 3600);
+                      var minutes = Math.floor((datapoint - (hours * 3600)) / 60);
+                  
+                       var result = (hours < 1 ? '' : hours + " hours ");
+                      result +=  minutes+" min";
+                      
+                       
+                        
+                        var y = result;
                     }
                     if (label.indexOf("HR") != -1) {
                         var y = datapoint.toFixed(2) + " bpm ";
@@ -212,7 +220,15 @@ $(function () {
                         var y = datapoint.toFixed(1) + " kCal ";
                     }
                     if (label == "Time") {
-                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                            var hours   = Math.floor(datapoint / 3600);
+                      var minutes = Math.floor((datapoint - (hours * 3600)) / 60);
+                  
+                       var result = (hours < 1 ? '' : hours + " hours ");
+                      result +=  minutes+" min";
+                      
+                       
+                        
+                        var y = result;
                     }
                     if (label == "Stroke Dist. Max") {
                         var y = (datapoint).toFixed(2) + " m ";
@@ -268,7 +284,15 @@ $(function () {
                         var y = datapoint.toFixed(2) + " m/s ";
                     }
                     if (label.indexOf("Pace") != -1) {
-                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                         var hours   = Math.floor(datapoint / 3600);
+                      var minutes = Math.floor((datapoint - (hours * 3600)) / 60);
+                  
+                       var result = (hours < 1 ? '' : hours + " hours ");
+                      result +=  minutes+" min";
+                      
+                       
+                        
+                        var y = result;
                     }
                     if (label.indexOf("HR") != -1) {
                         var y = datapoint.toFixed(2) + " bpm ";
@@ -277,7 +301,16 @@ $(function () {
                         var y = datapoint.toFixed(1) + " kCal ";
                     }
                     if (label == "Time") {
-                        var y = parseInt(datapoint / 60) % 60 + " min ";
+                        
+                        var hours   = Math.floor(datapoint / 3600);
+                      var minutes = Math.floor((datapoint - (hours * 3600)) / 60);
+                  
+                       var result = (hours < 1 ? '' : hours + " hours ");
+                      result +=  minutes+" min";
+                      
+                       
+                        
+                        var y = result;
                     }
                     if (label == "Stroke Dist. Max") {
                         var y = (datapoint).toFixed(2) + " m ";
@@ -1025,7 +1058,7 @@ var piktoBiorowerGraph = {
 
             var opts = piktoBiorowerGraph.historyPlot.getOptions();
             var axes = piktoBiorowerGraph.historyPlot.getAxes();
-            var niz = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+            var niz = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000,50000,100000,200000];
             var cal = response.historydata.cal;
             var time = response.historydata.time;
             var scnt = response.historydata.scnt;
@@ -1045,6 +1078,15 @@ var piktoBiorowerGraph = {
             }
             if (dist) {
                 dist2 = Math.max.apply(Math, dist);
+            }
+             if (dist2 > niz[11] && dist2 <= niz[12]) {
+                dist2 = niz[12];
+            }
+            if (dist2 > niz[10] && dist2 <= niz[11]) {
+                dist2 = niz[11];
+            }
+            if (dist2 > niz[9] && dist2 <= niz[10]) {
+                dist2 = niz[10];
             }
             if (dist2 > niz[8] && dist2 <= niz[9]) {
                 dist2 = niz[9];
@@ -1076,6 +1118,15 @@ var piktoBiorowerGraph = {
             if (dist2 <= niz[0]) {
                 dist2 = niz[1];
             }
+            if (time2 > niz[11] && time2 <= niz[12]) {
+                time2 = niz[12];
+            }
+            if (time2 > niz[10] && time2 <= niz[11]) {
+                time2 = niz[11];
+            }
+            if (time2 > niz[9] && time2 <= niz[10]) {
+                time2 = niz[10];
+            }
             if (time2 > niz[8] && time2 <= niz[9]) {
                 time2 = niz[9];
             }
@@ -1106,6 +1157,15 @@ var piktoBiorowerGraph = {
             if (time2 <= niz[0]) {
                 time2 = niz[1];
             }
+              if (cal2 > niz[11] && cal2 <= niz[12]) {
+                cal2 = niz[12];
+            }
+            if (cal2 > niz[10] && cal2 <= niz[11]) {
+                cal2 = niz[11];
+            }
+            if (cal2 > niz[9] && cal2 <= niz[10]) {
+                cal2 = niz[10];
+            }
             if (cal2 > niz[8] && cal2 <= niz[9]) {
                 cal2 = niz[9];
             }
@@ -1135,6 +1195,15 @@ var piktoBiorowerGraph = {
             }
             if (cal2 <= niz[0]) {
                 cal2 = niz[1];
+            }
+             if (scnt2 > niz[11] && scnt2 <= niz[12]) {
+                scnt2 = niz[12];
+            }
+            if (scnt2 > niz[10] && scnt2 <= niz[11]) {
+                scnt2 = niz[11];
+            }
+             if (scnt2 > niz[9] && scnt2 <= niz[10]) {
+                scnt2 = niz[10];
             }
             if (scnt2 > niz[8] && scnt2 <= niz[9]) {
                 scnt2 = niz[9];
@@ -2054,7 +2123,7 @@ var piktoBiorowerGraph2 = {
 
             var opts = piktoBiorowerGraph2.progressPlot.getOptions();
             var axes = piktoBiorowerGraph2.progressPlot.getAxes();
-            var niz = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+            var niz = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000,50000,100000,200000];
             var cal = response.historydata.cal;
             var time = response.historydata.time;
             var scnt = response.historydata.scnt;
@@ -2074,6 +2143,15 @@ var piktoBiorowerGraph2 = {
             }
             if (dist) {
                 dist2 = Math.max.apply(Math, dist);
+            }
+             if (dist2 > niz[11] && dist2 <= niz[12]) {
+                dist2 = niz[12];
+            }
+            if (dist2 > niz[10] && dist2 <= niz[11]) {
+                dist2 = niz[11];
+            }
+            if (dist2 > niz[9] && dist2 <= niz[10]) {
+                dist2 = niz[10];
             }
             if (dist2 > niz[8] && dist2 <= niz[9]) {
                 dist2 = niz[9];
@@ -2105,6 +2183,15 @@ var piktoBiorowerGraph2 = {
             if (dist2 <= niz[0]) {
                 dist2 = niz[1];
             }
+            if (time2 > niz[11] && time2 <= niz[12]) {
+                time2 = niz[12];
+            }
+            if (time2 > niz[10] && time2 <= niz[11]) {
+                time2 = niz[11];
+            }
+            if (time2 > niz[9] && time2 <= niz[10]) {
+                time2 = niz[10];
+            }
             if (time2 > niz[8] && time2 <= niz[9]) {
                 time2 = niz[9];
             }
@@ -2135,7 +2222,15 @@ var piktoBiorowerGraph2 = {
             if (time2 <= niz[0]) {
                 time2 = niz[1];
             }
-
+              if (cal2 > niz[11] && cal2 <= niz[12]) {
+                cal2 = niz[12];
+            }
+            if (cal2 > niz[10] && cal2 <= niz[11]) {
+                cal2 = niz[11];
+            }
+            if (cal2 > niz[9] && cal2 <= niz[10]) {
+                cal2 = niz[10];
+            }
             if (cal2 > niz[8] && cal2 <= niz[9]) {
                 cal2 = niz[9];
             }
@@ -2166,8 +2261,15 @@ var piktoBiorowerGraph2 = {
             if (cal2 <= niz[0]) {
                 cal2 = niz[1];
             }
-
-
+             if (scnt2 > niz[11] && scnt2 <= niz[12]) {
+                scnt2 = niz[12];
+            }
+            if (scnt2 > niz[10] && scnt2 <= niz[11]) {
+                scnt2 = niz[11];
+            }
+             if (scnt2 > niz[9] && scnt2 <= niz[10]) {
+                scnt2 = niz[10];
+            }
             if (scnt2 > niz[8] && scnt2 <= niz[9]) {
                 scnt2 = niz[9];
             }
