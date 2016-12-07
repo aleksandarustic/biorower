@@ -231,7 +231,7 @@
                            tickFormatter: formatter,
                             max:max3,
                             min:min3,
-                             panRange: [0, time4-0.5],
+                             panRange: [0, time4],
                             tickSize:tickSize,
                             
                         
@@ -531,7 +531,6 @@ var piktoBiorowerGraph2 = {
                     newHistoryData, {
                         grid: {
                             hoverable: true,
-                            clickable: true,
                             mouseActiveRadius: 30,
                             backgroundColor: false,
                             borderColor: "#f3f3f3",
@@ -1397,12 +1396,12 @@ if(piktoBiorowerGraph2.position+50>piktoBiorowerGraph2.maximum){
     }); 
     
     
-    setInterval(function(){ 
-      var axes = piktoBiorowerGraph.historyPlot.getAxes();
+   var refreshIntervalId = setInterval(function(){ 
+       
 
         
 
-     if(axes.xaxis.options.max>piktoBiorowerGraph.rv1[piktoBiorowerGraph.rv1.length-1][0]/2){
+  
            
        
                     if(piktoBiorowerGraph.rv1[piktoBiorowerGraph.rv1.length-1][0]<time4-5){
@@ -1410,15 +1409,19 @@ if(piktoBiorowerGraph2.position+50>piktoBiorowerGraph2.maximum){
                                     piktoBiorowerGraph.loadHistoryData(piktoBiorowerGraph.rv1[piktoBiorowerGraph.rv1.length-1][0],piktoBiorowerGraph.duration);
 
                     }
+                    else{
+                        clearInterval(refreshIntervalId);
+
+                    }
       
-        } 
+        
     
     
   
 
     
     
-    }, 2000);
+    }, 3000);
 
     
     

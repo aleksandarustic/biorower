@@ -1,8 +1,112 @@
 
 
-
 $(function () {
-    
+     $('#skaliranje2').click(function(){
+                
+                     skaliranje2=skaliranje2+500;
+                if(skaliranje2==500){
+                     var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                    for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+
+
+                    }
+
+                      piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+
+
+
+
+
+                    $('#skaliranje2').text("X1");
+
+                }
+                if(skaliranje2==1000){
+                    $('#skaliranje2').text("X2");
+                                        var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                      for(var i=0;i<opts.yaxes.length; i++){
+
+                                              opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                                               opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+                    }
+
+                    piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+                }
+                if(skaliranje2==1500){
+                    $('#skaliranje2').text("1/2X");
+                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
+                        for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =   opts.yaxes[i].max*4;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
+
+
+                    }
+
+                    piktoBiorowerGraph2.progressPlot.setupGrid();
+                    piktoBiorowerGraph2.progressPlot.draw();
+                    skaliranje2=0;
+                }
+
+
+            });
+                $('#skaliranje').click(function(){
+                
+                     skaliranje=skaliranje+500;
+                if(skaliranje==500){
+                     var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                    for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+
+
+                    }
+
+                      piktoBiorowerGraph.historyPlot.setupGrid();
+                    piktoBiorowerGraph.historyPlot.draw();
+
+
+
+
+
+                    $('#skaliranje').text("X1");
+
+                }
+                if(skaliranje==1000){
+                    $('#skaliranje').text("X2");
+                                        var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                      for(var i=0;i<opts.yaxes.length; i++){
+
+                                              opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                                               opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+                    }
+
+                    piktoBiorowerGraph.historyPlot.setupGrid();
+                    piktoBiorowerGraph.historyPlot.draw();
+                }
+                if(skaliranje==1500){
+                    $('#skaliranje').text("1/2X");
+                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
+                        for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =   opts.yaxes[i].max*4;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
+
+
+                    }
+
+                    piktoBiorowerGraph.historyPlot.setupGrid();
+                    piktoBiorowerGraph.historyPlot.draw();
+                    skaliranje=0;
+                }
+
+
+            });
     
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-blue',
@@ -170,17 +274,20 @@ $(function () {
     });
        $.fn.UseTooltip = function () {
         var previousPoint = null;
+        var previousLabel = null;
 
         $("#history").bind("plothover", function (event, pos, item) {
             
 
             if (item) {
-                if (previousPoint != pos.pageY) {
-                    previousPoint = pos.pageY;
+               if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                     previousPoint = item.dataIndex;
+            previousLabel = item.series.label;
+            $("#tooltip").remove();
                     var label = item.series.label;
                     var datapoint = item.datapoint[1];
                     var x = item.datapoint[0];
-                    $("#tooltip").remove();
+                    
                     if (label == "Distance") {
                         var y = (datapoint * 1000).toFixed(2) + " m ";
                     }
@@ -255,12 +362,13 @@ $(function () {
             
 
             if (item) {
-                if (previousPoint != pos.pageY) {
-                    previousPoint = pos.pageY;
+                if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                     previousPoint = item.dataIndex;
+            previousLabel = item.series.label;
+            $("#tooltip").remove();
                     var label = item.series.label;
                     var datapoint = item.datapoint[1];
                     var x = item.datapoint[0];
-                    $("#tooltip").remove();
                     if (label == "Distance") {
                         var y = (datapoint * 1000).toFixed(2) + " m ";
                     }
@@ -349,7 +457,7 @@ $(function () {
         $('<div id="tooltip">' + contents + '</div>').css({
             position: 'absolute',
             display: 'none',
-            top: y + 5,
+            top: y + 15,
             left: x - 180,
             border: '2px solid #ccc',
             padding: '5px',
@@ -374,6 +482,8 @@ $(function () {
 /* Custom Label formatter
  * ----------------------
  */
+var skaliranje2=500;
+var skaliranje=500;
 
 
 var piktoBiorowerGraph = {
@@ -664,9 +774,9 @@ var piktoBiorowerGraph = {
                 }
               
             }
-            var series = {lines: {show: true}, points: {show: true}};
+            var series = {lines: {show: true}, points: {show: true,radius:2.7}};
             if (piktoBiorowerGraph.broj == 1) {
-                series = {lines: {show: false}, points: {show: true}};
+                series = {lines: {show: false}, points: {show: true,radius:2.7}};
             }
 
             piktoBiorowerGraph.historyPlot = $.plot($("#history"),
@@ -674,7 +784,7 @@ var piktoBiorowerGraph = {
                         grid: {
                             hoverable: true,
                             clickable: true,
-                            mouseActiveRadius: 30,
+                            mouseActiveRadius: 15,
                             backgroundColor: false,
                             borderColor: "#f3f3f3",
                             borderWidth: 1,
@@ -1352,6 +1462,26 @@ var piktoBiorowerGraph = {
                         + moment(piktoBiorowerGraph.startDate).add(1, 'month').format('MMMM Do YYYY'));
 
             }
+        if(skaliranje==1000){
+
+                    for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+
+
+                    }
+                }
+          if(skaliranje==0){
+                 for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =   opts.yaxes[i].max*2;
+                          opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*2;
+
+
+                    }
+              
+          }
 
             piktoBiorowerGraph.historyPlot.setupGrid();
             piktoBiorowerGraph.historyPlot.draw();
@@ -1727,9 +1857,9 @@ var piktoBiorowerGraph2 = {
                 colors.push(piktoBiorowerGraph2.parameters[i].color);
             }
 
-            var series = {lines: {show: true}, points: {show: true}};
+            var series = {lines: {show: true}, points: {show: true,radius:2.7}};
             if (piktoBiorowerGraph2.broj == 1) {
-                series = {lines: {show: false}, points: {show: true}};
+                series = {lines: {show: false}, points: {show: true,radius:2.7}};
             }
 
 
@@ -1738,7 +1868,7 @@ var piktoBiorowerGraph2 = {
                         grid: {
                             hoverable: true,
                             clickable: true,
-                            mouseActiveRadius: 30,
+                            mouseActiveRadius: 15,
                             backgroundColor: false,
                             borderColor: "#f3f3f3",
                             borderWidth: 1,
@@ -2388,6 +2518,26 @@ var piktoBiorowerGraph2 = {
                         + moment().format('MMMM Do YYYY'));
 
             }
+                  if(skaliranje2==1000){
+
+                    for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
+                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
+
+
+                    }
+                }
+          if(skaliranje2==0){
+                 for(var i=0;i<opts.yaxes.length; i++){
+
+                          opts.yaxes[i].max =   opts.yaxes[i].max*2;
+                          opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*2;
+
+
+                    }
+              
+          }
             piktoBiorowerGraph2.progressPlot.setupGrid();
             piktoBiorowerGraph2.progressPlot.draw();
         });

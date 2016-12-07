@@ -9,7 +9,7 @@
             <div class="col-md-3 col-left">
 
                 <!-- Profile Image -->
-                <div class="box box-primary" style="margin-bottom: 16px;">
+                <div class="box box-primary">
                     <div class="box-body box-profile">
                         <div class="img-circle-width">
                             <a href="{{ url('/profile/edit') }}"><span class="label-edit edit-img"></span>
@@ -75,29 +75,10 @@
                     <!-- /.box-body -->
                 </div><!-- /.box -->
 
-                <!--USER FRIENDS (show 8) -->
-                    <div class="box box-primary">
-                    <div class="box-header">
-                      <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i><a href="{{ asset($user->display_name.'/friends')}}"> Friends - {{count($friends)}} </a></h3>
-                      </div>
-                             <div class="box-body">
-                        <div class="box-body no-padding">
-                          <ul class="users-list clearfix">
-                        @foreach($friends as $friend)  
-                            <li>
-                            <a class="" href="{{ asset('/'.$friend->display_name)}}">
-                              <img src="{{asset($friend->name)}}" alt="{{ $friend->first_name.' '.$friend->last_name}}"><span class="users-list-name"> {{ $friend->first_name.' '.$friend->last_name}} </span>
-                              <span class="users-list-date">&#64;{{$friend->display_name}}</span> </a>
-                            </li>
-                        @endforeach
-                          </ul><!-- /.users-list -->
-                        </div><!-- /.box-body -->
-                        <div class="box-footer text-center padding-bottom-zero">
-                          <a href="{{ asset('profile/myfriends')}}" class="uppercase">View All Friends</a>
-                        </div><!-- /.box-footer -->
-                      </div><!--/.box -->
-                    </div>
-                <!--USER FRIENDS (show 8) -->
+                <!--I am Following -->
+
+
+                <!-- Following me -->
 
 
             </div><!-- /.col -->
@@ -631,9 +612,7 @@
                                                     </div>
                                                     <!-- List of Parametars -->
                                                     <div id="history-graph-params" class="param-box">
-                                                    <div class="row">
                                                           <ul class="checkbox icheck modalParm-list" id="lista1">
-                                                        <div class="col-md-6">  
                                                             <li>
                                                                 <label for="strokeCount">
                                                                     <input type="checkbox" class="parameters" id="strokeCount" value="scnt" >
@@ -730,8 +709,6 @@
                                                                     <span class="hr_avg">HR</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
-                                                        </div>
-                                                        <div class="col-md-6">    
                                                             <li>
                                                                 <label for="strokeRateMax">
                                                                     <input type="checkbox" class="parameters" id="strokeRateMax" value="srate_max">
@@ -833,19 +810,16 @@
                                                             </li>
 
 
-                                                        </div>
+
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
-                                                     </div> <!-- End ./row -->
+
 
 
 
                                                     </div><!-- /.List of Parametars -->
-
                                                      <div id="progress-graph-params" class="param-box">
-                                                        <div class="row">
                                                           <ul class="checkbox icheck modalParm-list" >
-                                                            <div class="col-md-6"> 
                                                             <li>
                                                                 <label for="strokeCount2">
                                                                     <input type="checkbox" class="parameters2" id="strokeCount2" value="scnt" >
@@ -942,8 +916,6 @@
                                                                     <span class="hr_avg2">HR</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
-                                                            </div>
-                                                        <div class="col-md-6"> 
                                                             <li>
                                                                 <label for="strokeRateMax2">
                                                                     <input type="checkbox" class="parameters2" id="strokeRateMax2" value="srate_max">
@@ -1044,11 +1016,10 @@
                                                                 </label>
                                                             </li>
 
-                                                        </div>
+
 
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
-                                                    </div> <!-- End ./row -->
 
 
 
@@ -1817,50 +1788,55 @@
 
          });
 
-
-        $('.parameters').on('ifUnchecked', function(event){
-            if($('.parameters').filter(':checked').length == 0){              
-                 $("#dugme1").attr('disabled', true);
-            }
-        });
-
-        $('.parameters').on('ifClicked', function(event){
-              $("#dugme1").attr('disabled', false);
-
-              if(this.checked==true){
-
-              }else{
-                      if ($('.parameters').filter(':checked').length == 3) {
-                          var s=$('.parameters').filter(':checked')[2].id;
-                          $('#'+s).iCheck('uncheck');
-                      }
-              }
-        });
+     $('.parameters').on('ifClicked', function(event){
+             if(this.checked==true){
 
 
-        $('.parameters2').on('ifUnchecked', function(event){
-            if($('.parameters2').filter(':checked').length == 0){              
-                 $("#dugme2").attr('disabled', true);
-            }
-        });
 
-        $('.parameters2').on('ifClicked', function (event) {
-                 $("#dugme2").attr('disabled', false);
+             }
+             else{
 
-            if (this.checked == true) {
+             if ($('.parameters').filter(':checked').length == 3) {
+              var s=$('.parameters').filter(':checked')[2].id;
 
-            }else{
-                  if ($('.parameters2').filter(':checked').length == 3) {
 
-                         var s = $('.parameters2').filter(':checked')[2].id;
-                         $('#' + s).iCheck('uncheck');
-                  }
-            }
+              $('#'+s).iCheck('uncheck');
+             }
+
+
+    }
+
+
+
         });
 
 
-            var skaliranje=500;
-            var skaliranje2=500;
+          $('.parameters2').on('ifClicked', function(event){
+
+                if(this.checked==true){
+
+
+
+             }
+             else{
+
+
+             if ($('.parameters2').filter(':checked').length == 3) {
+              var s=$('.parameters2').filter(':checked')[2].id;
+
+      $('#'+s).iCheck('uncheck');
+
+    }
+    }
+
+
+
+        });
+
+
+
+
+
          
 
 
@@ -1978,146 +1954,7 @@
 
 
 
-            $('#skaliranje').click(function(){
-
-                skaliranje=skaliranje+500;
-                if(skaliranje==500){
-                     var opts = piktoBiorowerGraph.historyPlot.getOptions();
-                    for(var i=0;i<opts.yaxes.length; i++){
-
-                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
-                          opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
-
-
-                    }
-
-                      piktoBiorowerGraph.historyPlot.setupGrid();
-                    piktoBiorowerGraph.historyPlot.draw();
-
-
-
-
-
-                    $('#skaliranje').text("X1");
-
-
-
-
-
-
-
-                }
-                if(skaliranje==1000){
-                    $('#skaliranje').text("X2");
-                                        var opts = piktoBiorowerGraph.historyPlot.getOptions();
-                      for(var i=0;i<opts.yaxes.length; i++){
-
-                                              opts.yaxes[i].max =  opts.yaxes[i].max/2;
-                                                opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
-
-
-                    }
-
-
-
-
-                    piktoBiorowerGraph.historyPlot.setupGrid();
-                    piktoBiorowerGraph.historyPlot.draw();
-                }
-                if(skaliranje==1500){
-                    $('#skaliranje').text("1/2X");
-                    var opts = piktoBiorowerGraph.historyPlot.getOptions();
-                        for(var i=0;i<opts.yaxes.length; i++){
-
-                          opts.yaxes[i].max =   opts.yaxes[i].max*4;
-                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
-
-                    }
-
-
-
-
-
-                    piktoBiorowerGraph.historyPlot.setupGrid();
-                    piktoBiorowerGraph.historyPlot.draw();
-                    skaliranje=0;
-                }
-
-
-            });
-
-            $('#skaliranje2').click(function(){
-
-                     skaliranje2=skaliranje2+500;
-                if(skaliranje2==500){
-                     var opts = piktoBiorowerGraph2.progressPlot.getOptions();
-                    for(var i=0;i<opts.yaxes.length; i++){
-
-                          opts.yaxes[i].max =  opts.yaxes[i].max/2;
-                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
-
-
-                    }
-
-                      piktoBiorowerGraph2.progressPlot.setupGrid();
-                    piktoBiorowerGraph2.progressPlot.draw();
-
-
-
-
-
-                    $('#skaliranje2').text("X1");
-
-
-
-
-
-
-
-                }
-                if(skaliranje2==1000){
-                    $('#skaliranje2').text("X2");
-                                        var opts = piktoBiorowerGraph2.progressPlot.getOptions();
-                      for(var i=0;i<opts.yaxes.length; i++){
-
-                                              opts.yaxes[i].max =  opts.yaxes[i].max/2;
-                                               opts.yaxes[i].tickSize=opts.yaxes[i].tickSize/2;
-
-
-                    }
-
-
-
-
-                    piktoBiorowerGraph2.progressPlot.setupGrid();
-                    piktoBiorowerGraph2.progressPlot.draw();
-                }
-                if(skaliranje2==1500){
-                    $('#skaliranje2').text("1/2X");
-                    var opts = piktoBiorowerGraph2.progressPlot.getOptions();
-                        for(var i=0;i<opts.yaxes.length; i++){
-
-                          opts.yaxes[i].max =   opts.yaxes[i].max*4;
-                           opts.yaxes[i].tickSize=opts.yaxes[i].tickSize*4;
-
-
-                    }
-
-
-
-
-
-                    piktoBiorowerGraph2.progressPlot.setupGrid();
-                    piktoBiorowerGraph2.progressPlot.draw();
-                    skaliranje2=0;
-                }
-
-
-            });
-
-
-
-
+       
 
 
         })

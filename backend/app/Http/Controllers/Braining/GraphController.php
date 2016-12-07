@@ -133,10 +133,10 @@ class GraphController extends Controller {
                         $var2 = base64_decode($ang_r[$i]);
                         $var3 = base64_decode($frc_l[$i]);
                         $var4 = base64_decode($frc_r[$i]);
-                    $duzina1= strlen($var1) - 1;
-                    $duzina2= strlen($var2) - 1;
-                    $duzina3= strlen($var3) - 1;
-                    $duzina4= strlen($var4) - 1;
+                    $duzina1= strlen($var1);
+                    $duzina2= strlen($var2);
+                    $duzina3= strlen($var3);
+                    $duzina4= strlen($var4);
                     if($duzina1>$duzina2){
                         $duzina1=$duzina2;
                     }
