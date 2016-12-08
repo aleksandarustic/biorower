@@ -16,6 +16,8 @@ Route::group(array('prefix' => 'api'), function()
 
 	Route::Post('v1/firmware_get', 'Braining\FirmwareController@download'); 
 
+	Route::Post('v1/firmware_get_all', 'Braining\FirmwareController@downloadAll');
+
 	Route::resource('v1/auths', 'Braining\AuthsController',
 					['only' => ['store']]); //, 'names' => ['store' => 'api.braining.auths.auths']]
 

@@ -390,6 +390,99 @@ return [
 			'color'			=> 	'FF606060', // boja koja se prikazuje u graficima
 		],	
 
+	// NOVI PARAMETRI
+
+	// ----- Force Left Average
+	'frc_l_avg' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force Left Average', // naslov parametra
+			'tag' 			=> 	'frc_l_avg', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', //  ogranicenje decimala 
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],
+
+	// ----- Force Left Max
+	'frc_l_max' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force Left Max', // naslov parametra
+			'tag' 			=> 	'frc_l_max', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', //  ogranicenje decimala 
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],	
+		
+	// ----- Force Right Average
+	'frc_r_avg' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force Right Average', // naslov parametra
+			'tag' 			=> 	'frc_r_avg', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', //  ogranicenje decimala 
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],	
+		
+	// ----- Force Right Max
+	'frc_r_max' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force Right Max', // naslov parametra
+			'tag' 			=> 	'frc_r_max', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', //  ogranicenje decimala 
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],
+
+	// ----- Force Average
+	'frc_avg' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force Average', // naslov parametra
+			'tag' 			=> 	'frc_avg', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', //  ogranicenje decimala 
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],			
+
+	// ----- Force Max
+	'frc_max' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force Max', // naslov parametra
+			'tag' 			=> 	'frc_max', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', //  ogranicenje decimala 
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],
+
+
+	// ----- Force Balance Average
+	'frc_bal_avg' => 
+		[
+			'unit'			=>	'[%]', // jedinica za parametar
+			'title'			=> 	'Force Balance Average', // naslov parametra
+			'tag' 			=> 	'frc_bal_avg', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'1', //  ogranicenje decimala 
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],									
+
+
+	// ----- Force Balance Max
+	'frc_bal_max' => 
+		[
+			'unit'			=>	'[%]', // jedinica za parametar
+			'title'			=> 	'Force Balance Max', // naslov parametra
+			'tag' 			=> 	'frc_bal_max', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'1', //  ogranicenje decimala 
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],		
+
+
 
 	//// -------- STROKE MODULE TYPES  / Pocetak
 	// Parametri za jedan zaveslaj/stroke
@@ -556,7 +649,56 @@ return [
 			'description' 	=> 	'',
 			'format' 		=>	'0', //  ogranicenje decimala 
 			'color'			=> 	'FFFF8000', // boja koja se prikazuje u graficima
-		],			
+		],
+
+	// novi parametri
+
+	// ----- Force Left
+	'frc_l' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force Left', // naslov parametra
+			'tag' 			=> 	'frc_l', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', // za prikaz parametra, ogranicenje decimala ili format vremena
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],
+
+	// ----- Force Left
+	'frc_r' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force Right', // naslov parametra
+			'tag' 			=> 	'frc_r', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', // za prikaz parametra, ogranicenje decimala ili format vremena
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],
+
+	// ----- Force Left
+	'frc' => 
+		[
+			'unit'			=>	'[N]', // jedinica za parametar
+			'title'			=> 	'Force', // naslov parametra
+			'tag' 			=> 	'frc_l', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'0', // za prikaz parametra, ogranicenje decimala ili format vremena
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],
+
+	// ----- Force Left
+	'frc_bal' => 
+		[
+			'unit'			=>	'[%]', // jedinica za parametar
+			'title'			=> 	'Force Balance', // naslov parametra
+			'tag' 			=> 	'frc_bal', // short name
+			'description' 	=> 	'',
+			'format' 		=>	'1', // za prikaz parametra, ogranicenje decimala ili format vremena
+			'color'			=> 	'FFFF00FF', // boja koja se prikazuje u graficima
+		],					
+
+
+
 	//// -------- STROKE MODULE TYPES  / kraj
 
 ];
