@@ -72,11 +72,12 @@ class SessionsRecentListController extends Controller {
 		
 
 				$sessions = Session::where('user_id', $userFirst->id)
+								   ->where('deleted', false)
 								   ->orderBy('utc', 'DESC')
 								   ->skip(Input::get("offset"))
 								   ->take(Input::get("pageSize"))
-								   ->with("sessionSummary")								   
-								   ->with('comments')						
+								   ->with("sessionSummary")							   				
+								   //->with('comments')						
 						    	   ->get();
 
 				$sessionsRecentList = array();
@@ -84,7 +85,7 @@ class SessionsRecentListController extends Controller {
 			
 				foreach ($sessions as $key => $value) {
 
-				$komentari=Comment::Where("user_id",$userFirst->id)->Where("session_id",$value["id"])->select('text')->get();
+				//$komentari=Comment::Where("user_id",$userFirst->id)->Where("session_id",$value["id"])->select('text')->get();
 
 					
 				   $tmp = array(

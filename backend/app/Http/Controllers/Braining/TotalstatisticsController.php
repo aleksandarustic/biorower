@@ -60,7 +60,7 @@ class TotalstatisticsController extends Controller {
 			}
 
 			if($statusCode != 403){
-				$results = GlobalFunctions::GetTotalStatistics($userFirst->id);
+				$results = GlobalFunctions::GetTotalStatisticsApi($userFirst->id);
 
 		        $response = [
 		          'account' => Input::get("account"),

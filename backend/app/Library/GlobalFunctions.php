@@ -412,8 +412,19 @@ use Carbon;
 				 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
 				 WHERE sessions.user_id = ".$userId));
 
-			//return $results;
 			return GlobalFunctions::PrepareArrayParametersStatistics($results);
+		}
+
+		public static function GetTotalStatisticsApi($userId){
+
+			$results = DB::select(DB::raw(
+				"SELECT ".GlobalFunctions::GetParametersValuesByAverageQuery("").
+				"FROM data_biorower_sessions
+				 	  INNER JOIN sessions
+				 	  ON data_biorower_sessions.id = sessions.data_biorower_sessions_id
+				 WHERE sessions.user_id = ".$userId));
+
+			return $results;
 		}
 
 		public static function GetParametersValuesBySessionsQuery($positionDate){
@@ -453,12 +464,21 @@ use Carbon;
 				angle_right_average as ang_r_avg,
 				angle_right_max as ang_r_max,
 				mml_2_level as mml2,
-				mml_4_level	as mml4		
+				mml_4_level	as mml4,
+				force_left_average as frc_l_avg,
+				force_left_max as frc_l_max,
+				force_right_average as frc_r_avg,
+				force_right_max as frc_r_max,
+				force_average as frc_avg,
+				force_max as frc_max,
+				force_balance_average as frc_bal_avg,
+				force_balance_max as frc_bal_max
 			";
 		}
 
 		public static function getEmptyDataHistory(){
-				return '{"position_in_date":[0],"date":["1970-01-01 00:00:00"],"sescnt":[0],"scnt":["0"],"time":[0],"distance":[0],"sdist_avg":[0],"sdist_max":[0],"spd_avg":[0],"spd_max":[0],"pace500_avg":[0],"pace500_max":[0],"pace2k_avg":[0],"pace2k_max":[0], "hr_avg":[0],"hr_max":[0],"srate_avg":[0],"srate_max":[0],"cal":[0], pwr_avg":[0],"pwr_max":[0],"pwr_l_avg":[0],"pwr_l_max":[0],"pwr_r_avg":[0],"pwr_r_max":[0],"pwr_bal_avg":[0],"pwr_bal_max":[0],"ang_avg":[0],"ang_max":[0],"ang_l_avg":[0],"ang_l_max":[0],"ang_r_avg":[0],"ang_r_max":[0],"mml2":[0],"mml4":[0]}';
+				return '{"position_in_date":[0],"date":["1970-01-01 00:00:00"],"sescnt":[0],"scnt":["0"],"time":[0],"distance":[0],"sdist_avg":[0],"sdist_max":[0],"spd_avg":[0],"spd_max":[0],"pace500_avg":[0],"pace500_max":[0],"pace2k_avg":[0],"pace2k_max":[0], "hr_avg":[0],"hr_max":[0],"srate_avg":[0],"srate_max":[0],"cal":[0], pwr_avg":[0],"pwr_max":[0],"pwr_l_avg":[0],"pwr_l_max":[0],"pwr_r_avg":[0],"pwr_r_max":[0],"pwr_bal_avg":[0],"pwr_bal_max":[0],"ang_avg":[0],"ang_max":[0],"ang_l_avg":[0],"ang_l_max":[0],"ang_r_avg":[0],"ang_r_max":[0],"mml2":[0],"mml4":[0], "frc_l_avg":[0],"frc_l_max":[0], "frc_r_avg":[0], "frc_r_max":[0], "frc_avg":[0], "frc_max":[0], "frc_bal_max":[0], "frc_bal_avg":[0]
+			}';
 
 		}
 
@@ -498,7 +518,15 @@ use Carbon;
 				(SUM(stroke_count*angle_right_average)/SUM(stroke_count)) as ang_r_avg,
 				MAX(angle_right_max) as ang_r_max,
 				(SUM(time*mml_2_level)/SUM(time)) as mml2,
-				(SUM(time*mml_4_level)/SUM(time)) as mml4
+				(SUM(time*mml_4_level)/SUM(time)) as mml4,
+				(SUM(time*force_average)/SUM(time)) as frc_avg,
+				MAX(force_max) as frc_max,
+				(SUM(time*force_left_average)/SUM(time)) as frc_l_avg,
+				MAX(force_left_max) as frc_l_max,
+				(SUM(time*force_right_average)/SUM(time)) as frc_r_avg,
+				MAX(force_right_max) as frc_r_max,
+				(SUM(stroke_count*force_balance_average)/SUM(stroke_count)) as frc_bal_avg,
+				MAX(force_balance_max) as frc_bal_max
 			";
 		}	
 

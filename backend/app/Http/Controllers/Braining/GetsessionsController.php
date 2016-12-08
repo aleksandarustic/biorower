@@ -227,6 +227,15 @@ class GetsessionsController extends Controller {
                 $summary_list["ang_max"]    = $session->sessionSummary->angle_max;
                 $summary_list["mml2"]       = $session->sessionSummary->mml_2_level;
                 $summary_list["mml4"]       = $session->sessionSummary->mml_4_level;
+                $summary_list["frc_l_avg"]  = $session->sessionSummary->force_left_average;
+                $summary_list["frc_l_max"]  = $session->sessionSummary->force_left_max;
+                $summary_list["frc_r_avg"]  = $session->sessionSummary->force_right_average;
+                $summary_list["frc_r_max"]  = $session->sessionSummary->force_right_max;
+                $summary_list["frc_avg"]    = $session->sessionSummary->force_average;
+                $summary_list["frc_max"]    = $session->sessionSummary->force_max;
+                $summary_list["frc_bal_avg"]= $session->sessionSummary->force_balance_average;
+                $summary_list["frc_bal_max"]= $session->sessionSummary->force_balance_max;
+
             }
 
             $tmp["summary"]          = $summary_list;

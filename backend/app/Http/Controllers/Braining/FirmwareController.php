@@ -161,7 +161,7 @@ class FirmwareController extends Controller {
 		$validator = Validator::make($data, [
             'deviceTypeID' => 'required|integer',
             'version' => 'required|integer',
-            'versionText' => 'required|string',
+            'versionText' => 'string',
             'data' => 'required|string|max:1000000', //Base64 encode will increase the data size by around 33%
         ]);
         if ($validator->fails()) {
@@ -221,4 +221,34 @@ class FirmwareController extends Controller {
         	'data'=>$firmware->data, 
         ]);	
 	}
+
+	public function downloadAll()
+	{
+		$failCode = 400;
+		$results = Firmware::select('device_type_id', 'version', 'version_text', 'updated_at')->get();
+
+        if (!$results) {
+        	return Response::json(['code'=>$failCode, 'error'=>'An error has occurred']);
+        }else{
+         	
+         	$firmwares = array();
+        	foreach($results as $res){
+        		$result = array();
+        		$result['deviceTypeID'] 	=  $res->device_type_id;
+        		$result['version'] 		=  $res->version;
+        		$result['versionText']	=  $res->version_text;
+        		$result['date'] 			=  $res->api_date;
+
+        		array_push($firmwares, $result);
+        	}
+
+        	$response = [
+             'firmwares'  => $firmwares,
+           ];
+
+        	return Response::json($response);	
+		}
+	}
+
+
 }

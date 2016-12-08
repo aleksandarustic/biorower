@@ -158,7 +158,16 @@ class SessionsController extends Controller {
 							$sessionData->angle_right_max 			= $valInput["summary"]["ang_r_max"];
 							$sessionData->mml_2_level 				= $valInput["summary"]["mml2"];
 							$sessionData->mml_4_level 				= $valInput["summary"]["mml4"];
-							
+
+							$sessionData->force_left_average 		= $valInput["summary"]["frc_l_avg"];
+							$sessionData->force_left_max 			= $valInput["summary"]["frc_l_max"];
+							$sessionData->force_right_average 		= $valInput["summary"]["frc_r_avg"];
+							$sessionData->force_right_max 			= $valInput["summary"]["frc_r_max"];
+							$sessionData->force_average 			= $valInput["summary"]["frc_avg"];
+							$sessionData->force_max 				= $valInput["summary"]["frc_max"];
+							$sessionData->force_balance_average 	=$valInput["summary"]["frc_bal_avg"];
+							$sessionData->force_balance_max 		=$valInput["summary"]["frc_bal_max"];
+						
 
 						$sessionData->save();
 

@@ -23,6 +23,7 @@ class TimelineController extends Controller {
 	{
 		$posts = Timeline::where('timeline.user_id', $id2)
 						->where('timeline.status', 1)
+						->where('sessions.deleted', false)
 						->leftJoin('sessions', 'timeline.object_id', '=', 'sessions.id')
 						->join('data_biorower_sessions', 'sessions.data_biorower_sessions_id', '=', 'data_biorower_sessions.id')
 						->join('images', 'timeline.image', '=', 'images.id')
