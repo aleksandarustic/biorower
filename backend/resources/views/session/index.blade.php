@@ -286,7 +286,7 @@ var piktoBiorowerGraph2 = {
             '#660096', '#0063c8', '#ff0000', '#640000', '#004a96', '#ff8a00', '#8800c8',
             '#00deff', '#bf0000', '#008396', '#003163', '#06ff00', '#05c800', '#c86c00', '#965100',
             '#643600', '#049600', '#026400', '#00ff96', '#00c876',
-            '#009658', '#00643b', '#fffc00', '#c8c600', '#969400', '#646300'];
+            '#009658', '#00643b', '#fffc00', '#c8c600', '#969400', '#646300','#FF00FF','#FF00FF','#FF00FF','#FF00FF'];
 
         for (var i in params) {
 
@@ -453,6 +453,27 @@ var piktoBiorowerGraph2 = {
                     params[i]['yaxis'] = 32;
                     params[i]['color'] = colors[31];
                     break;
+                    case "Force":
+                    rv[i]['yaxis'] = 33;
+                    params[i]['yaxis'] = 33;
+                    params[i]['color'] = colors[32];
+                    break;
+                      case "Force balance":
+                    rv[i]['yaxis'] = 34;
+                    params[i]['yaxis'] = 34;
+                    params[i]['color'] = colors[33];
+                    break;
+                      case "Force left":
+                    rv[i]['yaxis'] = 35;
+                    params[i]['yaxis'] = 35;
+                    params[i]['color'] = colors[34];
+                    break;
+               case "Force right":
+                    rv[i]['yaxis'] = 36;
+                    params[i]['yaxis'] = 36;
+                    params[i]['color'] = colors[35];
+                    break;
+                     
             }
 
         }
@@ -900,6 +921,51 @@ var piktoBiorowerGraph2 = {
                                 max: 100,
                                 tickSize: 20, min: 0.00000001,
                             },
+                             {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 1500,
+                                tickSize: 300, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force balance [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.01,
+                            },
+                          
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force left [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force right [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            }
                         ],
                         xaxis: {
                             show: true,
@@ -972,16 +1038,18 @@ var piktoBiorowerGraph2 = {
     
         $.fn.UseTooltip = function () {
         var previousPoint = null;
+        var previousLabel = null;
 
         $("#Strokes").bind("plothover", function (event, pos, item) {
 
             if (item) {
-                if (previousPoint != pos.pageY) {
-                    previousPoint = pos.pageY;
+                if ((previousLabel != item.series.label) || (previousPoint != item.dataIndex)) {
+                    previousPoint = item.dataIndex;
+                     previousLabel = item.series.label;
+                    $("#tooltip").remove();
                     var label = item.series.label;
                     var datapoint = item.datapoint[1];
                     var x = item.datapoint[0];
-                    $("#tooltip").remove();
                     if (label == "Distance") {
                         var y = (datapoint * 1000).toFixed(2) + " m ";
                     }
@@ -1011,6 +1079,9 @@ var piktoBiorowerGraph2 = {
                     }
                     if (label == "Calories") {
                         var y = datapoint.toFixed(1) + " kCal ";
+                    }
+                      if (label.indexOf("Force") != -1) {
+                        var y = datapoint.toFixed(2) + " N ";
                     }
                     if (label == "Time") {
                         var y = datapoint + " sec ";
@@ -1746,6 +1817,34 @@ piktoBiorowerGraph2.loadHistoryData([{slug: 'spd', label: 'Speed', yaxis: 14},{s
                                                                     <span class="ang2">Angle average</span>
                                                                 </label>
                                                             </li>
+                                                             <li>
+                                                                <label for="frc2">
+                                                                    <input type="checkbox" class="parameters2" id="frc2" value="frc">
+                                                                    <span class="frc2">Force</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_bal" value="frc_bal">
+                                                                    <span class="frc_bal2">Force balance</span>
+                                                                </label>
+                                                            </li>
+                                                            
+                                                              <li>
+                                                                <label for="frc_l2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_l2" value="frc_l">
+                                                                    <span class="frc_l2">Force left</span>
+                                                                </label>
+                                                            </li>
+                                                             
+                                   
+                                                             <li>
+                                                                <label for="frc_r2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_r2" value="frc_r">
+                                                                    <span class="frc_r2">Force right</span>
+                                                                </label>
+                                                            </li>
+                                                            
                                                            
                                                            
 

@@ -9,7 +9,7 @@
             <div class="col-md-3 col-left">
 
                 <!-- Profile Image -->
-                <div class="box box-primary">
+                <div class="box box-primary" style="margin-bottom: 16px;">
                     <div class="box-body box-profile">
                         <div class="img-circle-width">
                             <a href="{{ url('/profile/edit') }}"><span class="label-edit edit-img"></span>
@@ -75,10 +75,29 @@
                     <!-- /.box-body -->
                 </div><!-- /.box -->
 
-                <!--I am Following -->
-
-
-                <!-- Following me -->
+                <!--USER FRIENDS (show 8) -->
+                    <div class="box box-primary">
+                    <div class="box-header">
+                      <h3 class="box-title"><i class="fa fa-users margin-right text-blue"></i><a href="{{ asset($user->display_name.'/friends')}}"> Friends - {{count($friends)}} </a></h3>
+                      </div>
+                             <div class="box-body">
+                        <div class="box-body no-padding">
+                          <ul class="users-list clearfix">
+                        @foreach($friends as $friend)
+                            <li>
+                            <a class="" href="{{ asset('/'.$friend->display_name)}}">
+                              <img src="{{asset($friend->name)}}" alt="{{ $friend->first_name.' '.$friend->last_name}}"><span class="users-list-name"> {{ $friend->first_name.' '.$friend->last_name}} </span>
+                              <span class="users-list-date">&#64;{{$friend->display_name}}</span> </a>
+                            </li>
+                        @endforeach
+                          </ul><!-- /.users-list -->
+                        </div><!-- /.box-body -->
+                        <div class="box-footer text-center padding-bottom-zero">
+                          <a href="{{ asset('profile/myfriends')}}" class="uppercase">View All Friends</a>
+                        </div><!-- /.box-footer -->
+                      </div><!--/.box -->
+                    </div>
+                <!--USER FRIENDS (show 8) -->
 
 
             </div><!-- /.col -->
@@ -610,9 +629,13 @@
                                                         <h2>Choose parametars</h2>
                                                         <p>Choose three parametars from the list</p>
                                                     </div>
+                                                     <div class="row">
+
                                                     <!-- List of Parametars -->
                                                     <div id="history-graph-params" class="param-box">
                                                           <ul class="checkbox icheck modalParm-list" id="lista1">
+                                                                 <div class="col-md-6">  
+
                                                             <li>
                                                                 <label for="strokeCount">
                                                                     <input type="checkbox" class="parameters" id="strokeCount" value="scnt" >
@@ -709,6 +732,7 @@
                                                                     <span class="hr_avg">HR</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
+                                                         
                                                             <li>
                                                                 <label for="strokeRateMax">
                                                                     <input type="checkbox" class="parameters" id="strokeRateMax" value="srate_max">
@@ -722,6 +746,7 @@
                                                                     <span class="pwr_avg">Power average</span>
                                                                 </label>
                                                             </li>
+                                                            
                                                             <li>
                                                                 <label for="powerMax">
                                                                     <input type="checkbox" class="parameters" id="powerMax" value="pwr_max">
@@ -736,6 +761,8 @@
                                                                     <span class="pwr_l_max">Power L Max</span>
                                                                 </label>
                                                             </li>
+                                                               </div>
+                                                        <div class="col-md-6">
                                                             <li>
                                                                 <label for="powerR">
                                                                     <input type="checkbox" class="parameters" id="powerR" value="pwr_r_avg">
@@ -808,18 +835,70 @@
                                                                     <span class="mml4">MML 4 Level</span>
                                                                 </label>
                                                             </li>
+                                                              <li>
+                                                                <label for="frc_avg">
+                                                                    <input type="checkbox" class="parameters" id="frc_avg" value="frc_avg">
+                                                                    <span class="frc_avg">Force average</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal_avg">
+                                                                    <input type="checkbox" class="parameters" id="frc_bal_avg" value="frc_bal_avg">
+                                                                    <span class="frc_bal_avg">Force balance average</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal_max">
+                                                                    <input type="checkbox" class="parameters" id="frc_bal_max" value="frc_bal_max">
+                                                                    <span class="frc_bal_max">Force balance max</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_l_avg">
+                                                                    <input type="checkbox" class="parameters" id="frc_l_avg" value="frc_l_avg">
+                                                                    <span class="frc_l_avg">Force left average</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_l_max">
+                                                                    <input type="checkbox" class="parameters" id="frc_l_max" value="frc_l_max">
+                                                                    <span class="frc_l_max">Force left max</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_max">
+                                                                    <input type="checkbox" class="parameters" id="frc_max" value="frc_max">
+                                                                    <span class="frc_max">Force max</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_r_avg">
+                                                                    <input type="checkbox" class="parameters" id="frc_r_avg" value="frc_r_avg">
+                                                                    <span class="frc_r_avg">Force right average</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_r_max">
+                                                                    <input type="checkbox" class="parameters" id="frc_r_max" value="frc_r_max">
+                                                                    <span class="frc_r_max">Force right max</span>
+                                                                </label>
+                                                            </li>
 
 
+                                                        </div>
 
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
 
-
+                                                        </div>
 
 
                                                     </div><!-- /.List of Parametars -->
                                                      <div id="progress-graph-params" class="param-box">
+                                                              <div class="row">
+
                                                           <ul class="checkbox icheck modalParm-list" >
+                                                               <div class="col-md-6"> 
                                                             <li>
                                                                 <label for="strokeCount2">
                                                                     <input type="checkbox" class="parameters2" id="strokeCount2" value="scnt" >
@@ -916,6 +995,7 @@
                                                                     <span class="hr_avg2">HR</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
+                                                          
                                                             <li>
                                                                 <label for="strokeRateMax2">
                                                                     <input type="checkbox" class="parameters2" id="strokeRateMax2" value="srate_max">
@@ -936,13 +1016,15 @@
                                                                 </label>
                                                             </li>
 
-
+   
                                                             <li>
                                                                 <label for="powerLMax2">
                                                                     <input type="checkbox" class="parameters2" id="powerLMax2" value="pwr_l_max">
                                                                     <span class="pwr_l_max2">Power L Max</span>
                                                                 </label>
                                                             </li>
+                                                            </div>	
+                                                        <div class="col-md-6">
                                                             <li>
                                                                 <label for="powerR2">
                                                                     <input type="checkbox" class="parameters2" id="powerR2" value="pwr_r_avg">
@@ -1015,14 +1097,62 @@
                                                                     <span class="mml42">MML 4 Level</span>
                                                                 </label>
                                                             </li>
+                                                                <li>
+                                                                <label for="frc_avg2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_avg2" value="frc_avg">
+                                                                    <span class="frc_avg2">Force average</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal_avg2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_bal_avg2" value="frc_bal_avg">
+                                                                    <span class="frc_bal_avg2">Force balance average</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal_max2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_bal_max2" value="frc_bal_max">
+                                                                    <span class="frc_bal_max2">Force balance max</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_l_avg2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_l_avg2" value="frc_l_avg">
+                                                                    <span class="frc_l_avg2">Force left average</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_l_max2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_l_max2" value="frc_l_max">
+                                                                    <span class="frc_l_max2">Force left max</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_max2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_max2" value="frc_max">
+                                                                    <span class="frc_max2">Force max</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_r_avg2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_r_avg2" value="frc_r_avg">
+                                                                    <span class="frc_r_avg2">Force right average</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_r_max2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_r_max2" value="frc_r_max">
+                                                                    <span class="frc_r_max2">Force right max</span>
+                                                                </label>
+                                                            </li>
 
 
-
+</div>
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
 
 
-
+</div>
 
                                                     </div>
 
@@ -1787,50 +1917,44 @@
         $("#dugme2").click();
 
          });
+$('.parameters').on('ifUnchecked', function(event){
+            if($('.parameters').filter(':checked').length == 0){
+                 $("#dugme1").attr('disabled', true);
+            }
+        });
 
-     $('.parameters').on('ifClicked', function(event){
-             if(this.checked==true){
+        $('.parameters').on('ifClicked', function(event){
+              $("#dugme1").attr('disabled', false);
 
+              if(this.checked==true){
 
-
-             }
-             else{
-
-             if ($('.parameters').filter(':checked').length == 3) {
-              var s=$('.parameters').filter(':checked')[2].id;
-
-
-              $('#'+s).iCheck('uncheck');
-             }
-
-
-    }
-
-
-
+              }else{
+                      if ($('.parameters').filter(':checked').length == 3) {
+                          var s=$('.parameters').filter(':checked')[2].id;
+                          $('#'+s).iCheck('uncheck');
+                      }
+              }
         });
 
 
-          $('.parameters2').on('ifClicked', function(event){
+        $('.parameters2').on('ifUnchecked', function(event){
+            if($('.parameters2').filter(':checked').length == 0){
+                 $("#dugme2").attr('disabled', true);
+            }
+        });
 
-                if(this.checked==true){
+        $('.parameters2').on('ifClicked', function (event) {
+                 $("#dugme2").attr('disabled', false);
 
+            if (this.checked == true) {
 
+            }else{
+                  if ($('.parameters2').filter(':checked').length == 3) {
 
-             }
-             else{
-
-
-             if ($('.parameters2').filter(':checked').length == 3) {
-              var s=$('.parameters2').filter(':checked')[2].id;
-
-      $('#'+s).iCheck('uncheck');
-
-    }
-    }
-
-
-
+                         var s = $('.parameters2').filter(':checked')[2].id;
+                         $('#' + s).iCheck('uncheck');
+                  }
+            }
         });
 
 

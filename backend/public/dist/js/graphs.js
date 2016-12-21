@@ -297,6 +297,9 @@ $(function () {
                     if (label.indexOf("Power") != -1) {
                         var y = datapoint.toFixed(2) + " W ";
                     }
+                     if (label.indexOf("Force") != -1) {
+                        var y = datapoint.toFixed(2) + " N ";
+                    }
                     if (label.indexOf("Angle") != -1) {
                         var y = datapoint.toFixed(2) + " ° ";
                     }
@@ -381,6 +384,9 @@ $(function () {
                     }
                     if (label.indexOf("Angle") != -1) {
                         var y = datapoint.toFixed(2) + " ° ";
+                    }
+                      if (label.indexOf("Force") != -1) {
+                        var y = datapoint.toFixed(2) + " N ";
                     }
                     if (label == "Stroke Count") {
                         var y = datapoint.toFixed(0);
@@ -506,11 +512,11 @@ var piktoBiorowerGraph = {
     },
     getHistoryData: function (params) {
         var rv = [];
-        var colors = ['#440064', '#007eff', '#00afc8', '#960000', '#005764', '#ae00ff',
+         var colors = ['#440064', '#007eff', '#00afc8', '#960000', '#005764', '#ae00ff',
             '#660096', '#0063c8', '#ff0000', '#640000', '#004a96', '#ff8a00', '#8800c8',
             '#00deff', '#bf0000', '#008396', '#003163', '#06ff00', '#05c800', '#c86c00', '#965100',
             '#643600', '#049600', '#026400', '#00ff96', '#00c876',
-            '#009658', '#00643b', '#fffc00', '#c8c600', '#969400', '#646300'];
+            '#009658', '#00643b', '#fffc00', '#c8c600', '#969400', '#646300','#FF00FF','#FF00FF','#FF00FF','#FF00FF','#FF00FF','#FF00FF','#FF00FF','#FF00FF'];
 
         for (var i in params) {
 
@@ -675,6 +681,46 @@ var piktoBiorowerGraph = {
                     rv[i]['yaxis'] = 32;
                     params[i]['yaxis'] = 32;
                     params[i]['color'] = colors[31];
+                    break;
+                      case "Force average":
+                    rv[i]['yaxis'] = 33;
+                    params[i]['yaxis'] = 33;
+                    params[i]['color'] = colors[32];
+                    break;
+                      case "Force balance average":
+                    rv[i]['yaxis'] = 34;
+                    params[i]['yaxis'] = 34;
+                    params[i]['color'] = colors[33];
+                    break;
+                      case "Force balance max":
+                    rv[i]['yaxis'] = 35;
+                    params[i]['yaxis'] = 35;
+                    params[i]['color'] = colors[34];
+                    break;
+                      case "Force left average":
+                    rv[i]['yaxis'] = 36;
+                    params[i]['yaxis'] = 36;
+                    params[i]['color'] = colors[35];
+                    break;
+                      case "Force left max":
+                    rv[i]['yaxis'] = 37;
+                    params[i]['yaxis'] = 37;
+                    params[i]['color'] = colors[36];
+                    break;
+                      case "Force max":
+                    rv[i]['yaxis'] = 38;
+                    params[i]['yaxis'] = 38;
+                    params[i]['color'] = colors[37];
+                    break;
+                     case "Force right average":
+                    rv[i]['yaxis'] = 39;
+                    params[i]['yaxis'] = 39;
+                    params[i]['color'] = colors[38];
+                    break;
+                     case "Force right max":
+                    rv[i]['yaxis'] = 40;
+                    params[i]['yaxis'] = 40;
+                    params[i]['color'] = colors[39];
                     break;
             }
 
@@ -1154,6 +1200,94 @@ var piktoBiorowerGraph = {
                                 max: 100,
                                 tickSize: 20, min: 0.01,
                             },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force average [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 1500,
+                                tickSize: 300, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force balance average [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force balance max [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force left average [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force left max [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force max [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 1500,
+                                tickSize: 300, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force right average [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force right max [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            }
                         ],
                         xaxis: {
                             show: true,
@@ -1518,7 +1652,7 @@ var piktoBiorowerGraph2 = {
             '#660096', '#0063c8', '#ff0000', '#640000', '#004a96', '#ff8a00', '#8800c8',
             '#00deff', '#bf0000', '#008396', '#003163', '#06ff00', '#05c800', '#c86c00', '#965100',
             '#643600', '#049600', '#026400', '#00ff96', '#00c876',
-            '#009658', '#00643b', '#fffc00', '#c8c600', '#969400', '#646300'];
+            '#009658', '#00643b', '#fffc00', '#c8c600', '#969400', '#646300','#FF00FF','#FF00FF','#FF00FF','#FF00FF','#FF00FF','#FF00FF','#FF00FF','#FF00FF'];
 
         for (var i in params) {
 
@@ -1684,6 +1818,46 @@ var piktoBiorowerGraph2 = {
                     rv[i]['yaxis'] = 32;
                     params[i]['yaxis'] = 32;
                     params[i]['color'] = colors[31];
+                    break;
+                        case "Force average":
+                    rv[i]['yaxis'] = 33;
+                    params[i]['yaxis'] = 33;
+                    params[i]['color'] = colors[32];
+                    break;
+                      case "Force balance average":
+                    rv[i]['yaxis'] = 34;
+                    params[i]['yaxis'] = 34;
+                    params[i]['color'] = colors[33];
+                    break;
+                      case "Force balance max":
+                    rv[i]['yaxis'] = 35;
+                    params[i]['yaxis'] = 35;
+                    params[i]['color'] = colors[34];
+                    break;
+                      case "Force left average":
+                    rv[i]['yaxis'] = 36;
+                    params[i]['yaxis'] = 36;
+                    params[i]['color'] = colors[35];
+                    break;
+                      case "Force left max":
+                    rv[i]['yaxis'] = 37;
+                    params[i]['yaxis'] = 37;
+                    params[i]['color'] = colors[36];
+                    break;
+                      case "Force max":
+                    rv[i]['yaxis'] = 38;
+                    params[i]['yaxis'] = 38;
+                    params[i]['color'] = colors[37];
+                    break;
+                     case "Force right average":
+                    rv[i]['yaxis'] = 39;
+                    params[i]['yaxis'] = 39;
+                    params[i]['color'] = colors[38];
+                    break;
+                     case "Force right max":
+                    rv[i]['yaxis'] = 40;
+                    params[i]['yaxis'] = 40;
+                    params[i]['color'] = colors[39];
                     break;
             }
 
@@ -2238,6 +2412,94 @@ var piktoBiorowerGraph2 = {
                                 max: 100,
                                 tickSize: 20, min: 0.00000001,
                             },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force average [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 1500,
+                                tickSize: 300, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force balance average [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force balance max [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 100,
+                                tickSize: 20, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force left average [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force left max [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force max [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 1500,
+                                tickSize: 300, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force right average [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            },
+                              {
+                                axisLabelUseCanvas: true,
+                                axisLabel: "Force right max [N]",
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Verdana, Arial',
+                                axisLabelPadding: 3,
+                                panRange: false,
+                                labelWidth: 30,
+                                max: 750,
+                                tickSize: 150, min: 0.01,
+                            }
                         ],
                         xaxis: {
                             show: true,

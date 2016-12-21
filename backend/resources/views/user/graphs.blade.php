@@ -58,14 +58,14 @@
 <div class="row">
   <div class="col-md-12">
 
-              <div class="col-md-12 white-bg box box-primary no-padding historyGraph graph-box">
+               <div class="col-md-12 white-bg box box-primary no-padding historyGraph graph-box">
                     <div class="graphic-header historyGraph-header">
                         <div class="historyGraph-header-body">
                                  <div>
                                          <div class="box-default pull-left" style="margin-top: -8px;margin-left: 10px;margin-right: 20px" id="strelice">
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Previous" id="next2"
-                                   onclick="piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;
+                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.subtract(1,piktoBiorowerGraph.rangeType)) ;
                                                   
             var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
@@ -92,7 +92,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -103,7 +103,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });
@@ -111,7 +111,7 @@
                                    "
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" id="next1" class="btn btn-box-tool" dat a-toggle="tooltip" title="" data-original-title="Next"
-                                   onclick="piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));
+                                   onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate.add(1,piktoBiorowerGraph.rangeType));
                                       
             var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
@@ -138,7 +138,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -149,7 +149,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });
@@ -210,7 +210,7 @@
                                            
             
 
-    piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}','week',piktoBiorowerGraph.startDate);
+    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'week',piktoBiorowerGraph.startDate);
 
   var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
@@ -237,7 +237,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -248,7 +248,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });
@@ -295,7 +295,7 @@
 
 
 
-                piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}','month',piktoBiorowerGraph.startDate);
+                piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'month',piktoBiorowerGraph.startDate);
                 var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
                     s[i]=piktoBiorowerGraph.parameters[i].slug;
@@ -321,7 +321,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -332,7 +332,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });
@@ -378,7 +378,7 @@
                            }  
                          
                            
-    piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}','year',piktoBiorowerGraph.startDate);
+    piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph.startDate);
                                     var s=[];
                  for(var i=0;i< piktoBiorowerGraph.parameters.length; i++){
                     s[i]=piktoBiorowerGraph.parameters[i].slug;
@@ -404,7 +404,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -415,7 +415,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });
@@ -423,9 +423,9 @@
                                        "
                                             >Year</a>
                                     <a href="javascript:;" class="btn btn-sm btn-primary" id="all_history"
-                                       onclick="piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}','all','');
+                                       onclick="piktoBiorowerGraph.loadHistoryData($('#user-email').val(),'all','');
                                             var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -457,7 +457,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -468,7 +468,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });
@@ -514,11 +514,13 @@
                                                         <h2>Choose parametars</h2>
                                                         <p>Choose three parametars from the list</p>
                                                     </div>
+                                                     <div class="row">
+
                                                     <!-- List of Parametars -->
                                                     <div id="history-graph-params" class="param-box">
-                                                    <div class="row">
                                                           <ul class="checkbox icheck modalParm-list" id="lista1">
-                                                        <div class="col-md-6">  
+                                                                 <div class="col-md-6">  
+
                                                             <li>
                                                                 <label for="strokeCount">
                                                                     <input type="checkbox" class="parameters" id="strokeCount" value="scnt" >
@@ -615,8 +617,7 @@
                                                                     <span class="hr_avg">HR</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
-                                                        </div>
-                                                        <div class="col-md-6">    
+                                                         
                                                             <li>
                                                                 <label for="strokeRateMax">
                                                                     <input type="checkbox" class="parameters" id="strokeRateMax" value="srate_max">
@@ -630,6 +631,7 @@
                                                                     <span class="pwr_avg">Power average</span>
                                                                 </label>
                                                             </li>
+                                                            
                                                             <li>
                                                                 <label for="powerMax">
                                                                     <input type="checkbox" class="parameters" id="powerMax" value="pwr_max">
@@ -644,6 +646,8 @@
                                                                     <span class="pwr_l_max">Power L Max</span>
                                                                 </label>
                                                             </li>
+                                                               </div>
+                                                        <div class="col-md-6">
                                                             <li>
                                                                 <label for="powerR">
                                                                     <input type="checkbox" class="parameters" id="powerR" value="pwr_r_avg">
@@ -716,21 +720,70 @@
                                                                     <span class="mml4">MML 4 Level</span>
                                                                 </label>
                                                             </li>
+                                                              <li>
+                                                                <label for="frc_avg">
+                                                                    <input type="checkbox" class="parameters" id="frc_avg" value="frc_avg">
+                                                                    <span class="frc_avg">Force average</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal_avg">
+                                                                    <input type="checkbox" class="parameters" id="frc_bal_avg" value="frc_bal_avg">
+                                                                    <span class="frc_bal_avg">Force balance average</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal_max">
+                                                                    <input type="checkbox" class="parameters" id="frc_bal_max" value="frc_bal_max">
+                                                                    <span class="frc_bal_max">Force balance max</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_l_avg">
+                                                                    <input type="checkbox" class="parameters" id="frc_l_avg" value="frc_l_avg">
+                                                                    <span class="frc_l_avg">Force left average</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_l_max">
+                                                                    <input type="checkbox" class="parameters" id="frc_l_max" value="frc_l_max">
+                                                                    <span class="frc_l_max">Force left max</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_max">
+                                                                    <input type="checkbox" class="parameters" id="frc_max" value="frc_max">
+                                                                    <span class="frc_max">Force max</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_r_avg">
+                                                                    <input type="checkbox" class="parameters" id="frc_r_avg" value="frc_r_avg">
+                                                                    <span class="frc_r_avg">Force right average</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_r_max">
+                                                                    <input type="checkbox" class="parameters" id="frc_r_max" value="frc_r_max">
+                                                                    <span class="frc_r_max">Force right max</span>
+                                                                </label>
+                                                            </li>
 
 
                                                         </div>
+
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
-                                                     </div> <!-- End ./row -->
 
+                                                        </div>
 
 
                                                     </div><!-- /.List of Parametars -->
-
                                                      <div id="progress-graph-params" class="param-box">
-                                                        <div class="row">
+                                                              <div class="row">
+
                                                           <ul class="checkbox icheck modalParm-list" >
-                                                            <div class="col-md-6"> 
+                                                               <div class="col-md-6"> 
                                                             <li>
                                                                 <label for="strokeCount2">
                                                                     <input type="checkbox" class="parameters2" id="strokeCount2" value="scnt" >
@@ -827,8 +880,7 @@
                                                                     <span class="hr_avg2">HR</span>
                                                                 </label>
                                                             </li><!-- End Parametar Item -->
-                                                            </div>
-                                                        <div class="col-md-6"> 
+                                                          
                                                             <li>
                                                                 <label for="strokeRateMax2">
                                                                     <input type="checkbox" class="parameters2" id="strokeRateMax2" value="srate_max">
@@ -849,13 +901,15 @@
                                                                 </label>
                                                             </li>
 
-
+   
                                                             <li>
                                                                 <label for="powerLMax2">
                                                                     <input type="checkbox" class="parameters2" id="powerLMax2" value="pwr_l_max">
                                                                     <span class="pwr_l_max2">Power L Max</span>
                                                                 </label>
                                                             </li>
+                                                            </div>	
+                                                        <div class="col-md-6">
                                                             <li>
                                                                 <label for="powerR2">
                                                                     <input type="checkbox" class="parameters2" id="powerR2" value="pwr_r_avg">
@@ -928,15 +982,62 @@
                                                                     <span class="mml42">MML 4 Level</span>
                                                                 </label>
                                                             </li>
+                                                                <li>
+                                                                <label for="frc_avg2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_avg2" value="frc_avg">
+                                                                    <span class="frc_avg2">Force average</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal_avg2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_bal_avg2" value="frc_bal_avg">
+                                                                    <span class="frc_bal_avg2">Force balance average</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_bal_max2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_bal_max2" value="frc_bal_max">
+                                                                    <span class="frc_bal_max2">Force balance max</span>
+                                                                </label>
+                                                            </li>
+                                                              <li>
+                                                                <label for="frc_l_avg2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_l_avg2" value="frc_l_avg">
+                                                                    <span class="frc_l_avg2">Force left average</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_l_max2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_l_max2" value="frc_l_max">
+                                                                    <span class="frc_l_max2">Force left max</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_max2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_max2" value="frc_max">
+                                                                    <span class="frc_max2">Force max</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_r_avg2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_r_avg2" value="frc_r_avg">
+                                                                    <span class="frc_r_avg2">Force right average</span>
+                                                                </label>
+                                                            </li>
+                                                             <li>
+                                                                <label for="frc_r_max2">
+                                                                    <input type="checkbox" class="parameters2" id="frc_r_max2" value="frc_r_max">
+                                                                    <span class="frc_r_max2">Force right max</span>
+                                                                </label>
+                                                            </li>
 
-                                                        </div>
 
+</div>
                                                             <!-- End Parametar Item -->
                                                         </ul><!-- /.contatcts-list -->
-                                                    </div> <!-- End ./row -->
 
 
-
+</div>
 
                                                     </div>
 
@@ -990,7 +1091,7 @@
  
                    piktoBiorowerGraph.historyPlot.setupGrid();
                     piktoBiorowerGraph.historyPlot.draw();
-                                  piktoBiorowerGraph.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate);
+                                  piktoBiorowerGraph.loadHistoryData($('#user-email').val(),piktoBiorowerGraph.rangeType,piktoBiorowerGraph.startDate);
 
                     
                     
@@ -1020,7 +1121,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'history',
             date_start: piktoBiorowerGraph.startDate?piktoBiorowerGraph.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph.rangeType,
@@ -1030,7 +1131,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });
@@ -1089,7 +1190,7 @@
                    piktoBiorowerGraph2.progressPlot.setupGrid();
                     piktoBiorowerGraph2.progressPlot.draw();
                     
-                                                      piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
+                                                      piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
 
                     
                        var s=[];
@@ -1117,7 +1218,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1128,7 +1229,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });   
@@ -1151,12 +1252,9 @@
                     </div>
                     <div class="clear relative"></div>
                 </div>
+                <!-- /.Graph Block-->
 
-
-
-
-
-                     <!-- Graph Block-->
+                <!-- Graph Block-->
                 <div class="col-md-12 white-bg box box-primary no-padding historyGraph graph-box">
                     <div class="graphic-header historyGraph-header">
                         <div class="historyGraph-header-body">
@@ -1166,7 +1264,7 @@
 
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip" id="next3" title="" data-original-title="Previous"
                                    onclick="
-                               piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;
+                               piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.subtract(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType) ;
                          var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1192,7 +1290,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1203,7 +1301,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });         
@@ -1211,7 +1309,7 @@
     ;"
                                         ><i class="fa fa-chevron-left"></i></a>
                                 <a href="javascript:;" class="btn btn-box-tool" data-toggle="tooltip"  id="next4" title="" data-original-title="Next"
-                                   onclick="piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}',piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
+                                   onclick="piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),piktoBiorowerGraph2.rangeType,piktoBiorowerGraph2.startDate.add(1,piktoBiorowerGraph2.rangeType), piktoBiorowerGraph2.groupType);
                                             
                                            
                                            
@@ -1240,7 +1338,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1251,7 +1349,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });         
@@ -1337,7 +1435,7 @@
                                        
                
 
-    piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}','year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'year',piktoBiorowerGraph2.startDate,piktoBiorowerGraph2.groupType);
                                                var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1363,7 +1461,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1374,7 +1472,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });         "
@@ -1382,7 +1480,7 @@
                                         <a href="javascript:;" class="btn btn-sm btn-primary" id="all_progress"
                                            onclick="
 
-    piktoBiorowerGraph2.loadHistoryData('{{Auth::user()->email}}','all','',piktoBiorowerGraph2.groupType);
+    piktoBiorowerGraph2.loadHistoryData($('#user-email').val(),'all','',piktoBiorowerGraph2.groupType);
                                                var s=[];
                  for(var i=0;i< piktoBiorowerGraph2.parameters.length; i++){
                     s[i]=piktoBiorowerGraph2.parameters[i].slug;
@@ -1408,7 +1506,7 @@
 
 
                      var data3 = {
-            account: 'biorower:{{Auth::user()->email}}',
+            account: 'biorower:' + $('#user-email').val(),
             name: 'progress',
             date_start: piktoBiorowerGraph2.startDate?piktoBiorowerGraph2.startDate.format('YYYY-MM-DD'):'',
             range_type:piktoBiorowerGraph2.rangeType,
@@ -1419,7 +1517,7 @@
             cilj:2,
 
         };
-             $.post('{{asset('api/v1/graph_setting')}}', data3, function (response3) {
+             $.post('api/v1/graph_setting', data3, function (response3) {
 
 
              });         "
